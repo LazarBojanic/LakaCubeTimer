@@ -21,8 +21,9 @@ namespace LakaCubeTimer {
         private void CubeTimerForm_Load(object sender, EventArgs e) {
             scramble = Util.generateScramble();
             labelScramble.Text = Util.scrambleToString(scramble);
-            Cube cube = new Cube().turnCube("R");
-            MessageBox.Show(Util.cubeToString(cube));
+            Cube oldCube = new Cube();
+            Cube newCube = Util.turnCube(oldCube, "U");
+            MessageBox.Show(Util.cubeToString(newCube));
         }
         private void CubeTimerForm_KeyDown(object sender, KeyEventArgs e) {
             if (e.KeyCode == Keys.Space) {
