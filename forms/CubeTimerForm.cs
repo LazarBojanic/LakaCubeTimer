@@ -24,7 +24,7 @@ namespace LakaCubeTimer {
             validatedScramble = Util.validateScramble(initialScramble);
             initialCube = new Cube();
             scrambledCube = Util.scrambleCube(initialCube, validatedScramble);
-            newCube = initialCube;
+            newCube = scrambledCube;
         }
         private void CubeTimerForm_Load(object sender, EventArgs e) {
             labelScramble.Text = Util.scrambleToString(validatedScramble);
