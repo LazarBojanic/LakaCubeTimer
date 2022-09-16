@@ -17,7 +17,8 @@ namespace LakaCubeTimer.util {
             List<string> scramble = new List<string>();
             string currentTurn = "";
             string prevTurn = turns[new Random().Next(0, turns.Length)];
-            for (int i = 0; i < 18; i++) {
+            int numberOfTurns = new Random().Next(18, 21);
+            for (int i = 0; i < numberOfTurns; i++) {
                 int indexCurrentTurn = new Random().Next(0, turns.Length);
                 if (!prevTurn.Equals(turns[indexCurrentTurn])) {
                     currentTurn = turns[indexCurrentTurn];

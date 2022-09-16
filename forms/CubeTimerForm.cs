@@ -18,7 +18,8 @@ namespace LakaCubeTimer {
         private Cube initialCube;
         private Cube newCube;
         private Cube scrambledCube;
-        Stopwatch stopwatch;
+        private List<TimeUserControl> listOfTimes;
+        private Stopwatch stopwatch;
         public CubeTimerForm() {
             InitializeComponent();
             initialScramble = Util.generateScramble();
@@ -30,6 +31,7 @@ namespace LakaCubeTimer {
         }
         private void CubeTimerForm_Load(object sender, EventArgs e) {
             comboBoxSession.SelectedIndex = 0;
+            fillTimesPanel(1);
             labelScramble.Text = Util.scrambleToString(validatedScramble);
             labelScramble.Left = (panelTimer.Width - labelScramble.Width) / 2;
             paintCube(scrambledCube);
@@ -66,7 +68,13 @@ namespace LakaCubeTimer {
                     timerCube.Start();
                 }
             }
-        }      
+        }
+        public void fillTimesPanel(int session) {
+            listOfTimes = SqlUtil.fillTimes(session);
+            foreach(TimeUserControl time in listOfTimes) {
+                flowLayoutPanelTimes.Controls.Add(time);
+            }
+        }
         public string longMillisecondsToString(long elapsedMilliseconds) {
             milliseconds = (int)elapsedMilliseconds % 1000 / 10;
             seconds = (int)(elapsedMilliseconds / 1000) % 60;
@@ -148,9 +156,9 @@ namespace LakaCubeTimer {
         }
         public void stopTimer() {
             stopwatch.Stop();
-            double elapsedMilliseconds = stopwatch.ElapsedMilliseconds;
+            long elapsedMilliseconds = stopwatch.ElapsedMilliseconds;
             labelTimer.Text = doubleMillisecondsToString(elapsedMilliseconds);
-            Time time = new Time(0, Int32.Parse(comboBoxSession.Text), doubleMillisecondsToString(elapsedMilliseconds), elapsedMilliseconds, DateTime.Now);
+            Time time = new Time(0, Int32.Parse(comboBoxSession.Text), doubleMillisecondsToString(elapsedMilliseconds), Convert.ToDouble(elapsedMilliseconds), DateTime.Now);
             TimeUserControl timeUserControl = new TimeUserControl(0, Int32.Parse(comboBoxSession.Text), doubleMillisecondsToString(elapsedMilliseconds), elapsedMilliseconds, DateTime.Now);
             flowLayoutPanelTimes.Controls.Add(timeUserControl);
             SqlUtil.saveToDatabase(time);

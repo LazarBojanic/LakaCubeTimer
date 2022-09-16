@@ -133,8 +133,7 @@
             // 
             // panelTimer
             // 
-            this.panelTimer.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.panelTimer.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panelTimer.Controls.Add(this.buttonDownTurn);
             this.panelTimer.Controls.Add(this.buttonBackTurn);
@@ -978,6 +977,7 @@
             // 
             // comboBoxSession
             // 
+            this.comboBoxSession.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.comboBoxSession.Font = new System.Drawing.Font("Century Gothic", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.comboBoxSession.FormattingEnabled = true;
             this.comboBoxSession.Items.AddRange(new object[] {
@@ -1009,6 +1009,7 @@
             this.Controls.Add(this.flowLayoutPanelTimes);
             this.Controls.Add(this.panelTimer);
             this.KeyPreview = true;
+            this.MinimumSize = new System.Drawing.Size(1409, 834);
             this.Name = "CubeTimerForm";
             this.Text = "CubeTimerForm";
             this.Load += new System.EventHandler(this.CubeTimerForm_Load);

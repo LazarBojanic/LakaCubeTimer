@@ -6,6 +6,8 @@ using System.Windows.Forms;
 using System;
 using System.Data;
 using static System.Collections.Specialized.BitVector32;
+using System.Data.Common;
+using LakaCubeTimer.forms;
 
 namespace LakaCubeTimer.util {
     public static class SqlUtil {
@@ -58,6 +60,26 @@ namespace LakaCubeTimer.util {
             worstTime = (long)command.ExecuteScalar();
             connection.Close();
             return Convert.ToDouble(worstTime);
+        }
+        public static List<TimeUserControl> fillTimes(int session) {
+            List<TimeUserControl> times = new List<TimeUserControl>();
+            DataTable timesTable = new DataTable();
+            OleDbConnection connection = Util.GetConnection();
+            connection.Open();
+            string query = "SELECT * FROM [time] WHERE [session] = @session";
+            OleDbCommand command = new OleDbCommand(query, connection);
+            command.Parameters.AddWithValue("@session", session);
+            OleDbDataAdapter adapter = new OleDbDataAdapter(command);
+            adapter.Fill(timesTable);
+            connection.Close();
+            foreach(DataRow row in timesTable.Select()) {
+                times.Add(new TimeUserControl(Int32.Parse(row.ItemArray.GetValue(0).ToString()),
+                                                Int32.Parse(row.ItemArray.GetValue(1).ToString()),
+                                                row.ItemArray.GetValue(2).ToString(),
+                                                Convert.ToDouble(row.ItemArray.GetValue(3)),
+                                                Convert.ToDateTime(row.ItemArray.GetValue(4))));
+            }
+            return times;
         }
     }
 }
