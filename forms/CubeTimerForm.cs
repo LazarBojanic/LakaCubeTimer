@@ -26,8 +26,10 @@ namespace LakaCubeTimer {
             initialCube = new Cube();
             scrambledCube = Util.scrambleCube(initialCube, validatedScramble);
             newCube = scrambledCube;
+
         }
         private void CubeTimerForm_Load(object sender, EventArgs e) {
+            comboBoxSession.SelectedIndex = 0;
             labelScramble.Text = Util.scrambleToString(validatedScramble);
             labelScramble.Left = (panelTimer.Width - labelScramble.Width) / 2;
             paintCube(scrambledCube);
@@ -64,18 +66,65 @@ namespace LakaCubeTimer {
                     timerCube.Start();
                 }
             }
+        }      
+        public string longMillisecondsToString(long elapsedMilliseconds) {
+            milliseconds = (int)elapsedMilliseconds % 1000 / 10;
+            seconds = (int)(elapsedMilliseconds / 1000) % 60;
+            minutes = (int)(elapsedMilliseconds / (1000 * 60) % 60);
+            if (seconds < 10) {
+                secondsString = "0" + seconds;
+                ;
+            }
+            else {
+                secondsString = seconds.ToString();
+            }
+            if (minutes < 10) {
+                minutesString = "0" + minutes;
+            }
+            else {
+                minutesString = minutes.ToString();
+            }
+            return minutesString + " : " + secondsString + " . " + milliseconds;
         }
-        public void saveToDatabase(Time timeResult) {
-            OleDbConnection connection = Util.GetConnection();
-            connection.Open();
-            string query = "INSERT INTO [time] ([time], [date]) VALUES (@time, @date)";
-            OleDbCommand command = new OleDbCommand(query, connection);
-            command.Parameters.AddWithValue("@time", timeResult.time);
-            command.Parameters.Add("@date", OleDbType.DBTimeStamp).Value = Util.dateTimeWithoutMilliseconds(timeResult.date);
-            command.ExecuteNonQuery();
-            connection.Close();
+        public string doubleMillisecondsToString(double elapsedMilliseconds) {
+            milliseconds = (int)elapsedMilliseconds % 1000 / 10;
+            seconds = (int)(elapsedMilliseconds / 1000) % 60;
+            minutes = (int)(elapsedMilliseconds / (1000 * 60) % 60);
+            if (seconds < 10) {
+                secondsString = "0" + seconds;
+                ;
+            }
+            else {
+                secondsString = seconds.ToString();
+            }
+            if (minutes < 10) {
+                minutesString = "0" + minutes;
+            }
+            else {
+                minutesString = minutes.ToString();
+            }
+            return minutesString + " : " + secondsString + " . " + milliseconds;
         }
-        public string timerToString(long elapsedMilliseconds) {
+        public string decimalMillisecondsToString(decimal elapsedMilliseconds) {
+            milliseconds = (int)elapsedMilliseconds % 1000 / 10;
+            seconds = (int)(elapsedMilliseconds / 1000) % 60;
+            minutes = (int)(elapsedMilliseconds / (1000 * 60) % 60);
+            if (seconds < 10) {
+                secondsString = "0" + seconds;
+                ;
+            }
+            else {
+                secondsString = seconds.ToString();
+            }
+            if (minutes < 10) {
+                minutesString = "0" + minutes;
+            }
+            else {
+                minutesString = minutes.ToString();
+            }
+            return minutesString + " : " + secondsString + " . " + milliseconds;
+        }
+        public string intMillisecondsToString(int elapsedMilliseconds) {
             milliseconds = (int)elapsedMilliseconds % 1000 / 10;
             seconds = (int)(elapsedMilliseconds / 1000) % 60;
             minutes = (int)(elapsedMilliseconds / (1000 * 60) % 60);
@@ -99,16 +148,19 @@ namespace LakaCubeTimer {
         }
         public void stopTimer() {
             stopwatch.Stop();
-            long elapsedMilliseconds = stopwatch.ElapsedMilliseconds;
-            labelTimer.Text = timerToString(elapsedMilliseconds);
-            Time time = new Time(0, timerToString(elapsedMilliseconds), DateTime.Now);
-            TimeUserControl timeUserControl = new TimeUserControl(timerToString(elapsedMilliseconds), DateTime.Now);
+            double elapsedMilliseconds = stopwatch.ElapsedMilliseconds;
+            labelTimer.Text = doubleMillisecondsToString(elapsedMilliseconds);
+            Time time = new Time(0, Int32.Parse(comboBoxSession.Text), doubleMillisecondsToString(elapsedMilliseconds), elapsedMilliseconds, DateTime.Now);
+            TimeUserControl timeUserControl = new TimeUserControl(0, Int32.Parse(comboBoxSession.Text), doubleMillisecondsToString(elapsedMilliseconds), elapsedMilliseconds, DateTime.Now);
             flowLayoutPanelTimes.Controls.Add(timeUserControl);
-            saveToDatabase(time);
+            SqlUtil.saveToDatabase(time);
+            if(flowLayoutPanelTimes.Controls.Count >= 5) {
+                labelAverageOfFive.Text = longMillisecondsToString(SqlUtil.calculateAverageOfFive(Int32.Parse(comboBoxSession.Text)));
+            }
         }
         private void timerCube_Tick(object sender, EventArgs e) {
-            long elapsedMilliseconds = stopwatch.ElapsedMilliseconds;
-            labelTimer.Text = timerToString(elapsedMilliseconds);
+            double elapsedMilliseconds = stopwatch.ElapsedMilliseconds;
+            labelTimer.Text = doubleMillisecondsToString(elapsedMilliseconds);
         }
         public void paintCube(Cube cube) {
             foreach (Side side in cube.sides) {

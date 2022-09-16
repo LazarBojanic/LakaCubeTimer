@@ -97,6 +97,11 @@
             this.labelScramble = new System.Windows.Forms.Label();
             this.flowLayoutPanelTimes = new System.Windows.Forms.FlowLayoutPanel();
             this.panelStats = new System.Windows.Forms.Panel();
+            this.labelAverageOfOneHundred = new System.Windows.Forms.Label();
+            this.labelBestTime = new System.Windows.Forms.Label();
+            this.labelAverageOfTwelve = new System.Windows.Forms.Label();
+            this.labelAverageOfFive = new System.Windows.Forms.Label();
+            this.comboBoxSession = new System.Windows.Forms.ComboBox();
             this.panelTimer.SuspendLayout();
             this.panelCube.SuspendLayout();
             this.panelDown.SuspendLayout();
@@ -105,6 +110,7 @@
             this.panelUp.SuspendLayout();
             this.panelFront.SuspendLayout();
             this.panelLeft.SuspendLayout();
+            this.panelStats.SuspendLayout();
             this.SuspendLayout();
             // 
             // labelTimer
@@ -919,17 +925,86 @@
             // 
             // panelStats
             // 
+            this.panelStats.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.panelStats.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panelStats.Location = new System.Drawing.Point(12, 485);
+            this.panelStats.Controls.Add(this.labelAverageOfOneHundred);
+            this.panelStats.Controls.Add(this.labelBestTime);
+            this.panelStats.Controls.Add(this.labelAverageOfTwelve);
+            this.panelStats.Controls.Add(this.labelAverageOfFive);
+            this.panelStats.Location = new System.Drawing.Point(12, 532);
             this.panelStats.Name = "panelStats";
-            this.panelStats.Size = new System.Drawing.Size(252, 298);
+            this.panelStats.Size = new System.Drawing.Size(252, 251);
             this.panelStats.TabIndex = 4;
+            // 
+            // labelAverageOfOneHundred
+            // 
+            this.labelAverageOfOneHundred.AutoSize = true;
+            this.labelAverageOfOneHundred.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.labelAverageOfOneHundred.Location = new System.Drawing.Point(19, 124);
+            this.labelAverageOfOneHundred.Name = "labelAverageOfOneHundred";
+            this.labelAverageOfOneHundred.Size = new System.Drawing.Size(75, 22);
+            this.labelAverageOfOneHundred.TabIndex = 3;
+            this.labelAverageOfOneHundred.Text = "Ao100:";
+            // 
+            // labelBestTime
+            // 
+            this.labelBestTime.AutoSize = true;
+            this.labelBestTime.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.labelBestTime.Location = new System.Drawing.Point(19, 171);
+            this.labelBestTime.Name = "labelBestTime";
+            this.labelBestTime.Size = new System.Drawing.Size(97, 22);
+            this.labelBestTime.TabIndex = 2;
+            this.labelBestTime.Text = "Best Time:";
+            // 
+            // labelAverageOfTwelve
+            // 
+            this.labelAverageOfTwelve.AutoSize = true;
+            this.labelAverageOfTwelve.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.labelAverageOfTwelve.Location = new System.Drawing.Point(19, 77);
+            this.labelAverageOfTwelve.Name = "labelAverageOfTwelve";
+            this.labelAverageOfTwelve.Size = new System.Drawing.Size(64, 22);
+            this.labelAverageOfTwelve.TabIndex = 1;
+            this.labelAverageOfTwelve.Text = "Ao12:";
+            // 
+            // labelAverageOfFive
+            // 
+            this.labelAverageOfFive.AutoSize = true;
+            this.labelAverageOfFive.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.labelAverageOfFive.Location = new System.Drawing.Point(19, 30);
+            this.labelAverageOfFive.Name = "labelAverageOfFive";
+            this.labelAverageOfFive.Size = new System.Drawing.Size(53, 22);
+            this.labelAverageOfFive.TabIndex = 0;
+            this.labelAverageOfFive.Text = "Ao5:";
+            // 
+            // comboBoxSession
+            // 
+            this.comboBoxSession.Font = new System.Drawing.Font("Century Gothic", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.comboBoxSession.FormattingEnabled = true;
+            this.comboBoxSession.Items.AddRange(new object[] {
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8",
+            "9",
+            "10",
+            "11",
+            "12"});
+            this.comboBoxSession.Location = new System.Drawing.Point(12, 485);
+            this.comboBoxSession.Name = "comboBoxSession";
+            this.comboBoxSession.Size = new System.Drawing.Size(252, 41);
+            this.comboBoxSession.TabIndex = 5;
+            this.comboBoxSession.TabStop = false;
             // 
             // CubeTimerForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1393, 795);
+            this.Controls.Add(this.comboBoxSession);
             this.Controls.Add(this.panelStats);
             this.Controls.Add(this.flowLayoutPanelTimes);
             this.Controls.Add(this.panelTimer);
@@ -948,6 +1023,8 @@
             this.panelUp.ResumeLayout(false);
             this.panelFront.ResumeLayout(false);
             this.panelLeft.ResumeLayout(false);
+            this.panelStats.ResumeLayout(false);
+            this.panelStats.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -1027,5 +1104,10 @@
         private Button buttonLeftTurn;
         private FlowLayoutPanel flowLayoutPanelTimes;
         private Panel panelStats;
+        private Label labelAverageOfOneHundred;
+        private Label labelBestTime;
+        private Label labelAverageOfTwelve;
+        private Label labelAverageOfFive;
+        private ComboBox comboBoxSession;
     }
 }

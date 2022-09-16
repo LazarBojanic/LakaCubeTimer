@@ -10,11 +10,17 @@ using System.Windows.Forms;
 
 namespace LakaCubeTimer.forms {
     public partial class TimeUserControl : UserControl {
-        private string time;
-        private DateTime date;
-        public TimeUserControl(string parTime, DateTime parDate) {
+        private int id { get; set; }
+        private int session { get; set; }
+        private string time { get; set; }
+        private double timeInMilliseconds { get; set; }
+        private DateTime date { get; set; }
+        public TimeUserControl(int parId, int parSession, string parTime, double parTimeInMilliseconds, DateTime parDate) {
             InitializeComponent();
+            this.id = parId;
+            this.session = parSession;
             this.time = parTime;
+            this.timeInMilliseconds = parTimeInMilliseconds;
             this.date = parDate;
         }
         private void TimeUserControl_Load(object sender, EventArgs e) {
