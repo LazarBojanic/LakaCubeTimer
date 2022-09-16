@@ -8,12 +8,10 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace LakaCubeTimer {
-    public partial class TimeUserControl : UserControl {
-        public TimeUserControl(string time, DateTime dateTime) {
+namespace LakaCubeTimer.forms {
+    public partial class StatsForm : Form {
+        public StatsForm() {
             InitializeComponent();
-            labelTime.Text = time;
-            labelDate.Text = dateTime.ToString();
         }
     }
 }

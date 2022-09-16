@@ -1,4 +1,5 @@
-﻿using LakaCubeTimer.model;
+﻿using LakaCubeTimer.forms;
+using LakaCubeTimer.model;
 using LakaCubeTimer.util;
 using System.Data.OleDb;
 using System.Diagnostics;

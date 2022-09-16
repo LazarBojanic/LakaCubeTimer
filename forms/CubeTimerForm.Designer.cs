@@ -96,6 +96,7 @@
             this.panelLeft0 = new System.Windows.Forms.Panel();
             this.labelScramble = new System.Windows.Forms.Label();
             this.flowLayoutPanelTimes = new System.Windows.Forms.FlowLayoutPanel();
+            this.panelStats = new System.Windows.Forms.Panel();
             this.panelTimer.SuspendLayout();
             this.panelCube.SuspendLayout();
             this.panelDown.SuspendLayout();
@@ -112,7 +113,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.labelTimer.AutoSize = true;
             this.labelTimer.Font = new System.Drawing.Font("Century Gothic", 72F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.labelTimer.Location = new System.Drawing.Point(353, 165);
+            this.labelTimer.Location = new System.Drawing.Point(292, 165);
             this.labelTimer.Name = "labelTimer";
             this.labelTimer.Size = new System.Drawing.Size(527, 115);
             this.labelTimer.TabIndex = 0;
@@ -138,9 +139,9 @@
             this.panelTimer.Controls.Add(this.panelCube);
             this.panelTimer.Controls.Add(this.labelScramble);
             this.panelTimer.Controls.Add(this.labelTimer);
-            this.panelTimer.Location = new System.Drawing.Point(197, 12);
+            this.panelTimer.Location = new System.Drawing.Point(270, 12);
             this.panelTimer.Name = "panelTimer";
-            this.panelTimer.Size = new System.Drawing.Size(1184, 771);
+            this.panelTimer.Size = new System.Drawing.Size(1111, 771);
             this.panelTimer.TabIndex = 2;
             // 
             // buttonDownTurn
@@ -230,7 +231,7 @@
             this.panelCube.Controls.Add(this.panelUp);
             this.panelCube.Controls.Add(this.panelFront);
             this.panelCube.Controls.Add(this.panelLeft);
-            this.panelCube.Location = new System.Drawing.Point(725, 426);
+            this.panelCube.Location = new System.Drawing.Point(652, 426);
             this.panelCube.Name = "panelCube";
             this.panelCube.Size = new System.Drawing.Size(456, 342);
             this.panelCube.TabIndex = 1;
@@ -900,10 +901,11 @@
             this.labelScramble.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.labelScramble.AutoSize = true;
             this.labelScramble.Font = new System.Drawing.Font("Century Gothic", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.labelScramble.Location = new System.Drawing.Point(79, 22);
+            this.labelScramble.Location = new System.Drawing.Point(473, 74);
             this.labelScramble.Name = "labelScramble";
-            this.labelScramble.Size = new System.Drawing.Size(0, 39);
+            this.labelScramble.Size = new System.Drawing.Size(165, 39);
             this.labelScramble.TabIndex = 1;
+            this.labelScramble.Text = "Scramble";
             this.labelScramble.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // flowLayoutPanelTimes
@@ -911,16 +913,26 @@
             this.flowLayoutPanelTimes.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.flowLayoutPanelTimes.Location = new System.Drawing.Point(12, 12);
             this.flowLayoutPanelTimes.Name = "flowLayoutPanelTimes";
-            this.flowLayoutPanelTimes.Size = new System.Drawing.Size(180, 771);
+            this.flowLayoutPanelTimes.Size = new System.Drawing.Size(252, 467);
             this.flowLayoutPanelTimes.TabIndex = 3;
+            // 
+            // panelStats
+            // 
+            this.panelStats.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panelStats.Location = new System.Drawing.Point(12, 485);
+            this.panelStats.Name = "panelStats";
+            this.panelStats.Size = new System.Drawing.Size(252, 298);
+            this.panelStats.TabIndex = 4;
             // 
             // CubeTimerForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1393, 795);
+            this.Controls.Add(this.panelStats);
             this.Controls.Add(this.flowLayoutPanelTimes);
             this.Controls.Add(this.panelTimer);
+            this.KeyPreview = true;
             this.Name = "CubeTimerForm";
             this.Text = "CubeTimerForm";
             this.Load += new System.EventHandler(this.CubeTimerForm_Load);
@@ -1013,5 +1025,6 @@
         private Button buttonFrontTurn;
         private Button buttonLeftTurn;
         private FlowLayoutPanel flowLayoutPanelTimes;
+        private Panel panelStats;
     }
 }

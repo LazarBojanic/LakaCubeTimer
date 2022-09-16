@@ -1192,7 +1192,7 @@ namespace LakaCubeTimer.util {
         }
         public static Cube scrambleCube(Cube cube, List<string> scramble) {
             foreach (string turn in scramble) {
-                cube = Util.turnCube(cube, turn);
+                cube = turnCube(cube, turn);
             }
             return cube;
         }
