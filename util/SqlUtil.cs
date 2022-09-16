@@ -37,7 +37,7 @@ namespace LakaCubeTimer.util {
             double bestTime = getBestTime(session);
             double worstTime = getWorstTime(session);
             DataTable timesForAverageOfFive = new DataTable();      
-            string query = "SELECT timeInMilliseconds FROM [time] WHERE timeInMilliseconds != @bestTime AND timeInMilliseconds != @worstTime WHERE [session] = @session";
+            string query = "SELECT timeInMilliseconds FROM [time] WHERE (timeInMilliseconds != @bestTime) AND (timeInMilliseconds != @worstTime) AND ([session] = @session)";
             OleDbCommand command = new OleDbCommand(query, connection);
             command.Parameters.AddWithValue("@bestTime", bestTime);
             command.Parameters.AddWithValue("@worstTime", worstTime);
