@@ -21,30 +21,21 @@ namespace LakaCubeTimer.util {
             command.ExecuteNonQuery();
             connection.Close();
         }
-        public static long calculateAverageOfFive(int session) {
-            long average = 0;
-            OleDbConnection connection = Util.GetConnection();
-            connection.Open();
-            string query = "SELECT AVG(timeInMilliseconds) AS Ao5 FROM @timesForAverageOfFive WHERE [session] = @session";
-            OleDbCommand command = new OleDbCommand(query, connection);
-            command.Parameters.AddWithValue("@timesForAverageOfFive", timesForAverageOfFive(session, connection));
-            command.Parameters.AddWithValue("@session", session);
-            average = (long)command.ExecuteScalar();
-            connection.Close();
-            return average;
-        }
-        public static DataTable timesForAverageOfFive(int session, OleDbConnection connection) {
+        public static double calculateAverageOfFive(int session) {
+            double average = 0;
             double bestTime = getBestTime(session);
             double worstTime = getWorstTime(session);
-            DataTable timesForAverageOfFive = new DataTable();      
-            string query = "SELECT timeInMilliseconds FROM [time] WHERE (timeInMilliseconds != @bestTime) AND (timeInMilliseconds != @worstTime) AND ([session] = @session)";
+            OleDbConnection connection = Util.GetConnection();
+            connection.Open();
+            string query = "SELECT AVG([timeInMilliseconds]) AS Ao5 FROM (SELECT * FROM [time] WHERE" +
+                " timeInMilliseconds <> @bestTime AND timeInMilliseconds <> @worstTime AND [session] = @session)";
             OleDbCommand command = new OleDbCommand(query, connection);
             command.Parameters.AddWithValue("@bestTime", bestTime);
             command.Parameters.AddWithValue("@worstTime", worstTime);
             command.Parameters.AddWithValue("@session", session);
-            OleDbDataAdapter dataAdapter = new OleDbDataAdapter(command);
-            dataAdapter.Fill(timesForAverageOfFive);
-            return timesForAverageOfFive;
+            average = (double)command.ExecuteScalar();
+            connection.Close();
+            return average;
         }
         public static double getBestTime(int session) {
             long bestTime = 0;

@@ -155,7 +155,7 @@ namespace LakaCubeTimer {
             flowLayoutPanelTimes.Controls.Add(timeUserControl);
             SqlUtil.saveToDatabase(time);
             if(flowLayoutPanelTimes.Controls.Count >= 5) {
-                labelAverageOfFive.Text = longMillisecondsToString(SqlUtil.calculateAverageOfFive(Int32.Parse(comboBoxSession.Text)));
+                labelAverageOfFive.Text = "Ao5: " + doubleMillisecondsToString(SqlUtil.calculateAverageOfFive(Int32.Parse(comboBoxSession.Text)));
             }
         }
         private void timerCube_Tick(object sender, EventArgs e) {
