@@ -28,6 +28,7 @@ namespace LakaCubeTimer {
         }
         private void CubeTimerForm_Load(object sender, EventArgs e) {
             labelScramble.Text = Util.scrambleToString(validatedScramble);
+            labelScramble.Left = (panelTimer.Width - labelScramble.Width) / 2;
             paintCube(scrambledCube);
         }
         private void CubeTimerForm_KeyDown(object sender, KeyEventArgs e) {
@@ -43,6 +44,7 @@ namespace LakaCubeTimer {
                     initialScramble = Util.generateScramble();
                     validatedScramble = Util.validateScramble(initialScramble);
                     labelScramble.Text = Util.scrambleToString(validatedScramble);
+                    labelScramble.Left = (panelTimer.Width - labelScramble.Width) / 2;
                     scrambledCube = Util.scrambleCube(initialCube, validatedScramble);
                     paintCube(scrambledCube);
                 }
@@ -89,7 +91,6 @@ namespace LakaCubeTimer {
             else {
                 minutesString = minutes.ToString();
             }
-
             return minutesString + " : " + secondsString + " . " + milliseconds;
         }
         public void startTimer() {

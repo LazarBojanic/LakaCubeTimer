@@ -146,7 +146,6 @@
             // buttonDownTurn
             // 
             this.buttonDownTurn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonDownTurn.Enabled = false;
             this.buttonDownTurn.Font = new System.Drawing.Font("Century Gothic", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.buttonDownTurn.Location = new System.Drawing.Point(117, 660);
             this.buttonDownTurn.Name = "buttonDownTurn";
@@ -160,7 +159,6 @@
             // buttonBackTurn
             // 
             this.buttonBackTurn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonBackTurn.Enabled = false;
             this.buttonBackTurn.Font = new System.Drawing.Font("Century Gothic", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.buttonBackTurn.Location = new System.Drawing.Point(345, 546);
             this.buttonBackTurn.Name = "buttonBackTurn";
@@ -174,7 +172,6 @@
             // buttonRightTurn
             // 
             this.buttonRightTurn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonRightTurn.Enabled = false;
             this.buttonRightTurn.Font = new System.Drawing.Font("Century Gothic", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.buttonRightTurn.Location = new System.Drawing.Point(231, 546);
             this.buttonRightTurn.Name = "buttonRightTurn";
@@ -188,7 +185,6 @@
             // buttonUpTurn
             // 
             this.buttonUpTurn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonUpTurn.Enabled = false;
             this.buttonUpTurn.Font = new System.Drawing.Font("Century Gothic", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.buttonUpTurn.Location = new System.Drawing.Point(117, 432);
             this.buttonUpTurn.Name = "buttonUpTurn";
@@ -202,7 +198,6 @@
             // buttonFrontTurn
             // 
             this.buttonFrontTurn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonFrontTurn.Enabled = false;
             this.buttonFrontTurn.Font = new System.Drawing.Font("Century Gothic", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.buttonFrontTurn.Location = new System.Drawing.Point(117, 546);
             this.buttonFrontTurn.Name = "buttonFrontTurn";
@@ -216,7 +211,6 @@
             // buttonLeftTurn
             // 
             this.buttonLeftTurn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonLeftTurn.Enabled = false;
             this.buttonLeftTurn.Font = new System.Drawing.Font("Century Gothic", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.buttonLeftTurn.Location = new System.Drawing.Point(3, 546);
             this.buttonLeftTurn.Name = "buttonLeftTurn";
@@ -246,6 +240,7 @@
             this.panelDown.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.panelDown.BackColor = System.Drawing.Color.Black;
             this.panelDown.Controls.Add(this.panelDown8);
             this.panelDown.Controls.Add(this.panelDown0);
             this.panelDown.Controls.Add(this.panelDown7);
@@ -355,6 +350,7 @@
             this.panelBack.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.panelBack.BackColor = System.Drawing.Color.Black;
             this.panelBack.Controls.Add(this.panelBack8);
             this.panelBack.Controls.Add(this.panelBack0);
             this.panelBack.Controls.Add(this.panelBack7);
@@ -464,6 +460,7 @@
             this.panelRight.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.panelRight.BackColor = System.Drawing.Color.Black;
             this.panelRight.Controls.Add(this.panelRight8);
             this.panelRight.Controls.Add(this.panelRight0);
             this.panelRight.Controls.Add(this.panelRight7);
@@ -573,6 +570,7 @@
             this.panelUp.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.panelUp.BackColor = System.Drawing.Color.Black;
             this.panelUp.Controls.Add(this.panelUp8);
             this.panelUp.Controls.Add(this.panelUp0);
             this.panelUp.Controls.Add(this.panelUp7);
@@ -682,6 +680,7 @@
             this.panelFront.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.panelFront.BackColor = System.Drawing.Color.Black;
             this.panelFront.Controls.Add(this.panelFront8);
             this.panelFront.Controls.Add(this.panelFront0);
             this.panelFront.Controls.Add(this.panelFront7);
@@ -791,6 +790,7 @@
             this.panelLeft.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.panelLeft.BackColor = System.Drawing.Color.Black;
             this.panelLeft.Controls.Add(this.panelLeft8);
             this.panelLeft.Controls.Add(this.panelLeft7);
             this.panelLeft.Controls.Add(this.panelLeft6);
@@ -908,6 +908,7 @@
             // 
             // flowLayoutPanelTimes
             // 
+            this.flowLayoutPanelTimes.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.flowLayoutPanelTimes.Location = new System.Drawing.Point(12, 12);
             this.flowLayoutPanelTimes.Name = "flowLayoutPanelTimes";
             this.flowLayoutPanelTimes.Size = new System.Drawing.Size(180, 771);
