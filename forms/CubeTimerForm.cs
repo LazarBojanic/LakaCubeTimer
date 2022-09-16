@@ -12,20 +12,22 @@ namespace LakaCubeTimer {
         private string secondsString = "";
         private string minutesString = "";
         private int timerState = 0;
-        private List<string> scrambleList;
+        private List<string> initialScramble;
+        private List<string> validatedScramble;
         private Cube initialCube;
         private Cube newCube;
         private Cube scrambledCube;
         Stopwatch stopwatch;
         public CubeTimerForm() {
             InitializeComponent();
-            scrambleList = Util.generateScramble();
+            initialScramble = Util.generateScramble();
+            validatedScramble = Util.validateScramble(initialScramble);
             initialCube = new Cube();
-            scrambledCube = Util.scrambleCube(initialCube, scrambleList);
+            scrambledCube = Util.scrambleCube(initialCube, validatedScramble);
             newCube = initialCube;
         }
         private void CubeTimerForm_Load(object sender, EventArgs e) {
-            labelScramble.Text = Util.scrambleToString(scrambleList);
+            labelScramble.Text = Util.scrambleToString(validatedScramble);
             paintCube(scrambledCube);
         }
         private void CubeTimerForm_KeyDown(object sender, KeyEventArgs e) {
@@ -38,9 +40,10 @@ namespace LakaCubeTimer {
                     timerState = 0;
                     stopTimer();
                     timerCube.Stop();
-                    scrambleList = Util.generateScramble();
-                    labelScramble.Text = Util.scrambleToString(scrambleList);
-                    scrambledCube = Util.scrambleCube(initialCube, scrambleList);
+                    initialScramble = Util.generateScramble();
+                    validatedScramble = Util.validateScramble(initialScramble);
+                    labelScramble.Text = Util.scrambleToString(validatedScramble);
+                    scrambledCube = Util.scrambleCube(initialCube, validatedScramble);
                     paintCube(scrambledCube);
                 }
             }
@@ -97,9 +100,10 @@ namespace LakaCubeTimer {
             long elapsedMilliseconds = stopwatch.ElapsedMilliseconds;
             labelTimer.Text = timerToString(elapsedMilliseconds);
             Time time = new Time(0, timerToString(elapsedMilliseconds), DateTime.Now);
+            TimeUserControl timeUserControl = new TimeUserControl(timerToString(elapsedMilliseconds), DateTime.Now);
+            flowLayoutPanelTimes.Controls.Add(timeUserControl);
             saveToDatabase(time);
         }
-
         private void timerCube_Tick(object sender, EventArgs e) {
             long elapsedMilliseconds = stopwatch.ElapsedMilliseconds;
             labelTimer.Text = timerToString(elapsedMilliseconds);

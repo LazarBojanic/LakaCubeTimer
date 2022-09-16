@@ -26,7 +26,6 @@
             this.components = new System.ComponentModel.Container();
             this.labelTimer = new System.Windows.Forms.Label();
             this.timerCube = new System.Windows.Forms.Timer(this.components);
-            this.flowLayoutPanelPuzzles = new System.Windows.Forms.FlowLayoutPanel();
             this.panelTimer = new System.Windows.Forms.Panel();
             this.buttonDownTurn = new System.Windows.Forms.Button();
             this.buttonBackTurn = new System.Windows.Forms.Button();
@@ -96,6 +95,7 @@
             this.panelLeft1 = new System.Windows.Forms.Panel();
             this.panelLeft0 = new System.Windows.Forms.Panel();
             this.labelScramble = new System.Windows.Forms.Label();
+            this.flowLayoutPanelTimes = new System.Windows.Forms.FlowLayoutPanel();
             this.panelTimer.SuspendLayout();
             this.panelCube.SuspendLayout();
             this.panelDown.SuspendLayout();
@@ -124,13 +124,6 @@
             this.timerCube.Interval = 10;
             this.timerCube.Tick += new System.EventHandler(this.timerCube_Tick);
             // 
-            // flowLayoutPanelPuzzles
-            // 
-            this.flowLayoutPanelPuzzles.Location = new System.Drawing.Point(12, 12);
-            this.flowLayoutPanelPuzzles.Name = "flowLayoutPanelPuzzles";
-            this.flowLayoutPanelPuzzles.Size = new System.Drawing.Size(159, 783);
-            this.flowLayoutPanelPuzzles.TabIndex = 0;
-            // 
             // panelTimer
             // 
             this.panelTimer.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -145,9 +138,9 @@
             this.panelTimer.Controls.Add(this.panelCube);
             this.panelTimer.Controls.Add(this.labelScramble);
             this.panelTimer.Controls.Add(this.labelTimer);
-            this.panelTimer.Location = new System.Drawing.Point(177, 12);
+            this.panelTimer.Location = new System.Drawing.Point(197, 12);
             this.panelTimer.Name = "panelTimer";
-            this.panelTimer.Size = new System.Drawing.Size(1229, 783);
+            this.panelTimer.Size = new System.Drawing.Size(1184, 771);
             this.panelTimer.TabIndex = 2;
             // 
             // buttonDownTurn
@@ -155,10 +148,11 @@
             this.buttonDownTurn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.buttonDownTurn.Enabled = false;
             this.buttonDownTurn.Font = new System.Drawing.Font("Century Gothic", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.buttonDownTurn.Location = new System.Drawing.Point(117, 672);
+            this.buttonDownTurn.Location = new System.Drawing.Point(117, 660);
             this.buttonDownTurn.Name = "buttonDownTurn";
             this.buttonDownTurn.Size = new System.Drawing.Size(108, 108);
             this.buttonDownTurn.TabIndex = 7;
+            this.buttonDownTurn.TabStop = false;
             this.buttonDownTurn.Text = "Down";
             this.buttonDownTurn.UseVisualStyleBackColor = true;
             this.buttonDownTurn.MouseDown += new System.Windows.Forms.MouseEventHandler(this.buttonDownTurn_MouseDown);
@@ -168,10 +162,11 @@
             this.buttonBackTurn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.buttonBackTurn.Enabled = false;
             this.buttonBackTurn.Font = new System.Drawing.Font("Century Gothic", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.buttonBackTurn.Location = new System.Drawing.Point(345, 558);
+            this.buttonBackTurn.Location = new System.Drawing.Point(345, 546);
             this.buttonBackTurn.Name = "buttonBackTurn";
             this.buttonBackTurn.Size = new System.Drawing.Size(108, 108);
             this.buttonBackTurn.TabIndex = 6;
+            this.buttonBackTurn.TabStop = false;
             this.buttonBackTurn.Text = "Back";
             this.buttonBackTurn.UseVisualStyleBackColor = true;
             this.buttonBackTurn.MouseDown += new System.Windows.Forms.MouseEventHandler(this.buttonBackTurn_MouseDown);
@@ -181,10 +176,11 @@
             this.buttonRightTurn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.buttonRightTurn.Enabled = false;
             this.buttonRightTurn.Font = new System.Drawing.Font("Century Gothic", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.buttonRightTurn.Location = new System.Drawing.Point(231, 558);
+            this.buttonRightTurn.Location = new System.Drawing.Point(231, 546);
             this.buttonRightTurn.Name = "buttonRightTurn";
             this.buttonRightTurn.Size = new System.Drawing.Size(108, 108);
             this.buttonRightTurn.TabIndex = 5;
+            this.buttonRightTurn.TabStop = false;
             this.buttonRightTurn.Text = "Right";
             this.buttonRightTurn.UseVisualStyleBackColor = true;
             this.buttonRightTurn.MouseDown += new System.Windows.Forms.MouseEventHandler(this.buttonRightTurn_MouseDown);
@@ -194,10 +190,11 @@
             this.buttonUpTurn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.buttonUpTurn.Enabled = false;
             this.buttonUpTurn.Font = new System.Drawing.Font("Century Gothic", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.buttonUpTurn.Location = new System.Drawing.Point(117, 444);
+            this.buttonUpTurn.Location = new System.Drawing.Point(117, 432);
             this.buttonUpTurn.Name = "buttonUpTurn";
             this.buttonUpTurn.Size = new System.Drawing.Size(108, 108);
             this.buttonUpTurn.TabIndex = 4;
+            this.buttonUpTurn.TabStop = false;
             this.buttonUpTurn.Text = "Up";
             this.buttonUpTurn.UseVisualStyleBackColor = true;
             this.buttonUpTurn.MouseDown += new System.Windows.Forms.MouseEventHandler(this.buttonUpTurn_MouseDown);
@@ -207,10 +204,11 @@
             this.buttonFrontTurn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.buttonFrontTurn.Enabled = false;
             this.buttonFrontTurn.Font = new System.Drawing.Font("Century Gothic", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.buttonFrontTurn.Location = new System.Drawing.Point(117, 558);
+            this.buttonFrontTurn.Location = new System.Drawing.Point(117, 546);
             this.buttonFrontTurn.Name = "buttonFrontTurn";
             this.buttonFrontTurn.Size = new System.Drawing.Size(108, 108);
             this.buttonFrontTurn.TabIndex = 3;
+            this.buttonFrontTurn.TabStop = false;
             this.buttonFrontTurn.Text = "Front";
             this.buttonFrontTurn.UseVisualStyleBackColor = true;
             this.buttonFrontTurn.MouseDown += new System.Windows.Forms.MouseEventHandler(this.buttonFrontTurn_MouseDown);
@@ -220,10 +218,11 @@
             this.buttonLeftTurn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.buttonLeftTurn.Enabled = false;
             this.buttonLeftTurn.Font = new System.Drawing.Font("Century Gothic", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.buttonLeftTurn.Location = new System.Drawing.Point(3, 558);
+            this.buttonLeftTurn.Location = new System.Drawing.Point(3, 546);
             this.buttonLeftTurn.Name = "buttonLeftTurn";
             this.buttonLeftTurn.Size = new System.Drawing.Size(108, 108);
             this.buttonLeftTurn.TabIndex = 2;
+            this.buttonLeftTurn.TabStop = false;
             this.buttonLeftTurn.Text = "Left";
             this.buttonLeftTurn.UseVisualStyleBackColor = true;
             this.buttonLeftTurn.MouseDown += new System.Windows.Forms.MouseEventHandler(this.buttonLeftTurn_MouseDown);
@@ -237,7 +236,7 @@
             this.panelCube.Controls.Add(this.panelUp);
             this.panelCube.Controls.Add(this.panelFront);
             this.panelCube.Controls.Add(this.panelLeft);
-            this.panelCube.Location = new System.Drawing.Point(770, 438);
+            this.panelCube.Location = new System.Drawing.Point(725, 426);
             this.panelCube.Name = "panelCube";
             this.panelCube.Size = new System.Drawing.Size(456, 342);
             this.panelCube.TabIndex = 1;
@@ -901,19 +900,26 @@
             this.labelScramble.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.labelScramble.AutoSize = true;
             this.labelScramble.Font = new System.Drawing.Font("Century Gothic", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.labelScramble.Location = new System.Drawing.Point(101, 22);
+            this.labelScramble.Location = new System.Drawing.Point(79, 22);
             this.labelScramble.Name = "labelScramble";
             this.labelScramble.Size = new System.Drawing.Size(0, 39);
             this.labelScramble.TabIndex = 1;
             this.labelScramble.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // flowLayoutPanelTimes
+            // 
+            this.flowLayoutPanelTimes.Location = new System.Drawing.Point(12, 12);
+            this.flowLayoutPanelTimes.Name = "flowLayoutPanelTimes";
+            this.flowLayoutPanelTimes.Size = new System.Drawing.Size(180, 771);
+            this.flowLayoutPanelTimes.TabIndex = 3;
+            // 
             // CubeTimerForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1418, 807);
+            this.ClientSize = new System.Drawing.Size(1393, 795);
+            this.Controls.Add(this.flowLayoutPanelTimes);
             this.Controls.Add(this.panelTimer);
-            this.Controls.Add(this.flowLayoutPanelPuzzles);
             this.Name = "CubeTimerForm";
             this.Text = "CubeTimerForm";
             this.Load += new System.EventHandler(this.CubeTimerForm_Load);
@@ -936,7 +942,6 @@
 
         private Label labelTimer;
         private System.Windows.Forms.Timer timerCube;
-        private FlowLayoutPanel flowLayoutPanelPuzzles;
         private Panel panelTimer;
         private Label labelScramble;
         private Panel panelCube;
@@ -1006,5 +1011,6 @@
         private Button buttonUpTurn;
         private Button buttonFrontTurn;
         private Button buttonLeftTurn;
+        private FlowLayoutPanel flowLayoutPanelTimes;
     }
 }

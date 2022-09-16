@@ -1,8 +1,10 @@
 ﻿using LakaCubeTimer.model;
+using System.ComponentModel.DataAnnotations;
 using System.Data.OleDb;
 
 namespace LakaCubeTimer.util {
     public static class Util {
+        const int MAX_DOUBLE_TURNS = 9;
         public static string[] turns = new string[] { "U", "D", "L", "R", "F", "B" };
         public static OleDbConnection GetConnection() {
             return new OleDbConnection(Properties.Settings.Default.timesConnectionString);
@@ -11,11 +13,7 @@ namespace LakaCubeTimer.util {
         public static DateTime dateTimeWithoutMilliseconds(DateTime date) {
             return new DateTime(date.Year, date.Month, date.Day, date.Hour, date.Minute, date.Second);
         }
-        public static List<string> generateScramble() {
-            int numOfDoubleTurns = 0;
-            const int MAX_DOUBLE_TURNS = 8;
-            bool isDoubleTurn = false;
-            bool isPrimeTurn = false;
+        public static List<string> generateScramble() {          
             List<string> scramble = new List<string>();
             string currentTurn = "";
             string prevTurn = turns[new Random().Next(0, turns.Length)];
@@ -25,35 +23,133 @@ namespace LakaCubeTimer.util {
                     currentTurn = turns[indexCurrentTurn];
                 }
                 else {
-                    if (indexCurrentTurn == turns.Length - 1) {
-                        currentTurn = turns[0];
+                    int[] otherTurns = new int[5];
+                    switch (prevTurn) {
+                        case "U":
+                            otherTurns = new int[] { 1, 2, 3, 4, 5 };
+                            break;
+                        case "D":
+                            otherTurns = new int[] { 0, 2, 3, 4, 5 };
+                            break;
+                        case "L":
+                            otherTurns = new int[] { 0, 1, 3, 4, 5 };
+                            break;
+                        case "R":
+                            otherTurns = new int[] { 0, 1, 2, 4, 5 };
+                            break;
+                        case "F":
+                            otherTurns = new int[] { 0, 1, 2, 3, 5 };
+                            break;
+                        case "B":
+                            otherTurns = new int[] { 0, 1, 2, 3, 4 };
+                            break;
                     }
-                    else {
-                        currentTurn = turns[indexCurrentTurn + 1];
-                    }
+                    Random randomOtherTurns = new Random();
+                    int indexOfOtherTurn = otherTurns[randomOtherTurns.Next(otherTurns.Length)];
+                    currentTurn = turns[indexOfOtherTurn];
                 }
                 prevTurn = currentTurn;
-                isDoubleTurn = new Random().Next(0, 100) <= 50;
+                scramble.Add(currentTurn);
+            }
+            return scramble;
+        }
+        public static List<string> validateScramble(List<string> scramble) {
+            int numOfDoubleTurns = 0;
+            bool isDoubleTurn = false;
+            bool isPrimeTurn = false;
+            string currentTurn;
+            List<string> validatedScramble = new List<string>();
+            int i = 0;
+            while(scramble.Count != validatedScramble.Count) {
+                if (i == scramble.Count - 1) {
+                    currentTurn = scramble[i];
+                    goto LastTurn;
+                }
+                if ((scramble[i].Equals("U") && scramble[i + 1].Equals("D")) || scramble[i].Equals("D") && scramble[i + 1].Equals("U")) {
+                    Random randomOtherTurns = new Random();
+                    int[] otherTurns = new int[] { 2, 3, 4, 5 };
+                    int indexOfOtherTurn = otherTurns[randomOtherTurns.Next(otherTurns.Length)];
+                    currentTurn = turns[indexOfOtherTurn];
+                }
+                if(scramble[i].Equals("U") && scramble[i + 1].Equals("U")) {
+                    Random randomOtherTurns = new Random();
+                    int[] otherTurns = new int[] { 1, 2, 3, 4, 5 };
+                    int indexOfOtherTurn = otherTurns[randomOtherTurns.Next(otherTurns.Length)];
+                    currentTurn = turns[indexOfOtherTurn];
+                }
+                if (scramble[i].Equals("D") && scramble[i + 1].Equals("D")) {
+                    Random randomOtherTurns = new Random();
+                    int[] otherTurns = new int[] { 0, 2, 3, 4, 5 };
+                    int indexOfOtherTurn = otherTurns[randomOtherTurns.Next(otherTurns.Length)];
+                    currentTurn = turns[indexOfOtherTurn];
+                }
 
+                if ((scramble[i].Equals("L") && scramble[i + 1].Equals("R")) || scramble[i].Equals("R") && scramble[i + 1].Equals("L")) {
+                    Random randomOtherTurns = new Random();
+                    int[] otherTurns = new int[] { 0, 1, 4, 5 };
+                    int indexOfOtherTurn = otherTurns[randomOtherTurns.Next(otherTurns.Length)];
+                    currentTurn = turns[indexOfOtherTurn];
+                }
+                if (scramble[i].Equals("L") && scramble[i + 1].Equals("L")) {
+                    Random randomOtherTurns = new Random();
+                    int[] otherTurns = new int[] { 0, 1, 3, 4, 5 };
+                    int indexOfOtherTurn = otherTurns[randomOtherTurns.Next(otherTurns.Length)];
+                    currentTurn = turns[indexOfOtherTurn];
+                }
+                if (scramble[i].Equals("R") && scramble[i + 1].Equals("R")) {
+                    Random randomOtherTurns = new Random();
+                    int[] otherTurns = new int[] { 0, 1, 2, 4, 5 };
+                    int indexOfOtherTurn = otherTurns[randomOtherTurns.Next(otherTurns.Length)];
+                    currentTurn = turns[indexOfOtherTurn];
+                }
+
+                if ((scramble[i].Equals("F") && scramble[i + 1].Equals("B")) || scramble[i].Equals("B") && scramble[i + 1].Equals("F")) {
+                    Random randomOtherTurns = new Random();
+                    int[] otherTurns = new int[] { 0, 1, 2, 3 };
+                    int indexOfOtherTurn = otherTurns[randomOtherTurns.Next(otherTurns.Length)];
+                    currentTurn = turns[indexOfOtherTurn];
+                }
+                if (scramble[i].Equals("F") && scramble[i + 1].Equals("F")) {
+                    Random randomOtherTurns = new Random();
+                    int[] otherTurns = new int[] { 0, 1, 2, 3, 5 };
+                    int indexOfOtherTurn = otherTurns[randomOtherTurns.Next(otherTurns.Length)];
+                    currentTurn = turns[indexOfOtherTurn];
+                }
+                if (scramble[i].Equals("B") && scramble[i + 1].Equals("B")) {
+                    Random randomOtherTurns = new Random();
+                    int[] otherTurns = new int[] { 0, 1, 2, 3, 4 };
+                    int indexOfOtherTurn = otherTurns[randomOtherTurns.Next(otherTurns.Length)];
+                    currentTurn = turns[indexOfOtherTurn];
+                }
+                else {
+                    currentTurn = scramble[i]; 
+                }
+                LastTurn:
+
+                isDoubleTurn = new Random().Next(0, 100) <= 50;
                 isPrimeTurn = new Random().Next(0, 100) <= 50;
 
                 if (isDoubleTurn) {
                     if (numOfDoubleTurns < MAX_DOUBLE_TURNS) {
-                        scramble.Add(currentTurn + "2");
+                        validatedScramble.Add(currentTurn + "2");
                     }
                     else {
-                        scramble.Add(currentTurn);
+                        validatedScramble.Add(currentTurn);
                     }
                     numOfDoubleTurns++;
                 }
                 else if (isPrimeTurn) {
-                    scramble.Add(currentTurn + "'");
+                    validatedScramble.Add(currentTurn + "'");
                 }
                 else {
-                    scramble.Add(currentTurn);
+                    validatedScramble.Add(currentTurn);
                 }
+                i++;
             }
-            return scramble;
+            return validatedScramble;
+        }
+        public static string timeToString(Time time) {
+            return time.time + " | " + time.date;
         }
         public static string scrambleToString(List<string> scramble) {
             string scrambleString = "";
@@ -79,7 +175,7 @@ namespace LakaCubeTimer.util {
         }
         public static Side initializeSide(Side side) {
             List<Sticker> newStickers = new List<Sticker>();
-            foreach(Sticker sticker in side.stickers) {
+            foreach (Sticker sticker in side.stickers) {
                 Sticker newSticker = new Sticker(sticker.id, sticker.color);
                 newStickers.Add(newSticker);
             }
@@ -251,7 +347,7 @@ namespace LakaCubeTimer.util {
             //TURN YELLOW SIDE
             if (turn.Equals("D")) {
                 //white side stays the same
-                Side newWhiteSide = initializeSide(cube.sides[0]);    
+                Side newWhiteSide = initializeSide(cube.sides[0]);
                 Side newYellowSide = initializeSide(cube.sides[1]);
                 Side newOrangeSide = initializeSide(cube.sides[2]);
                 Side newRedSide = initializeSide(cube.sides[3]);
@@ -665,7 +761,7 @@ namespace LakaCubeTimer.util {
 
                 //turn corner stickers of blue side
                 newBlueSide.stickers[6].color = getSide(cube, Color.Yellow).stickers[2].color;
-                newBlueSide.stickers[0].color = getSide(cube, Color.Yellow).stickers[8].color;      
+                newBlueSide.stickers[0].color = getSide(cube, Color.Yellow).stickers[8].color;
                 //turn edge stickers of blue side
                 newBlueSide.stickers[3].color = getSide(cube, Color.Yellow).stickers[5].color;
 
@@ -744,7 +840,7 @@ namespace LakaCubeTimer.util {
                 Side newWhiteSide = initializeSide(cube.sides[0]);
                 Side newYellowSide = initializeSide(cube.sides[1]);
                 Side newOrangeSide = initializeSide(cube.sides[2]);
-                Side newRedSide = initializeSide(cube.sides[3]);       
+                Side newRedSide = initializeSide(cube.sides[3]);
                 Side newGreenSide = initializeSide(cube.sides[4]);
                 //blue side stays the same
                 Side newBlueSide = initializeSide(cube.sides[5]);
@@ -910,7 +1006,7 @@ namespace LakaCubeTimer.util {
                 Side newOrangeSide = initializeSide(cube.sides[2]);
                 Side newRedSide = initializeSide(cube.sides[3]);
                 //green side stays the same
-                Side newGreenSide = initializeSide(cube.sides[4]);             
+                Side newGreenSide = initializeSide(cube.sides[4]);
                 Side newBlueSide = initializeSide(cube.sides[5]);
 
                 //turn corner stickers of blue side
@@ -1076,17 +1172,17 @@ namespace LakaCubeTimer.util {
             cubeString += " -  -  -  " + cube.sides[0].stickers[3].color.Name[0] + " " + cube.sides[0].stickers[4].color.Name[0] + " " + cube.sides[0].stickers[5].color.Name[0] + "\n";
             cubeString += " -  -  -  " + cube.sides[0].stickers[6].color.Name[0] + " " + cube.sides[0].stickers[7].color.Name[0] + " " + cube.sides[0].stickers[8].color.Name[0] + "\n";
             //orange, green, red, blue sides
-            cubeString += " " + cube.sides[2].stickers[0].color.Name[0] + " " + cube.sides[2].stickers[1].color.Name[0] + " " + cube.sides[2].stickers[2].color.Name[0] + 
-                          " " + cube.sides[4].stickers[0].color.Name[0] + " " + cube.sides[4].stickers[1].color.Name[0] + " " + cube.sides[4].stickers[2].color.Name[0] + 
-                          " " + cube.sides[3].stickers[0].color.Name[0] + " " + cube.sides[3].stickers[1].color.Name[0] + " " + cube.sides[3].stickers[2].color.Name[0] + 
+            cubeString += " " + cube.sides[2].stickers[0].color.Name[0] + " " + cube.sides[2].stickers[1].color.Name[0] + " " + cube.sides[2].stickers[2].color.Name[0] +
+                          " " + cube.sides[4].stickers[0].color.Name[0] + " " + cube.sides[4].stickers[1].color.Name[0] + " " + cube.sides[4].stickers[2].color.Name[0] +
+                          " " + cube.sides[3].stickers[0].color.Name[0] + " " + cube.sides[3].stickers[1].color.Name[0] + " " + cube.sides[3].stickers[2].color.Name[0] +
                           " " + cube.sides[5].stickers[0].color.Name[0] + " " + cube.sides[5].stickers[1].color.Name[0] + " " + cube.sides[5].stickers[2].color.Name[0] + "\n";
             cubeString += " " + cube.sides[2].stickers[3].color.Name[0] + " " + cube.sides[2].stickers[4].color.Name[0] + " " + cube.sides[2].stickers[5].color.Name[0] +
                           " " + cube.sides[4].stickers[3].color.Name[0] + " " + cube.sides[4].stickers[4].color.Name[0] + " " + cube.sides[4].stickers[5].color.Name[0] +
                           " " + cube.sides[3].stickers[3].color.Name[0] + " " + cube.sides[3].stickers[4].color.Name[0] + " " + cube.sides[3].stickers[5].color.Name[0] +
                           " " + cube.sides[5].stickers[3].color.Name[0] + " " + cube.sides[5].stickers[4].color.Name[0] + " " + cube.sides[5].stickers[5].color.Name[0] + "\n";
-            cubeString += " " + cube.sides[2].stickers[6].color.Name[0] + " " + cube.sides[2].stickers[7].color.Name[0] + " " + cube.sides[2].stickers[8].color.Name[0] + 
-                          " " + cube.sides[4].stickers[6].color.Name[0] + " " + cube.sides[4].stickers[7].color.Name[0] + " " + cube.sides[4].stickers[8].color.Name[0] + 
-                          " " + cube.sides[3].stickers[6].color.Name[0] + " " + cube.sides[3].stickers[7].color.Name[0] + " " + cube.sides[3].stickers[8].color.Name[0] + 
+            cubeString += " " + cube.sides[2].stickers[6].color.Name[0] + " " + cube.sides[2].stickers[7].color.Name[0] + " " + cube.sides[2].stickers[8].color.Name[0] +
+                          " " + cube.sides[4].stickers[6].color.Name[0] + " " + cube.sides[4].stickers[7].color.Name[0] + " " + cube.sides[4].stickers[8].color.Name[0] +
+                          " " + cube.sides[3].stickers[6].color.Name[0] + " " + cube.sides[3].stickers[7].color.Name[0] + " " + cube.sides[3].stickers[8].color.Name[0] +
                           " " + cube.sides[5].stickers[6].color.Name[0] + " " + cube.sides[5].stickers[7].color.Name[0] + " " + cube.sides[5].stickers[8].color.Name[0] + "\n";
             //yellow side
             cubeString += " -  -  -  " + cube.sides[1].stickers[0].color.Name[0] + " " + cube.sides[1].stickers[1].color.Name[0] + " " + cube.sides[1].stickers[2].color.Name[0] + "\n";
