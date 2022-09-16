@@ -910,6 +910,7 @@
             // 
             // flowLayoutPanelTimes
             // 
+            this.flowLayoutPanelTimes.AutoScroll = true;
             this.flowLayoutPanelTimes.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.flowLayoutPanelTimes.Location = new System.Drawing.Point(12, 12);
             this.flowLayoutPanelTimes.Name = "flowLayoutPanelTimes";
