@@ -23,23 +23,7 @@ namespace LakaCubeTimer.util {
             command.ExecuteNonQuery();
             connection.Close();
         }
-            /*public static double calculateAverageOfFive(int session) {
-            double average = 0;
-            double bestTime = getBestTime(session);
-            double worstTime = getWorstTime(session);
-            OleDbConnection connection = Util.GetConnection();
-            connection.Open();
-            string query = "SELECT AVG([timeInMilliseconds]) FROM (SELECT * FROM [time] WHERE" +
-                " [timeInMilliseconds] <> @bestTime AND [timeInMilliseconds] <> @worstTime AND [session] = @session)";
-            OleDbCommand command = new OleDbCommand(query, connection);
-            command.Parameters.AddWithValue("@bestTime", bestTime);
-            command.Parameters.AddWithValue("@worstTime", worstTime);
-            command.Parameters.AddWithValue("@session", session);
-            average = (double)command.ExecuteScalar();
-            connection.Close();
-            return average;
-            }*/
-            /*public static double getBestTime(int session) {
+        public static string getBestTime(int session) {
             long bestTime = 0;
             OleDbConnection connection = Util.GetConnection();
             connection.Open();
@@ -48,19 +32,8 @@ namespace LakaCubeTimer.util {
             command.Parameters.AddWithValue("@session", session);
             bestTime = (long)command.ExecuteScalar();
             connection.Close();
-            return Convert.ToDouble(bestTime);
-            }*/
-            /*public static double getWorstTime(int session) {
-            long worstTime = 0;
-            OleDbConnection connection = Util.GetConnection();
-            connection.Open();
-            string query = "SELECT MAX([timeInMilliseconds]) FROM [time] WHERE [session] = @session";
-            OleDbCommand command = new OleDbCommand(query, connection);
-            command.Parameters.AddWithValue("@session", session);
-            worstTime = (long)command.ExecuteScalar();
-            connection.Close();
-            return Convert.ToDouble(worstTime);
-            }*/
+            return Util.longMillisecondsToString(bestTime);
+        }
         public static List<TimeUserControl> fillTimes(int session) {
             List<TimeUserControl> times = new List<TimeUserControl>();
             DataTable timesTable = new DataTable();
@@ -73,11 +46,15 @@ namespace LakaCubeTimer.util {
             adapter.Fill(timesTable);
             connection.Close();
             foreach(DataRow row in timesTable.Select()) {
-                times.Add(new TimeUserControl(Int32.Parse(row.ItemArray.GetValue(0).ToString()),
+                times.Add(new TimeUserControl(new Time(Int32.Parse(row.ItemArray.GetValue(0).ToString()),
                                                 Int32.Parse(row.ItemArray.GetValue(1).ToString()),
                                                 row.ItemArray.GetValue(2).ToString(),
-                                                Convert.ToDouble(row.ItemArray.GetValue(3)),
-                                                Convert.ToDateTime(row.ItemArray.GetValue(4))));
+                                                Convert.ToInt64(row.ItemArray.GetValue(3)),
+                                                Convert.ToBoolean(row.ItemArray.GetValue(4)),
+                                                Convert.ToBoolean(row.ItemArray.GetValue(5)),
+                                                row.ItemArray.GetValue(6).ToString(),
+                                                Convert.ToDateTime(row.ItemArray.GetValue(7)))));
+                
             }
             return times;
         }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LakaCubeTimer.model;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -10,22 +11,14 @@ using System.Windows.Forms;
 
 namespace LakaCubeTimer.forms {
     public partial class TimeUserControl : UserControl {
-        private int id { get; set; }
-        private int session { get; set; }
-        private string time { get; set; }
-        private double timeInMilliseconds { get; set; }
-        private DateTime date { get; set; }
-        public TimeUserControl(int parId, int parSession, string parTime, double parTimeInMilliseconds, DateTime parDate) {
+        public Time time { get; set; }
+        public TimeUserControl(Time time) {
             InitializeComponent();
-            this.id = parId;
-            this.session = parSession;
-            this.time = parTime;
-            this.timeInMilliseconds = parTimeInMilliseconds;
-            this.date = parDate;
+            this.time = time;
         }
         private void TimeUserControl_Load(object sender, EventArgs e) {
-            labelTime.Text = time;
-            labelDate.Text = date.ToString();
+            labelTime.Text = time.time;
+            labelDate.Text = time.date.ToString();
         }
         private void TimeUserControl_MouseEnter(object sender, EventArgs e) {
             this.BackColor = Color.LightGray;
@@ -34,7 +27,7 @@ namespace LakaCubeTimer.forms {
             this.BackColor = Control.DefaultBackColor;
         }
         private void TimeUserControl_MouseClick(object sender, MouseEventArgs e) {
-            StatsForm statsForm = new StatsForm();
+            StatsForm statsForm = new StatsForm(time);
             statsForm.ShowDialog();
         }
         private void labelTime_MouseEnter(object sender, EventArgs e) {
@@ -44,7 +37,7 @@ namespace LakaCubeTimer.forms {
             this.BackColor = Control.DefaultBackColor;
         }
         private void labelTime_MouseClick(object sender, MouseEventArgs e) {
-            StatsForm statsForm = new StatsForm();
+            StatsForm statsForm = new StatsForm(time);
             statsForm.ShowDialog();
         }
         private void labelDate_MouseEnter(object sender, EventArgs e) {
@@ -54,7 +47,7 @@ namespace LakaCubeTimer.forms {
             this.BackColor = Control.DefaultBackColor;
         }
         private void labelDate_MouseClick(object sender, MouseEventArgs e) {
-            StatsForm statsForm = new StatsForm();
+            StatsForm statsForm = new StatsForm(time);
             statsForm.ShowDialog();
         }
     }

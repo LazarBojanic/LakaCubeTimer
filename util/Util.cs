@@ -18,22 +18,22 @@ namespace LakaCubeTimer.util {
             long bestTime = times.Min();
             long sumOfTimes = 0;
             int numOfTimes = 0;
-            foreach(long time in times) {
-                if(time != bestTime || time != worstTime) {
+            foreach (long time in times) {
+                if (time != bestTime || time != worstTime) {
                     sumOfTimes += time;
                     numOfTimes++;
                 }
             }
             return sumOfTimes / numOfTimes;
         }
-        public static List<string> generateScramble() {          
+        public static List<string> generateScramble() {
             List<string> scramble = new List<string>();
             string currentTurn = "";
-            string prevTurn = turns[new Random().Next(0, turns.Length)];
+            string prevTurn = turns[new Random().Next(turns.Length)];
             int numberOfTurns = new Random().Next(18, 21);
             MAX_DOUBLE_TURNS = numberOfTurns / 2;
             for (int i = 0; i < numberOfTurns; i++) {
-                int indexCurrentTurn = new Random().Next(0, turns.Length);
+                int indexCurrentTurn = new Random().Next(turns.Length);
                 if (!prevTurn.Equals(turns[indexCurrentTurn])) {
                     currentTurn = turns[indexCurrentTurn];
                 }
@@ -66,65 +66,83 @@ namespace LakaCubeTimer.util {
                 prevTurn = currentTurn;
                 scramble.Add(currentTurn);
             }
-            MessageBox.Show(scrambleToString(scramble));
             return scramble;
         }
         public static List<string> validateScramble(List<string> scramble) {
             int numOfDoubleTurns = 0;
-            bool isDoubleTurn = false;
-            bool isPrimeTurn = false;
             string currentTurn = "";
             List<string> validatedScramble = new List<string>();
             int i = 0;
-            while(i < scramble.Count - 2) {
-                isDoubleTurn = new Random().Next(0, 100) <= 50;
-                isPrimeTurn = new Random().Next(0, 100) <= 50;
-                if ((scramble[i].Equals("U") && scramble[i + 1].Equals("D")) || scramble[i].Equals("D") && scramble[i + 1].Equals("U")) {
+            while (i < scramble.Count - 3) {
+                if (((scramble[i].Equals("U") && scramble[i + 1].Equals("D")) || scramble[i].Equals("D") && scramble[i + 1].Equals("U")) && (scramble[i + 2].Equals("U") || scramble[i + 2].Equals("D"))) {
                     Random randomOtherTurns = new Random();
-                    int[] otherTurns = new int[] { 2, 3, 4, 5 };
+                    int[] otherTurns = new int[4];
+                    switch (scramble[i + 3]) {
+                        case "U": otherTurns = new int[] { 2, 3, 4, 5 }; break;
+                        case "D": otherTurns = new int[] { 2, 3, 4, 5 }; break;
+                        case "L": otherTurns = new int[] { 3, 4, 5 }; break;
+                        case "R": otherTurns = new int[] { 2, 4, 5 }; break;
+                        case "F": otherTurns = new int[] { 2, 3, 5 }; break;
+                        case "B": otherTurns = new int[] { 2, 3, 4 }; break;
+                    }
                     int indexOfOtherTurn = otherTurns[randomOtherTurns.Next(otherTurns.Length)];
                     currentTurn = turns[indexOfOtherTurn];
-                    addValidatedTurn(scramble[i], validatedScramble, isDoubleTurn, isPrimeTurn, numOfDoubleTurns);
-                    addValidatedTurn(scramble[i + 1], validatedScramble, isDoubleTurn, isPrimeTurn, numOfDoubleTurns);
-                    addValidatedTurn(currentTurn, validatedScramble, isDoubleTurn, isPrimeTurn, numOfDoubleTurns);
-                    i += 3;
+                    numOfDoubleTurns = addValidatedTurn(scramble[i], validatedScramble, numOfDoubleTurns);
+                    numOfDoubleTurns = addValidatedTurn(scramble[i + 1], validatedScramble, numOfDoubleTurns);
+                    numOfDoubleTurns = addValidatedTurn(currentTurn, validatedScramble, numOfDoubleTurns);
+                    i += 2;
                 }
-                else if((scramble[i].Equals("L") && scramble[i + 1].Equals("R")) || scramble[i].Equals("R") && scramble[i + 1].Equals("L")) {
+
+                else if (((scramble[i].Equals("L") && scramble[i + 1].Equals("R")) || scramble[i].Equals("R") && scramble[i + 1].Equals("L")) && (scramble[i + 2].Equals("L") || scramble[i + 2].Equals("R"))) {
                     Random randomOtherTurns = new Random();
-                    int[] otherTurns = new int[] { 0, 1, 4, 5 };
+                    int[] otherTurns = new int[4];
+                    switch (scramble[i + 3]) {
+                        case "U": otherTurns = new int[] { 1, 4, 5 }; break;
+                        case "D": otherTurns = new int[] { 0, 4, 5 }; break;
+                        case "L": otherTurns = new int[] { 0, 1, 4, 5 }; break;
+                        case "R": otherTurns = new int[] { 0, 1, 4, 5 }; break;
+                        case "F": otherTurns = new int[] { 0, 1, 5 }; break;
+                        case "B": otherTurns = new int[] { 0, 1, 4 }; break;
+                    }
                     int indexOfOtherTurn = otherTurns[randomOtherTurns.Next(otherTurns.Length)];
                     currentTurn = turns[indexOfOtherTurn];
-                    addValidatedTurn(scramble[i], validatedScramble, isDoubleTurn, isPrimeTurn, numOfDoubleTurns);
-                    addValidatedTurn(scramble[i + 1], validatedScramble, isDoubleTurn, isPrimeTurn, numOfDoubleTurns);
-                    addValidatedTurn(currentTurn, validatedScramble, isDoubleTurn, isPrimeTurn, numOfDoubleTurns);
-                    i += 3;
+                    numOfDoubleTurns = addValidatedTurn(scramble[i], validatedScramble, numOfDoubleTurns);
+                    numOfDoubleTurns = addValidatedTurn(scramble[i + 1], validatedScramble, numOfDoubleTurns);
+                    numOfDoubleTurns = addValidatedTurn(currentTurn, validatedScramble, numOfDoubleTurns);
+                    i += 2;
                 }
-                else if((scramble[i].Equals("F") && scramble[i + 1].Equals("B")) || scramble[i].Equals("B") && scramble[i + 1].Equals("F")) {
+
+                else if (((scramble[i].Equals("F") && scramble[i + 1].Equals("B")) || scramble[i].Equals("B") && scramble[i + 1].Equals("F")) && (scramble[i + 2].Equals("F") || scramble[i + 2].Equals("B"))) {
                     Random randomOtherTurns = new Random();
-                    int[] otherTurns = new int[] { 0, 1, 2, 3 };
+                    int[] otherTurns = new int[4];
+                    switch (scramble[i + 3]) {
+                        case "U": otherTurns = new int[] { 1, 2, 3 }; break;
+                        case "D": otherTurns = new int[] { 0, 2, 3 }; break;
+                        case "L": otherTurns = new int[] { 0, 1, 3 }; break;
+                        case "R": otherTurns = new int[] { 0, 1, 2 }; break;
+                        case "F": otherTurns = new int[] { 0, 1, 2, 3 }; break;
+                        case "B": otherTurns = new int[] { 0, 1, 2, 3 }; break;
+                    }
                     int indexOfOtherTurn = otherTurns[randomOtherTurns.Next(otherTurns.Length)];
                     currentTurn = turns[indexOfOtherTurn];
-                    addValidatedTurn(scramble[i], validatedScramble, isDoubleTurn, isPrimeTurn, numOfDoubleTurns);
-                    addValidatedTurn(scramble[i + 1], validatedScramble, isDoubleTurn, isPrimeTurn, numOfDoubleTurns);
-                    addValidatedTurn(currentTurn, validatedScramble, isDoubleTurn, isPrimeTurn, numOfDoubleTurns);
-                    i += 3;
+                    numOfDoubleTurns = addValidatedTurn(scramble[i], validatedScramble, numOfDoubleTurns);
+                    numOfDoubleTurns = addValidatedTurn(scramble[i + 1], validatedScramble, numOfDoubleTurns);
+                    numOfDoubleTurns = addValidatedTurn(currentTurn, validatedScramble, numOfDoubleTurns);
+                    i += 2;
                 }
                 else {
                     currentTurn = scramble[i];
-                    addValidatedTurn(currentTurn, validatedScramble, isDoubleTurn, isPrimeTurn, numOfDoubleTurns);
-                    i++;
-                }                         
+                    numOfDoubleTurns = addValidatedTurn(currentTurn, validatedScramble, numOfDoubleTurns);
+                    i += 1;
+                }
             }
             return validatedScramble;
         }
-        public static void addValidatedTurn(string currentTurn, List<string> validatedScramble, bool isDoubleTurn, bool isPrimeTurn, int numOfDoubleTurns) {
-            if (isDoubleTurn) {
-                if (numOfDoubleTurns < MAX_DOUBLE_TURNS) {
-                    validatedScramble.Add(currentTurn + "2");
-                }
-                else {
-                    validatedScramble.Add(currentTurn);
-                }
+        public static int addValidatedTurn(string currentTurn, List<string> validatedScramble, int numOfDoubleTurns) {
+            bool isDoubleTurn = new Random().Next(0, 100) <= 50;
+            bool isPrimeTurn = new Random().Next(0, 100) <= 50;
+            if (isDoubleTurn && numOfDoubleTurns < MAX_DOUBLE_TURNS) {
+                validatedScramble.Add(currentTurn + "2");
                 numOfDoubleTurns++;
             }
             else if (isPrimeTurn) {
@@ -133,6 +151,7 @@ namespace LakaCubeTimer.util {
             else {
                 validatedScramble.Add(currentTurn);
             }
+            return numOfDoubleTurns;
         }
         public static string timeToString(Time time) {
             return time.time + " | " + time.date;
@@ -143,6 +162,13 @@ namespace LakaCubeTimer.util {
                 scrambleString += turn + " ";
             }
             return scrambleString.Trim();
+        }
+        public static List<string> scrambleToList(string scramble) {
+            List<string> scrambleList = new List<string>();
+            foreach (string turn in scramble.Split(" ")) {
+                scrambleList.Add(turn);
+            }
+            return scrambleList;
         }
         public static string sideToString(Side side) {
             string stickersString = "";
@@ -1181,6 +1207,60 @@ namespace LakaCubeTimer.util {
                 cube = turnCube(cube, turn);
             }
             return cube;
+        }
+        public static string longMillisecondsToString(long elapsedMilliseconds) {
+            string millisecondsString = "";
+            string secondsString = "";
+            string minutesString = "";
+            int milliseconds = (int)elapsedMilliseconds % 1000 / 10;
+            int seconds = (int)(elapsedMilliseconds / 1000) % 60;
+            int minutes = (int)(elapsedMilliseconds / (1000 * 60) % 60);
+            if (milliseconds < 10) {
+                millisecondsString = "0" + milliseconds;
+            }
+            else {
+                millisecondsString = milliseconds.ToString();
+            }
+            if (seconds < 10) {
+                secondsString = "0" + seconds;
+            }
+            else {
+                secondsString = seconds.ToString();
+            }
+            if (minutes < 10) {
+                minutesString = "0" + minutes;
+            }
+            else {
+                minutesString = minutes.ToString();
+            }
+            return minutesString + " : " + secondsString + " . " + millisecondsString;
+        }
+        public static string doubleMillisecondsToString(double elapsedMilliseconds) {
+            string millisecondsString = "";
+            string secondsString = "";
+            string minutesString = "";
+            int milliseconds = (int)elapsedMilliseconds % 1000 / 10;
+            int seconds = (int)(elapsedMilliseconds / 1000) % 60;
+            int minutes = (int)(elapsedMilliseconds / (1000 * 60) % 60);
+            if (milliseconds < 10) {
+                millisecondsString = "0" + milliseconds;
+            }
+            else {
+                millisecondsString = milliseconds.ToString();
+            }
+            if (seconds < 10) {
+                secondsString = "0" + seconds;
+            }
+            else {
+                secondsString = seconds.ToString();
+            }
+            if (minutes < 10) {
+                minutesString = "0" + minutes;
+            }
+            else {
+                minutesString = minutes.ToString();
+            }
+            return minutesString + " : " + secondsString + " . " + millisecondsString;
         }
     }
 }

@@ -7,11 +7,6 @@ using System.Windows.Forms;
 
 namespace LakaCubeTimer {
     public partial class CubeTimerForm : Form {
-        private int milliseconds = 0;
-        private int seconds = 0;
-        private int minutes = 0;
-        private string secondsString = "";
-        private string minutesString = "";
         private int timerState = 0;
         private List<string> initialScramble;
         private List<string> validatedScramble;
@@ -19,7 +14,7 @@ namespace LakaCubeTimer {
         private Cube newCube;
         private Cube scrambledCube;
         private List<TimeUserControl> listOfTimes;
-        private Stopwatch stopwatch;
+        private static Stopwatch stopwatch;
         public CubeTimerForm() {
             InitializeComponent();
             initialScramble = Util.generateScramble();
@@ -27,14 +22,11 @@ namespace LakaCubeTimer {
             initialCube = new Cube();
             scrambledCube = Util.scrambleCube(initialCube, validatedScramble);
             newCube = scrambledCube;
-
         }
         private void CubeTimerForm_Load(object sender, EventArgs e) {
             comboBoxSession.SelectedIndex = 0;
             fillTimesPanel(1);
-            if(flowLayoutPanelTimes.Controls.Count >= 5) {
-                labelAverageOfFive.Text = "Ao5: " + longMillisecondsToString(Util.calculateAverage(SqlUtil.timesToCalculate(5, Int32.Parse(comboBoxSession.Text))));
-            }
+            displayStats();
             labelScramble.Text = Util.scrambleToString(validatedScramble);
             labelScramble.Left = (panelTimer.Width - labelScramble.Width) / 2;
             paintCube(scrambledCube);
@@ -63,9 +55,7 @@ namespace LakaCubeTimer {
                 if (timerState == 1) {
                     labelTimer.ForeColor = Control.DefaultForeColor;
                     timerState = 2;
-                    milliseconds = 0;
-                    seconds = 0;
-                    minutes = 0;
+                    labelTimer.Text = "00 : 00 . 00";
                     stopwatch = new Stopwatch();
                     startTimer();
                     timerCube.Start();
@@ -74,85 +64,9 @@ namespace LakaCubeTimer {
         }
         public void fillTimesPanel(int session) {
             listOfTimes = SqlUtil.fillTimes(session);
-            foreach(TimeUserControl time in listOfTimes) {
+            foreach (TimeUserControl time in listOfTimes) {
                 flowLayoutPanelTimes.Controls.Add(time);
             }
-        }
-        public string longMillisecondsToString(long elapsedMilliseconds) {
-            milliseconds = (int)elapsedMilliseconds % 1000 / 10;
-            seconds = (int)(elapsedMilliseconds / 1000) % 60;
-            minutes = (int)(elapsedMilliseconds / (1000 * 60) % 60);
-            if (seconds < 10) {
-                secondsString = "0" + seconds;
-                ;
-            }
-            else {
-                secondsString = seconds.ToString();
-            }
-            if (minutes < 10) {
-                minutesString = "0" + minutes;
-            }
-            else {
-                minutesString = minutes.ToString();
-            }
-            return minutesString + " : " + secondsString + " . " + milliseconds;
-        }
-        public string doubleMillisecondsToString(double elapsedMilliseconds) {
-            milliseconds = (int)elapsedMilliseconds % 1000 / 10;
-            seconds = (int)(elapsedMilliseconds / 1000) % 60;
-            minutes = (int)(elapsedMilliseconds / (1000 * 60) % 60);
-            if (seconds < 10) {
-                secondsString = "0" + seconds;
-                ;
-            }
-            else {
-                secondsString = seconds.ToString();
-            }
-            if (minutes < 10) {
-                minutesString = "0" + minutes;
-            }
-            else {
-                minutesString = minutes.ToString();
-            }
-            return minutesString + " : " + secondsString + " . " + milliseconds;
-        }
-        public string decimalMillisecondsToString(decimal elapsedMilliseconds) {
-            milliseconds = (int)elapsedMilliseconds % 1000 / 10;
-            seconds = (int)(elapsedMilliseconds / 1000) % 60;
-            minutes = (int)(elapsedMilliseconds / (1000 * 60) % 60);
-            if (seconds < 10) {
-                secondsString = "0" + seconds;
-                ;
-            }
-            else {
-                secondsString = seconds.ToString();
-            }
-            if (minutes < 10) {
-                minutesString = "0" + minutes;
-            }
-            else {
-                minutesString = minutes.ToString();
-            }
-            return minutesString + " : " + secondsString + " . " + milliseconds;
-        }
-        public string intMillisecondsToString(int elapsedMilliseconds) {
-            milliseconds = (int)elapsedMilliseconds % 1000 / 10;
-            seconds = (int)(elapsedMilliseconds / 1000) % 60;
-            minutes = (int)(elapsedMilliseconds / (1000 * 60) % 60);
-            if (seconds < 10) {
-                secondsString = "0" + seconds;
-                ;
-            }
-            else {
-                secondsString = seconds.ToString();
-            }
-            if (minutes < 10) {
-                minutesString = "0" + minutes;
-            }
-            else {
-                minutesString = minutes.ToString();
-            }
-            return minutesString + " : " + secondsString + " . " + milliseconds;
         }
         public void startTimer() {
             stopwatch.Start();
@@ -160,18 +74,27 @@ namespace LakaCubeTimer {
         public void stopTimer() {
             stopwatch.Stop();
             long elapsedMilliseconds = stopwatch.ElapsedMilliseconds;
-            labelTimer.Text = doubleMillisecondsToString(elapsedMilliseconds);
-            Time time = new Time(0, Int32.Parse(comboBoxSession.Text), longMillisecondsToString(elapsedMilliseconds), elapsedMilliseconds, DateTime.Now);
-            TimeUserControl timeUserControl = new TimeUserControl(0, Int32.Parse(comboBoxSession.Text), longMillisecondsToString(elapsedMilliseconds), elapsedMilliseconds, DateTime.Now);
+            labelTimer.Text = Util.longMillisecondsToString(elapsedMilliseconds);
+            Time time = new Time(0, Int32.Parse(comboBoxSession.Text), Util.longMillisecondsToString(elapsedMilliseconds), elapsedMilliseconds, false, false, labelScramble.Text, DateTime.Now);
+            TimeUserControl timeUserControl = new TimeUserControl(time);
             flowLayoutPanelTimes.Controls.Add(timeUserControl);
             SqlUtil.saveToDatabase(time);
-            if(flowLayoutPanelTimes.Controls.Count >= 5) {
-                labelAverageOfFive.Text = "Ao5: " + longMillisecondsToString(Util.calculateAverage(SqlUtil.timesToCalculate(5, Int32.Parse(comboBoxSession.Text))));
-            }
+            displayStats();
         }
         private void timerCube_Tick(object sender, EventArgs e) {
-            double elapsedMilliseconds = stopwatch.ElapsedMilliseconds;
-            labelTimer.Text = doubleMillisecondsToString(elapsedMilliseconds);
+            long elapsedMilliseconds = stopwatch.ElapsedMilliseconds;
+            labelTimer.Text = Util.longMillisecondsToString(elapsedMilliseconds);
+        }
+        public void displayStats() {
+            if (flowLayoutPanelTimes.Controls.Count >= 1) {
+                labelBestTime.Text = "Best Time: " + SqlUtil.getBestTime(Int32.Parse(comboBoxSession.Text));
+            }
+            if (flowLayoutPanelTimes.Controls.Count >= 5) {
+                labelAverageOfFive.Text = "Ao5: " + Util.longMillisecondsToString(Util.calculateAverage(SqlUtil.timesToCalculate(5, Int32.Parse(comboBoxSession.Text))));
+            }
+            if (flowLayoutPanelTimes.Controls.Count >= 12) {
+                labelAverageOfTwelve.Text = "Ao12: " + Util.longMillisecondsToString(Util.calculateAverage(SqlUtil.timesToCalculate(12, Int32.Parse(comboBoxSession.Text))));
+            }
         }
         public void paintCube(Cube cube) {
             foreach (Side side in cube.sides) {
@@ -243,7 +166,6 @@ namespace LakaCubeTimer {
                 }
             }
         }
-
         private void buttonUpTurn_MouseDown(object sender, MouseEventArgs e) {
             string turn = "";
             if (e.Button == MouseButtons.Left) {
