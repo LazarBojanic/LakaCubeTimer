@@ -161,8 +161,8 @@ namespace LakaCubeTimer {
             stopwatch.Stop();
             long elapsedMilliseconds = stopwatch.ElapsedMilliseconds;
             labelTimer.Text = doubleMillisecondsToString(elapsedMilliseconds);
-            Time time = new Time(0, Int32.Parse(comboBoxSession.Text), doubleMillisecondsToString(elapsedMilliseconds), Convert.ToDouble(elapsedMilliseconds), DateTime.Now);
-            TimeUserControl timeUserControl = new TimeUserControl(0, Int32.Parse(comboBoxSession.Text), doubleMillisecondsToString(elapsedMilliseconds), elapsedMilliseconds, DateTime.Now);
+            Time time = new Time(0, Int32.Parse(comboBoxSession.Text), longMillisecondsToString(elapsedMilliseconds), elapsedMilliseconds, DateTime.Now);
+            TimeUserControl timeUserControl = new TimeUserControl(0, Int32.Parse(comboBoxSession.Text), longMillisecondsToString(elapsedMilliseconds), elapsedMilliseconds, DateTime.Now);
             flowLayoutPanelTimes.Controls.Add(timeUserControl);
             SqlUtil.saveToDatabase(time);
             if(flowLayoutPanelTimes.Controls.Count >= 5) {

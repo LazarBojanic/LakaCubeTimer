@@ -66,102 +66,73 @@ namespace LakaCubeTimer.util {
                 prevTurn = currentTurn;
                 scramble.Add(currentTurn);
             }
+            MessageBox.Show(scrambleToString(scramble));
             return scramble;
         }
         public static List<string> validateScramble(List<string> scramble) {
             int numOfDoubleTurns = 0;
             bool isDoubleTurn = false;
             bool isPrimeTurn = false;
-            string currentTurn;
+            string currentTurn = "";
             List<string> validatedScramble = new List<string>();
             int i = 0;
-            while(scramble.Count != validatedScramble.Count) {
-                if (i == scramble.Count - 1) {
-                    currentTurn = scramble[i];
-                    goto LastTurn;
-                }
+            while(i < scramble.Count - 2) {
+                isDoubleTurn = new Random().Next(0, 100) <= 50;
+                isPrimeTurn = new Random().Next(0, 100) <= 50;
                 if ((scramble[i].Equals("U") && scramble[i + 1].Equals("D")) || scramble[i].Equals("D") && scramble[i + 1].Equals("U")) {
                     Random randomOtherTurns = new Random();
                     int[] otherTurns = new int[] { 2, 3, 4, 5 };
                     int indexOfOtherTurn = otherTurns[randomOtherTurns.Next(otherTurns.Length)];
                     currentTurn = turns[indexOfOtherTurn];
+                    addValidatedTurn(scramble[i], validatedScramble, isDoubleTurn, isPrimeTurn, numOfDoubleTurns);
+                    addValidatedTurn(scramble[i + 1], validatedScramble, isDoubleTurn, isPrimeTurn, numOfDoubleTurns);
+                    addValidatedTurn(currentTurn, validatedScramble, isDoubleTurn, isPrimeTurn, numOfDoubleTurns);
+                    i += 3;
                 }
-                if(scramble[i].Equals("U") && scramble[i + 1].Equals("U")) {
-                    Random randomOtherTurns = new Random();
-                    int[] otherTurns = new int[] { 1, 2, 3, 4, 5 };
-                    int indexOfOtherTurn = otherTurns[randomOtherTurns.Next(otherTurns.Length)];
-                    currentTurn = turns[indexOfOtherTurn];
-                }
-                if (scramble[i].Equals("D") && scramble[i + 1].Equals("D")) {
-                    Random randomOtherTurns = new Random();
-                    int[] otherTurns = new int[] { 0, 2, 3, 4, 5 };
-                    int indexOfOtherTurn = otherTurns[randomOtherTurns.Next(otherTurns.Length)];
-                    currentTurn = turns[indexOfOtherTurn];
-                }
-
-                if ((scramble[i].Equals("L") && scramble[i + 1].Equals("R")) || scramble[i].Equals("R") && scramble[i + 1].Equals("L")) {
+                else if((scramble[i].Equals("L") && scramble[i + 1].Equals("R")) || scramble[i].Equals("R") && scramble[i + 1].Equals("L")) {
                     Random randomOtherTurns = new Random();
                     int[] otherTurns = new int[] { 0, 1, 4, 5 };
                     int indexOfOtherTurn = otherTurns[randomOtherTurns.Next(otherTurns.Length)];
                     currentTurn = turns[indexOfOtherTurn];
+                    addValidatedTurn(scramble[i], validatedScramble, isDoubleTurn, isPrimeTurn, numOfDoubleTurns);
+                    addValidatedTurn(scramble[i + 1], validatedScramble, isDoubleTurn, isPrimeTurn, numOfDoubleTurns);
+                    addValidatedTurn(currentTurn, validatedScramble, isDoubleTurn, isPrimeTurn, numOfDoubleTurns);
+                    i += 3;
                 }
-                if (scramble[i].Equals("L") && scramble[i + 1].Equals("L")) {
-                    Random randomOtherTurns = new Random();
-                    int[] otherTurns = new int[] { 0, 1, 3, 4, 5 };
-                    int indexOfOtherTurn = otherTurns[randomOtherTurns.Next(otherTurns.Length)];
-                    currentTurn = turns[indexOfOtherTurn];
-                }
-                if (scramble[i].Equals("R") && scramble[i + 1].Equals("R")) {
-                    Random randomOtherTurns = new Random();
-                    int[] otherTurns = new int[] { 0, 1, 2, 4, 5 };
-                    int indexOfOtherTurn = otherTurns[randomOtherTurns.Next(otherTurns.Length)];
-                    currentTurn = turns[indexOfOtherTurn];
-                }
-
-                if ((scramble[i].Equals("F") && scramble[i + 1].Equals("B")) || scramble[i].Equals("B") && scramble[i + 1].Equals("F")) {
+                else if((scramble[i].Equals("F") && scramble[i + 1].Equals("B")) || scramble[i].Equals("B") && scramble[i + 1].Equals("F")) {
                     Random randomOtherTurns = new Random();
                     int[] otherTurns = new int[] { 0, 1, 2, 3 };
                     int indexOfOtherTurn = otherTurns[randomOtherTurns.Next(otherTurns.Length)];
                     currentTurn = turns[indexOfOtherTurn];
-                }
-                if (scramble[i].Equals("F") && scramble[i + 1].Equals("F")) {
-                    Random randomOtherTurns = new Random();
-                    int[] otherTurns = new int[] { 0, 1, 2, 3, 5 };
-                    int indexOfOtherTurn = otherTurns[randomOtherTurns.Next(otherTurns.Length)];
-                    currentTurn = turns[indexOfOtherTurn];
-                }
-                if (scramble[i].Equals("B") && scramble[i + 1].Equals("B")) {
-                    Random randomOtherTurns = new Random();
-                    int[] otherTurns = new int[] { 0, 1, 2, 3, 4 };
-                    int indexOfOtherTurn = otherTurns[randomOtherTurns.Next(otherTurns.Length)];
-                    currentTurn = turns[indexOfOtherTurn];
+                    addValidatedTurn(scramble[i], validatedScramble, isDoubleTurn, isPrimeTurn, numOfDoubleTurns);
+                    addValidatedTurn(scramble[i + 1], validatedScramble, isDoubleTurn, isPrimeTurn, numOfDoubleTurns);
+                    addValidatedTurn(currentTurn, validatedScramble, isDoubleTurn, isPrimeTurn, numOfDoubleTurns);
+                    i += 3;
                 }
                 else {
-                    currentTurn = scramble[i]; 
-                }
-                LastTurn:
-
-                isDoubleTurn = new Random().Next(0, 100) <= 50;
-                isPrimeTurn = new Random().Next(0, 100) <= 50;
-
-                if (isDoubleTurn) {
-                    if (numOfDoubleTurns < MAX_DOUBLE_TURNS) {
-                        validatedScramble.Add(currentTurn + "2");
-                    }
-                    else {
-                        validatedScramble.Add(currentTurn);
-                    }
-                    numOfDoubleTurns++;
-                }
-                else if (isPrimeTurn) {
-                    validatedScramble.Add(currentTurn + "'");
+                    currentTurn = scramble[i];
+                    addValidatedTurn(currentTurn, validatedScramble, isDoubleTurn, isPrimeTurn, numOfDoubleTurns);
+                    i++;
+                }                         
+            }
+            return validatedScramble;
+        }
+        public static void addValidatedTurn(string currentTurn, List<string> validatedScramble, bool isDoubleTurn, bool isPrimeTurn, int numOfDoubleTurns) {
+            if (isDoubleTurn) {
+                if (numOfDoubleTurns < MAX_DOUBLE_TURNS) {
+                    validatedScramble.Add(currentTurn + "2");
                 }
                 else {
                     validatedScramble.Add(currentTurn);
                 }
-                i++;
+                numOfDoubleTurns++;
             }
-            return validatedScramble;
+            else if (isPrimeTurn) {
+                validatedScramble.Add(currentTurn + "'");
+            }
+            else {
+                validatedScramble.Add(currentTurn);
+            }
         }
         public static string timeToString(Time time) {
             return time.time + " | " + time.date;

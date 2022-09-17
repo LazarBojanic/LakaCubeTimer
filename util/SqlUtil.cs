@@ -18,7 +18,7 @@ namespace LakaCubeTimer.util {
             OleDbCommand command = new OleDbCommand(query, connection);
             command.Parameters.AddWithValue("@session", timeResult.session);
             command.Parameters.AddWithValue("@time", timeResult.time);
-            command.Parameters.AddWithValue("@timeInMilliseconds", timeResult.timeInMilliseconds);
+            command.Parameters.AddWithValue("@timeInMilliseconds", (double)timeResult.timeInMilliseconds);
             command.Parameters.Add("@date", OleDbType.DBTimeStamp).Value = Util.dateTimeWithoutMilliseconds(timeResult.date);
             command.ExecuteNonQuery();
             connection.Close();

@@ -3,10 +3,10 @@
         public int id;
         public int session;
         public string time;
-        public double timeInMilliseconds;
+        public long timeInMilliseconds;
         public DateTime date;
         
-        public Time(int id, int session, string time, double timeInMilliseconds, DateTime date) {
+        public Time(int id, int session, string time, long timeInMilliseconds, DateTime date) {
             this.id = id;
             this.session = session;
             this.time = time;
