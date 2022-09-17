@@ -23,14 +23,14 @@ namespace LakaCubeTimer.util {
             command.ExecuteNonQuery();
             connection.Close();
         }
-        public static double calculateAverageOfFive(int session) {
+            /*public static double calculateAverageOfFive(int session) {
             double average = 0;
             double bestTime = getBestTime(session);
             double worstTime = getWorstTime(session);
             OleDbConnection connection = Util.GetConnection();
             connection.Open();
-            string query = "SELECT AVG([timeInMilliseconds]) AS Ao5 FROM (SELECT * FROM [time] WHERE" +
-                " timeInMilliseconds <> @bestTime AND timeInMilliseconds <> @worstTime AND [session] = @session)";
+            string query = "SELECT AVG([timeInMilliseconds]) FROM (SELECT * FROM [time] WHERE" +
+                " [timeInMilliseconds] <> @bestTime AND [timeInMilliseconds] <> @worstTime AND [session] = @session)";
             OleDbCommand command = new OleDbCommand(query, connection);
             command.Parameters.AddWithValue("@bestTime", bestTime);
             command.Parameters.AddWithValue("@worstTime", worstTime);
@@ -38,29 +38,29 @@ namespace LakaCubeTimer.util {
             average = (double)command.ExecuteScalar();
             connection.Close();
             return average;
-        }
-        public static double getBestTime(int session) {
+            }*/
+            /*public static double getBestTime(int session) {
             long bestTime = 0;
             OleDbConnection connection = Util.GetConnection();
             connection.Open();
-            string query = "SELECT MIN(timeInMilliseconds) AS BestTime FROM [time] WHERE [session] = @session";
+            string query = "SELECT MIN([timeInMilliseconds]) FROM [time] WHERE [session] = @session";
             OleDbCommand command = new OleDbCommand(query, connection);
             command.Parameters.AddWithValue("@session", session);
             bestTime = (long)command.ExecuteScalar();
             connection.Close();
             return Convert.ToDouble(bestTime);
-        }
-        public static double getWorstTime(int session) {
+            }*/
+            /*public static double getWorstTime(int session) {
             long worstTime = 0;
             OleDbConnection connection = Util.GetConnection();
             connection.Open();
-            string query = "SELECT MAX(timeInMilliseconds) AS BestTime FROM [time] WHERE [session] = @session";
+            string query = "SELECT MAX([timeInMilliseconds]) FROM [time] WHERE [session] = @session";
             OleDbCommand command = new OleDbCommand(query, connection);
             command.Parameters.AddWithValue("@session", session);
             worstTime = (long)command.ExecuteScalar();
             connection.Close();
             return Convert.ToDouble(worstTime);
-        }
+            }*/
         public static List<TimeUserControl> fillTimes(int session) {
             List<TimeUserControl> times = new List<TimeUserControl>();
             DataTable timesTable = new DataTable();
@@ -80,6 +80,39 @@ namespace LakaCubeTimer.util {
                                                 Convert.ToDateTime(row.ItemArray.GetValue(4))));
             }
             return times;
+        }
+        public static int getMaxId(int session) {
+            int maxId = 0;
+            OleDbConnection connection = Util.GetConnection();
+            connection.Open();
+            string query = "SELECT MAX([id]) FROM [time] WHERE [session] = @session";
+            OleDbCommand command = new OleDbCommand(query, connection);
+            command.Parameters.AddWithValue("@session", session);
+            maxId = (int)command.ExecuteScalar();
+            connection.Close();
+            return maxId;
+        }
+        public static List<long> timesToCalculate(int numberToGet, int session) {
+            try {
+                List<long> timesToCalculate = new List<long>();
+                int id = 0;
+                OleDbConnection connection = Util.GetConnection();
+                connection.Open();
+                string query = "SELECT [timeInMilliseconds] FROM [time] WHERE [session] = @session AND [id] = @id";
+                for (int i = 0; i < numberToGet; i++) {
+                    id = getMaxId(session) - i;
+                    OleDbCommand command = new OleDbCommand(query, connection);
+                    command.Parameters.AddWithValue("@session", session);
+                    command.Parameters.AddWithValue("@id", id);
+                    timesToCalculate.Add((long)command.ExecuteScalar());
+                }
+                connection.Close();
+                return timesToCalculate;
+            }
+            catch (NullReferenceException) {
+                MessageBox.Show("Database id's were modified in the meantime", "Error");
+                return new List<long>();
+            }
         }
     }
 }

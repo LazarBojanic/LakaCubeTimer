@@ -4,8 +4,8 @@ using System.Data.OleDb;
 
 namespace LakaCubeTimer.util {
     public static class Util {
-        const int MAX_DOUBLE_TURNS = 9;
-        public static string[] turns = new string[] { "U", "D", "L", "R", "F", "B" };
+        private static int MAX_DOUBLE_TURNS = 9;
+        private static string[] turns = new string[] { "U", "D", "L", "R", "F", "B" };
         public static OleDbConnection GetConnection() {
             return new OleDbConnection(Properties.Settings.Default.timesConnectionString);
         }
@@ -13,11 +13,25 @@ namespace LakaCubeTimer.util {
         public static DateTime dateTimeWithoutMilliseconds(DateTime date) {
             return new DateTime(date.Year, date.Month, date.Day, date.Hour, date.Minute, date.Second);
         }
+        public static long calculateAverage(List<long> times) {
+            long worstTime = times.Max();
+            long bestTime = times.Min();
+            long sumOfTimes = 0;
+            int numOfTimes = 0;
+            foreach(long time in times) {
+                if(time != bestTime || time != worstTime) {
+                    sumOfTimes += time;
+                    numOfTimes++;
+                }
+            }
+            return sumOfTimes / numOfTimes;
+        }
         public static List<string> generateScramble() {          
             List<string> scramble = new List<string>();
             string currentTurn = "";
             string prevTurn = turns[new Random().Next(0, turns.Length)];
             int numberOfTurns = new Random().Next(18, 21);
+            MAX_DOUBLE_TURNS = numberOfTurns / 2;
             for (int i = 0; i < numberOfTurns; i++) {
                 int indexCurrentTurn = new Random().Next(0, turns.Length);
                 if (!prevTurn.Equals(turns[indexCurrentTurn])) {

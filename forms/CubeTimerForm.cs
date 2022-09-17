@@ -32,6 +32,9 @@ namespace LakaCubeTimer {
         private void CubeTimerForm_Load(object sender, EventArgs e) {
             comboBoxSession.SelectedIndex = 0;
             fillTimesPanel(1);
+            if(flowLayoutPanelTimes.Controls.Count >= 5) {
+                labelAverageOfFive.Text = "Ao5: " + longMillisecondsToString(Util.calculateAverage(SqlUtil.timesToCalculate(5, Int32.Parse(comboBoxSession.Text))));
+            }
             labelScramble.Text = Util.scrambleToString(validatedScramble);
             labelScramble.Left = (panelTimer.Width - labelScramble.Width) / 2;
             paintCube(scrambledCube);
@@ -163,7 +166,7 @@ namespace LakaCubeTimer {
             flowLayoutPanelTimes.Controls.Add(timeUserControl);
             SqlUtil.saveToDatabase(time);
             if(flowLayoutPanelTimes.Controls.Count >= 5) {
-                labelAverageOfFive.Text = "Ao5: " + doubleMillisecondsToString(SqlUtil.calculateAverageOfFive(Int32.Parse(comboBoxSession.Text)));
+                labelAverageOfFive.Text = "Ao5: " + longMillisecondsToString(Util.calculateAverage(SqlUtil.timesToCalculate(5, Int32.Parse(comboBoxSession.Text))));
             }
         }
         private void timerCube_Tick(object sender, EventArgs e) {
@@ -306,6 +309,10 @@ namespace LakaCubeTimer {
             }
             newCube = Util.turnCube(newCube, turn);
             paintCube(newCube);
+        }
+
+        private void CubeTimerForm_FormClosing(object sender, FormClosingEventArgs e) {
+            Application.Exit();
         }
     }
 }

@@ -1012,6 +1012,7 @@
             this.MinimumSize = new System.Drawing.Size(1409, 834);
             this.Name = "CubeTimerForm";
             this.Text = "CubeTimerForm";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.CubeTimerForm_FormClosing);
             this.Load += new System.EventHandler(this.CubeTimerForm_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.CubeTimerForm_KeyDown);
             this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.CubeTimerForm_KeyUp);
