@@ -18,11 +18,10 @@ namespace LakaCubeTimer.util {
             long worstTime = times.Max();
             long bestTime = times.Min();
             long sumOfTimes = 0;
-            int numOfTimes = 0;
+            int numOfTimes = times.Count - 2;
             foreach (long time in times) {
-                if (time != bestTime || time != worstTime) {
+                if (time != bestTime && time != worstTime) {
                     sumOfTimes += time;
-                    numOfTimes++;
                 }
             }
             return sumOfTimes / numOfTimes;

@@ -1,6 +1,7 @@
 ﻿using LakaCubeTimer.forms;
 using LakaCubeTimer.model;
 using LakaCubeTimer.util;
+using System.Data;
 using System.Data.OleDb;
 using System.Diagnostics;
 using System.Windows.Forms;
@@ -16,15 +17,40 @@ namespace LakaCubeTimer {
         private Cube scrambledCube;
         private List<TimeUserControl> listOfTimes;
         private static Stopwatch stopwatch;
+        private static string bestTime { get; set; }
+        private static string averageOfFive { get; set; }
+        private static string averageOfTwelve { get; set; }
         public CubeTimerForm() {
             InitializeComponent();
         }
         private void CubeTimerForm_Load(object sender, EventArgs e) {
             comboBoxSession.SelectedIndex = 0;
             fillTimesPanel(currentSession);
-            displayStats();
             displayScramble();
+            updateStats(currentSession);
+            displayStats();
             cubeToTurn = scrambledCube;
+        }
+        public void updateStats(int session) {
+            if (flowLayoutPanelTimes.Controls.Count >= 1) {
+                bestTime = "Best Time: " + SqlUtil.getBestTime(session);
+            }
+            else {
+                bestTime = "Best Time:";
+                averageOfFive = "Ao5:";
+                averageOfTwelve = "Ao12:";
+            }
+            if (flowLayoutPanelTimes.Controls.Count >= 5) {
+                averageOfFive = "Ao5: " + Util.longMillisecondsToString(Util.calculateAverage(SqlUtil.timesToCalculate(5, session)));
+            }
+            if (flowLayoutPanelTimes.Controls.Count >= 12) {
+                averageOfTwelve = "Ao12: " + Util.longMillisecondsToString(Util.calculateAverage(SqlUtil.timesToCalculate(12, session)));
+            }
+        }
+        public void displayStats() {
+            labelBestTime.Text = bestTime;
+            labelAverageOfFive.Text = averageOfFive;
+            labelAverageOfTwelve.Text = averageOfTwelve;
         }
         private void CubeTimerForm_KeyDown(object sender, KeyEventArgs e) {
             if (e.KeyCode == Keys.Space) {
@@ -69,7 +95,8 @@ namespace LakaCubeTimer {
             SqlUtil.saveToDatabase(time);
             Time latestTime = SqlUtil.getLatestAddedTime(time.session);
             TimeUserControl timeUserControl = new TimeUserControl(latestTime);
-            flowLayoutPanelTimes.Controls.Add(timeUserControl);          
+            flowLayoutPanelTimes.Controls.Add(timeUserControl);
+            updateStats(currentSession);
             displayStats();
         }
         private void timerCube_Tick(object sender, EventArgs e) {
@@ -84,22 +111,6 @@ namespace LakaCubeTimer {
             labelScramble.Text = Util.scrambleToString(validatedScramble);
             labelScramble.Left = (panelTimer.Width - labelScramble.Width) / 2;
             paintCube(scrambledCube);
-        }
-        public void displayStats() {
-            if (flowLayoutPanelTimes.Controls.Count >= 1) {
-                labelBestTime.Text = "Best Time: " + SqlUtil.getBestTime(currentSession);
-            }
-            else {
-                labelBestTime.Text = "Best Time:";
-                labelAverageOfFive.Text = "Ao5:";
-                labelAverageOfTwelve.Text = "Ao12:";
-            }
-            if (flowLayoutPanelTimes.Controls.Count >= 5) {
-                labelAverageOfFive.Text = "Ao5: " + Util.longMillisecondsToString(Util.calculateAverage(SqlUtil.timesToCalculate(5, currentSession)));
-            }
-            if (flowLayoutPanelTimes.Controls.Count >= 12) {
-                labelAverageOfTwelve.Text = "Ao12: " + Util.longMillisecondsToString(Util.calculateAverage(SqlUtil.timesToCalculate(12, currentSession)));
-            }
         }
         public void paintCube(Cube cube) {
             foreach (Side side in cube.sides) {
@@ -247,6 +258,7 @@ namespace LakaCubeTimer {
             currentSession = Convert.ToInt32(comboBoxSession.Text);
             flowLayoutPanelTimes.Controls.Clear();
             fillTimesPanel(currentSession);
+            updateStats(currentSession);
             displayStats();
         }
     }

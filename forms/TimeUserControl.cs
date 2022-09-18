@@ -14,9 +14,11 @@ using System.Windows.Forms;
 namespace LakaCubeTimer.forms {
     public partial class TimeUserControl : UserControl {
         public Time time { get; set; }
+        private CubeTimerForm cubeTimerForm { get; set; }
         public TimeUserControl(Time time) {
             InitializeComponent();
             this.time = time;
+            this.cubeTimerForm = (CubeTimerForm)Application.OpenForms["CubeTimerForm"];
         }
         private void TimeUserControl_Load(object sender, EventArgs e) {
             labelTime.Text = time.time;
@@ -44,12 +46,14 @@ namespace LakaCubeTimer.forms {
             statsForm.ShowDialog();
         }
         private void checkBoxIsPlusTwo_CheckedChanged(object sender, EventArgs e) {
+            cubeTimerForm = (CubeTimerForm)Application.OpenForms["CubeTimerForm"];
             if (checkBoxIsPlusTwo.Checked) {
                 time.isPlusTwo = true;
                 time.timeInMilliseconds = time.initialTimeInMilliseconds + 2000;
                 time.time = Util.longMillisecondsToString(time.timeInMilliseconds) + " (+2)"; 
                 SqlUtil.updateIsPlusTwo(time);
                 labelTime.Text = time.time;
+                
             }
             else {
                 time.isPlusTwo = false;
@@ -58,8 +62,11 @@ namespace LakaCubeTimer.forms {
                 SqlUtil.updateIsPlusTwo(time);
                 labelTime.Text = time.time;
             }
+            cubeTimerForm.updateStats(time.session);
+            cubeTimerForm.displayStats();
         }
         private void checkBoxIsDNF_CheckedChanged(object sender, EventArgs e) {
+            cubeTimerForm = (CubeTimerForm)Application.OpenForms["CubeTimerForm"];
             if (checkBoxIsDNF.Checked) {
                 time.isDNF = true;
                 SqlUtil.updateIsDNF(time);
