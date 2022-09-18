@@ -246,13 +246,13 @@
             // 
             this.buttonNewScramble.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonNewScramble.Font = new System.Drawing.Font("Century Gothic", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.buttonNewScramble.Location = new System.Drawing.Point(863, 3);
+            this.buttonNewScramble.Location = new System.Drawing.Point(851, 15);
             this.buttonNewScramble.Name = "buttonNewScramble";
             this.buttonNewScramble.Size = new System.Drawing.Size(150, 70);
             this.buttonNewScramble.TabIndex = 8;
             this.buttonNewScramble.Text = "New Scramble";
             this.buttonNewScramble.UseVisualStyleBackColor = true;
-            this.buttonNewScramble.Click += new System.EventHandler(this.buttonNewScramble_Click);
+            this.buttonNewScramble.MouseClick += new System.Windows.Forms.MouseEventHandler(this.buttonNewScramble_MouseClick);
             // 
             // panelCube
             // 

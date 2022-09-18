@@ -249,10 +249,10 @@ namespace LakaCubeTimer {
             paintCube(cubeToTurn);
         }
         private void CubeTimerForm_FormClosing(object sender, FormClosingEventArgs e) {
+            Process process = Process.GetProcessesByName("LakaCubeTimer")[0];
+            process.Kill();
             Application.Exit();
-        }
-        private void buttonNewScramble_Click(object sender, EventArgs e) {
-            displayScramble();
+            return;
         }
         private void buttonSelectSession_MouseClick(object sender, MouseEventArgs e) {
             currentSession = Convert.ToInt32(comboBoxSession.Text);
@@ -260,6 +260,9 @@ namespace LakaCubeTimer {
             fillTimesPanel(currentSession);
             updateStats(currentSession);
             displayStats();
+        }
+        private void buttonNewScramble_MouseClick(object sender, MouseEventArgs e) {
+            displayScramble();
         }
     }
 }
