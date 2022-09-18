@@ -24,40 +24,57 @@
         /// </summary>
         private void InitializeComponent() {
             this.labelTime = new System.Windows.Forms.Label();
-            this.labelDate = new System.Windows.Forms.Label();
+            this.checkBoxPlusTwo = new System.Windows.Forms.CheckBox();
+            this.checkBoxDNF = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // labelTime
             // 
             this.labelTime.AutoSize = true;
-            this.labelTime.Font = new System.Drawing.Font("Century Gothic", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.labelTime.Location = new System.Drawing.Point(3, 3);
+            this.labelTime.Font = new System.Drawing.Font("Century Gothic", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.labelTime.Location = new System.Drawing.Point(6, 25);
             this.labelTime.Name = "labelTime";
-            this.labelTime.Size = new System.Drawing.Size(76, 33);
+            this.labelTime.Size = new System.Drawing.Size(70, 30);
             this.labelTime.TabIndex = 0;
             this.labelTime.Text = "Time";
             this.labelTime.MouseClick += new System.Windows.Forms.MouseEventHandler(this.labelTime_MouseClick);
             this.labelTime.MouseEnter += new System.EventHandler(this.labelTime_MouseEnter);
             this.labelTime.MouseLeave += new System.EventHandler(this.labelTime_MouseLeave);
             // 
-            // labelDate
+            // checkBoxPlusTwo
             // 
-            this.labelDate.AutoSize = true;
-            this.labelDate.Font = new System.Drawing.Font("Century Gothic", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.labelDate.Location = new System.Drawing.Point(3, 44);
-            this.labelDate.Name = "labelDate";
-            this.labelDate.Size = new System.Drawing.Size(81, 33);
-            this.labelDate.TabIndex = 1;
-            this.labelDate.Text = "Date";
-            this.labelDate.MouseClick += new System.Windows.Forms.MouseEventHandler(this.labelDate_MouseClick);
-            this.labelDate.MouseEnter += new System.EventHandler(this.labelDate_MouseEnter);
-            this.labelDate.MouseLeave += new System.EventHandler(this.labelDate_MouseLeave);
+            this.checkBoxPlusTwo.Appearance = System.Windows.Forms.Appearance.Button;
+            this.checkBoxPlusTwo.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.checkBoxPlusTwo.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.checkBoxPlusTwo.Location = new System.Drawing.Point(132, 16);
+            this.checkBoxPlusTwo.Name = "checkBoxPlusTwo";
+            this.checkBoxPlusTwo.Size = new System.Drawing.Size(48, 48);
+            this.checkBoxPlusTwo.TabIndex = 1;
+            this.checkBoxPlusTwo.Text = "+2";
+            this.checkBoxPlusTwo.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.checkBoxPlusTwo.UseVisualStyleBackColor = true;
+            this.checkBoxPlusTwo.CheckedChanged += new System.EventHandler(this.checkBoxPlusTwo_CheckedChanged);
+            // 
+            // checkBoxDNF
+            // 
+            this.checkBoxDNF.Appearance = System.Windows.Forms.Appearance.Button;
+            this.checkBoxDNF.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.checkBoxDNF.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.checkBoxDNF.Location = new System.Drawing.Point(186, 16);
+            this.checkBoxDNF.Name = "checkBoxDNF";
+            this.checkBoxDNF.Size = new System.Drawing.Size(48, 48);
+            this.checkBoxDNF.TabIndex = 2;
+            this.checkBoxDNF.Text = "DNF";
+            this.checkBoxDNF.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.checkBoxDNF.UseVisualStyleBackColor = true;
+            this.checkBoxDNF.CheckedChanged += new System.EventHandler(this.checkBoxDNF_CheckedChanged);
             // 
             // TimeUserControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.labelDate);
+            this.Controls.Add(this.checkBoxDNF);
+            this.Controls.Add(this.checkBoxPlusTwo);
             this.Controls.Add(this.labelTime);
             this.Name = "TimeUserControl";
             this.Size = new System.Drawing.Size(240, 80);
@@ -73,6 +90,7 @@
         #endregion
 
         private Label labelTime;
-        private Label labelDate;
+        private CheckBox checkBoxPlusTwo;
+        private CheckBox checkBoxDNF;
     }
 }

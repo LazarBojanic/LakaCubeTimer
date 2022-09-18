@@ -97,7 +97,6 @@
             this.labelScramble = new System.Windows.Forms.Label();
             this.flowLayoutPanelTimes = new System.Windows.Forms.FlowLayoutPanel();
             this.panelStats = new System.Windows.Forms.Panel();
-            this.labelAverageOfOneHundred = new System.Windows.Forms.Label();
             this.labelBestTime = new System.Windows.Forms.Label();
             this.labelAverageOfTwelve = new System.Windows.Forms.Label();
             this.labelAverageOfFive = new System.Windows.Forms.Label();
@@ -144,9 +143,9 @@
             this.panelTimer.Controls.Add(this.panelCube);
             this.panelTimer.Controls.Add(this.labelScramble);
             this.panelTimer.Controls.Add(this.labelTimer);
-            this.panelTimer.Location = new System.Drawing.Point(329, 12);
+            this.panelTimer.Location = new System.Drawing.Point(330, 12);
             this.panelTimer.Name = "panelTimer";
-            this.panelTimer.Size = new System.Drawing.Size(1052, 771);
+            this.panelTimer.Size = new System.Drawing.Size(1051, 771);
             this.panelTimer.TabIndex = 2;
             // 
             // buttonDownTurn
@@ -236,7 +235,7 @@
             this.panelCube.Controls.Add(this.panelUp);
             this.panelCube.Controls.Add(this.panelFront);
             this.panelCube.Controls.Add(this.panelLeft);
-            this.panelCube.Location = new System.Drawing.Point(593, 426);
+            this.panelCube.Location = new System.Drawing.Point(592, 426);
             this.panelCube.Name = "panelCube";
             this.panelCube.Size = new System.Drawing.Size(456, 342);
             this.panelCube.TabIndex = 1;
@@ -906,7 +905,7 @@
             this.labelScramble.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.labelScramble.AutoSize = true;
             this.labelScramble.Font = new System.Drawing.Font("Century Gothic", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.labelScramble.Location = new System.Drawing.Point(473, 74);
+            this.labelScramble.Location = new System.Drawing.Point(472, 74);
             this.labelScramble.Name = "labelScramble";
             this.labelScramble.Size = new System.Drawing.Size(165, 39);
             this.labelScramble.TabIndex = 1;
@@ -919,37 +918,26 @@
             this.flowLayoutPanelTimes.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.flowLayoutPanelTimes.Location = new System.Drawing.Point(12, 12);
             this.flowLayoutPanelTimes.Name = "flowLayoutPanelTimes";
-            this.flowLayoutPanelTimes.Size = new System.Drawing.Size(311, 467);
+            this.flowLayoutPanelTimes.Size = new System.Drawing.Size(312, 595);
             this.flowLayoutPanelTimes.TabIndex = 3;
             // 
             // panelStats
             // 
             this.panelStats.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.panelStats.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panelStats.Controls.Add(this.labelAverageOfOneHundred);
             this.panelStats.Controls.Add(this.labelBestTime);
             this.panelStats.Controls.Add(this.labelAverageOfTwelve);
             this.panelStats.Controls.Add(this.labelAverageOfFive);
-            this.panelStats.Location = new System.Drawing.Point(12, 532);
+            this.panelStats.Location = new System.Drawing.Point(12, 660);
             this.panelStats.Name = "panelStats";
-            this.panelStats.Size = new System.Drawing.Size(311, 251);
+            this.panelStats.Size = new System.Drawing.Size(312, 123);
             this.panelStats.TabIndex = 4;
-            // 
-            // labelAverageOfOneHundred
-            // 
-            this.labelAverageOfOneHundred.AutoSize = true;
-            this.labelAverageOfOneHundred.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.labelAverageOfOneHundred.Location = new System.Drawing.Point(19, 124);
-            this.labelAverageOfOneHundred.Name = "labelAverageOfOneHundred";
-            this.labelAverageOfOneHundred.Size = new System.Drawing.Size(75, 22);
-            this.labelAverageOfOneHundred.TabIndex = 3;
-            this.labelAverageOfOneHundred.Text = "Ao100:";
             // 
             // labelBestTime
             // 
             this.labelBestTime.AutoSize = true;
             this.labelBestTime.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.labelBestTime.Location = new System.Drawing.Point(19, 171);
+            this.labelBestTime.Location = new System.Drawing.Point(15, 83);
             this.labelBestTime.Name = "labelBestTime";
             this.labelBestTime.Size = new System.Drawing.Size(97, 22);
             this.labelBestTime.TabIndex = 2;
@@ -959,7 +947,7 @@
             // 
             this.labelAverageOfTwelve.AutoSize = true;
             this.labelAverageOfTwelve.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.labelAverageOfTwelve.Location = new System.Drawing.Point(19, 77);
+            this.labelAverageOfTwelve.Location = new System.Drawing.Point(15, 49);
             this.labelAverageOfTwelve.Name = "labelAverageOfTwelve";
             this.labelAverageOfTwelve.Size = new System.Drawing.Size(64, 22);
             this.labelAverageOfTwelve.TabIndex = 1;
@@ -969,7 +957,7 @@
             // 
             this.labelAverageOfFive.AutoSize = true;
             this.labelAverageOfFive.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.labelAverageOfFive.Location = new System.Drawing.Point(19, 30);
+            this.labelAverageOfFive.Location = new System.Drawing.Point(15, 15);
             this.labelAverageOfFive.Name = "labelAverageOfFive";
             this.labelAverageOfFive.Size = new System.Drawing.Size(53, 22);
             this.labelAverageOfFive.TabIndex = 0;
@@ -993,9 +981,9 @@
             "10",
             "11",
             "12"});
-            this.comboBoxSession.Location = new System.Drawing.Point(12, 485);
+            this.comboBoxSession.Location = new System.Drawing.Point(12, 613);
             this.comboBoxSession.Name = "comboBoxSession";
-            this.comboBoxSession.Size = new System.Drawing.Size(311, 41);
+            this.comboBoxSession.Size = new System.Drawing.Size(312, 41);
             this.comboBoxSession.TabIndex = 5;
             this.comboBoxSession.TabStop = false;
             // 
@@ -1106,7 +1094,6 @@
         private Button buttonLeftTurn;
         private FlowLayoutPanel flowLayoutPanelTimes;
         private Panel panelStats;
-        private Label labelAverageOfOneHundred;
         private Label labelBestTime;
         private Label labelAverageOfTwelve;
         private Label labelAverageOfFive;

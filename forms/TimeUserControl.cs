@@ -18,7 +18,6 @@ namespace LakaCubeTimer.forms {
         }
         private void TimeUserControl_Load(object sender, EventArgs e) {
             labelTime.Text = time.time;
-            labelDate.Text = time.date.ToString();
         }
         private void TimeUserControl_MouseEnter(object sender, EventArgs e) {
             this.BackColor = Color.LightGray;
@@ -40,15 +39,22 @@ namespace LakaCubeTimer.forms {
             StatsForm statsForm = new StatsForm(time);
             statsForm.ShowDialog();
         }
-        private void labelDate_MouseEnter(object sender, EventArgs e) {
-            this.BackColor = Color.LightGray;
+        private void checkBoxPlusTwo_CheckedChanged(object sender, EventArgs e) {
+            if (checkBoxPlusTwo.Checked) {
+
+            }
+            else {
+
+            }
         }
-        private void labelDate_MouseLeave(object sender, EventArgs e) {
-            this.BackColor = Control.DefaultBackColor;
-        }
-        private void labelDate_MouseClick(object sender, MouseEventArgs e) {
-            StatsForm statsForm = new StatsForm(time);
-            statsForm.ShowDialog();
+
+        private void checkBoxDNF_CheckedChanged(object sender, EventArgs e) {
+            if (checkBoxDNF.Checked) {
+
+            }
+            else {
+
+            }
         }
     }
 }
