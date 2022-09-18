@@ -53,8 +53,8 @@ namespace LakaCubeTimer.util {
             adapter.Fill(timesTable);
             connection.Close();
             foreach(DataRow row in timesTable.Select()) {
-                times.Add(new TimeUserControl(new Time(Int32.Parse(row.ItemArray.GetValue(0).ToString()),
-                                                Int32.Parse(row.ItemArray.GetValue(1).ToString()),
+                times.Add(new TimeUserControl(new Time(Convert.ToInt32(row.ItemArray.GetValue(0).ToString()),
+                                                Convert.ToInt32(row.ItemArray.GetValue(1).ToString()),
                                                 Convert.ToInt64(row.ItemArray.GetValue(2)),
                                                 Convert.ToInt64(row.ItemArray.GetValue(3)),
                                                 row.ItemArray.GetValue(4).ToString(),
@@ -105,8 +105,8 @@ namespace LakaCubeTimer.util {
             OleDbDataAdapter adapter = new OleDbDataAdapter(command);
             adapter.Fill(latestTimeTable);
             DataRow row = latestTimeTable.Select()[0];
-            Time latestTime = new Time(Int32.Parse(row.ItemArray.GetValue(0).ToString()),
-                                                Int32.Parse(row.ItemArray.GetValue(1).ToString()),
+            Time latestTime = new Time(Convert.ToInt32(row.ItemArray.GetValue(0).ToString()),
+                                                Convert.ToInt32(row.ItemArray.GetValue(1).ToString()),
                                                 Convert.ToInt64(row.ItemArray.GetValue(2)),
                                                 Convert.ToInt64(row.ItemArray.GetValue(3)),
                                                 row.ItemArray.GetValue(4).ToString(),

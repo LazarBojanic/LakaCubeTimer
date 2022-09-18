@@ -27,12 +27,14 @@
             this.labelTimer = new System.Windows.Forms.Label();
             this.timerCube = new System.Windows.Forms.Timer(this.components);
             this.panelTimer = new System.Windows.Forms.Panel();
+            this.panelTurns = new System.Windows.Forms.Panel();
+            this.buttonLeftTurn = new System.Windows.Forms.Button();
+            this.buttonFrontTurn = new System.Windows.Forms.Button();
             this.buttonDownTurn = new System.Windows.Forms.Button();
+            this.buttonUpTurn = new System.Windows.Forms.Button();
             this.buttonBackTurn = new System.Windows.Forms.Button();
             this.buttonRightTurn = new System.Windows.Forms.Button();
-            this.buttonUpTurn = new System.Windows.Forms.Button();
-            this.buttonFrontTurn = new System.Windows.Forms.Button();
-            this.buttonLeftTurn = new System.Windows.Forms.Button();
+            this.buttonNewScramble = new System.Windows.Forms.Button();
             this.panelCube = new System.Windows.Forms.Panel();
             this.panelDown = new System.Windows.Forms.Panel();
             this.panelDown8 = new System.Windows.Forms.Panel();
@@ -101,7 +103,9 @@
             this.labelAverageOfTwelve = new System.Windows.Forms.Label();
             this.labelAverageOfFive = new System.Windows.Forms.Label();
             this.comboBoxSession = new System.Windows.Forms.ComboBox();
+            this.buttonSelectSession = new System.Windows.Forms.Button();
             this.panelTimer.SuspendLayout();
+            this.panelTurns.SuspendLayout();
             this.panelCube.SuspendLayout();
             this.panelDown.SuspendLayout();
             this.panelBack.SuspendLayout();
@@ -114,11 +118,10 @@
             // 
             // labelTimer
             // 
-            this.labelTimer.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.labelTimer.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.labelTimer.AutoSize = true;
             this.labelTimer.Font = new System.Drawing.Font("Century Gothic", 72F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.labelTimer.Location = new System.Drawing.Point(292, 165);
+            this.labelTimer.Location = new System.Drawing.Point(245, 165);
             this.labelTimer.Name = "labelTimer";
             this.labelTimer.Size = new System.Drawing.Size(527, 115);
             this.labelTimer.TabIndex = 0;
@@ -132,14 +135,11 @@
             // 
             // panelTimer
             // 
-            this.panelTimer.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.panelTimer.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.panelTimer.Controls.Add(this.buttonDownTurn);
-            this.panelTimer.Controls.Add(this.buttonBackTurn);
-            this.panelTimer.Controls.Add(this.buttonRightTurn);
-            this.panelTimer.Controls.Add(this.buttonUpTurn);
-            this.panelTimer.Controls.Add(this.buttonFrontTurn);
-            this.panelTimer.Controls.Add(this.buttonLeftTurn);
+            this.panelTimer.Controls.Add(this.panelTurns);
+            this.panelTimer.Controls.Add(this.buttonNewScramble);
             this.panelTimer.Controls.Add(this.panelCube);
             this.panelTimer.Controls.Add(this.labelScramble);
             this.panelTimer.Controls.Add(this.labelTimer);
@@ -148,11 +148,53 @@
             this.panelTimer.Size = new System.Drawing.Size(1016, 771);
             this.panelTimer.TabIndex = 2;
             // 
+            // panelTurns
+            // 
+            this.panelTurns.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.panelTurns.Controls.Add(this.buttonLeftTurn);
+            this.panelTurns.Controls.Add(this.buttonFrontTurn);
+            this.panelTurns.Controls.Add(this.buttonDownTurn);
+            this.panelTurns.Controls.Add(this.buttonUpTurn);
+            this.panelTurns.Controls.Add(this.buttonBackTurn);
+            this.panelTurns.Controls.Add(this.buttonRightTurn);
+            this.panelTurns.Location = new System.Drawing.Point(3, 426);
+            this.panelTurns.Name = "panelTurns";
+            this.panelTurns.Size = new System.Drawing.Size(456, 342);
+            this.panelTurns.TabIndex = 9;
+            // 
+            // buttonLeftTurn
+            // 
+            this.buttonLeftTurn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonLeftTurn.Font = new System.Drawing.Font("Century Gothic", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.buttonLeftTurn.Location = new System.Drawing.Point(3, 117);
+            this.buttonLeftTurn.Name = "buttonLeftTurn";
+            this.buttonLeftTurn.Size = new System.Drawing.Size(108, 108);
+            this.buttonLeftTurn.TabIndex = 2;
+            this.buttonLeftTurn.TabStop = false;
+            this.buttonLeftTurn.Text = "Left";
+            this.buttonLeftTurn.UseVisualStyleBackColor = true;
+            this.buttonLeftTurn.MouseDown += new System.Windows.Forms.MouseEventHandler(this.buttonLeftTurn_MouseDown);
+            // 
+            // buttonFrontTurn
+            // 
+            this.buttonFrontTurn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonFrontTurn.Font = new System.Drawing.Font("Century Gothic", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.buttonFrontTurn.Location = new System.Drawing.Point(117, 117);
+            this.buttonFrontTurn.Name = "buttonFrontTurn";
+            this.buttonFrontTurn.Size = new System.Drawing.Size(108, 108);
+            this.buttonFrontTurn.TabIndex = 3;
+            this.buttonFrontTurn.TabStop = false;
+            this.buttonFrontTurn.Text = "Front";
+            this.buttonFrontTurn.UseVisualStyleBackColor = true;
+            this.buttonFrontTurn.MouseDown += new System.Windows.Forms.MouseEventHandler(this.buttonFrontTurn_MouseDown);
+            // 
             // buttonDownTurn
             // 
-            this.buttonDownTurn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonDownTurn.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonDownTurn.Font = new System.Drawing.Font("Century Gothic", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.buttonDownTurn.Location = new System.Drawing.Point(117, 660);
+            this.buttonDownTurn.Location = new System.Drawing.Point(117, 231);
             this.buttonDownTurn.Name = "buttonDownTurn";
             this.buttonDownTurn.Size = new System.Drawing.Size(108, 108);
             this.buttonDownTurn.TabIndex = 7;
@@ -161,11 +203,24 @@
             this.buttonDownTurn.UseVisualStyleBackColor = true;
             this.buttonDownTurn.MouseDown += new System.Windows.Forms.MouseEventHandler(this.buttonDownTurn_MouseDown);
             // 
+            // buttonUpTurn
+            // 
+            this.buttonUpTurn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonUpTurn.Font = new System.Drawing.Font("Century Gothic", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.buttonUpTurn.Location = new System.Drawing.Point(117, 3);
+            this.buttonUpTurn.Name = "buttonUpTurn";
+            this.buttonUpTurn.Size = new System.Drawing.Size(108, 108);
+            this.buttonUpTurn.TabIndex = 4;
+            this.buttonUpTurn.TabStop = false;
+            this.buttonUpTurn.Text = "Up";
+            this.buttonUpTurn.UseVisualStyleBackColor = true;
+            this.buttonUpTurn.MouseDown += new System.Windows.Forms.MouseEventHandler(this.buttonUpTurn_MouseDown);
+            // 
             // buttonBackTurn
             // 
             this.buttonBackTurn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.buttonBackTurn.Font = new System.Drawing.Font("Century Gothic", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.buttonBackTurn.Location = new System.Drawing.Point(345, 546);
+            this.buttonBackTurn.Location = new System.Drawing.Point(345, 117);
             this.buttonBackTurn.Name = "buttonBackTurn";
             this.buttonBackTurn.Size = new System.Drawing.Size(108, 108);
             this.buttonBackTurn.TabIndex = 6;
@@ -178,7 +233,7 @@
             // 
             this.buttonRightTurn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.buttonRightTurn.Font = new System.Drawing.Font("Century Gothic", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.buttonRightTurn.Location = new System.Drawing.Point(231, 546);
+            this.buttonRightTurn.Location = new System.Drawing.Point(231, 117);
             this.buttonRightTurn.Name = "buttonRightTurn";
             this.buttonRightTurn.Size = new System.Drawing.Size(108, 108);
             this.buttonRightTurn.TabIndex = 5;
@@ -187,44 +242,17 @@
             this.buttonRightTurn.UseVisualStyleBackColor = true;
             this.buttonRightTurn.MouseDown += new System.Windows.Forms.MouseEventHandler(this.buttonRightTurn_MouseDown);
             // 
-            // buttonUpTurn
+            // buttonNewScramble
             // 
-            this.buttonUpTurn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonUpTurn.Font = new System.Drawing.Font("Century Gothic", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.buttonUpTurn.Location = new System.Drawing.Point(117, 432);
-            this.buttonUpTurn.Name = "buttonUpTurn";
-            this.buttonUpTurn.Size = new System.Drawing.Size(108, 108);
-            this.buttonUpTurn.TabIndex = 4;
-            this.buttonUpTurn.TabStop = false;
-            this.buttonUpTurn.Text = "Up";
-            this.buttonUpTurn.UseVisualStyleBackColor = true;
-            this.buttonUpTurn.MouseDown += new System.Windows.Forms.MouseEventHandler(this.buttonUpTurn_MouseDown);
-            // 
-            // buttonFrontTurn
-            // 
-            this.buttonFrontTurn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonFrontTurn.Font = new System.Drawing.Font("Century Gothic", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.buttonFrontTurn.Location = new System.Drawing.Point(117, 546);
-            this.buttonFrontTurn.Name = "buttonFrontTurn";
-            this.buttonFrontTurn.Size = new System.Drawing.Size(108, 108);
-            this.buttonFrontTurn.TabIndex = 3;
-            this.buttonFrontTurn.TabStop = false;
-            this.buttonFrontTurn.Text = "Front";
-            this.buttonFrontTurn.UseVisualStyleBackColor = true;
-            this.buttonFrontTurn.MouseDown += new System.Windows.Forms.MouseEventHandler(this.buttonFrontTurn_MouseDown);
-            // 
-            // buttonLeftTurn
-            // 
-            this.buttonLeftTurn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonLeftTurn.Font = new System.Drawing.Font("Century Gothic", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.buttonLeftTurn.Location = new System.Drawing.Point(3, 546);
-            this.buttonLeftTurn.Name = "buttonLeftTurn";
-            this.buttonLeftTurn.Size = new System.Drawing.Size(108, 108);
-            this.buttonLeftTurn.TabIndex = 2;
-            this.buttonLeftTurn.TabStop = false;
-            this.buttonLeftTurn.Text = "Left";
-            this.buttonLeftTurn.UseVisualStyleBackColor = true;
-            this.buttonLeftTurn.MouseDown += new System.Windows.Forms.MouseEventHandler(this.buttonLeftTurn_MouseDown);
+            this.buttonNewScramble.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonNewScramble.Font = new System.Drawing.Font("Century Gothic", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.buttonNewScramble.Location = new System.Drawing.Point(863, 3);
+            this.buttonNewScramble.Name = "buttonNewScramble";
+            this.buttonNewScramble.Size = new System.Drawing.Size(150, 70);
+            this.buttonNewScramble.TabIndex = 8;
+            this.buttonNewScramble.Text = "New Scramble";
+            this.buttonNewScramble.UseVisualStyleBackColor = true;
+            this.buttonNewScramble.Click += new System.EventHandler(this.buttonNewScramble_Click);
             // 
             // panelCube
             // 
@@ -905,7 +933,7 @@
             this.labelScramble.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.labelScramble.AutoSize = true;
             this.labelScramble.Font = new System.Drawing.Font("Century Gothic", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.labelScramble.Location = new System.Drawing.Point(455, 74);
+            this.labelScramble.Location = new System.Drawing.Point(426, 74);
             this.labelScramble.Name = "labelScramble";
             this.labelScramble.Size = new System.Drawing.Size(165, 39);
             this.labelScramble.TabIndex = 1;
@@ -965,7 +993,7 @@
             // 
             // comboBoxSession
             // 
-            this.comboBoxSession.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.comboBoxSession.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxSession.Font = new System.Drawing.Font("Century Gothic", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.comboBoxSession.FormattingEnabled = true;
             this.comboBoxSession.Items.AddRange(new object[] {
@@ -983,15 +1011,28 @@
             "12"});
             this.comboBoxSession.Location = new System.Drawing.Point(12, 613);
             this.comboBoxSession.Name = "comboBoxSession";
-            this.comboBoxSession.Size = new System.Drawing.Size(347, 41);
+            this.comboBoxSession.Size = new System.Drawing.Size(194, 41);
             this.comboBoxSession.TabIndex = 5;
             this.comboBoxSession.TabStop = false;
+            // 
+            // buttonSelectSession
+            // 
+            this.buttonSelectSession.Font = new System.Drawing.Font("Century Gothic", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.buttonSelectSession.Location = new System.Drawing.Point(212, 613);
+            this.buttonSelectSession.Name = "buttonSelectSession";
+            this.buttonSelectSession.Size = new System.Drawing.Size(147, 41);
+            this.buttonSelectSession.TabIndex = 9;
+            this.buttonSelectSession.TabStop = false;
+            this.buttonSelectSession.Text = "Select";
+            this.buttonSelectSession.UseVisualStyleBackColor = true;
+            this.buttonSelectSession.MouseClick += new System.Windows.Forms.MouseEventHandler(this.buttonSelectSession_MouseClick);
             // 
             // CubeTimerForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1393, 795);
+            this.Controls.Add(this.buttonSelectSession);
             this.Controls.Add(this.comboBoxSession);
             this.Controls.Add(this.panelStats);
             this.Controls.Add(this.flowLayoutPanelTimes);
@@ -1006,6 +1047,7 @@
             this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.CubeTimerForm_KeyUp);
             this.panelTimer.ResumeLayout(false);
             this.panelTimer.PerformLayout();
+            this.panelTurns.ResumeLayout(false);
             this.panelCube.ResumeLayout(false);
             this.panelDown.ResumeLayout(false);
             this.panelBack.ResumeLayout(false);
@@ -1098,5 +1140,8 @@
         private Label labelAverageOfTwelve;
         private Label labelAverageOfFive;
         private ComboBox comboBoxSession;
+        private Button buttonNewScramble;
+        private Button buttonSelectSession;
+        private Panel panelTurns;
     }
 }

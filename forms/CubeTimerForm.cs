@@ -7,29 +7,24 @@ using System.Windows.Forms;
 
 namespace LakaCubeTimer {
     public partial class CubeTimerForm : Form {
+        private int currentSession = 1;
         private int timerState = 0;
         private List<string> initialScramble;
         private List<string> validatedScramble;
         private Cube initialCube;
-        private Cube newCube;
+        private Cube cubeToTurn;
         private Cube scrambledCube;
         private List<TimeUserControl> listOfTimes;
         private static Stopwatch stopwatch;
         public CubeTimerForm() {
             InitializeComponent();
-            initialScramble = Util.generateScramble();
-            validatedScramble = Util.validateScramble(initialScramble);
-            initialCube = new Cube();
-            scrambledCube = Util.scrambleCube(initialCube, validatedScramble);
-            newCube = scrambledCube;
         }
         private void CubeTimerForm_Load(object sender, EventArgs e) {
-            comboBoxSession.SelectedIndex = 0;     
-            fillTimesPanel(1);
+            comboBoxSession.SelectedIndex = 0;
+            fillTimesPanel(currentSession);
             displayStats();
-            labelScramble.Text = Util.scrambleToString(validatedScramble);
-            labelScramble.Left = (panelTimer.Width - labelScramble.Width) / 2;
-            paintCube(scrambledCube);
+            displayScramble();
+            cubeToTurn = scrambledCube;
         }
         private void CubeTimerForm_KeyDown(object sender, KeyEventArgs e) {
             if (e.KeyCode == Keys.Space) {
@@ -41,12 +36,7 @@ namespace LakaCubeTimer {
                     timerState = 0;
                     stopTimer();
                     timerCube.Stop();
-                    initialScramble = Util.generateScramble();
-                    validatedScramble = Util.validateScramble(initialScramble);
-                    labelScramble.Text = Util.scrambleToString(validatedScramble);
-                    labelScramble.Left = (panelTimer.Width - labelScramble.Width) / 2;
-                    scrambledCube = Util.scrambleCube(initialCube, validatedScramble);
-                    paintCube(scrambledCube);
+                    displayScramble();
                 }
             }
         }
@@ -75,7 +65,7 @@ namespace LakaCubeTimer {
             stopwatch.Stop();
             long elapsedMilliseconds = stopwatch.ElapsedMilliseconds;
             labelTimer.Text = Util.longMillisecondsToString(elapsedMilliseconds);
-            Time time = new Time(0, Int32.Parse(comboBoxSession.Text), elapsedMilliseconds, elapsedMilliseconds, Util.longMillisecondsToString(elapsedMilliseconds), false, false, labelScramble.Text, DateTime.Now);
+            Time time = new Time(0, currentSession, elapsedMilliseconds, elapsedMilliseconds, Util.longMillisecondsToString(elapsedMilliseconds), false, false, labelScramble.Text, DateTime.Now);
             SqlUtil.saveToDatabase(time);
             Time latestTime = SqlUtil.getLatestAddedTime(time.session);
             TimeUserControl timeUserControl = new TimeUserControl(latestTime);
@@ -86,15 +76,29 @@ namespace LakaCubeTimer {
             long elapsedMilliseconds = stopwatch.ElapsedMilliseconds;
             labelTimer.Text = Util.longMillisecondsToString(elapsedMilliseconds);
         }
+        public void displayScramble() {
+            initialScramble = Util.generateScramble();
+            validatedScramble = Util.validateScramble(initialScramble);
+            initialCube = new Cube();
+            scrambledCube = Util.scrambleCube(initialCube, validatedScramble); 
+            labelScramble.Text = Util.scrambleToString(validatedScramble);
+            labelScramble.Left = (panelTimer.Width - labelScramble.Width) / 2;
+            paintCube(scrambledCube);
+        }
         public void displayStats() {
             if (flowLayoutPanelTimes.Controls.Count >= 1) {
-                labelBestTime.Text = "Best Time: " + SqlUtil.getBestTime(Int32.Parse(comboBoxSession.Text));
+                labelBestTime.Text = "Best Time: " + SqlUtil.getBestTime(currentSession);
+            }
+            else {
+                labelBestTime.Text = "Best Time:";
+                labelAverageOfFive.Text = "Ao5:";
+                labelAverageOfTwelve.Text = "Ao12:";
             }
             if (flowLayoutPanelTimes.Controls.Count >= 5) {
-                labelAverageOfFive.Text = "Ao5: " + Util.longMillisecondsToString(Util.calculateAverage(SqlUtil.timesToCalculate(5, Int32.Parse(comboBoxSession.Text))));
+                labelAverageOfFive.Text = "Ao5: " + Util.longMillisecondsToString(Util.calculateAverage(SqlUtil.timesToCalculate(5, currentSession)));
             }
             if (flowLayoutPanelTimes.Controls.Count >= 12) {
-                labelAverageOfTwelve.Text = "Ao12: " + Util.longMillisecondsToString(Util.calculateAverage(SqlUtil.timesToCalculate(12, Int32.Parse(comboBoxSession.Text))));
+                labelAverageOfTwelve.Text = "Ao12: " + Util.longMillisecondsToString(Util.calculateAverage(SqlUtil.timesToCalculate(12, currentSession)));
             }
         }
         public void paintCube(Cube cube) {
@@ -175,8 +179,8 @@ namespace LakaCubeTimer {
             if (e.Button == MouseButtons.Right) {
                 turn = "U'";
             }
-            newCube = Util.turnCube(newCube, turn);
-            paintCube(newCube);
+            cubeToTurn = Util.turnCube(cubeToTurn, turn);
+            paintCube(cubeToTurn);
         }
         private void buttonDownTurn_MouseDown(object sender, MouseEventArgs e) {
             string turn = "";
@@ -186,8 +190,8 @@ namespace LakaCubeTimer {
             if (e.Button == MouseButtons.Right) {
                 turn = "D'";
             }
-            newCube = Util.turnCube(newCube, turn);
-            paintCube(newCube);
+            cubeToTurn = Util.turnCube(cubeToTurn, turn);
+            paintCube(cubeToTurn);
         }
         private void buttonLeftTurn_MouseDown(object sender, MouseEventArgs e) {
             string turn = "";
@@ -197,8 +201,8 @@ namespace LakaCubeTimer {
             if (e.Button == MouseButtons.Right) {
                 turn = "L'";
             }
-            newCube = Util.turnCube(newCube, turn);
-            paintCube(newCube);
+            cubeToTurn = Util.turnCube(cubeToTurn, turn);
+            paintCube(cubeToTurn);
         }
         private void buttonRightTurn_MouseDown(object sender, MouseEventArgs e) {
             string turn = "";
@@ -208,8 +212,8 @@ namespace LakaCubeTimer {
             if (e.Button == MouseButtons.Right) {
                 turn = "R'";
             }
-            newCube = Util.turnCube(newCube, turn);
-            paintCube(newCube);
+            cubeToTurn = Util.turnCube(cubeToTurn, turn);
+            paintCube(cubeToTurn);
         }
         private void buttonFrontTurn_MouseDown(object sender, MouseEventArgs e) {
             string turn = "";
@@ -219,8 +223,8 @@ namespace LakaCubeTimer {
             if (e.Button == MouseButtons.Right) {
                 turn = "F'";
             }
-            newCube = Util.turnCube(newCube, turn);
-            paintCube(newCube);
+            cubeToTurn = Util.turnCube(cubeToTurn, turn);
+            paintCube(cubeToTurn);
         }
         private void buttonBackTurn_MouseDown(object sender, MouseEventArgs e) {
             string turn = "";
@@ -230,12 +234,20 @@ namespace LakaCubeTimer {
             if (e.Button == MouseButtons.Right) {
                 turn = "B'";
             }
-            newCube = Util.turnCube(newCube, turn);
-            paintCube(newCube);
+            cubeToTurn = Util.turnCube(cubeToTurn, turn);
+            paintCube(cubeToTurn);
         }
-
         private void CubeTimerForm_FormClosing(object sender, FormClosingEventArgs e) {
             Application.Exit();
+        }
+        private void buttonNewScramble_Click(object sender, EventArgs e) {
+            displayScramble();
+        }
+        private void buttonSelectSession_MouseClick(object sender, MouseEventArgs e) {
+            currentSession = Convert.ToInt32(comboBoxSession.Text);
+            flowLayoutPanelTimes.Controls.Clear();
+            fillTimesPanel(currentSession);
+            displayStats();
         }
     }
 }

@@ -49,7 +49,7 @@
             this.checkBoxIsPlusTwo.CheckAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.checkBoxIsPlusTwo.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.checkBoxIsPlusTwo.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.checkBoxIsPlusTwo.Location = new System.Drawing.Point(228, 16);
+            this.checkBoxIsPlusTwo.Location = new System.Drawing.Point(189, 16);
             this.checkBoxIsPlusTwo.Name = "checkBoxIsPlusTwo";
             this.checkBoxIsPlusTwo.Size = new System.Drawing.Size(48, 48);
             this.checkBoxIsPlusTwo.TabIndex = 1;
@@ -66,7 +66,7 @@
             this.checkBoxIsDNF.CheckAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.checkBoxIsDNF.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.checkBoxIsDNF.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.checkBoxIsDNF.Location = new System.Drawing.Point(282, 16);
+            this.checkBoxIsDNF.Location = new System.Drawing.Point(243, 16);
             this.checkBoxIsDNF.Name = "checkBoxIsDNF";
             this.checkBoxIsDNF.Size = new System.Drawing.Size(48, 48);
             this.checkBoxIsDNF.TabIndex = 2;
@@ -84,7 +84,7 @@
             this.Controls.Add(this.checkBoxIsPlusTwo);
             this.Controls.Add(this.labelTime);
             this.Name = "TimeUserControl";
-            this.Size = new System.Drawing.Size(336, 80);
+            this.Size = new System.Drawing.Size(300, 80);
             this.Load += new System.EventHandler(this.TimeUserControl_Load);
             this.MouseClick += new System.Windows.Forms.MouseEventHandler(this.TimeUserControl_MouseClick);
             this.MouseEnter += new System.EventHandler(this.TimeUserControl_MouseEnter);
