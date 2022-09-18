@@ -1,4 +1,6 @@
 ﻿using LakaCubeTimer.model;
+using LakaCubeTimer.util;
+using OpenCvSharp.Dnn;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -18,6 +20,8 @@ namespace LakaCubeTimer.forms {
         }
         private void TimeUserControl_Load(object sender, EventArgs e) {
             labelTime.Text = time.time;
+            checkBoxIsPlusTwo.Checked = time.isPlusTwo;
+            checkBoxIsDNF.Checked = time.isDNF;
         }
         private void TimeUserControl_MouseEnter(object sender, EventArgs e) {
             this.BackColor = Color.LightGray;
@@ -39,21 +43,30 @@ namespace LakaCubeTimer.forms {
             StatsForm statsForm = new StatsForm(time);
             statsForm.ShowDialog();
         }
-        private void checkBoxPlusTwo_CheckedChanged(object sender, EventArgs e) {
-            if (checkBoxPlusTwo.Checked) {
-
+        private void checkBoxIsPlusTwo_CheckedChanged(object sender, EventArgs e) {
+            if (checkBoxIsPlusTwo.Checked) {
+                time.isPlusTwo = true;
+                time.timeInMilliseconds = time.initialTimeInMilliseconds + 2000;
+                time.time = Util.longMillisecondsToString(time.timeInMilliseconds) + " (+2)"; 
+                SqlUtil.updateIsPlusTwo(time);
+                labelTime.Text = time.time;
             }
             else {
-
+                time.isPlusTwo = false;
+                time.timeInMilliseconds = time.initialTimeInMilliseconds;
+                time.time = Util.longMillisecondsToString(time.timeInMilliseconds);
+                SqlUtil.updateIsPlusTwo(time);
+                labelTime.Text = time.time;
             }
         }
-
-        private void checkBoxDNF_CheckedChanged(object sender, EventArgs e) {
-            if (checkBoxDNF.Checked) {
-
+        private void checkBoxIsDNF_CheckedChanged(object sender, EventArgs e) {
+            if (checkBoxIsDNF.Checked) {
+                time.isDNF = true;
+                SqlUtil.updateIsDNF(time);
             }
             else {
-
+                time.isDNF = false;
+                SqlUtil.updateIsDNF(time);
             }
         }
     }

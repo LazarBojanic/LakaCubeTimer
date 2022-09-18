@@ -8,17 +8,21 @@ using System.Data;
 using static System.Collections.Specialized.BitVector32;
 using System.Data.Common;
 using LakaCubeTimer.forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.TaskbarClock;
+using Time = LakaCubeTimer.model.Time;
 
 namespace LakaCubeTimer.util {
     public static class SqlUtil {
         public static void saveToDatabase(Time timeResult) {
             OleDbConnection connection = Util.GetConnection();
             connection.Open();
-            string query = "INSERT INTO [time] ([session], [time], [timeInMilliseconds], [isPlusTwo], [isDNF], [scramble], [date]) VALUES (@session, @time, @timeInMilliseconds, @isPlusTwo, @isDNF, @scramble, @date)";
+            string query = "INSERT INTO [time] ([session], [timeInMilliseconds], [initialTimeInMilliseconds], [time], [isPlusTwo], [isDNF], [scramble], [date])" +
+                " VALUES (@session, @timeInMilliseconds, @initialTimeInMilliseconds, @time, @isPlusTwo, @isDNF, @scramble, @date)";
             OleDbCommand command = new OleDbCommand(query, connection);
             command.Parameters.AddWithValue("@session", timeResult.session);
-            command.Parameters.AddWithValue("@time", timeResult.time);
             command.Parameters.AddWithValue("@timeInMilliseconds", (double)timeResult.timeInMilliseconds);
+            command.Parameters.AddWithValue("@initialTimeInMilliseconds", (double)timeResult.initialTimeInMilliseconds);
+            command.Parameters.AddWithValue("@time", timeResult.time);      
             command.Parameters.AddWithValue("@isPlusTwo", timeResult.isPlusTwo);
             command.Parameters.AddWithValue("@isDNF", timeResult.isDNF);
             command.Parameters.AddWithValue("@scramble", timeResult.scramble);
@@ -51,12 +55,13 @@ namespace LakaCubeTimer.util {
             foreach(DataRow row in timesTable.Select()) {
                 times.Add(new TimeUserControl(new Time(Int32.Parse(row.ItemArray.GetValue(0).ToString()),
                                                 Int32.Parse(row.ItemArray.GetValue(1).ToString()),
-                                                row.ItemArray.GetValue(2).ToString(),
+                                                Convert.ToInt64(row.ItemArray.GetValue(2)),
                                                 Convert.ToInt64(row.ItemArray.GetValue(3)),
-                                                Convert.ToBoolean(row.ItemArray.GetValue(4)),
+                                                row.ItemArray.GetValue(4).ToString(),
                                                 Convert.ToBoolean(row.ItemArray.GetValue(5)),
-                                                row.ItemArray.GetValue(6).ToString(),
-                                                Convert.ToDateTime(row.ItemArray.GetValue(7)))));
+                                                Convert.ToBoolean(row.ItemArray.GetValue(6)),
+                                                row.ItemArray.GetValue(7).ToString(),
+                                                Convert.ToDateTime(row.ItemArray.GetValue(8)))));
                 
             }
             return times;
@@ -73,26 +78,20 @@ namespace LakaCubeTimer.util {
             return maxId;
         }
         public static List<long> timesToCalculate(int numberToGet, int session) {
-            try {
-                List<long> timesToCalculate = new List<long>();
-                int id = 0;
-                OleDbConnection connection = Util.GetConnection();
-                connection.Open();
-                string query = "SELECT [timeInMilliseconds] FROM [time] WHERE [session] = @session AND [id] = @id";
-                for (int i = 0; i < numberToGet; i++) {
-                    id = getMaxId(session) - i;
-                    OleDbCommand command = new OleDbCommand(query, connection);
-                    command.Parameters.AddWithValue("@session", session);
-                    command.Parameters.AddWithValue("@id", id);
-                    timesToCalculate.Add((long)command.ExecuteScalar());
-                }
-                connection.Close();
-                return timesToCalculate;
+            List<long> timesToCalculate = new List<long>();
+            int id = 0;
+            OleDbConnection connection = Util.GetConnection();
+            connection.Open();
+            string query = "SELECT [timeInMilliseconds] FROM [time] WHERE [session] = @session AND [id] = @id";
+            for (int i = 0; i < numberToGet; i++) {
+                id = getMaxId(session) - i;
+                OleDbCommand command = new OleDbCommand(query, connection);
+                command.Parameters.AddWithValue("@session", session);
+                command.Parameters.AddWithValue("@id", id);
+                timesToCalculate.Add((long)command.ExecuteScalar());
             }
-            catch (NullReferenceException) {
-                MessageBox.Show("Database id's were modified in the meantime", "Error");
-                return new List<long>();
-            }
+            connection.Close();
+            return timesToCalculate;
         }
         public static Time getLatestAddedTime(int session) {
             int maxId = getMaxId(session);
@@ -108,14 +107,48 @@ namespace LakaCubeTimer.util {
             DataRow row = latestTimeTable.Select()[0];
             Time latestTime = new Time(Int32.Parse(row.ItemArray.GetValue(0).ToString()),
                                                 Int32.Parse(row.ItemArray.GetValue(1).ToString()),
-                                                row.ItemArray.GetValue(2).ToString(),
+                                                Convert.ToInt64(row.ItemArray.GetValue(2)),
                                                 Convert.ToInt64(row.ItemArray.GetValue(3)),
-                                                Convert.ToBoolean(row.ItemArray.GetValue(4)),
+                                                row.ItemArray.GetValue(4).ToString(),
                                                 Convert.ToBoolean(row.ItemArray.GetValue(5)),
-                                                row.ItemArray.GetValue(6).ToString(),
-                                                Convert.ToDateTime(row.ItemArray.GetValue(7)));
+                                                Convert.ToBoolean(row.ItemArray.GetValue(6)),
+                                                row.ItemArray.GetValue(7).ToString(),
+                                                Convert.ToDateTime(row.ItemArray.GetValue(8)));
             connection.Close();
             return latestTime;
+        }
+        public static void updateIsPlusTwo(Time time) {
+            OleDbConnection connection = Util.GetConnection();
+            connection.Open();
+            string query = "UPDATE [time] SET [isPlusTwo] = @isPlusTwo, [time] = @timePlusTwo, [timeInMilliseconds] = @timeInMillisecondsPlusTwo WHERE [id] = @id";
+            OleDbCommand command = new OleDbCommand(query, connection);
+            command.Parameters.AddWithValue("@isPlusTwo", time.isPlusTwo);
+            command.Parameters.AddWithValue("@timePlusTwo", time.time);
+            command.Parameters.AddWithValue("@timeInMillisecondsPlusTwo", (double)time.timeInMilliseconds);
+            command.Parameters.AddWithValue("@id", time.id);
+            command.ExecuteNonQuery();
+            connection.Close();
+        }
+        public static void updateIsDNF(Time time) {
+            OleDbConnection connection = Util.GetConnection();
+            connection.Open();
+            string query = "UPDATE [time] SET [isDNF] = @isDNF WHERE [id] = @id";
+            OleDbCommand command = new OleDbCommand(query, connection);
+            command.Parameters.AddWithValue("@isDNF", time.isDNF);
+            command.Parameters.AddWithValue("@id", time.id);
+            command.ExecuteNonQuery();
+            connection.Close();
+        }
+        public static long getInitialTime(int id) {
+            long initialTime = 0;
+            OleDbConnection connection = Util.GetConnection();
+            connection.Open();
+            string query = "SELECT [initialTimeInMilliseconds] FROM [time] WHERE [id] = @id";
+            OleDbCommand command = new OleDbCommand(query, connection);
+            command.Parameters.AddWithValue("@id", id);
+            initialTime = (long)command.ExecuteScalar();
+            connection.Close();
+            return initialTime;
         }
     }
 }

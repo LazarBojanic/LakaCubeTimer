@@ -143,9 +143,9 @@
             this.panelTimer.Controls.Add(this.panelCube);
             this.panelTimer.Controls.Add(this.labelScramble);
             this.panelTimer.Controls.Add(this.labelTimer);
-            this.panelTimer.Location = new System.Drawing.Point(330, 12);
+            this.panelTimer.Location = new System.Drawing.Point(365, 12);
             this.panelTimer.Name = "panelTimer";
-            this.panelTimer.Size = new System.Drawing.Size(1051, 771);
+            this.panelTimer.Size = new System.Drawing.Size(1016, 771);
             this.panelTimer.TabIndex = 2;
             // 
             // buttonDownTurn
@@ -235,7 +235,7 @@
             this.panelCube.Controls.Add(this.panelUp);
             this.panelCube.Controls.Add(this.panelFront);
             this.panelCube.Controls.Add(this.panelLeft);
-            this.panelCube.Location = new System.Drawing.Point(592, 426);
+            this.panelCube.Location = new System.Drawing.Point(557, 426);
             this.panelCube.Name = "panelCube";
             this.panelCube.Size = new System.Drawing.Size(456, 342);
             this.panelCube.TabIndex = 1;
@@ -905,7 +905,7 @@
             this.labelScramble.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.labelScramble.AutoSize = true;
             this.labelScramble.Font = new System.Drawing.Font("Century Gothic", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.labelScramble.Location = new System.Drawing.Point(472, 74);
+            this.labelScramble.Location = new System.Drawing.Point(455, 74);
             this.labelScramble.Name = "labelScramble";
             this.labelScramble.Size = new System.Drawing.Size(165, 39);
             this.labelScramble.TabIndex = 1;
@@ -918,7 +918,7 @@
             this.flowLayoutPanelTimes.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.flowLayoutPanelTimes.Location = new System.Drawing.Point(12, 12);
             this.flowLayoutPanelTimes.Name = "flowLayoutPanelTimes";
-            this.flowLayoutPanelTimes.Size = new System.Drawing.Size(312, 595);
+            this.flowLayoutPanelTimes.Size = new System.Drawing.Size(348, 595);
             this.flowLayoutPanelTimes.TabIndex = 3;
             // 
             // panelStats
@@ -930,7 +930,7 @@
             this.panelStats.Controls.Add(this.labelAverageOfFive);
             this.panelStats.Location = new System.Drawing.Point(12, 660);
             this.panelStats.Name = "panelStats";
-            this.panelStats.Size = new System.Drawing.Size(312, 123);
+            this.panelStats.Size = new System.Drawing.Size(347, 123);
             this.panelStats.TabIndex = 4;
             // 
             // labelBestTime
@@ -983,7 +983,7 @@
             "12"});
             this.comboBoxSession.Location = new System.Drawing.Point(12, 613);
             this.comboBoxSession.Name = "comboBoxSession";
-            this.comboBoxSession.Size = new System.Drawing.Size(312, 41);
+            this.comboBoxSession.Size = new System.Drawing.Size(347, 41);
             this.comboBoxSession.TabIndex = 5;
             this.comboBoxSession.TabStop = false;
             // 

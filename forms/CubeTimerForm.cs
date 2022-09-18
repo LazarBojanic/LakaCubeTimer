@@ -24,7 +24,7 @@ namespace LakaCubeTimer {
             newCube = scrambledCube;
         }
         private void CubeTimerForm_Load(object sender, EventArgs e) {
-            comboBoxSession.SelectedIndex = 0;
+            comboBoxSession.SelectedIndex = 0;     
             fillTimesPanel(1);
             displayStats();
             labelScramble.Text = Util.scrambleToString(validatedScramble);
@@ -75,7 +75,7 @@ namespace LakaCubeTimer {
             stopwatch.Stop();
             long elapsedMilliseconds = stopwatch.ElapsedMilliseconds;
             labelTimer.Text = Util.longMillisecondsToString(elapsedMilliseconds);
-            Time time = new Time(0, Int32.Parse(comboBoxSession.Text), Util.longMillisecondsToString(elapsedMilliseconds), elapsedMilliseconds, false, false, labelScramble.Text, DateTime.Now);
+            Time time = new Time(0, Int32.Parse(comboBoxSession.Text), elapsedMilliseconds, elapsedMilliseconds, Util.longMillisecondsToString(elapsedMilliseconds), false, false, labelScramble.Text, DateTime.Now);
             SqlUtil.saveToDatabase(time);
             Time latestTime = SqlUtil.getLatestAddedTime(time.session);
             TimeUserControl timeUserControl = new TimeUserControl(latestTime);
