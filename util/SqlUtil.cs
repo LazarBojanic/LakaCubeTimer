@@ -14,11 +14,14 @@ namespace LakaCubeTimer.util {
         public static void saveToDatabase(Time timeResult) {
             OleDbConnection connection = Util.GetConnection();
             connection.Open();
-            string query = "INSERT INTO [time] ([session], [time], [timeInMilliseconds], [date]) VALUES (@session, @time, @timeInMilliseconds, @date)";
+            string query = "INSERT INTO [time] ([session], [time], [timeInMilliseconds], [isPlusTwo], [isDNF], [scramble], [date]) VALUES (@session, @time, @timeInMilliseconds, @isPlusTwo, @isDNF, @scramble, @date)";
             OleDbCommand command = new OleDbCommand(query, connection);
             command.Parameters.AddWithValue("@session", timeResult.session);
             command.Parameters.AddWithValue("@time", timeResult.time);
             command.Parameters.AddWithValue("@timeInMilliseconds", (double)timeResult.timeInMilliseconds);
+            command.Parameters.AddWithValue("@isPlusTwo", timeResult.isPlusTwo);
+            command.Parameters.AddWithValue("@isDNF", timeResult.isDNF);
+            command.Parameters.AddWithValue("@scramble", timeResult.scramble);
             command.Parameters.Add("@date", OleDbType.DBTimeStamp).Value = Util.dateTimeWithoutMilliseconds(timeResult.date);
             command.ExecuteNonQuery();
             connection.Close();
@@ -90,6 +93,29 @@ namespace LakaCubeTimer.util {
                 MessageBox.Show("Database id's were modified in the meantime", "Error");
                 return new List<long>();
             }
+        }
+        public static Time getLatestAddedTime(int session) {
+            int maxId = getMaxId(session);
+            OleDbConnection connection = Util.GetConnection();
+            DataTable latestTimeTable = new DataTable();
+            connection.Open();
+            string query = "SELECT * FROM [time] WHERE [session] = @session AND [id] = @id";
+            OleDbCommand command = new OleDbCommand(query, connection);
+            command.Parameters.AddWithValue("@session", session);
+            command.Parameters.AddWithValue("@id", maxId);
+            OleDbDataAdapter adapter = new OleDbDataAdapter(command);
+            adapter.Fill(latestTimeTable);
+            DataRow row = latestTimeTable.Select()[0];
+            Time latestTime = new Time(Int32.Parse(row.ItemArray.GetValue(0).ToString()),
+                                                Int32.Parse(row.ItemArray.GetValue(1).ToString()),
+                                                row.ItemArray.GetValue(2).ToString(),
+                                                Convert.ToInt64(row.ItemArray.GetValue(3)),
+                                                Convert.ToBoolean(row.ItemArray.GetValue(4)),
+                                                Convert.ToBoolean(row.ItemArray.GetValue(5)),
+                                                row.ItemArray.GetValue(6).ToString(),
+                                                Convert.ToDateTime(row.ItemArray.GetValue(7)));
+            connection.Close();
+            return latestTime;
         }
     }
 }

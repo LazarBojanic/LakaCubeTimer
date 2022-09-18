@@ -76,9 +76,10 @@ namespace LakaCubeTimer {
             long elapsedMilliseconds = stopwatch.ElapsedMilliseconds;
             labelTimer.Text = Util.longMillisecondsToString(elapsedMilliseconds);
             Time time = new Time(0, Int32.Parse(comboBoxSession.Text), Util.longMillisecondsToString(elapsedMilliseconds), elapsedMilliseconds, false, false, labelScramble.Text, DateTime.Now);
-            TimeUserControl timeUserControl = new TimeUserControl(time);
-            flowLayoutPanelTimes.Controls.Add(timeUserControl);
             SqlUtil.saveToDatabase(time);
+            Time latestTime = SqlUtil.getLatestAddedTime(time.session);
+            TimeUserControl timeUserControl = new TimeUserControl(latestTime);
+            flowLayoutPanelTimes.Controls.Add(timeUserControl);          
             displayStats();
         }
         private void timerCube_Tick(object sender, EventArgs e) {
