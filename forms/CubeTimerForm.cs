@@ -47,7 +47,7 @@ namespace LakaCubeTimer {
                 bestTime = "Best Time: " + SqlUtil.getBestTime(session);
             }
             else {
-                bestTime = "Best Time:";                  
+                bestTime = "Best Time:";
             }
             if (SqlUtil.getNumberOfSolvesForAverage(session) >= 5) {
                 averageOfFive = "Ao5: " + Util.longMillisecondsToString(Util.calculateAverage(SqlUtil.timesToCalculate(5, session)));
@@ -73,10 +73,10 @@ namespace LakaCubeTimer {
                     if (timerState == TimerStates.IDLE) {
                         labelTimer.ForeColor = Color.MediumVioletRed;
                     }
-                    else if(timerState == TimerStates.INSPECTION) {
+                    else if (timerState == TimerStates.INSPECTION) {
                         labelTimer.ForeColor = Color.Lime;
                     }
-                    else if(timerState == TimerStates.SOLVING) {
+                    else if (timerState == TimerStates.SOLVING) {
                         timerState = TimerStates.STOPPED;
                         endSolve(isPlusTwoInInspection, false);
                     }
@@ -85,12 +85,12 @@ namespace LakaCubeTimer {
                     if (timerState == TimerStates.IDLE) {
                         labelTimer.ForeColor = Color.Lime;
                     }
-                    else if(timerState == TimerStates.SOLVING) {
+                    else if (timerState == TimerStates.SOLVING) {
                         timerState = TimerStates.STOPPED;
                         endSolve(isPlusTwoInInspection, false);
                     }
                 }
-            }            
+            }
         }
         private void CubeTimerForm_KeyUp(object sender, KeyEventArgs e) {
             if (e.KeyCode == Keys.Space) {
@@ -122,7 +122,7 @@ namespace LakaCubeTimer {
                         beginSolve();
                     }
                 }
-            }        
+            }
         }
         public void fillTimesPanel(int session) {
             listOfTimes = SqlUtil.fillTimes(session);
@@ -147,10 +147,10 @@ namespace LakaCubeTimer {
         }
         public void endSolve(bool isPlusTwo, bool isDNF) {
             solveStopwatch.Stop();
-            timerSolve.Stop();       
+            timerSolve.Stop();
             long elapsedMilliseconds = solveStopwatch.ElapsedMilliseconds;
             labelTimer.Text = Util.longMillisecondsToString(elapsedMilliseconds);
-            SolveTime time = new SolveTime(0, currentSession, elapsedMilliseconds, elapsedMilliseconds, 
+            SolveTime time = new SolveTime(0, currentSession, elapsedMilliseconds, elapsedMilliseconds,
                 Util.longMillisecondsToString(elapsedMilliseconds), isPlusTwo, isDNF, labelScramble.Text, DateTime.Now);
             SqlUtil.saveToDatabase(time);
             SolveTime latestTime = SqlUtil.getLatestAddedTime(time.solveSession);
@@ -160,7 +160,7 @@ namespace LakaCubeTimer {
             displayScramble();
             displayStats();
         }
-        private void timerSolve_Tick(object sender, EventArgs e) {      
+        private void timerSolve_Tick(object sender, EventArgs e) {
             long elapsedMilliseconds = solveStopwatch.ElapsedMilliseconds;
             labelTimer.Text = Util.longMillisecondsToString(elapsedMilliseconds);
             labelTimer.Left = (panelTimer.Width - labelTimer.Width) / 2;
@@ -168,11 +168,11 @@ namespace LakaCubeTimer {
         private void timerInspection_Tick(object sender, EventArgs e) {
             long elapsedMilliseconds = inspectionStopwatch.ElapsedMilliseconds;
             labelTimer.Text = (elapsedMilliseconds / 1000).ToString();
-            if(elapsedMilliseconds / 1000 >= 15) {
+            if (elapsedMilliseconds / 1000 >= 15) {
                 isPlusTwoInInspection = true;
                 labelTimer.Text += " (+2)";
             }
-            if(elapsedMilliseconds / 1000 >= 17) {
+            if (elapsedMilliseconds / 1000 >= 17) {
                 endInspection();
                 endSolve(false, true);
                 labelTimer.Text = "DNF";
@@ -340,19 +340,18 @@ namespace LakaCubeTimer {
         }
         private void buttonNewScramble_MouseClick(object sender, MouseEventArgs e) {
             displayScramble();
+            cubeToTurn = scrambledCube;
         }
-
         private void buttonDeleteAllFromSession_MouseClick(object sender, MouseEventArgs e) {
             flowLayoutPanelTimes.Controls.Clear();
             SqlUtil.deleteAllFromSession(currentSession);
             updateStats(currentSession);
             displayStats();
         }
-
         private void checkBoxInspectionEnabled_CheckedChanged(object sender, EventArgs e) {
             if (checkBoxInspectionEnabled.Checked) {
                 Properties.Settings.Default.inspectionEnabled = true;
-                
+
                 inspectionEnabled = Properties.Settings.Default.inspectionEnabled;
             }
             else {
