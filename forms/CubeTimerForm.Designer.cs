@@ -121,7 +121,7 @@
             this.labelTimer.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.labelTimer.AutoSize = true;
             this.labelTimer.Font = new System.Drawing.Font("Century Gothic", 72F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.labelTimer.Location = new System.Drawing.Point(245, 165);
+            this.labelTimer.Location = new System.Drawing.Point(245, 229);
             this.labelTimer.Name = "labelTimer";
             this.labelTimer.Size = new System.Drawing.Size(527, 115);
             this.labelTimer.TabIndex = 0;
@@ -933,7 +933,7 @@
             this.labelScramble.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.labelScramble.AutoSize = true;
             this.labelScramble.Font = new System.Drawing.Font("Century Gothic", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.labelScramble.Location = new System.Drawing.Point(426, 74);
+            this.labelScramble.Location = new System.Drawing.Point(426, 145);
             this.labelScramble.Name = "labelScramble";
             this.labelScramble.Size = new System.Drawing.Size(165, 39);
             this.labelScramble.TabIndex = 1;
