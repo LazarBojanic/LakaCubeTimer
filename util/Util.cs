@@ -1119,11 +1119,23 @@ namespace LakaCubeTimer.util {
                 turnOne = generateOtherThirdTurn(prevTurn, secondPrevTurn);
                 turnTwo = generateOtherTurn(turnOne);
                 turnThree = generateOtherThirdTurn(turnOne, turnTwo);
+                if (numberOfTurns % 3 != 0) {
+                    if(numberOfTurns - i == 2) {
+                        numberOfDoubleTurns = addValidatedTurn(turnOne, scrambleList, numberOfDoubleTurns);
+                        numberOfDoubleTurns = addValidatedTurn(turnTwo, scrambleList, numberOfDoubleTurns);
+                        return scrambleList;
+                    }
+                    else if(numberOfTurns - i == 1) {
+                        numberOfDoubleTurns = addValidatedTurn(turnOne, scrambleList, numberOfDoubleTurns);
+                        return scrambleList;
+                    }
+                }
                 numberOfDoubleTurns = addValidatedTurn(turnOne, scrambleList, numberOfDoubleTurns);
                 numberOfDoubleTurns = addValidatedTurn(turnTwo, scrambleList, numberOfDoubleTurns);
                 numberOfDoubleTurns = addValidatedTurn(turnThree, scrambleList, numberOfDoubleTurns);
                 secondPrevTurn = turnTwo;
                 prevTurn = turnThree;
+
             }
             return scrambleList;
         }
