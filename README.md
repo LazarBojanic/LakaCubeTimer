@@ -1,3 +1,3 @@
 # LakaCubeTimer
 
-![](Manual-SRB-1.png)
+![](Manual-ENG-1.png)
