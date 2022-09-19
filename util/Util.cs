@@ -7,10 +7,7 @@ namespace LakaCubeTimer.util {
     public static class Util {
         private static int MAX_DOUBLE_TURNS = 9;
         private static string[] turns = new string[] { "U", "D", "L", "R", "F", "B" };
-        public static OleDbConnection GetConnection() {
-            return new OleDbConnection(Properties.Settings.Default.timesConnectionString);
-        }
-
+        
         public static DateTime dateTimeWithoutMilliseconds(DateTime date) {
             return new DateTime(date.Year, date.Month, date.Day, date.Hour, date.Minute, date.Second);
         }
@@ -153,8 +150,8 @@ namespace LakaCubeTimer.util {
             }
             return numOfDoubleTurns;
         }
-        public static string timeToString(Time time) {
-            return time.time + " | " + time.date;
+        public static string timeToString(SolveTime time) {
+            return time.solveTime + " | " + time.solveDate;
         }
         public static string scrambleToString(List<string> scramble) {
             string scrambleString = "";

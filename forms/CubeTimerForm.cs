@@ -23,7 +23,7 @@ namespace LakaCubeTimer {
         private Cube initialCube;
         private Cube cubeToTurn;
         private Cube scrambledCube;
-        private List<TimeUserControl> listOfTimes;
+        private List<SolveTimeUserControl> listOfTimes;
         private static Stopwatch solveStopwatch;
         private static Stopwatch inspectionStopwatch;
         private static string bestTime { get; set; }
@@ -43,19 +43,23 @@ namespace LakaCubeTimer {
             cubeToTurn = scrambledCube;
         }
         public void updateStats(int session) {
-            if (flowLayoutPanelTimes.Controls.Count >= 1) {
+            if (SqlUtil.getNumberOfSolvesForAverage(session) >= 1) {
                 bestTime = "Best Time: " + SqlUtil.getBestTime(session);
             }
             else {
-                bestTime = "Best Time:";
-                averageOfFive = "Ao5:";
-                averageOfTwelve = "Ao12:";
+                bestTime = "Best Time:";                  
             }
-            if (flowLayoutPanelTimes.Controls.Count >= 5) {
+            if (SqlUtil.getNumberOfSolvesForAverage(session) >= 5) {
                 averageOfFive = "Ao5: " + Util.longMillisecondsToString(Util.calculateAverage(SqlUtil.timesToCalculate(5, session)));
             }
-            if (flowLayoutPanelTimes.Controls.Count >= 12) {
+            else {
+                averageOfFive = "Ao5:";
+            }
+            if (SqlUtil.getNumberOfSolvesForAverage(session) >= 12) {
                 averageOfTwelve = "Ao12: " + Util.longMillisecondsToString(Util.calculateAverage(SqlUtil.timesToCalculate(12, session)));
+            }
+            else {
+                averageOfTwelve = "Ao12:";
             }
         }
         public void displayStats() {
@@ -122,9 +126,9 @@ namespace LakaCubeTimer {
         }
         public void fillTimesPanel(int session) {
             listOfTimes = SqlUtil.fillTimes(session);
-            foreach (TimeUserControl time in listOfTimes) {
-                flowLayoutPanelTimes.Controls.Add(time);
-                time.Left = (flowLayoutPanelTimes.Width - time.Width) / 2;
+            foreach (SolveTimeUserControl solveTime in listOfTimes) {
+                flowLayoutPanelTimes.Controls.Add(solveTime);
+                solveTime.Left = (flowLayoutPanelTimes.Width - solveTime.Width) / 2;
             }
         }
         public void beginInspection() {
@@ -146,11 +150,11 @@ namespace LakaCubeTimer {
             timerSolve.Stop();       
             long elapsedMilliseconds = solveStopwatch.ElapsedMilliseconds;
             labelTimer.Text = Util.longMillisecondsToString(elapsedMilliseconds);
-            Time time = new Time(0, currentSession, elapsedMilliseconds, elapsedMilliseconds, 
+            SolveTime time = new SolveTime(0, currentSession, elapsedMilliseconds, elapsedMilliseconds, 
                 Util.longMillisecondsToString(elapsedMilliseconds), isPlusTwo, isDNF, labelScramble.Text, DateTime.Now);
             SqlUtil.saveToDatabase(time);
-            Time latestTime = SqlUtil.getLatestAddedTime(time.session);
-            TimeUserControl timeUserControl = new TimeUserControl(latestTime);
+            SolveTime latestTime = SqlUtil.getLatestAddedTime(time.solveSession);
+            SolveTimeUserControl timeUserControl = new SolveTimeUserControl(latestTime);
             flowLayoutPanelTimes.Controls.Add(timeUserControl);
             updateStats(currentSession);
             displayScramble();
@@ -340,19 +344,21 @@ namespace LakaCubeTimer {
         private void buttonDeleteAllFromSession_MouseClick(object sender, MouseEventArgs e) {
             flowLayoutPanelTimes.Controls.Clear();
             SqlUtil.deleteAllFromSession(currentSession);
+            updateStats(currentSession);
+            displayStats();
         }
 
         private void checkBoxInspectionEnabled_CheckedChanged(object sender, EventArgs e) {
             if (checkBoxInspectionEnabled.Checked) {
-                Properties.Settings.Default.PropertyValues["inspectionEnabled"].PropertyValue = true;
-                Properties.Settings.Default.Save();
+                Properties.Settings.Default.inspectionEnabled = true;
+                
                 inspectionEnabled = Properties.Settings.Default.inspectionEnabled;
             }
             else {
                 Properties.Settings.Default.PropertyValues["inspectionEnabled"].PropertyValue = false;
-                Properties.Settings.Default.Save();
                 inspectionEnabled = Properties.Settings.Default.inspectionEnabled;
             }
+            Properties.Settings.Default.Save();
         }
     }
 }

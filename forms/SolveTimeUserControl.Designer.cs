@@ -1,5 +1,5 @@
 ﻿namespace LakaCubeTimer.forms {
-    partial class TimeUserControl {
+    partial class SolveTimeUserControl {
         /// <summary> 
         /// Required designer variable.
         /// </summary>

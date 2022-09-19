@@ -12,18 +12,18 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace LakaCubeTimer.forms {
-    public partial class TimeUserControl : UserControl {
-        public Time time { get; set; }
+    public partial class SolveTimeUserControl : UserControl {
+        public SolveTime solveTime { get; set; }
         private CubeTimerForm cubeTimerForm { get; set; }
-        public TimeUserControl(Time time) {
+        public SolveTimeUserControl(SolveTime solveTime) {
             InitializeComponent();
-            this.time = time;
+            this.solveTime = solveTime;
             this.cubeTimerForm = (CubeTimerForm)Application.OpenForms["CubeTimerForm"];          
         }
         private void TimeUserControl_Load(object sender, EventArgs e) {
-            labelTime.Text = time.time;
-            checkBoxIsPlusTwo.Checked = time.isPlusTwo;
-            checkBoxIsDNF.Checked = time.isDNF;
+            labelTime.Text = solveTime.solveTime;
+            checkBoxIsPlusTwo.Checked = solveTime.isPlusTwo;
+            checkBoxIsDNF.Checked = solveTime.isDNF;
         }
         private void TimeUserControl_MouseEnter(object sender, EventArgs e) {
             this.BackColor = Color.LightGray;
@@ -32,7 +32,7 @@ namespace LakaCubeTimer.forms {
             this.BackColor = Control.DefaultBackColor;
         }
         private void TimeUserControl_MouseClick(object sender, MouseEventArgs e) {
-            StatsForm statsForm = new StatsForm(time);
+            StatsForm statsForm = new StatsForm(solveTime);
             statsForm.ShowDialog();
         }
         private void labelTime_MouseEnter(object sender, EventArgs e) {
@@ -42,45 +42,46 @@ namespace LakaCubeTimer.forms {
             this.BackColor = Control.DefaultBackColor;
         }
         private void labelTime_MouseClick(object sender, MouseEventArgs e) {
-            StatsForm statsForm = new StatsForm(time);
+            StatsForm statsForm = new StatsForm(solveTime);
             statsForm.ShowDialog();
         }
         private void checkBoxIsPlusTwo_CheckedChanged(object sender, EventArgs e) {
             cubeTimerForm = (CubeTimerForm)Application.OpenForms["CubeTimerForm"];
             if (checkBoxIsPlusTwo.Checked) {
-                time.isPlusTwo = true;
-                time.timeInMilliseconds = time.initialTimeInMilliseconds + 2000;
-                time.time = Util.longMillisecondsToString(time.timeInMilliseconds) + " (+2)"; 
-                SqlUtil.updateIsPlusTwo(time);
-                labelTime.Text = time.time;
+                solveTime.isPlusTwo = true;
+                solveTime.solveTimeInMilliseconds = solveTime.solveInitialTimeInMilliseconds + 2000;
+                solveTime.solveTime = Util.longMillisecondsToString(solveTime.solveTimeInMilliseconds) + " (+2)"; 
+                SqlUtil.updateIsPlusTwo(solveTime);
+                labelTime.Text = solveTime.solveTime;
                 
             }
             else {
-                time.isPlusTwo = false;
-                time.timeInMilliseconds = time.initialTimeInMilliseconds;
-                time.time = Util.longMillisecondsToString(time.timeInMilliseconds);
-                SqlUtil.updateIsPlusTwo(time);
-                labelTime.Text = time.time;
+                solveTime.isPlusTwo = false;
+                solveTime.solveTimeInMilliseconds = solveTime.solveInitialTimeInMilliseconds;
+                solveTime.solveTime = Util.longMillisecondsToString(solveTime.solveTimeInMilliseconds);
+                SqlUtil.updateIsPlusTwo(solveTime);
+                labelTime.Text = solveTime.solveTime;
             }
-            cubeTimerForm.updateStats(time.session);
+            cubeTimerForm.updateStats(solveTime.solveSession);
             cubeTimerForm.displayStats();
         }
         private void checkBoxIsDNF_CheckedChanged(object sender, EventArgs e) {
             cubeTimerForm = (CubeTimerForm)Application.OpenForms["CubeTimerForm"];
             if (checkBoxIsDNF.Checked) {
-                time.isDNF = true;
-                SqlUtil.updateIsDNF(time);
+                solveTime.isDNF = true;
+                SqlUtil.updateIsDNF(solveTime);
             }
             else {
-                time.isDNF = false;
-                SqlUtil.updateIsDNF(time);
+                solveTime.isDNF = false;
+                SqlUtil.updateIsDNF(solveTime);
             }
         }
-
         private void buttonDelete_MouseClick(object sender, MouseEventArgs e) {
             cubeTimerForm = (CubeTimerForm)Application.OpenForms["CubeTimerForm"];
-            SqlUtil.deleteTime(time.session, time.id);
+            SqlUtil.deleteTime(solveTime.solveSession, solveTime.id);
             cubeTimerForm.flowLayoutPanelTimes.Controls.Remove(this);
+            cubeTimerForm.updateStats(solveTime.solveSession);
+            cubeTimerForm.displayStats();
         }
     }
 }

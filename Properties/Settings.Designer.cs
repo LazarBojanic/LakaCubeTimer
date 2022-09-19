@@ -23,6 +23,18 @@ namespace LakaCubeTimer.Properties {
             }
         }
         
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool inspectionEnabled {
+            get {
+                return ((bool)(this["inspectionEnabled"]));
+            }
+            set {
+                this["inspectionEnabled"] = value;
+            }
+        }
+        
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
@@ -31,15 +43,6 @@ namespace LakaCubeTimer.Properties {
         public string timesConnectionString {
             get {
                 return ((string)(this["timesConnectionString"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool inspectionEnabled {
-            get {
-                return ((bool)(this["inspectionEnabled"]));
             }
         }
     }

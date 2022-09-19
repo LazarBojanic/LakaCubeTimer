@@ -11,16 +11,16 @@ using System.Windows.Forms;
 
 namespace LakaCubeTimer.forms {
     public partial class StatsForm : Form {
-        public Time time { get; set; }
-        public StatsForm(Time time) {
+        public SolveTime solveTime { get; set; }
+        public StatsForm(SolveTime solveTime) {
             InitializeComponent();
-            this.time = time;
+            this.solveTime = solveTime;
         }
         private void StatsForm_Load(object sender, EventArgs e) {
-            labelSession.Text = "Session: " + time.session;
-            labelTime.Text = "Time: " + time.time;
-            textBoxScramble.Text = time.scramble;
-            labelDate.Text = "Date: " + time.date.ToString();
+            labelSession.Text = "Session: " + solveTime.solveSession;
+            labelTime.Text = "Time: " + solveTime.solveTime;
+            textBoxScramble.Text = solveTime.solveScramble;
+            labelDate.Text = "Date: " + solveTime.solveDate.ToString();
         }
     }
 }
