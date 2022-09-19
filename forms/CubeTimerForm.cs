@@ -18,8 +18,7 @@ namespace LakaCubeTimer {
         private static bool inspectionEnabled = true;
         private int currentSession = 1;
         private TimerStates timerState = TimerStates.IDLE;
-        private List<string> initialScramble;
-        private List<string> validatedScramble;
+        private List<string> scramble;
         private Cube initialCube;
         private Cube cubeToTurn;
         private Cube scrambledCube;
@@ -151,7 +150,7 @@ namespace LakaCubeTimer {
             long elapsedMilliseconds = solveStopwatch.ElapsedMilliseconds;
             labelTimer.Text = Util.longMillisecondsToString(elapsedMilliseconds);
             SolveTime time = new SolveTime(0, currentSession, elapsedMilliseconds, elapsedMilliseconds,
-                Util.longMillisecondsToString(elapsedMilliseconds), isPlusTwo, isDNF, labelScramble.Text, DateTime.Now);
+                Util.longMillisecondsToString(elapsedMilliseconds), isPlusTwo, isDNF, Util.scrambleToString(scramble), DateTime.Now);
             SqlUtil.saveToDatabase(time);
             SolveTime latestTime = SqlUtil.getLatestAddedTime(time.solveSession);
             SolveTimeUserControl timeUserControl = new SolveTimeUserControl(latestTime);
@@ -182,11 +181,10 @@ namespace LakaCubeTimer {
             Thread.Sleep(150);
         }
         public void displayScramble() {
-            initialScramble = Util.generateScramble();
-            validatedScramble = Util.validateScramble(initialScramble);
+            scramble = Util.generateScramble();
             initialCube = new Cube();
-            scrambledCube = Util.scrambleCube(initialCube, validatedScramble);
-            labelScramble.Text = Util.scrambleToString(validatedScramble);
+            scrambledCube = Util.scrambleCube(initialCube, scramble);
+            labelScramble.Text = Util.scrambleToString(scramble);
             labelScramble.Left = (panelTimer.Width - labelScramble.Width) / 2;
             paintCube(scrambledCube);
         }

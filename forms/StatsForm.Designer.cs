@@ -44,7 +44,7 @@
             // 
             this.labelTime.AutoSize = true;
             this.labelTime.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.labelTime.Location = new System.Drawing.Point(12, 71);
+            this.labelTime.Location = new System.Drawing.Point(12, 99);
             this.labelTime.Name = "labelTime";
             this.labelTime.Size = new System.Drawing.Size(60, 22);
             this.labelTime.TabIndex = 2;
@@ -54,7 +54,7 @@
             // 
             this.labelScramble.AutoSize = true;
             this.labelScramble.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.labelScramble.Location = new System.Drawing.Point(12, 118);
+            this.labelScramble.Location = new System.Drawing.Point(12, 174);
             this.labelScramble.Name = "labelScramble";
             this.labelScramble.Size = new System.Drawing.Size(105, 22);
             this.labelScramble.TabIndex = 6;
@@ -64,7 +64,7 @@
             // 
             this.labelDate.AutoSize = true;
             this.labelDate.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.labelDate.Location = new System.Drawing.Point(12, 165);
+            this.labelDate.Location = new System.Drawing.Point(12, 249);
             this.labelDate.Name = "labelDate";
             this.labelDate.Size = new System.Drawing.Size(66, 22);
             this.labelDate.TabIndex = 7;
@@ -73,16 +73,16 @@
             // textBoxScramble
             // 
             this.textBoxScramble.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.textBoxScramble.Location = new System.Drawing.Point(123, 114);
+            this.textBoxScramble.Location = new System.Drawing.Point(123, 170);
             this.textBoxScramble.Name = "textBoxScramble";
-            this.textBoxScramble.Size = new System.Drawing.Size(391, 31);
+            this.textBoxScramble.Size = new System.Drawing.Size(567, 31);
             this.textBoxScramble.TabIndex = 8;
             // 
             // StatsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(526, 211);
+            this.ClientSize = new System.Drawing.Size(702, 302);
             this.Controls.Add(this.textBoxScramble);
             this.Controls.Add(this.labelDate);
             this.Controls.Add(this.labelScramble);
