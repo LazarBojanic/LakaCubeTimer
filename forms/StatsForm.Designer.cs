@@ -88,7 +88,7 @@
             this.Controls.Add(this.labelScramble);
             this.Controls.Add(this.labelTime);
             this.Controls.Add(this.labelSession);
-            this.MinimumSize = new System.Drawing.Size(542, 250);
+            this.MinimumSize = new System.Drawing.Size(718, 341);
             this.Name = "StatsForm";
             this.Text = "StatsForm";
             this.Load += new System.EventHandler(this.StatsForm_Load);

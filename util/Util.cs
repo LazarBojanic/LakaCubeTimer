@@ -1135,7 +1135,6 @@ namespace LakaCubeTimer.util {
                 numberOfDoubleTurns = addValidatedTurn(turnThree, scrambleList, numberOfDoubleTurns);
                 secondPrevTurn = turnTwo;
                 prevTurn = turnThree;
-
             }
             return scrambleList;
         }

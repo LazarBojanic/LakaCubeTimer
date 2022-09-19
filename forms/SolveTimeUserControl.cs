@@ -52,8 +52,7 @@ namespace LakaCubeTimer.forms {
                 solveTime.solveTimeInMilliseconds = solveTime.solveInitialTimeInMilliseconds + 2000;
                 solveTime.solveTime = Util.longMillisecondsToString(solveTime.solveTimeInMilliseconds) + " (+2)"; 
                 SqlUtil.updateIsPlusTwo(solveTime);
-                labelTime.Text = solveTime.solveTime;
-                
+                labelTime.Text = solveTime.solveTime;         
             }
             else {
                 solveTime.isPlusTwo = false;
