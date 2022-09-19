@@ -25,8 +25,9 @@
         private void InitializeComponent() {
             this.components = new System.ComponentModel.Container();
             this.labelTimer = new System.Windows.Forms.Label();
-            this.timerCube = new System.Windows.Forms.Timer(this.components);
+            this.timerSolve = new System.Windows.Forms.Timer(this.components);
             this.panelTimer = new System.Windows.Forms.Panel();
+            this.checkBoxInspectionEnabled = new System.Windows.Forms.CheckBox();
             this.panelTurns = new System.Windows.Forms.Panel();
             this.buttonLeftTurn = new System.Windows.Forms.Button();
             this.buttonFrontTurn = new System.Windows.Forms.Button();
@@ -105,6 +106,7 @@
             this.comboBoxSession = new System.Windows.Forms.ComboBox();
             this.buttonSelectSession = new System.Windows.Forms.Button();
             this.buttonDeleteAllFromSession = new System.Windows.Forms.Button();
+            this.timerInspection = new System.Windows.Forms.Timer(this.components);
             this.panelTimer.SuspendLayout();
             this.panelTurns.SuspendLayout();
             this.panelCube.SuspendLayout();
@@ -129,16 +131,17 @@
             this.labelTimer.Text = "00 : 00 . 00";
             this.labelTimer.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // timerCube
+            // timerSolve
             // 
-            this.timerCube.Interval = 10;
-            this.timerCube.Tick += new System.EventHandler(this.timerCube_Tick);
+            this.timerSolve.Interval = 10;
+            this.timerSolve.Tick += new System.EventHandler(this.timerSolve_Tick);
             // 
             // panelTimer
             // 
             this.panelTimer.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.panelTimer.Controls.Add(this.checkBoxInspectionEnabled);
             this.panelTimer.Controls.Add(this.panelTurns);
             this.panelTimer.Controls.Add(this.buttonNewScramble);
             this.panelTimer.Controls.Add(this.panelCube);
@@ -148,6 +151,19 @@
             this.panelTimer.Name = "panelTimer";
             this.panelTimer.Size = new System.Drawing.Size(1021, 771);
             this.panelTimer.TabIndex = 2;
+            // 
+            // checkBoxInspectionEnabled
+            // 
+            this.checkBoxInspectionEnabled.Appearance = System.Windows.Forms.Appearance.Button;
+            this.checkBoxInspectionEnabled.Font = new System.Drawing.Font("Century Gothic", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.checkBoxInspectionEnabled.Location = new System.Drawing.Point(15, 15);
+            this.checkBoxInspectionEnabled.Name = "checkBoxInspectionEnabled";
+            this.checkBoxInspectionEnabled.Size = new System.Drawing.Size(163, 70);
+            this.checkBoxInspectionEnabled.TabIndex = 10;
+            this.checkBoxInspectionEnabled.Text = "Inspection On/Off";
+            this.checkBoxInspectionEnabled.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.checkBoxInspectionEnabled.UseVisualStyleBackColor = true;
+            this.checkBoxInspectionEnabled.CheckedChanged += new System.EventHandler(this.checkBoxInspectionEnabled_CheckedChanged);
             // 
             // panelTurns
             // 
@@ -1040,6 +1056,10 @@
             this.buttonDeleteAllFromSession.UseVisualStyleBackColor = true;
             this.buttonDeleteAllFromSession.MouseClick += new System.Windows.Forms.MouseEventHandler(this.buttonDeleteAllFromSession_MouseClick);
             // 
+            // timerInspection
+            // 
+            this.timerInspection.Tick += new System.EventHandler(this.timerInspection_Tick);
+            // 
             // CubeTimerForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -1078,7 +1098,7 @@
         #endregion
 
         private Label labelTimer;
-        private System.Windows.Forms.Timer timerCube;
+        private System.Windows.Forms.Timer timerSolve;
         private Panel panelTimer;
         private Label labelScramble;
         private Panel panelCube;
@@ -1158,5 +1178,7 @@
         private Button buttonSelectSession;
         private Panel panelTurns;
         private Button buttonDeleteAllFromSession;
+        private CheckBox checkBoxInspectionEnabled;
+        private System.Windows.Forms.Timer timerInspection;
     }
 }

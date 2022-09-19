@@ -1235,32 +1235,5 @@ namespace LakaCubeTimer.util {
             }
             return minutesString + " : " + secondsString + " . " + millisecondsString;
         }
-        public static string doubleMillisecondsToString(double elapsedMilliseconds) {
-            string millisecondsString = "";
-            string secondsString = "";
-            string minutesString = "";
-            int milliseconds = (int)elapsedMilliseconds % 1000 / 10;
-            int seconds = (int)(elapsedMilliseconds / 1000) % 60;
-            int minutes = (int)(elapsedMilliseconds / (1000 * 60) % 60);
-            if (milliseconds < 10) {
-                millisecondsString = "0" + milliseconds;
-            }
-            else {
-                millisecondsString = milliseconds.ToString();
-            }
-            if (seconds < 10) {
-                secondsString = "0" + seconds;
-            }
-            else {
-                secondsString = seconds.ToString();
-            }
-            if (minutes < 10) {
-                minutesString = "0" + minutes;
-            }
-            else {
-                minutesString = minutes.ToString();
-            }
-            return minutesString + " : " + secondsString + " . " + millisecondsString;
-        }
     }
 }

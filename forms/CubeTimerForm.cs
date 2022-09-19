@@ -8,15 +8,24 @@ using System.Windows.Forms;
 
 namespace LakaCubeTimer {
     public partial class CubeTimerForm : Form {
+        public enum TimerStates {
+            IDLE,
+            INSPECTION,
+            SOLVING,
+            STOPPED
+        }
+        private static bool isPlusTwoInInspection = false;
+        private static bool inspectionEnabled = true;
         private int currentSession = 1;
-        private int timerState = 0;
+        private TimerStates timerState = TimerStates.IDLE;
         private List<string> initialScramble;
         private List<string> validatedScramble;
         private Cube initialCube;
         private Cube cubeToTurn;
         private Cube scrambledCube;
         private List<TimeUserControl> listOfTimes;
-        private static Stopwatch stopwatch;
+        private static Stopwatch solveStopwatch;
+        private static Stopwatch inspectionStopwatch;
         private static string bestTime { get; set; }
         private static string averageOfFive { get; set; }
         private static string averageOfTwelve { get; set; }
@@ -24,6 +33,8 @@ namespace LakaCubeTimer {
             InitializeComponent();
         }
         private void CubeTimerForm_Load(object sender, EventArgs e) {
+            checkBoxInspectionEnabled.Checked = Properties.Settings.Default.inspectionEnabled;
+            inspectionEnabled = Properties.Settings.Default.inspectionEnabled;
             comboBoxSession.SelectedIndex = 0;
             fillTimesPanel(currentSession);
             displayScramble();
@@ -54,61 +65,122 @@ namespace LakaCubeTimer {
         }
         private void CubeTimerForm_KeyDown(object sender, KeyEventArgs e) {
             if (e.KeyCode == Keys.Space) {
-                if (timerState == 0) {
-                    labelTimer.ForeColor = Color.Lime;
-                    timerState = 1;
+                if (inspectionEnabled) {
+                    if (timerState == TimerStates.IDLE) {
+                        labelTimer.ForeColor = Color.MediumVioletRed;
+                    }
+                    else if(timerState == TimerStates.INSPECTION) {
+                        labelTimer.ForeColor = Color.Lime;
+                    }
+                    else if(timerState == TimerStates.SOLVING) {
+                        timerState = TimerStates.STOPPED;
+                        endSolve(isPlusTwoInInspection, false);
+                    }
                 }
-                if (timerState == 2) {
-                    timerState = 0;
-                    stopTimer();
-                    timerCube.Stop();
-                    displayScramble();
+                else {
+                    if (timerState == TimerStates.IDLE) {
+                        labelTimer.ForeColor = Color.Lime;
+                    }
+                    else if(timerState == TimerStates.SOLVING) {
+                        timerState = TimerStates.STOPPED;
+                        endSolve(isPlusTwoInInspection, false);
+                    }
                 }
-            }
+            }            
         }
         private void CubeTimerForm_KeyUp(object sender, KeyEventArgs e) {
             if (e.KeyCode == Keys.Space) {
-                if (timerState == 1) {
-                    labelTimer.ForeColor = Control.DefaultForeColor;
-                    timerState = 2;
-                    labelTimer.Text = "00 : 00 . 00";
-                    stopwatch = new Stopwatch();
-                    startTimer();
-                    timerCube.Start();
+                if (inspectionEnabled) {
+                    if (timerState == TimerStates.STOPPED) {
+                        timerState = TimerStates.IDLE;
+                        return;
+                    }
+                    else if (timerState == TimerStates.IDLE) {
+                        timerState = TimerStates.INSPECTION;
+                        labelTimer.ForeColor = Control.DefaultForeColor;
+                        beginInspection();
+                    }
+                    else if (timerState == TimerStates.INSPECTION) {
+                        timerState = TimerStates.SOLVING;
+                        labelTimer.ForeColor = Control.DefaultForeColor;
+                        endInspection();
+                        beginSolve();
+                    }
                 }
-            }
+                else {
+                    if (timerState == TimerStates.STOPPED) {
+                        timerState = TimerStates.IDLE;
+                        return;
+                    }
+                    else if (timerState == TimerStates.IDLE) {
+                        timerState = TimerStates.SOLVING;
+                        labelTimer.ForeColor = Control.DefaultForeColor;
+                        beginSolve();
+                    }
+                }
+            }        
         }
         public void fillTimesPanel(int session) {
             listOfTimes = SqlUtil.fillTimes(session);
-            foreach (TimeUserControl time in listOfTimes) {        
+            foreach (TimeUserControl time in listOfTimes) {
                 flowLayoutPanelTimes.Controls.Add(time);
                 time.Left = (flowLayoutPanelTimes.Width - time.Width) / 2;
             }
         }
-        public void startTimer() {
-            stopwatch.Start();
+        public void beginInspection() {
+            inspectionStopwatch = new Stopwatch();
+            inspectionStopwatch.Start();
+            timerInspection.Start();
         }
-        public void stopTimer() {
-            stopwatch.Stop();
-            long elapsedMilliseconds = stopwatch.ElapsedMilliseconds;
+        public void endInspection() {
+            inspectionStopwatch.Stop();
+            timerInspection.Stop();
+        }
+        public void beginSolve() {
+            solveStopwatch = new Stopwatch();
+            solveStopwatch.Start();
+            timerSolve.Start();
+        }
+        public void endSolve(bool isPlusTwo, bool isDNF) {
+            solveStopwatch.Stop();
+            timerSolve.Stop();       
+            long elapsedMilliseconds = solveStopwatch.ElapsedMilliseconds;
             labelTimer.Text = Util.longMillisecondsToString(elapsedMilliseconds);
-            Time time = new Time(0, currentSession, elapsedMilliseconds, elapsedMilliseconds, Util.longMillisecondsToString(elapsedMilliseconds), false, false, labelScramble.Text, DateTime.Now);
+            Time time = new Time(0, currentSession, elapsedMilliseconds, elapsedMilliseconds, 
+                Util.longMillisecondsToString(elapsedMilliseconds), isPlusTwo, isDNF, labelScramble.Text, DateTime.Now);
             SqlUtil.saveToDatabase(time);
             Time latestTime = SqlUtil.getLatestAddedTime(time.session);
             TimeUserControl timeUserControl = new TimeUserControl(latestTime);
             flowLayoutPanelTimes.Controls.Add(timeUserControl);
             updateStats(currentSession);
+            displayScramble();
             displayStats();
         }
-        private void timerCube_Tick(object sender, EventArgs e) {
-            long elapsedMilliseconds = stopwatch.ElapsedMilliseconds;
+        private void timerSolve_Tick(object sender, EventArgs e) {      
+            long elapsedMilliseconds = solveStopwatch.ElapsedMilliseconds;
             labelTimer.Text = Util.longMillisecondsToString(elapsedMilliseconds);
+            labelTimer.Left = (panelTimer.Width - labelTimer.Width) / 2;
+        }
+        private void timerInspection_Tick(object sender, EventArgs e) {
+            long elapsedMilliseconds = inspectionStopwatch.ElapsedMilliseconds;
+            labelTimer.Text = (elapsedMilliseconds / 1000).ToString();
+            if(elapsedMilliseconds / 1000 >= 15) {
+                isPlusTwoInInspection = true;
+                labelTimer.Text += " (+2)";
+            }
+            if(elapsedMilliseconds / 1000 >= 17) {
+                endInspection();
+                endSolve(false, true);
+                labelTimer.Text = "DNF";
+                timerState = TimerStates.IDLE;
+            }
+            labelTimer.Left = (panelTimer.Width - labelTimer.Width) / 2;
         }
         public void displayScramble() {
             initialScramble = Util.generateScramble();
             validatedScramble = Util.validateScramble(initialScramble);
             initialCube = new Cube();
-            scrambledCube = Util.scrambleCube(initialCube, validatedScramble); 
+            scrambledCube = Util.scrambleCube(initialCube, validatedScramble);
             labelScramble.Text = Util.scrambleToString(validatedScramble);
             labelScramble.Left = (panelTimer.Width - labelScramble.Width) / 2;
             paintCube(scrambledCube);
@@ -250,7 +322,7 @@ namespace LakaCubeTimer {
             paintCube(cubeToTurn);
         }
         private void CubeTimerForm_FormClosing(object sender, FormClosingEventArgs e) {
-            foreach(Process process in Process.GetProcessesByName("LakaCubeTimer")) {
+            foreach (Process process in Process.GetProcessesByName("LakaCubeTimer")) {
                 process.Kill();
             }
         }
@@ -268,6 +340,19 @@ namespace LakaCubeTimer {
         private void buttonDeleteAllFromSession_MouseClick(object sender, MouseEventArgs e) {
             flowLayoutPanelTimes.Controls.Clear();
             SqlUtil.deleteAllFromSession(currentSession);
+        }
+
+        private void checkBoxInspectionEnabled_CheckedChanged(object sender, EventArgs e) {
+            if (checkBoxInspectionEnabled.Checked) {
+                Properties.Settings.Default.PropertyValues["inspectionEnabled"].PropertyValue = true;
+                Properties.Settings.Default.Save();
+                inspectionEnabled = Properties.Settings.Default.inspectionEnabled;
+            }
+            else {
+                Properties.Settings.Default.PropertyValues["inspectionEnabled"].PropertyValue = false;
+                Properties.Settings.Default.Save();
+                inspectionEnabled = Properties.Settings.Default.inspectionEnabled;
+            }
         }
     }
 }
