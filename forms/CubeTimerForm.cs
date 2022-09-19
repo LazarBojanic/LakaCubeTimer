@@ -179,6 +179,7 @@ namespace LakaCubeTimer {
                 timerState = TimerStates.IDLE;
             }
             labelTimer.Left = (panelTimer.Width - labelTimer.Width) / 2;
+            Thread.Sleep(150);
         }
         public void displayScramble() {
             initialScramble = Util.generateScramble();
