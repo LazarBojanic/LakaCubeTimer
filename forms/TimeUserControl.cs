@@ -18,7 +18,7 @@ namespace LakaCubeTimer.forms {
         public TimeUserControl(Time time) {
             InitializeComponent();
             this.time = time;
-            this.cubeTimerForm = (CubeTimerForm)Application.OpenForms["CubeTimerForm"];
+            this.cubeTimerForm = (CubeTimerForm)Application.OpenForms["CubeTimerForm"];          
         }
         private void TimeUserControl_Load(object sender, EventArgs e) {
             labelTime.Text = time.time;
@@ -75,6 +75,12 @@ namespace LakaCubeTimer.forms {
                 time.isDNF = false;
                 SqlUtil.updateIsDNF(time);
             }
+        }
+
+        private void buttonDelete_MouseClick(object sender, MouseEventArgs e) {
+            cubeTimerForm = (CubeTimerForm)Application.OpenForms["CubeTimerForm"];
+            SqlUtil.deleteTime(time.session, time.id);
+            cubeTimerForm.flowLayoutPanelTimes.Controls.Remove(this);
         }
     }
 }

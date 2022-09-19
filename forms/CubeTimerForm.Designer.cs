@@ -104,6 +104,7 @@
             this.labelAverageOfFive = new System.Windows.Forms.Label();
             this.comboBoxSession = new System.Windows.Forms.ComboBox();
             this.buttonSelectSession = new System.Windows.Forms.Button();
+            this.buttonDeleteAllFromSession = new System.Windows.Forms.Button();
             this.panelTimer.SuspendLayout();
             this.panelTurns.SuspendLayout();
             this.panelCube.SuspendLayout();
@@ -121,7 +122,7 @@
             this.labelTimer.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.labelTimer.AutoSize = true;
             this.labelTimer.Font = new System.Drawing.Font("Century Gothic", 72F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.labelTimer.Location = new System.Drawing.Point(245, 229);
+            this.labelTimer.Location = new System.Drawing.Point(247, 210);
             this.labelTimer.Name = "labelTimer";
             this.labelTimer.Size = new System.Drawing.Size(527, 115);
             this.labelTimer.TabIndex = 0;
@@ -143,9 +144,9 @@
             this.panelTimer.Controls.Add(this.panelCube);
             this.panelTimer.Controls.Add(this.labelScramble);
             this.panelTimer.Controls.Add(this.labelTimer);
-            this.panelTimer.Location = new System.Drawing.Point(365, 12);
+            this.panelTimer.Location = new System.Drawing.Point(360, 12);
             this.panelTimer.Name = "panelTimer";
-            this.panelTimer.Size = new System.Drawing.Size(1016, 771);
+            this.panelTimer.Size = new System.Drawing.Size(1021, 771);
             this.panelTimer.TabIndex = 2;
             // 
             // panelTurns
@@ -246,7 +247,7 @@
             // 
             this.buttonNewScramble.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonNewScramble.Font = new System.Drawing.Font("Century Gothic", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.buttonNewScramble.Location = new System.Drawing.Point(851, 15);
+            this.buttonNewScramble.Location = new System.Drawing.Point(856, 15);
             this.buttonNewScramble.Name = "buttonNewScramble";
             this.buttonNewScramble.Size = new System.Drawing.Size(150, 70);
             this.buttonNewScramble.TabIndex = 8;
@@ -263,7 +264,7 @@
             this.panelCube.Controls.Add(this.panelUp);
             this.panelCube.Controls.Add(this.panelFront);
             this.panelCube.Controls.Add(this.panelLeft);
-            this.panelCube.Location = new System.Drawing.Point(557, 426);
+            this.panelCube.Location = new System.Drawing.Point(562, 426);
             this.panelCube.Name = "panelCube";
             this.panelCube.Size = new System.Drawing.Size(456, 342);
             this.panelCube.TabIndex = 1;
@@ -933,7 +934,7 @@
             this.labelScramble.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.labelScramble.AutoSize = true;
             this.labelScramble.Font = new System.Drawing.Font("Century Gothic", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.labelScramble.Location = new System.Drawing.Point(426, 145);
+            this.labelScramble.Location = new System.Drawing.Point(428, 123);
             this.labelScramble.Name = "labelScramble";
             this.labelScramble.Size = new System.Drawing.Size(165, 39);
             this.labelScramble.TabIndex = 1;
@@ -946,7 +947,7 @@
             this.flowLayoutPanelTimes.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.flowLayoutPanelTimes.Location = new System.Drawing.Point(12, 12);
             this.flowLayoutPanelTimes.Name = "flowLayoutPanelTimes";
-            this.flowLayoutPanelTimes.Size = new System.Drawing.Size(348, 595);
+            this.flowLayoutPanelTimes.Size = new System.Drawing.Size(342, 576);
             this.flowLayoutPanelTimes.TabIndex = 3;
             // 
             // panelStats
@@ -958,7 +959,7 @@
             this.panelStats.Controls.Add(this.labelAverageOfFive);
             this.panelStats.Location = new System.Drawing.Point(12, 660);
             this.panelStats.Name = "panelStats";
-            this.panelStats.Size = new System.Drawing.Size(347, 123);
+            this.panelStats.Size = new System.Drawing.Size(342, 123);
             this.panelStats.TabIndex = 4;
             // 
             // labelBestTime
@@ -1009,29 +1010,42 @@
             "10",
             "11",
             "12"});
-            this.comboBoxSession.Location = new System.Drawing.Point(12, 613);
+            this.comboBoxSession.Location = new System.Drawing.Point(12, 603);
             this.comboBoxSession.Name = "comboBoxSession";
-            this.comboBoxSession.Size = new System.Drawing.Size(194, 41);
+            this.comboBoxSession.Size = new System.Drawing.Size(80, 41);
             this.comboBoxSession.TabIndex = 5;
             this.comboBoxSession.TabStop = false;
             // 
             // buttonSelectSession
             // 
-            this.buttonSelectSession.Font = new System.Drawing.Font("Century Gothic", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.buttonSelectSession.Location = new System.Drawing.Point(212, 613);
+            this.buttonSelectSession.Font = new System.Drawing.Font("Century Gothic", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.buttonSelectSession.Location = new System.Drawing.Point(98, 594);
             this.buttonSelectSession.Name = "buttonSelectSession";
-            this.buttonSelectSession.Size = new System.Drawing.Size(147, 41);
+            this.buttonSelectSession.Size = new System.Drawing.Size(89, 59);
             this.buttonSelectSession.TabIndex = 9;
             this.buttonSelectSession.TabStop = false;
             this.buttonSelectSession.Text = "Select";
             this.buttonSelectSession.UseVisualStyleBackColor = true;
             this.buttonSelectSession.MouseClick += new System.Windows.Forms.MouseEventHandler(this.buttonSelectSession_MouseClick);
             // 
+            // buttonDeleteAllFromSession
+            // 
+            this.buttonDeleteAllFromSession.Font = new System.Drawing.Font("Century Gothic", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.buttonDeleteAllFromSession.Location = new System.Drawing.Point(193, 594);
+            this.buttonDeleteAllFromSession.Name = "buttonDeleteAllFromSession";
+            this.buttonDeleteAllFromSession.Size = new System.Drawing.Size(161, 59);
+            this.buttonDeleteAllFromSession.TabIndex = 10;
+            this.buttonDeleteAllFromSession.TabStop = false;
+            this.buttonDeleteAllFromSession.Text = "Delete All From Session";
+            this.buttonDeleteAllFromSession.UseVisualStyleBackColor = true;
+            this.buttonDeleteAllFromSession.MouseClick += new System.Windows.Forms.MouseEventHandler(this.buttonDeleteAllFromSession_MouseClick);
+            // 
             // CubeTimerForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1393, 795);
+            this.Controls.Add(this.buttonDeleteAllFromSession);
             this.Controls.Add(this.buttonSelectSession);
             this.Controls.Add(this.comboBoxSession);
             this.Controls.Add(this.panelStats);
@@ -1134,7 +1148,7 @@
         private Button buttonUpTurn;
         private Button buttonFrontTurn;
         private Button buttonLeftTurn;
-        private FlowLayoutPanel flowLayoutPanelTimes;
+        public FlowLayoutPanel flowLayoutPanelTimes;
         private Panel panelStats;
         private Label labelBestTime;
         private Label labelAverageOfTwelve;
@@ -1143,5 +1157,6 @@
         private Button buttonNewScramble;
         private Button buttonSelectSession;
         private Panel panelTurns;
+        private Button buttonDeleteAllFromSession;
     }
 }

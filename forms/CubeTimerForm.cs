@@ -80,8 +80,9 @@ namespace LakaCubeTimer {
         }
         public void fillTimesPanel(int session) {
             listOfTimes = SqlUtil.fillTimes(session);
-            foreach (TimeUserControl time in listOfTimes) {
+            foreach (TimeUserControl time in listOfTimes) {        
                 flowLayoutPanelTimes.Controls.Add(time);
+                time.Left = (flowLayoutPanelTimes.Width - time.Width) / 2;
             }
         }
         public void startTimer() {
@@ -249,10 +250,9 @@ namespace LakaCubeTimer {
             paintCube(cubeToTurn);
         }
         private void CubeTimerForm_FormClosing(object sender, FormClosingEventArgs e) {
-            Process process = Process.GetProcessesByName("LakaCubeTimer")[0];
-            process.Kill();
-            Application.Exit();
-            return;
+            foreach(Process process in Process.GetProcessesByName("LakaCubeTimer")) {
+                process.Kill();
+            }
         }
         private void buttonSelectSession_MouseClick(object sender, MouseEventArgs e) {
             currentSession = Convert.ToInt32(comboBoxSession.Text);
@@ -263,6 +263,11 @@ namespace LakaCubeTimer {
         }
         private void buttonNewScramble_MouseClick(object sender, MouseEventArgs e) {
             displayScramble();
+        }
+
+        private void buttonDeleteAllFromSession_MouseClick(object sender, MouseEventArgs e) {
+            flowLayoutPanelTimes.Controls.Clear();
+            SqlUtil.deleteAllFromSession(currentSession);
         }
     }
 }

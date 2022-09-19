@@ -23,109 +23,72 @@
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
-            this.labelId = new System.Windows.Forms.Label();
             this.labelSession = new System.Windows.Forms.Label();
             this.labelTime = new System.Windows.Forms.Label();
-            this.labelTimeInMilliseconds = new System.Windows.Forms.Label();
-            this.labelIsPlusTwo = new System.Windows.Forms.Label();
-            this.labelIsDNF = new System.Windows.Forms.Label();
             this.labelScramble = new System.Windows.Forms.Label();
             this.labelDate = new System.Windows.Forms.Label();
+            this.textBoxScramble = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
-            // 
-            // labelId
-            // 
-            this.labelId.AutoSize = true;
-            this.labelId.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.labelId.Location = new System.Drawing.Point(12, 9);
-            this.labelId.Name = "labelId";
-            this.labelId.Size = new System.Drawing.Size(28, 22);
-            this.labelId.TabIndex = 0;
-            this.labelId.Text = "Id";
             // 
             // labelSession
             // 
             this.labelSession.AutoSize = true;
             this.labelSession.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.labelSession.Location = new System.Drawing.Point(12, 39);
+            this.labelSession.Location = new System.Drawing.Point(12, 24);
             this.labelSession.Name = "labelSession";
-            this.labelSession.Size = new System.Drawing.Size(72, 22);
+            this.labelSession.Size = new System.Drawing.Size(82, 22);
             this.labelSession.TabIndex = 1;
-            this.labelSession.Text = "Session";
+            this.labelSession.Text = "Session: ";
             // 
             // labelTime
             // 
             this.labelTime.AutoSize = true;
             this.labelTime.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.labelTime.Location = new System.Drawing.Point(12, 69);
+            this.labelTime.Location = new System.Drawing.Point(12, 71);
             this.labelTime.Name = "labelTime";
-            this.labelTime.Size = new System.Drawing.Size(50, 22);
+            this.labelTime.Size = new System.Drawing.Size(60, 22);
             this.labelTime.TabIndex = 2;
-            this.labelTime.Text = "Time";
-            // 
-            // labelTimeInMilliseconds
-            // 
-            this.labelTimeInMilliseconds.AutoSize = true;
-            this.labelTimeInMilliseconds.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.labelTimeInMilliseconds.Location = new System.Drawing.Point(12, 99);
-            this.labelTimeInMilliseconds.Name = "labelTimeInMilliseconds";
-            this.labelTimeInMilliseconds.Size = new System.Drawing.Size(181, 22);
-            this.labelTimeInMilliseconds.TabIndex = 3;
-            this.labelTimeInMilliseconds.Text = "Time In Milliseconds";
-            // 
-            // labelIsPlusTwo
-            // 
-            this.labelIsPlusTwo.AutoSize = true;
-            this.labelIsPlusTwo.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.labelIsPlusTwo.Location = new System.Drawing.Point(12, 129);
-            this.labelIsPlusTwo.Name = "labelIsPlusTwo";
-            this.labelIsPlusTwo.Size = new System.Drawing.Size(101, 22);
-            this.labelIsPlusTwo.TabIndex = 4;
-            this.labelIsPlusTwo.Text = "Is Plus Two";
-            // 
-            // labelIsDNF
-            // 
-            this.labelIsDNF.AutoSize = true;
-            this.labelIsDNF.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.labelIsDNF.Location = new System.Drawing.Point(12, 159);
-            this.labelIsDNF.Name = "labelIsDNF";
-            this.labelIsDNF.Size = new System.Drawing.Size(64, 22);
-            this.labelIsDNF.TabIndex = 5;
-            this.labelIsDNF.Text = "Is DNF";
+            this.labelTime.Text = "Time: ";
             // 
             // labelScramble
             // 
             this.labelScramble.AutoSize = true;
             this.labelScramble.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.labelScramble.Location = new System.Drawing.Point(12, 189);
+            this.labelScramble.Location = new System.Drawing.Point(12, 118);
             this.labelScramble.Name = "labelScramble";
-            this.labelScramble.Size = new System.Drawing.Size(95, 22);
+            this.labelScramble.Size = new System.Drawing.Size(105, 22);
             this.labelScramble.TabIndex = 6;
-            this.labelScramble.Text = "Scramble";
+            this.labelScramble.Text = "Scramble: ";
             // 
             // labelDate
             // 
             this.labelDate.AutoSize = true;
             this.labelDate.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.labelDate.Location = new System.Drawing.Point(12, 219);
+            this.labelDate.Location = new System.Drawing.Point(12, 165);
             this.labelDate.Name = "labelDate";
-            this.labelDate.Size = new System.Drawing.Size(56, 22);
+            this.labelDate.Size = new System.Drawing.Size(66, 22);
             this.labelDate.TabIndex = 7;
-            this.labelDate.Text = "Date";
+            this.labelDate.Text = "Date: ";
+            // 
+            // textBoxScramble
+            // 
+            this.textBoxScramble.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.textBoxScramble.Location = new System.Drawing.Point(123, 114);
+            this.textBoxScramble.Name = "textBoxScramble";
+            this.textBoxScramble.Size = new System.Drawing.Size(391, 31);
+            this.textBoxScramble.TabIndex = 8;
             // 
             // StatsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(478, 261);
+            this.ClientSize = new System.Drawing.Size(526, 211);
+            this.Controls.Add(this.textBoxScramble);
             this.Controls.Add(this.labelDate);
             this.Controls.Add(this.labelScramble);
-            this.Controls.Add(this.labelIsDNF);
-            this.Controls.Add(this.labelIsPlusTwo);
-            this.Controls.Add(this.labelTimeInMilliseconds);
             this.Controls.Add(this.labelTime);
             this.Controls.Add(this.labelSession);
-            this.Controls.Add(this.labelId);
+            this.MinimumSize = new System.Drawing.Size(542, 250);
             this.Name = "StatsForm";
             this.Text = "StatsForm";
             this.Load += new System.EventHandler(this.StatsForm_Load);
@@ -135,14 +98,10 @@
         }
 
         #endregion
-
-        private Label labelId;
         private Label labelSession;
         private Label labelTime;
-        private Label labelTimeInMilliseconds;
-        private Label labelIsPlusTwo;
-        private Label labelIsDNF;
         private Label labelScramble;
         private Label labelDate;
+        private TextBox textBoxScramble;
     }
 }

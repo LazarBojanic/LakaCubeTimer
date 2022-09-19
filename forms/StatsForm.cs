@@ -17,14 +17,10 @@ namespace LakaCubeTimer.forms {
             this.time = time;
         }
         private void StatsForm_Load(object sender, EventArgs e) {
-            labelId.Text = time.id.ToString();
-            labelSession.Text = time.session.ToString();
-            labelTime.Text = time.time.ToString();
-            labelTimeInMilliseconds.Text = time.timeInMilliseconds.ToString();
-            labelIsPlusTwo.Text = time.isPlusTwo.ToString();
-            labelIsDNF.Text = time.isDNF.ToString();
-            labelScramble.Text = time.scramble.ToString();
-            labelDate.Text = time.date.ToString();
+            labelSession.Text = "Session: " + time.session;
+            labelTime.Text = "Time: " + time.time;
+            textBoxScramble.Text = time.scramble;
+            labelDate.Text = "Date: " + time.date.ToString();
         }
     }
 }

@@ -26,16 +26,17 @@
             this.labelTime = new System.Windows.Forms.Label();
             this.checkBoxIsPlusTwo = new System.Windows.Forms.CheckBox();
             this.checkBoxIsDNF = new System.Windows.Forms.CheckBox();
+            this.buttonDelete = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // labelTime
             // 
             this.labelTime.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.labelTime.AutoSize = true;
-            this.labelTime.Font = new System.Drawing.Font("Century Gothic", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.labelTime.Location = new System.Drawing.Point(6, 25);
+            this.labelTime.Font = new System.Drawing.Font("Century Gothic", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.labelTime.Location = new System.Drawing.Point(12, 24);
             this.labelTime.Name = "labelTime";
-            this.labelTime.Size = new System.Drawing.Size(70, 30);
+            this.labelTime.Size = new System.Drawing.Size(56, 24);
             this.labelTime.TabIndex = 0;
             this.labelTime.Text = "Time";
             this.labelTime.MouseClick += new System.Windows.Forms.MouseEventHandler(this.labelTime_MouseClick);
@@ -48,10 +49,10 @@
             this.checkBoxIsPlusTwo.Appearance = System.Windows.Forms.Appearance.Button;
             this.checkBoxIsPlusTwo.CheckAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.checkBoxIsPlusTwo.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.checkBoxIsPlusTwo.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.checkBoxIsPlusTwo.Location = new System.Drawing.Point(189, 16);
+            this.checkBoxIsPlusTwo.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.checkBoxIsPlusTwo.Location = new System.Drawing.Point(153, 15);
             this.checkBoxIsPlusTwo.Name = "checkBoxIsPlusTwo";
-            this.checkBoxIsPlusTwo.Size = new System.Drawing.Size(48, 48);
+            this.checkBoxIsPlusTwo.Size = new System.Drawing.Size(42, 42);
             this.checkBoxIsPlusTwo.TabIndex = 1;
             this.checkBoxIsPlusTwo.TabStop = false;
             this.checkBoxIsPlusTwo.Text = "+2";
@@ -65,10 +66,10 @@
             this.checkBoxIsDNF.Appearance = System.Windows.Forms.Appearance.Button;
             this.checkBoxIsDNF.CheckAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.checkBoxIsDNF.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.checkBoxIsDNF.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.checkBoxIsDNF.Location = new System.Drawing.Point(243, 16);
+            this.checkBoxIsDNF.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.checkBoxIsDNF.Location = new System.Drawing.Point(201, 15);
             this.checkBoxIsDNF.Name = "checkBoxIsDNF";
-            this.checkBoxIsDNF.Size = new System.Drawing.Size(48, 48);
+            this.checkBoxIsDNF.Size = new System.Drawing.Size(42, 42);
             this.checkBoxIsDNF.TabIndex = 2;
             this.checkBoxIsDNF.TabStop = false;
             this.checkBoxIsDNF.Text = "DNF";
@@ -76,15 +77,27 @@
             this.checkBoxIsDNF.UseVisualStyleBackColor = true;
             this.checkBoxIsDNF.CheckedChanged += new System.EventHandler(this.checkBoxIsDNF_CheckedChanged);
             // 
+            // buttonDelete
+            // 
+            this.buttonDelete.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.buttonDelete.Location = new System.Drawing.Point(249, 15);
+            this.buttonDelete.Name = "buttonDelete";
+            this.buttonDelete.Size = new System.Drawing.Size(42, 42);
+            this.buttonDelete.TabIndex = 3;
+            this.buttonDelete.Text = "X";
+            this.buttonDelete.UseVisualStyleBackColor = true;
+            this.buttonDelete.MouseClick += new System.Windows.Forms.MouseEventHandler(this.buttonDelete_MouseClick);
+            // 
             // TimeUserControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.buttonDelete);
             this.Controls.Add(this.checkBoxIsDNF);
             this.Controls.Add(this.checkBoxIsPlusTwo);
             this.Controls.Add(this.labelTime);
             this.Name = "TimeUserControl";
-            this.Size = new System.Drawing.Size(300, 80);
+            this.Size = new System.Drawing.Size(300, 72);
             this.Load += new System.EventHandler(this.TimeUserControl_Load);
             this.MouseClick += new System.Windows.Forms.MouseEventHandler(this.TimeUserControl_MouseClick);
             this.MouseEnter += new System.EventHandler(this.TimeUserControl_MouseEnter);
@@ -99,5 +112,6 @@
         private Label labelTime;
         private CheckBox checkBoxIsPlusTwo;
         private CheckBox checkBoxIsDNF;
+        private Button buttonDelete;
     }
 }

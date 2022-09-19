@@ -150,5 +150,24 @@ namespace LakaCubeTimer.util {
             connection.Close();
             return initialTime;
         }
+        public static void deleteAllFromSession(int session) {
+            OleDbConnection connection = Util.GetConnection();
+            connection.Open();
+            string query = "DELETE * FROM [time] WHERE [session] = @session";
+            OleDbCommand command = new OleDbCommand(query, connection);
+            command.Parameters.AddWithValue("@session", session);
+            command.ExecuteNonQuery();
+            connection.Close();
+        }
+        public static void deleteTime(int session, int id) {
+            OleDbConnection connection = Util.GetConnection();
+            connection.Open();
+            string query = "DELETE * FROM [time] WHERE [session] = @session AND [id] = @id";
+            OleDbCommand command = new OleDbCommand(query, connection);
+            command.Parameters.AddWithValue("@session", session);
+            command.Parameters.AddWithValue("@id", id);
+            command.ExecuteNonQuery();
+            connection.Close();
+        }
     }
 }
