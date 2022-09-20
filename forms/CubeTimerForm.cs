@@ -190,7 +190,7 @@ namespace LakaCubeTimer {
         }
         public void paintCube(Cube cube) {
             foreach (Side side in cube.sides) {
-                if (side.stickers[4].color.Equals(Color.White)) {
+                if (side.stickers[4].color.Equals(Util.colorWhite)) {
                     panelUp.GetChildAtPoint(panelUp0.Location).BackColor = side.stickers[0].color;
                     panelUp.GetChildAtPoint(panelUp1.Location).BackColor = side.stickers[1].color;
                     panelUp.GetChildAtPoint(panelUp2.Location).BackColor = side.stickers[2].color;
@@ -201,7 +201,7 @@ namespace LakaCubeTimer {
                     panelUp.GetChildAtPoint(panelUp7.Location).BackColor = side.stickers[7].color;
                     panelUp.GetChildAtPoint(panelUp8.Location).BackColor = side.stickers[8].color;
                 }
-                if (side.stickers[4].color.Equals(Color.Yellow)) {
+                if (side.stickers[4].color.Equals(Util.colorYellow)) {
                     panelDown.GetChildAtPoint(panelDown0.Location).BackColor = side.stickers[0].color;
                     panelDown.GetChildAtPoint(panelDown1.Location).BackColor = side.stickers[1].color;
                     panelDown.GetChildAtPoint(panelDown2.Location).BackColor = side.stickers[2].color;
@@ -212,7 +212,7 @@ namespace LakaCubeTimer {
                     panelDown.GetChildAtPoint(panelDown7.Location).BackColor = side.stickers[7].color;
                     panelDown.GetChildAtPoint(panelDown8.Location).BackColor = side.stickers[8].color;
                 }
-                if (side.stickers[4].color.Equals(Color.Orange)) {
+                if (side.stickers[4].color.Equals(Util.colorOrange)) {
                     panelLeft.GetChildAtPoint(panelLeft0.Location).BackColor = side.stickers[0].color;
                     panelLeft.GetChildAtPoint(panelLeft1.Location).BackColor = side.stickers[1].color;
                     panelLeft.GetChildAtPoint(panelLeft2.Location).BackColor = side.stickers[2].color;
@@ -223,7 +223,7 @@ namespace LakaCubeTimer {
                     panelLeft.GetChildAtPoint(panelLeft7.Location).BackColor = side.stickers[7].color;
                     panelLeft.GetChildAtPoint(panelLeft8.Location).BackColor = side.stickers[8].color;
                 }
-                if (side.stickers[4].color.Equals(Color.Red)) {
+                if (side.stickers[4].color.Equals(Util.colorRed)) {
                     panelRight.GetChildAtPoint(panelRight0.Location).BackColor = side.stickers[0].color;
                     panelRight.GetChildAtPoint(panelRight1.Location).BackColor = side.stickers[1].color;
                     panelRight.GetChildAtPoint(panelRight2.Location).BackColor = side.stickers[2].color;
@@ -234,7 +234,7 @@ namespace LakaCubeTimer {
                     panelRight.GetChildAtPoint(panelRight7.Location).BackColor = side.stickers[7].color;
                     panelRight.GetChildAtPoint(panelRight8.Location).BackColor = side.stickers[8].color;
                 }
-                if (side.stickers[4].color.Equals(Color.Green)) {
+                if (side.stickers[4].color.Equals(Util.colorGreen)) {
                     panelFront.GetChildAtPoint(panelFront0.Location).BackColor = side.stickers[0].color;
                     panelFront.GetChildAtPoint(panelFront1.Location).BackColor = side.stickers[1].color;
                     panelFront.GetChildAtPoint(panelFront2.Location).BackColor = side.stickers[2].color;
@@ -245,7 +245,7 @@ namespace LakaCubeTimer {
                     panelFront.GetChildAtPoint(panelFront7.Location).BackColor = side.stickers[7].color;
                     panelFront.GetChildAtPoint(panelFront8.Location).BackColor = side.stickers[8].color;
                 }
-                if (side.stickers[4].color.Equals(Color.Blue)) {
+                if (side.stickers[4].color.Equals(Util.colorBlue)) {
                     panelBack.GetChildAtPoint(panelBack0.Location).BackColor = side.stickers[0].color;
                     panelBack.GetChildAtPoint(panelBack1.Location).BackColor = side.stickers[1].color;
                     panelBack.GetChildAtPoint(panelBack2.Location).BackColor = side.stickers[2].color;
