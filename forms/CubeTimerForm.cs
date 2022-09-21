@@ -38,8 +38,7 @@ namespace LakaCubeTimer {
             fillTimesPanel(currentSession);
             displayScramble();
             updateStats(currentSession);
-            displayStats();
-            cubeToTurn = scrambledCube;
+            displayStats();   
         }
         public void updateStats(int session) {
             if (SqlUtil.getNumberOfSolvesForAverage(session) >= 1) {
@@ -187,6 +186,7 @@ namespace LakaCubeTimer {
             labelScramble.Text = Util.scrambleToString(scramble);
             labelScramble.Left = (panelTimer.Width - labelScramble.Width) / 2;
             paintCube(scrambledCube);
+            cubeToTurn = scrambledCube;
         }
         public void paintCube(Cube cube) {
             foreach (Side side in cube.sides) {
@@ -338,7 +338,6 @@ namespace LakaCubeTimer {
         }
         private void buttonNewScramble_MouseClick(object sender, MouseEventArgs e) {
             displayScramble();
-            cubeToTurn = scrambledCube;
         }
         private void buttonDeleteAllFromSession_MouseClick(object sender, MouseEventArgs e) {
             flowLayoutPanelTimes.Controls.Clear();
