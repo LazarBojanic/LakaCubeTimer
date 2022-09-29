@@ -1,6 +1,7 @@
 ﻿using LakaCubeTimer.model;
 using System.ComponentModel.DataAnnotations;
 using System.Data.OleDb;
+using System.Numerics;
 using System.Reflection;
 
 namespace LakaCubeTimer.util {
@@ -16,18 +17,49 @@ namespace LakaCubeTimer.util {
         public static DateTime dateTimeWithoutMilliseconds(DateTime date) {
             return new DateTime(date.Year, date.Month, date.Day, date.Hour, date.Minute, date.Second);
         }
-        public static long calculateAverage(List<long> times) {
-            long worstTime = times.Max();
-            long bestTime = times.Min();
+        public static long calculateAverage(List<SolveTimeInMillisecondsWithIsDNF> times) {
+            int numOfDNFs = 0;
+            int indexOfDNF = 0;
+            List<SolveTimeInMillisecondsWithIsDNF> sortedTimes = times.OrderBy(o => o.solveTimeInMilliseconds).ToList();
+            long bestTime = sortedTimes[0].solveTimeInMilliseconds;
+            long worstTime = sortedTimes[sortedTimes.Count - 1].solveTimeInMilliseconds;
+            long secondWorstTime = sortedTimes[sortedTimes.Count - 2].solveTimeInMilliseconds;
             long sumOfTimes = 0;
-            int numOfTimes = times.Count - 2;
-            foreach (long time in times) {
-                if (time != bestTime && time != worstTime) {
-                    sumOfTimes += time;
+            int numOfTimesWithoutBestAndWorst = sortedTimes.Count - 2;
+            for(int i = 0; i < sortedTimes.Count; i++) {
+                if (numOfDNFs > 1) {
+                    return 0;
+                }
+                if (sortedTimes[i].isDNF) {
+                    numOfDNFs++;
+                    indexOfDNF = i;
+                    continue;
+                }
+                else {
+                    sumOfTimes += sortedTimes[i].solveTimeInMilliseconds;
                 }
             }
-            return sumOfTimes / numOfTimes;
-        }    
+            if (numOfDNFs == 1) {
+                if (indexOfDNF == 0) {
+                    sumOfTimes -= sortedTimes[1].solveTimeInMilliseconds;
+                }
+                else {
+                    sumOfTimes -= bestTime;
+                }
+            }
+            else {
+                sumOfTimes -= (bestTime + worstTime);
+            }
+            return sumOfTimes / numOfTimesWithoutBestAndWorst;
+        }
+        public static string listToString(List<SolveTimeInMillisecondsWithIsDNF> times) {
+            string listString = "";
+            foreach (SolveTimeInMillisecondsWithIsDNF time in times) {
+                listString += time.solveTimeInMilliseconds + "\n";
+            }
+            return listString;
+        }
+
         public static string timeToString(SolveTime time) {
             return time.solveTime + " | " + time.solveDate;
         }
@@ -1125,12 +1157,12 @@ namespace LakaCubeTimer.util {
                 turnTwo = generateOtherTurn(turnOne);
                 turnThree = generateOtherThirdTurn(turnOne, turnTwo);
                 if (numberOfTurns % 3 != 0) {
-                    if(numberOfTurns - i == 2) {
+                    if (numberOfTurns - i == 2) {
                         numberOfDoubleTurns = addValidatedTurn(turnOne, scrambleList, numberOfDoubleTurns);
                         numberOfDoubleTurns = addValidatedTurn(turnTwo, scrambleList, numberOfDoubleTurns);
                         return scrambleList;
                     }
-                    else if(numberOfTurns - i == 1) {
+                    else if (numberOfTurns - i == 1) {
                         numberOfDoubleTurns = addValidatedTurn(turnOne, scrambleList, numberOfDoubleTurns);
                         return scrambleList;
                     }

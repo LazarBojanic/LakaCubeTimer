@@ -17,7 +17,7 @@ namespace LakaCubeTimer.util {
             command.Parameters.AddWithValue("@solveSession", timeResult.solveSession);
             command.Parameters.AddWithValue("@solveTimeInMilliseconds", (double)timeResult.solveTimeInMilliseconds);
             command.Parameters.AddWithValue("@solveInitialTimeInMilliseconds", (double)timeResult.solveInitialTimeInMilliseconds);
-            command.Parameters.AddWithValue("@solveTime", timeResult.solveTime);      
+            command.Parameters.AddWithValue("@solveTime", timeResult.solveTime);
             command.Parameters.AddWithValue("@isPlusTwo", timeResult.isPlusTwo);
             command.Parameters.AddWithValue("@isDNF", timeResult.isDNF);
             command.Parameters.AddWithValue("@solveScramble", timeResult.solveScramble);
@@ -29,7 +29,7 @@ namespace LakaCubeTimer.util {
             long bestTime = 0;
             OleDbConnection connection = getConnection();
             connection.Open();
-            string query = "SELECT MIN([solveTimeInMilliseconds]) FROM [solveTime] WHERE [solveSession] = @solveSession";
+            string query = "SELECT MIN([solveTimeInMilliseconds]) FROM [solveTime] WHERE [solveSession] = @solveSession AND [isDNF] = False";
             OleDbCommand command = new OleDbCommand(query, connection);
             command.Parameters.AddWithValue("@solveSession", session);
             bestTime = (long)command.ExecuteScalar();
@@ -47,7 +47,7 @@ namespace LakaCubeTimer.util {
             OleDbDataAdapter adapter = new OleDbDataAdapter(command);
             adapter.Fill(timesTable);
             connection.Close();
-            foreach(DataRow row in timesTable.Select()) {
+            foreach (DataRow row in timesTable.Select()) {
                 times.Add(new SolveTimeUserControl(new SolveTime(Convert.ToInt32(row.ItemArray.GetValue(0).ToString()),
                                                 Convert.ToInt32(row.ItemArray.GetValue(1).ToString()),
                                                 Convert.ToInt64(row.ItemArray.GetValue(2)),
@@ -57,7 +57,7 @@ namespace LakaCubeTimer.util {
                                                 Convert.ToBoolean(row.ItemArray.GetValue(6)),
                                                 row.ItemArray.GetValue(7).ToString(),
                                                 Convert.ToDateTime(row.ItemArray.GetValue(8)))));
-                
+
             }
             return times;
         }
@@ -72,18 +72,24 @@ namespace LakaCubeTimer.util {
             connection.Close();
             return maxId;
         }
-        public static List<long> timesToCalculate(int numberToGet, int session) {
-            List<long> timesToCalculateList = new List<long>();
+        public static List<SolveTimeInMillisecondsWithIsDNF> timesToCalculate(int numberToGet, int session) {
+            List<SolveTimeInMillisecondsWithIsDNF> timesToCalculateList = new List<SolveTimeInMillisecondsWithIsDNF>();
             OleDbConnection connection = getConnection();
             DataTable timesToCalculateTable = new DataTable();
             connection.Open();
-            string query = "SELECT TOP " + numberToGet  + " [solveTimeInMilliseconds] FROM [solveTime] WHERE [solveSession] = @solveSession ORDER BY [id] DESC";
+            string query = "SELECT TOP " + numberToGet + " [solveTimeInMilliseconds], [isDNF] FROM [solveTime] WHERE [solveSession] = @solveSession ORDER BY [id] DESC";
             OleDbCommand command = new OleDbCommand(query, connection);
             command.Parameters.AddWithValue("@solveSession", session);
             OleDbDataAdapter adapter = new OleDbDataAdapter(command);
             adapter.Fill(timesToCalculateTable);
             foreach (DataRow row in timesToCalculateTable.Select()) {
-                timesToCalculateList.Add(Convert.ToInt64(row.ItemArray.GetValue(0)));
+                if (Convert.ToBoolean(row["isDNF"])) {
+                    timesToCalculateList.Add(new SolveTimeInMillisecondsWithIsDNF(Convert.ToInt64(row["solveTimeInMilliseconds"]), true));
+                }
+                else {
+                    timesToCalculateList.Add(new SolveTimeInMillisecondsWithIsDNF(Convert.ToInt64(row["solveTimeInMilliseconds"]), false));
+                }
+                
             }
             connection.Close();
             return timesToCalculateList;
@@ -100,15 +106,15 @@ namespace LakaCubeTimer.util {
             OleDbDataAdapter adapter = new OleDbDataAdapter(command);
             adapter.Fill(latestTimeTable);
             DataRow row = latestTimeTable.Select()[0];
-            SolveTime latestTime = new SolveTime(Convert.ToInt32(row.ItemArray.GetValue(0).ToString()),
-                                                Convert.ToInt32(row.ItemArray.GetValue(1).ToString()),
-                                                Convert.ToInt64(row.ItemArray.GetValue(2)),
-                                                Convert.ToInt64(row.ItemArray.GetValue(3)),
-                                                row.ItemArray.GetValue(4).ToString(),
-                                                Convert.ToBoolean(row.ItemArray.GetValue(5)),
-                                                Convert.ToBoolean(row.ItemArray.GetValue(6)),
-                                                row.ItemArray.GetValue(7).ToString(),
-                                                Convert.ToDateTime(row.ItemArray.GetValue(8)));
+            SolveTime latestTime = new SolveTime(Convert.ToInt32(row["id"].ToString()),
+                                                Convert.ToInt32(row["solveSession"].ToString()),
+                                                Convert.ToInt64(row["solveTimeInMilliseconds"]),
+                                                Convert.ToInt64(row["solveInitialTimeInMilliseconds"]),
+                                                row["solveTime"].ToString(),
+                                                Convert.ToBoolean(row["isPlusTwo"]),
+                                                Convert.ToBoolean(row["isDNF"]),
+                                                row["solveScramble"].ToString(),
+                                                Convert.ToDateTime(row["solveDate"]));
             connection.Close();
             return latestTime;
         }

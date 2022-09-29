@@ -74,6 +74,8 @@ namespace LakaCubeTimer.forms {
                 solveTime.isDNF = false;
                 SqlUtil.updateIsDNF(solveTime);
             }
+            cubeTimerForm.updateStats(solveTime.solveSession);
+            cubeTimerForm.displayStats();
         }
         private void buttonDelete_MouseClick(object sender, MouseEventArgs e) {
             cubeTimerForm = (CubeTimerForm)Application.OpenForms["CubeTimerForm"];
