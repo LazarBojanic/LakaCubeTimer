@@ -26,15 +26,22 @@ namespace LakaCubeTimer.util {
             connection.Close();
         }
         public static string getBestTime(int session) {
-            long bestTime = 0;
             OleDbConnection connection = getConnection();
+            DataTable bestTimeTable = new DataTable();
             connection.Open();
-            string query = "SELECT MIN([solveTimeInMilliseconds]) FROM [solveTime] WHERE [solveSession] = @solveSession AND [isDNF] = False";
+            string query = "SELECT MIN([solveTimeInMilliseconds]) AS minSolveTimeInMilliseconds, [isDNF] FROM [solveTime] WHERE [solveSession] = @solveSession GROUP BY [isDNF] HAVING [isDNF] = False";
             OleDbCommand command = new OleDbCommand(query, connection);
             command.Parameters.AddWithValue("@solveSession", session);
-            bestTime = (long)command.ExecuteScalar();
+            OleDbDataAdapter adapter = new OleDbDataAdapter(command);
+            adapter.Fill(bestTimeTable);
             connection.Close();
-            return Util.longMillisecondsToString(bestTime);
+            if(bestTimeTable.Rows.Count > 0) {
+                DataRow row = bestTimeTable.Rows[0];
+                return Util.longMillisecondsToString(Convert.ToInt64(row["minSolveTimeInMilliseconds"]));
+            }
+            else {
+                return "";
+            }
         }
         public static List<SolveTimeUserControl> fillTimes(int session) {
             List<SolveTimeUserControl> times = new List<SolveTimeUserControl>();

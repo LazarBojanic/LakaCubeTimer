@@ -58,7 +58,7 @@
             this.checkBoxIsPlusTwo.Text = "+2";
             this.checkBoxIsPlusTwo.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.checkBoxIsPlusTwo.UseVisualStyleBackColor = true;
-            this.checkBoxIsPlusTwo.CheckedChanged += new System.EventHandler(this.checkBoxIsPlusTwo_CheckedChanged);
+            this.checkBoxIsPlusTwo.MouseClick += new System.Windows.Forms.MouseEventHandler(this.checkBoxIsPlusTwo_MouseClick);
             // 
             // checkBoxIsDNF
             // 
@@ -75,7 +75,7 @@
             this.checkBoxIsDNF.Text = "DNF";
             this.checkBoxIsDNF.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.checkBoxIsDNF.UseVisualStyleBackColor = true;
-            this.checkBoxIsDNF.CheckedChanged += new System.EventHandler(this.checkBoxIsDNF_CheckedChanged);
+            this.checkBoxIsDNF.MouseClick += new System.Windows.Forms.MouseEventHandler(this.checkBoxIsDNF_MouseClick);
             // 
             // buttonDelete
             // 
@@ -88,7 +88,7 @@
             this.buttonDelete.UseVisualStyleBackColor = true;
             this.buttonDelete.MouseClick += new System.Windows.Forms.MouseEventHandler(this.buttonDelete_MouseClick);
             // 
-            // TimeUserControl
+            // SolveTimeUserControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -96,7 +96,7 @@
             this.Controls.Add(this.checkBoxIsDNF);
             this.Controls.Add(this.checkBoxIsPlusTwo);
             this.Controls.Add(this.labelTime);
-            this.Name = "TimeUserControl";
+            this.Name = "SolveTimeUserControl";
             this.Size = new System.Drawing.Size(300, 72);
             this.Load += new System.EventHandler(this.TimeUserControl_Load);
             this.MouseClick += new System.Windows.Forms.MouseEventHandler(this.TimeUserControl_MouseClick);

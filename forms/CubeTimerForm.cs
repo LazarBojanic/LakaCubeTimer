@@ -47,13 +47,13 @@ namespace LakaCubeTimer {
             else {
                 bestTime = "Best Time:";
             }
-            if (SqlUtil.getNumberOfSolvesForAverage(session) >= 5) {
+            if (SqlUtil.getNumberOfSolvesForAverage(session) >= 5 && Util.calculateAverage(SqlUtil.timesToCalculate(5, session)) != 0) {
                 averageOfFive = "Ao5: " + Util.longMillisecondsToString(Util.calculateAverage(SqlUtil.timesToCalculate(5, session)));
             }
             else {
                 averageOfFive = "Ao5:";
             }
-            if (SqlUtil.getNumberOfSolvesForAverage(session) >= 12) {
+            if (SqlUtil.getNumberOfSolvesForAverage(session) >= 12 && Util.calculateAverage(SqlUtil.timesToCalculate(12, session)) != 0) {
                 averageOfTwelve = "Ao12: " + Util.longMillisecondsToString(Util.calculateAverage(SqlUtil.timesToCalculate(12, session)));
             }
             else {

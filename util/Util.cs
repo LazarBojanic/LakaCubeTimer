@@ -27,11 +27,11 @@ namespace LakaCubeTimer.util {
             long sumOfTimes = 0;
             int numOfTimesWithoutBestAndWorst = sortedTimes.Count - 2;
             for(int i = 0; i < sortedTimes.Count; i++) {
-                if (numOfDNFs > 1) {
-                    return 0;
-                }
                 if (sortedTimes[i].isDNF) {
                     numOfDNFs++;
+                    if (numOfDNFs > 1) {
+                        return 0;
+                    }
                     indexOfDNF = i;
                     continue;
                 }

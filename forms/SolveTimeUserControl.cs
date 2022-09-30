@@ -45,14 +45,23 @@ namespace LakaCubeTimer.forms {
             StatsForm statsForm = new StatsForm(solveTime);
             statsForm.ShowDialog();
         }
-        private void checkBoxIsPlusTwo_CheckedChanged(object sender, EventArgs e) {
+        
+        private void buttonDelete_MouseClick(object sender, MouseEventArgs e) {
+            cubeTimerForm = (CubeTimerForm)Application.OpenForms["CubeTimerForm"];
+            SqlUtil.deleteTime(solveTime.solveSession, solveTime.id);
+            cubeTimerForm.flowLayoutPanelTimes.Controls.Remove(this);
+            cubeTimerForm.updateStats(solveTime.solveSession);
+            cubeTimerForm.displayStats();
+        }
+
+        private void checkBoxIsPlusTwo_MouseClick(object sender, MouseEventArgs e) {
             cubeTimerForm = (CubeTimerForm)Application.OpenForms["CubeTimerForm"];
             if (checkBoxIsPlusTwo.Checked) {
                 solveTime.isPlusTwo = true;
                 solveTime.solveTimeInMilliseconds = solveTime.solveInitialTimeInMilliseconds + 2000;
-                solveTime.solveTime = Util.longMillisecondsToString(solveTime.solveTimeInMilliseconds) + " (+2)"; 
+                solveTime.solveTime = Util.longMillisecondsToString(solveTime.solveTimeInMilliseconds) + " (+2)";
                 SqlUtil.updateIsPlusTwo(solveTime);
-                labelTime.Text = solveTime.solveTime;         
+                labelTime.Text = solveTime.solveTime;
             }
             else {
                 solveTime.isPlusTwo = false;
@@ -64,7 +73,8 @@ namespace LakaCubeTimer.forms {
             cubeTimerForm.updateStats(solveTime.solveSession);
             cubeTimerForm.displayStats();
         }
-        private void checkBoxIsDNF_CheckedChanged(object sender, EventArgs e) {
+
+        private void checkBoxIsDNF_MouseClick(object sender, MouseEventArgs e) {
             cubeTimerForm = (CubeTimerForm)Application.OpenForms["CubeTimerForm"];
             if (checkBoxIsDNF.Checked) {
                 solveTime.isDNF = true;
@@ -74,13 +84,6 @@ namespace LakaCubeTimer.forms {
                 solveTime.isDNF = false;
                 SqlUtil.updateIsDNF(solveTime);
             }
-            cubeTimerForm.updateStats(solveTime.solveSession);
-            cubeTimerForm.displayStats();
-        }
-        private void buttonDelete_MouseClick(object sender, MouseEventArgs e) {
-            cubeTimerForm = (CubeTimerForm)Application.OpenForms["CubeTimerForm"];
-            SqlUtil.deleteTime(solveTime.solveSession, solveTime.id);
-            cubeTimerForm.flowLayoutPanelTimes.Controls.Remove(this);
             cubeTimerForm.updateStats(solveTime.solveSession);
             cubeTimerForm.displayStats();
         }
