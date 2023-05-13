@@ -15,6 +15,7 @@ namespace LakaCubeTimer.model {
             this.color = color;
         }
         public void update(Sticker sticker) {
+            this.id = sticker.id;
             this.colorName = sticker.colorName;
             this.colorNameAsSide = sticker.colorNameAsSide;
             this.color = sticker.color;

@@ -4,13 +4,14 @@ namespace LakaCubeTimer.model {
     public class Cube {
         public List<Side> sides { get; set; }
         public Cube() {
-            this.sides = new List<Side>();
-            this.sides.Add(new Side("WHITE", "U", Util.colorWhite));
-            this.sides.Add(new Side("YELLOW", "D", Util.colorYellow));
-            this.sides.Add(new Side("ORANGE", "L", Util.colorOrange));
-            this.sides.Add(new Side("RED", "R", Util.colorRed));
-            this.sides.Add(new Side("GREEN", "G", Util.colorGreen));
-            this.sides.Add(new Side("BLUE", "B", Util.colorBlue));
+            this.sides = new List<Side> {
+                new Side("WHITE", "U", Util.COLOR_WHITE),
+                new Side("YELLOW", "D", Util.COLOR_YELLOW),
+                new Side("ORANGE", "L", Util.COLOR_ORANGE),
+                new Side("RED", "R", Util.COLOR_RED),
+                new Side("GREEN", "G", Util.COLOR_GREEN),
+                new Side("BLUE", "B", Util.COLOR_BLUE)
+            };
         }
         public Cube(List<Side> newSides) {
             this.sides = newSides;

@@ -13,7 +13,7 @@ namespace LakaCubeTimer.model {
             this.stickers = stickers;
         }
         public Side(Side side) {
-
+            this.stickers = side.stickers;
         }
     }
 }

@@ -8,12 +8,18 @@ namespace LakaCubeTimer.util {
     public static class Util {
         private static int MAX_DOUBLE_TURNS = 9;
         private static string[] turns = new string[] { "U", "D", "L", "R", "F", "B" };
-        public static Color colorWhite = Color.FromArgb(255, 255, 255);
-        public static Color colorYellow = Color.FromArgb(255, 249, 46);
-        public static Color colorOrange = Color.FromArgb(255, 119, 0);
-        public static Color colorRed = Color.FromArgb(227, 7, 7);
-        public static Color colorGreen = Color.FromArgb(52, 196, 8);
-        public static Color colorBlue = Color.FromArgb(2, 91, 181);
+        public static Color COLOR_WHITE = Color.FromArgb(255, 255, 255);
+        public static Color COLOR_YELLOW = Color.FromArgb(255, 249, 46);
+        public static Color COLOR_ORANGE = Color.FromArgb(255, 119, 0);
+        public static Color COLOR_RED = Color.FromArgb(227, 7, 7);
+        public static Color COLOR_GREEN = Color.FromArgb(52, 196, 8);
+        public static Color COLOR_BLUE = Color.FromArgb(2, 91, 181);
+        public static string SIDE_UP = "U";
+        public static string SIDE_DOWN = "D";
+        public static string SIDE_LEFT = "L";
+        public static string SIDE_RIGHT = "R";
+        public static string SIDE_FRONT = "F";
+        public static string SIDE_BACK = "B";
         public static DateTime dateTimeWithoutMilliseconds(DateTime date) {
             return new DateTime(date.Year, date.Month, date.Day, date.Hour, date.Minute, date.Second);
         }
@@ -86,11 +92,11 @@ namespace LakaCubeTimer.util {
         public static Side getSide(Cube cube, string colorNameAsSide) {
             foreach (Side side in cube.sides) {
                 if (side.stickers[4].colorNameAsSide.Equals(colorNameAsSide)) {
-                    //return initializeSide(side);
-                    return side;
+                    return initializeSide(side);
+                    //return side;
                 }
             }
-            return new Side("WHITE", "U", colorWhite);
+            return new Side("WHITE", "U", COLOR_WHITE);
         }
         public static Side initializeSide(Side side) {
             List<Sticker> newStickers = new List<Sticker>();
@@ -101,19 +107,505 @@ namespace LakaCubeTimer.util {
             return new Side(newStickers);
         }
         public static Cube turnCube(Cube cube, string turn) {
-            Side currentUpSide = initializeSide(getSide(cube, "U"));
-            Side currentDownSide = initializeSide(getSide(cube, "D"));
-            Side currentLeftSide = initializeSide(getSide(cube, "L"));
-            Side currentRightSide = initializeSide(getSide(cube, "R"));
-            Side currentFrontSide = initializeSide(getSide(cube, "F"));
-            Side currentBackSide = initializeSide(getSide(cube, "B"));
+            Side newUpSide = cube.sides[0];
+            Side newDownSide = cube.sides[1];
+            Side newLeftSide = cube.sides[2];
+            Side newRightSide = cube.sides[3];
+            Side newFrontSide = cube.sides[4];
+            Side newBackSide = cube.sides[5];
+            if (turn.Equals("U")) {
+                newUpSide.stickers[2].color = getSide(cube, SIDE_UP).stickers[0].color;
+                newUpSide.stickers[8].color = getSide(cube, SIDE_UP).stickers[2].color;
+                newUpSide.stickers[6].color = getSide(cube, SIDE_UP).stickers[8].color;
+                newUpSide.stickers[0].color = getSide(cube, SIDE_UP).stickers[6].color;
+                newUpSide.stickers[5].color = getSide(cube, SIDE_UP).stickers[1].color;
+                newUpSide.stickers[7].color = getSide(cube, SIDE_UP).stickers[5].color;
+                newUpSide.stickers[3].color = getSide(cube, SIDE_UP).stickers[7].color;
+                newUpSide.stickers[1].color = getSide(cube, SIDE_UP).stickers[3].color;
 
-            Side newUpSide = currentUpSide;
-            Side newDownSide = currentDownSide;
-            Side newLeftSide = currentLeftSide;
-            Side newRightSide = currentRightSide;
-            Side newFrontSide = currentFrontSide;
-            Side newBackSide = currentBackSide;
+                newRightSide.stickers[0].color = getSide(cube, SIDE_BACK).stickers[0].color;
+                newRightSide.stickers[2].color = getSide(cube, SIDE_BACK).stickers[2].color;
+                newRightSide.stickers[1].color = getSide(cube, SIDE_BACK).stickers[1].color;
+
+                newFrontSide.stickers[0].color = getSide(cube, SIDE_RIGHT).stickers[0].color;
+                newFrontSide.stickers[2].color = getSide(cube, SIDE_RIGHT).stickers[2].color;
+                newFrontSide.stickers[1].color = getSide(cube, SIDE_RIGHT).stickers[1].color;
+
+                newLeftSide.stickers[0].color = getSide(cube, SIDE_FRONT).stickers[0].color;
+                newLeftSide.stickers[2].color = getSide(cube, SIDE_FRONT).stickers[2].color;
+                newLeftSide.stickers[1].color = getSide(cube, SIDE_FRONT).stickers[1].color;
+
+                newBackSide.stickers[0].color = getSide(cube, SIDE_LEFT).stickers[0].color;
+                newBackSide.stickers[2].color = getSide(cube, SIDE_LEFT).stickers[2].color;
+                newBackSide.stickers[1].color = getSide(cube, SIDE_LEFT).stickers[1].color;
+            }
+            if (turn.Equals("U'")) {
+                newUpSide.stickers[0].color = getSide(cube, SIDE_UP).stickers[2].color;
+                newUpSide.stickers[6].color = getSide(cube, SIDE_UP).stickers[0].color;
+                newUpSide.stickers[8].color = getSide(cube, SIDE_UP).stickers[6].color;
+                newUpSide.stickers[2].color = getSide(cube, SIDE_UP).stickers[8].color;
+                newUpSide.stickers[3].color = getSide(cube, SIDE_UP).stickers[1].color;
+                newUpSide.stickers[7].color = getSide(cube, SIDE_UP).stickers[3].color;
+                newUpSide.stickers[5].color = getSide(cube, SIDE_UP).stickers[7].color;
+                newUpSide.stickers[1].color = getSide(cube, SIDE_UP).stickers[5].color;
+
+                newLeftSide.stickers[0].color = getSide(cube, SIDE_BACK).stickers[0].color;
+                newLeftSide.stickers[2].color = getSide(cube, SIDE_BACK).stickers[2].color;
+                newLeftSide.stickers[1].color = getSide(cube, SIDE_BACK).stickers[1].color;
+
+                newFrontSide.stickers[0].color = getSide(cube, SIDE_LEFT).stickers[0].color;
+                newFrontSide.stickers[2].color = getSide(cube, SIDE_LEFT).stickers[2].color;
+                newFrontSide.stickers[1].color = getSide(cube, SIDE_LEFT).stickers[1].color;
+
+                newRightSide.stickers[0].color = getSide(cube, SIDE_FRONT).stickers[0].color;
+                newRightSide.stickers[2].color = getSide(cube, SIDE_FRONT).stickers[2].color;
+                newRightSide.stickers[1].color = getSide(cube, SIDE_FRONT).stickers[1].color;
+
+                newBackSide.stickers[0].color = getSide(cube, SIDE_RIGHT).stickers[0].color;
+                newBackSide.stickers[2].color = getSide(cube, SIDE_RIGHT).stickers[2].color;
+                newBackSide.stickers[1].color = getSide(cube, SIDE_RIGHT).stickers[1].color;
+            }
+            if (turn.Equals("U2")) {
+                newUpSide.stickers[8].color = getSide(cube, SIDE_UP).stickers[0].color;
+                newUpSide.stickers[0].color = getSide(cube, SIDE_UP).stickers[8].color;
+                newUpSide.stickers[6].color = getSide(cube, SIDE_UP).stickers[2].color;
+                newUpSide.stickers[2].color = getSide(cube, SIDE_UP).stickers[6].color;
+                newUpSide.stickers[5].color = getSide(cube, SIDE_UP).stickers[3].color;
+                newUpSide.stickers[3].color = getSide(cube, SIDE_UP).stickers[5].color;
+                newUpSide.stickers[7].color = getSide(cube, SIDE_UP).stickers[1].color;
+                newUpSide.stickers[1].color = getSide(cube, SIDE_UP).stickers[7].color;
+
+                newRightSide.stickers[0].color = getSide(cube, SIDE_LEFT).stickers[0].color;
+                newRightSide.stickers[2].color = getSide(cube, SIDE_LEFT).stickers[2].color;
+                newRightSide.stickers[1].color = getSide(cube, SIDE_LEFT).stickers[1].color;
+
+                newLeftSide.stickers[0].color = getSide(cube, SIDE_RIGHT).stickers[0].color;
+                newLeftSide.stickers[2].color = getSide(cube, SIDE_RIGHT).stickers[2].color;
+                newLeftSide.stickers[1].color = getSide(cube, SIDE_RIGHT).stickers[1].color;
+
+                newBackSide.stickers[0].color = getSide(cube, SIDE_FRONT).stickers[0].color;
+                newBackSide.stickers[2].color = getSide(cube, SIDE_FRONT).stickers[2].color;
+                newBackSide.stickers[1].color = getSide(cube, SIDE_FRONT).stickers[1].color;
+
+                newFrontSide.stickers[0].color = getSide(cube, SIDE_BACK).stickers[0].color;
+                newFrontSide.stickers[2].color = getSide(cube, SIDE_BACK).stickers[2].color;
+                newFrontSide.stickers[1].color = getSide(cube, SIDE_BACK).stickers[1].color;
+            }
+            if (turn.Equals("D")) {
+                newDownSide.stickers[2].color = getSide(cube, SIDE_DOWN).stickers[0].color;
+                newDownSide.stickers[8].color = getSide(cube, SIDE_DOWN).stickers[2].color;
+                newDownSide.stickers[6].color = getSide(cube, SIDE_DOWN).stickers[8].color;
+                newDownSide.stickers[0].color = getSide(cube, SIDE_DOWN).stickers[6].color;
+                newDownSide.stickers[5].color = getSide(cube, SIDE_DOWN).stickers[1].color;
+                newDownSide.stickers[7].color = getSide(cube, SIDE_DOWN).stickers[5].color;
+                newDownSide.stickers[3].color = getSide(cube, SIDE_DOWN).stickers[7].color;
+                newDownSide.stickers[1].color = getSide(cube, SIDE_DOWN).stickers[3].color;
+
+                newRightSide.stickers[6].color = getSide(cube, SIDE_FRONT).stickers[6].color;
+                newRightSide.stickers[8].color = getSide(cube, SIDE_FRONT).stickers[8].color;
+                newRightSide.stickers[7].color = getSide(cube, SIDE_FRONT).stickers[7].color;
+
+                newBackSide.stickers[6].color = getSide(cube, SIDE_RIGHT).stickers[6].color;
+                newBackSide.stickers[8].color = getSide(cube, SIDE_RIGHT).stickers[8].color;
+                newBackSide.stickers[7].color = getSide(cube, SIDE_RIGHT).stickers[7].color;
+
+                newLeftSide.stickers[6].color = getSide(cube, SIDE_BACK).stickers[6].color;
+                newLeftSide.stickers[8].color = getSide(cube, SIDE_BACK).stickers[8].color;
+                newLeftSide.stickers[7].color = getSide(cube, SIDE_BACK).stickers[7].color;
+
+                newFrontSide.stickers[6].color = getSide(cube, SIDE_LEFT).stickers[6].color;
+                newFrontSide.stickers[8].color = getSide(cube, SIDE_LEFT).stickers[8].color;
+                newFrontSide.stickers[7].color = getSide(cube, SIDE_LEFT).stickers[7].color;
+            }
+            if (turn.Equals("D'")) {
+                newDownSide.stickers[0].color = getSide(cube, SIDE_DOWN).stickers[2].color;
+                newDownSide.stickers[6].color = getSide(cube, SIDE_DOWN).stickers[0].color;
+                newDownSide.stickers[8].color = getSide(cube, SIDE_DOWN).stickers[6].color;
+                newDownSide.stickers[2].color = getSide(cube, SIDE_DOWN).stickers[8].color;
+                newDownSide.stickers[3].color = getSide(cube, SIDE_DOWN).stickers[1].color;
+                newDownSide.stickers[7].color = getSide(cube, SIDE_DOWN).stickers[3].color;
+                newDownSide.stickers[5].color = getSide(cube, SIDE_DOWN).stickers[7].color;
+                newDownSide.stickers[1].color = getSide(cube, SIDE_DOWN).stickers[5].color;
+
+                newRightSide.stickers[6].color = getSide(cube, SIDE_BACK).stickers[6].color;
+                newRightSide.stickers[8].color = getSide(cube, SIDE_BACK).stickers[8].color;
+                newRightSide.stickers[7].color = getSide(cube, SIDE_BACK).stickers[7].color;
+
+                newFrontSide.stickers[6].color = getSide(cube, SIDE_RIGHT).stickers[6].color;
+                newFrontSide.stickers[8].color = getSide(cube, SIDE_RIGHT).stickers[8].color;
+                newFrontSide.stickers[7].color = getSide(cube, SIDE_RIGHT).stickers[7].color;
+
+                newLeftSide.stickers[6].color = getSide(cube, SIDE_FRONT).stickers[6].color;
+                newLeftSide.stickers[8].color = getSide(cube, SIDE_FRONT).stickers[8].color;
+                newLeftSide.stickers[7].color = getSide(cube, SIDE_FRONT).stickers[7].color;
+
+                newBackSide.stickers[6].color = getSide(cube, SIDE_LEFT).stickers[6].color;
+                newBackSide.stickers[8].color = getSide(cube, SIDE_LEFT).stickers[8].color;
+                newBackSide.stickers[7].color = getSide(cube, SIDE_LEFT).stickers[7].color;
+            }
+            if (turn.Equals("D2")) {
+                newDownSide.stickers[8].color = getSide(cube, SIDE_DOWN).stickers[0].color;
+                newDownSide.stickers[0].color = getSide(cube, SIDE_DOWN).stickers[8].color;
+                newDownSide.stickers[6].color = getSide(cube, SIDE_DOWN).stickers[2].color;
+                newDownSide.stickers[2].color = getSide(cube, SIDE_DOWN).stickers[6].color;
+                newDownSide.stickers[5].color = getSide(cube, SIDE_DOWN).stickers[3].color;
+                newDownSide.stickers[3].color = getSide(cube, SIDE_DOWN).stickers[5].color;
+                newDownSide.stickers[7].color = getSide(cube, SIDE_DOWN).stickers[1].color;
+                newDownSide.stickers[1].color = getSide(cube, SIDE_DOWN).stickers[7].color;
+
+                newRightSide.stickers[6].color = getSide(cube, SIDE_LEFT).stickers[6].color;
+                newRightSide.stickers[8].color = getSide(cube, SIDE_LEFT).stickers[8].color;
+                newRightSide.stickers[7].color = getSide(cube, SIDE_LEFT).stickers[7].color;
+
+                newLeftSide.stickers[6].color = getSide(cube, SIDE_RIGHT).stickers[6].color;
+                newLeftSide.stickers[8].color = getSide(cube, SIDE_RIGHT).stickers[8].color;
+                newLeftSide.stickers[7].color = getSide(cube, SIDE_RIGHT).stickers[7].color;
+
+                newBackSide.stickers[6].color = getSide(cube, SIDE_FRONT).stickers[6].color;
+                newBackSide.stickers[8].color = getSide(cube, SIDE_FRONT).stickers[8].color;
+                newBackSide.stickers[7].color = getSide(cube, SIDE_FRONT).stickers[7].color;
+
+                newFrontSide.stickers[6].color = getSide(cube, SIDE_BACK).stickers[6].color;
+                newFrontSide.stickers[8].color = getSide(cube, SIDE_BACK).stickers[8].color;
+                newFrontSide.stickers[7].color = getSide(cube, SIDE_BACK).stickers[7].color;
+            }
+            if (turn.Equals("L")) {
+                newLeftSide.stickers[2].color = getSide(cube, SIDE_LEFT).stickers[0].color;
+                newLeftSide.stickers[8].color = getSide(cube, SIDE_LEFT).stickers[2].color;
+                newLeftSide.stickers[6].color = getSide(cube, SIDE_LEFT).stickers[8].color;
+                newLeftSide.stickers[0].color = getSide(cube, SIDE_LEFT).stickers[6].color;
+                newLeftSide.stickers[5].color = getSide(cube, SIDE_LEFT).stickers[1].color;
+                newLeftSide.stickers[7].color = getSide(cube, SIDE_LEFT).stickers[5].color;
+                newLeftSide.stickers[3].color = getSide(cube, SIDE_LEFT).stickers[7].color;
+                newLeftSide.stickers[1].color = getSide(cube, SIDE_LEFT).stickers[3].color;
+
+                newFrontSide.stickers[6].color = getSide(cube, SIDE_UP).stickers[6].color;
+                newFrontSide.stickers[0].color = getSide(cube, SIDE_UP).stickers[0].color;
+                newFrontSide.stickers[3].color = getSide(cube, SIDE_UP).stickers[3].color;
+
+                newDownSide.stickers[6].color = getSide(cube, SIDE_FRONT).stickers[6].color;
+                newDownSide.stickers[0].color = getSide(cube, SIDE_FRONT).stickers[0].color;
+                newDownSide.stickers[3].color = getSide(cube, SIDE_FRONT).stickers[3].color;
+
+                newBackSide.stickers[2].color = getSide(cube, SIDE_DOWN).stickers[6].color;
+                newBackSide.stickers[8].color = getSide(cube, SIDE_DOWN).stickers[0].color;
+                newBackSide.stickers[5].color = getSide(cube, SIDE_DOWN).stickers[3].color;
+
+                newUpSide.stickers[6].color = getSide(cube, SIDE_BACK).stickers[2].color;
+                newUpSide.stickers[0].color = getSide(cube, SIDE_BACK).stickers[8].color;
+                newUpSide.stickers[3].color = getSide(cube, SIDE_BACK).stickers[5].color;
+            }
+            if (turn.Equals("L'")) {
+                newLeftSide.stickers[0].color = getSide(cube, SIDE_LEFT).stickers[2].color;
+                newLeftSide.stickers[6].color = getSide(cube, SIDE_LEFT).stickers[0].color;
+                newLeftSide.stickers[8].color = getSide(cube, SIDE_LEFT).stickers[6].color;
+                newLeftSide.stickers[2].color = getSide(cube, SIDE_LEFT).stickers[8].color;
+                newLeftSide.stickers[3].color = getSide(cube, SIDE_LEFT).stickers[1].color;
+                newLeftSide.stickers[7].color = getSide(cube, SIDE_LEFT).stickers[3].color;
+                newLeftSide.stickers[5].color = getSide(cube, SIDE_LEFT).stickers[7].color;
+                newLeftSide.stickers[1].color = getSide(cube, SIDE_LEFT).stickers[5].color;
+
+                newBackSide.stickers[2].color = getSide(cube, SIDE_UP).stickers[6].color;
+                newBackSide.stickers[8].color = getSide(cube, SIDE_UP).stickers[0].color;
+                newBackSide.stickers[5].color = getSide(cube, SIDE_UP).stickers[3].color;
+
+                newDownSide.stickers[6].color = getSide(cube, SIDE_BACK).stickers[2].color;
+                newDownSide.stickers[0].color = getSide(cube, SIDE_BACK).stickers[8].color;
+                newDownSide.stickers[3].color = getSide(cube, SIDE_BACK).stickers[5].color;
+
+                newFrontSide.stickers[6].color = getSide(cube, SIDE_DOWN).stickers[6].color;
+                newFrontSide.stickers[0].color = getSide(cube, SIDE_DOWN).stickers[0].color;
+                newFrontSide.stickers[3].color = getSide(cube, SIDE_DOWN).stickers[3].color;
+
+                newUpSide.stickers[6].color = getSide(cube, SIDE_FRONT).stickers[6].color;
+                newUpSide.stickers[0].color = getSide(cube, SIDE_FRONT).stickers[0].color;
+                newUpSide.stickers[3].color = getSide(cube, SIDE_FRONT).stickers[3].color;
+            }
+            if (turn.Equals("L2")) {
+                newLeftSide.stickers[8].color = getSide(cube, SIDE_LEFT).stickers[0].color;
+                newLeftSide.stickers[0].color = getSide(cube, SIDE_LEFT).stickers[8].color;
+                newLeftSide.stickers[6].color = getSide(cube, SIDE_LEFT).stickers[2].color;
+                newLeftSide.stickers[2].color = getSide(cube, SIDE_LEFT).stickers[6].color;
+                newLeftSide.stickers[5].color = getSide(cube, SIDE_LEFT).stickers[3].color;
+                newLeftSide.stickers[3].color = getSide(cube, SIDE_LEFT).stickers[5].color;
+                newLeftSide.stickers[7].color = getSide(cube, SIDE_LEFT).stickers[1].color;
+                newLeftSide.stickers[1].color = getSide(cube, SIDE_LEFT).stickers[7].color;
+
+                newDownSide.stickers[6].color = getSide(cube, SIDE_UP).stickers[6].color;
+                newDownSide.stickers[0].color = getSide(cube, SIDE_UP).stickers[0].color;
+                newDownSide.stickers[3].color = getSide(cube, SIDE_UP).stickers[3].color;
+
+                newUpSide.stickers[6].color = getSide(cube, SIDE_DOWN).stickers[6].color;
+                newUpSide.stickers[0].color = getSide(cube, SIDE_DOWN).stickers[0].color;
+                newUpSide.stickers[3].color = getSide(cube, SIDE_DOWN).stickers[3].color;
+
+                newBackSide.stickers[2].color = getSide(cube, SIDE_FRONT).stickers[6].color;
+                newBackSide.stickers[8].color = getSide(cube, SIDE_FRONT).stickers[0].color;
+                newBackSide.stickers[5].color = getSide(cube, SIDE_FRONT).stickers[3].color;
+
+                newFrontSide.stickers[6].color = getSide(cube, SIDE_BACK).stickers[2].color;
+                newFrontSide.stickers[0].color = getSide(cube, SIDE_BACK).stickers[8].color;
+                newFrontSide.stickers[3].color = getSide(cube, SIDE_BACK).stickers[5].color;
+            }
+            if (turn.Equals("R")) {
+                newRightSide.stickers[2].color = getSide(cube, SIDE_RIGHT).stickers[0].color;
+                newRightSide.stickers[8].color = getSide(cube, SIDE_RIGHT).stickers[2].color;
+                newRightSide.stickers[6].color = getSide(cube, SIDE_RIGHT).stickers[8].color;
+                newRightSide.stickers[0].color = getSide(cube, SIDE_RIGHT).stickers[6].color;
+                newRightSide.stickers[5].color = getSide(cube, SIDE_RIGHT).stickers[1].color;
+                newRightSide.stickers[7].color = getSide(cube, SIDE_RIGHT).stickers[5].color;
+                newRightSide.stickers[3].color = getSide(cube, SIDE_RIGHT).stickers[7].color;
+                newRightSide.stickers[1].color = getSide(cube, SIDE_RIGHT).stickers[3].color;
+
+                newBackSide.stickers[6].color = getSide(cube, SIDE_UP).stickers[2].color;
+                newBackSide.stickers[0].color = getSide(cube, SIDE_UP).stickers[8].color;
+                newBackSide.stickers[3].color = getSide(cube, SIDE_UP).stickers[5].color;
+
+                newDownSide.stickers[2].color = getSide(cube, SIDE_BACK).stickers[6].color;
+                newDownSide.stickers[8].color = getSide(cube, SIDE_BACK).stickers[0].color;
+                newDownSide.stickers[5].color = getSide(cube, SIDE_BACK).stickers[3].color;
+
+                newFrontSide.stickers[2].color = getSide(cube, SIDE_DOWN).stickers[2].color;
+                newFrontSide.stickers[8].color = getSide(cube, SIDE_DOWN).stickers[8].color;
+                newFrontSide.stickers[5].color = getSide(cube, SIDE_DOWN).stickers[5].color;
+
+                newUpSide.stickers[2].color = getSide(cube, SIDE_FRONT).stickers[2].color;
+                newUpSide.stickers[8].color = getSide(cube, SIDE_FRONT).stickers[8].color;
+                newUpSide.stickers[5].color = getSide(cube, SIDE_FRONT).stickers[5].color;
+            }
+            if (turn.Equals("R'")) {
+                newRightSide.stickers[0].color = getSide(cube, SIDE_RIGHT).stickers[2].color;
+                newRightSide.stickers[6].color = getSide(cube, SIDE_RIGHT).stickers[0].color;
+                newRightSide.stickers[8].color = getSide(cube, SIDE_RIGHT).stickers[6].color;
+                newRightSide.stickers[2].color = getSide(cube, SIDE_RIGHT).stickers[8].color;
+                newRightSide.stickers[3].color = getSide(cube, SIDE_RIGHT).stickers[1].color;
+                newRightSide.stickers[7].color = getSide(cube, SIDE_RIGHT).stickers[3].color;
+                newRightSide.stickers[5].color = getSide(cube, SIDE_RIGHT).stickers[7].color;
+                newRightSide.stickers[1].color = getSide(cube, SIDE_RIGHT).stickers[5].color;
+
+                newFrontSide.stickers[2].color = getSide(cube, SIDE_UP).stickers[2].color;
+                newFrontSide.stickers[8].color = getSide(cube, SIDE_UP).stickers[8].color;
+                newFrontSide.stickers[5].color = getSide(cube, SIDE_UP).stickers[5].color;
+
+                newDownSide.stickers[2].color = getSide(cube, SIDE_FRONT).stickers[2].color;
+                newDownSide.stickers[8].color = getSide(cube, SIDE_FRONT).stickers[8].color;
+                newDownSide.stickers[5].color = getSide(cube, SIDE_FRONT).stickers[5].color;
+
+                newBackSide.stickers[6].color = getSide(cube, SIDE_DOWN).stickers[2].color;
+                newBackSide.stickers[0].color = getSide(cube, SIDE_DOWN).stickers[8].color;
+                newBackSide.stickers[3].color = getSide(cube, SIDE_DOWN).stickers[5].color;
+
+                newUpSide.stickers[2].color = getSide(cube, SIDE_BACK).stickers[6].color;
+                newUpSide.stickers[8].color = getSide(cube, SIDE_BACK).stickers[0].color;
+                newUpSide.stickers[5].color = getSide(cube, SIDE_BACK).stickers[3].color;
+            }
+            if (turn.Equals("R2")) {
+                newRightSide.stickers[8].color = getSide(cube, SIDE_RIGHT).stickers[0].color;
+                newRightSide.stickers[0].color = getSide(cube, SIDE_RIGHT).stickers[8].color;
+                newRightSide.stickers[6].color = getSide(cube, SIDE_RIGHT).stickers[2].color;
+                newRightSide.stickers[2].color = getSide(cube, SIDE_RIGHT).stickers[6].color;
+                newRightSide.stickers[5].color = getSide(cube, SIDE_RIGHT).stickers[3].color;
+                newRightSide.stickers[3].color = getSide(cube, SIDE_RIGHT).stickers[5].color;
+                newRightSide.stickers[7].color = getSide(cube, SIDE_RIGHT).stickers[1].color;
+                newRightSide.stickers[1].color = getSide(cube, SIDE_RIGHT).stickers[7].color;
+
+                newDownSide.stickers[2].color = getSide(cube, SIDE_UP).stickers[2].color;
+                newDownSide.stickers[8].color = getSide(cube, SIDE_UP).stickers[8].color;
+                newDownSide.stickers[5].color = getSide(cube, SIDE_UP).stickers[5].color;
+
+                newUpSide.stickers[2].color = getSide(cube, SIDE_DOWN).stickers[2].color;
+                newUpSide.stickers[8].color = getSide(cube, SIDE_DOWN).stickers[8].color;
+                newUpSide.stickers[5].color = getSide(cube, SIDE_DOWN).stickers[5].color;
+
+                newBackSide.stickers[6].color = getSide(cube, SIDE_FRONT).stickers[2].color;
+                newBackSide.stickers[0].color = getSide(cube, SIDE_FRONT).stickers[8].color;
+                newBackSide.stickers[3].color = getSide(cube, SIDE_FRONT).stickers[5].color;
+
+                newFrontSide.stickers[2].color = getSide(cube, SIDE_BACK).stickers[6].color;
+                newFrontSide.stickers[8].color = getSide(cube, SIDE_BACK).stickers[0].color;
+                newFrontSide.stickers[5].color = getSide(cube, SIDE_BACK).stickers[3].color;
+            }
+            if (turn.Equals("F")) {
+                newFrontSide.stickers[2].color = getSide(cube, SIDE_FRONT).stickers[0].color;
+                newFrontSide.stickers[8].color = getSide(cube, SIDE_FRONT).stickers[2].color;
+                newFrontSide.stickers[6].color = getSide(cube, SIDE_FRONT).stickers[8].color;
+                newFrontSide.stickers[0].color = getSide(cube, SIDE_FRONT).stickers[6].color;
+                newFrontSide.stickers[5].color = getSide(cube, SIDE_FRONT).stickers[1].color;
+                newFrontSide.stickers[7].color = getSide(cube, SIDE_FRONT).stickers[5].color;
+                newFrontSide.stickers[3].color = getSide(cube, SIDE_FRONT).stickers[7].color;
+                newFrontSide.stickers[1].color = getSide(cube, SIDE_FRONT).stickers[3].color;
+
+                newRightSide.stickers[6].color = getSide(cube, SIDE_UP).stickers[8].color;
+                newRightSide.stickers[0].color = getSide(cube, SIDE_UP).stickers[6].color;
+                newRightSide.stickers[3].color = getSide(cube, SIDE_UP).stickers[7].color;
+
+                newDownSide.stickers[0].color = getSide(cube, SIDE_RIGHT).stickers[6].color;
+                newDownSide.stickers[2].color = getSide(cube, SIDE_RIGHT).stickers[0].color;
+                newDownSide.stickers[1].color = getSide(cube, SIDE_RIGHT).stickers[3].color;
+
+                newLeftSide.stickers[2].color = getSide(cube, SIDE_DOWN).stickers[0].color;
+                newLeftSide.stickers[8].color = getSide(cube, SIDE_DOWN).stickers[2].color;
+                newLeftSide.stickers[5].color = getSide(cube, SIDE_DOWN).stickers[1].color;
+
+                newUpSide.stickers[8].color = getSide(cube, SIDE_LEFT).stickers[2].color;
+                newUpSide.stickers[6].color = getSide(cube, SIDE_LEFT).stickers[8].color;
+                newUpSide.stickers[7].color = getSide(cube, SIDE_LEFT).stickers[5].color;
+            }
+            if (turn.Equals("F'")) {
+                newFrontSide.stickers[0].color = getSide(cube, SIDE_FRONT).stickers[2].color;
+                newFrontSide.stickers[6].color = getSide(cube, SIDE_FRONT).stickers[0].color;
+                newFrontSide.stickers[8].color = getSide(cube, SIDE_FRONT).stickers[6].color;
+                newFrontSide.stickers[2].color = getSide(cube, SIDE_FRONT).stickers[8].color;
+                newFrontSide.stickers[3].color = getSide(cube, SIDE_FRONT).stickers[1].color;
+                newFrontSide.stickers[7].color = getSide(cube, SIDE_FRONT).stickers[3].color;
+                newFrontSide.stickers[5].color = getSide(cube, SIDE_FRONT).stickers[7].color;
+                newFrontSide.stickers[1].color = getSide(cube, SIDE_FRONT).stickers[5].color;
+
+                newLeftSide.stickers[2].color = getSide(cube, SIDE_UP).stickers[8].color;
+                newLeftSide.stickers[8].color = getSide(cube, SIDE_UP).stickers[6].color;
+                newLeftSide.stickers[5].color = getSide(cube, SIDE_UP).stickers[7].color;
+
+                newDownSide.stickers[0].color = getSide(cube, SIDE_LEFT).stickers[2].color;
+                newDownSide.stickers[2].color = getSide(cube, SIDE_LEFT).stickers[8].color;
+                newDownSide.stickers[1].color = getSide(cube, SIDE_LEFT).stickers[5].color;
+
+                newRightSide.stickers[6].color = getSide(cube, SIDE_DOWN).stickers[0].color;
+                newRightSide.stickers[0].color = getSide(cube, SIDE_DOWN).stickers[2].color;
+                newRightSide.stickers[3].color = getSide(cube, SIDE_DOWN).stickers[1].color;
+
+                newUpSide.stickers[6].color = getSide(cube, SIDE_RIGHT).stickers[0].color;
+                newUpSide.stickers[8].color = getSide(cube, SIDE_RIGHT).stickers[6].color;
+                newUpSide.stickers[7].color = getSide(cube, SIDE_RIGHT).stickers[3].color;
+            }
+            if (turn.Equals("F2")) {
+                newFrontSide.stickers[8].color = getSide(cube, SIDE_FRONT).stickers[0].color;
+                newFrontSide.stickers[0].color = getSide(cube, SIDE_FRONT).stickers[8].color;
+                newFrontSide.stickers[6].color = getSide(cube, SIDE_FRONT).stickers[2].color;
+                newFrontSide.stickers[2].color = getSide(cube, SIDE_FRONT).stickers[6].color;
+                newFrontSide.stickers[5].color = getSide(cube, SIDE_FRONT).stickers[3].color;
+                newFrontSide.stickers[3].color = getSide(cube, SIDE_FRONT).stickers[5].color;
+                newFrontSide.stickers[7].color = getSide(cube, SIDE_FRONT).stickers[1].color;
+                newFrontSide.stickers[1].color = getSide(cube, SIDE_FRONT).stickers[7].color;
+
+                newDownSide.stickers[0].color = getSide(cube, SIDE_UP).stickers[8].color;
+                newDownSide.stickers[2].color = getSide(cube, SIDE_UP).stickers[6].color;
+                newDownSide.stickers[1].color = getSide(cube, SIDE_UP).stickers[7].color;
+
+                newUpSide.stickers[8].color = getSide(cube, SIDE_DOWN).stickers[0].color;
+                newUpSide.stickers[6].color = getSide(cube, SIDE_DOWN).stickers[2].color;
+                newUpSide.stickers[7].color = getSide(cube, SIDE_DOWN).stickers[1].color;
+
+                newRightSide.stickers[0].color = getSide(cube, SIDE_LEFT).stickers[8].color;
+                newRightSide.stickers[6].color = getSide(cube, SIDE_LEFT).stickers[2].color;
+                newRightSide.stickers[3].color = getSide(cube, SIDE_LEFT).stickers[5].color;
+
+                newLeftSide.stickers[8].color = getSide(cube, SIDE_RIGHT).stickers[0].color;
+                newLeftSide.stickers[2].color = getSide(cube, SIDE_RIGHT).stickers[6].color;
+                newLeftSide.stickers[5].color = getSide(cube, SIDE_RIGHT).stickers[3].color;
+            }
+            if (turn.Equals("B")) {
+                newBackSide.stickers[2].color = getSide(cube, SIDE_BACK).stickers[0].color;
+                newBackSide.stickers[8].color = getSide(cube, SIDE_BACK).stickers[2].color;
+                newBackSide.stickers[6].color = getSide(cube, SIDE_BACK).stickers[8].color;
+                newBackSide.stickers[0].color = getSide(cube, SIDE_BACK).stickers[6].color;
+                newBackSide.stickers[5].color = getSide(cube, SIDE_BACK).stickers[1].color;
+                newBackSide.stickers[7].color = getSide(cube, SIDE_BACK).stickers[5].color;
+                newBackSide.stickers[3].color = getSide(cube, SIDE_BACK).stickers[7].color;
+                newBackSide.stickers[1].color = getSide(cube, SIDE_BACK).stickers[3].color;
+
+                newLeftSide.stickers[6].color = getSide(cube, SIDE_UP).stickers[0].color;
+                newLeftSide.stickers[0].color = getSide(cube, SIDE_UP).stickers[2].color;
+                newLeftSide.stickers[3].color = getSide(cube, SIDE_UP).stickers[1].color;
+
+                newDownSide.stickers[8].color = getSide(cube, SIDE_LEFT).stickers[6].color;
+                newDownSide.stickers[6].color = getSide(cube, SIDE_LEFT).stickers[0].color;
+                newDownSide.stickers[7].color = getSide(cube, SIDE_LEFT).stickers[3].color;
+
+                newRightSide.stickers[2].color = getSide(cube, SIDE_DOWN).stickers[8].color;
+                newRightSide.stickers[8].color = getSide(cube, SIDE_DOWN).stickers[6].color;
+                newRightSide.stickers[5].color = getSide(cube, SIDE_DOWN).stickers[7].color;
+
+                newUpSide.stickers[0].color = getSide(cube, SIDE_RIGHT).stickers[2].color;
+                newUpSide.stickers[2].color = getSide(cube, SIDE_RIGHT).stickers[8].color;
+                newUpSide.stickers[1].color = getSide(cube, SIDE_RIGHT).stickers[5].color;
+            }
+            if (turn.Equals("B'")) {
+                newBackSide.stickers[0].color = getSide(cube, SIDE_BACK).stickers[2].color;
+                newBackSide.stickers[6].color = getSide(cube, SIDE_BACK).stickers[0].color;
+                newBackSide.stickers[8].color = getSide(cube, SIDE_BACK).stickers[6].color;
+                newBackSide.stickers[2].color = getSide(cube, SIDE_BACK).stickers[8].color;
+                newBackSide.stickers[3].color = getSide(cube, SIDE_BACK).stickers[1].color;
+                newBackSide.stickers[7].color = getSide(cube, SIDE_BACK).stickers[3].color;
+                newBackSide.stickers[5].color = getSide(cube, SIDE_BACK).stickers[7].color;
+                newBackSide.stickers[1].color = getSide(cube, SIDE_BACK).stickers[5].color;
+
+                newRightSide.stickers[2].color = getSide(cube, SIDE_UP).stickers[0].color;
+                newRightSide.stickers[8].color = getSide(cube, SIDE_UP).stickers[2].color;
+                newRightSide.stickers[5].color = getSide(cube, SIDE_UP).stickers[1].color;
+
+                newDownSide.stickers[8].color = getSide(cube, SIDE_RIGHT).stickers[2].color;
+                newDownSide.stickers[6].color = getSide(cube, SIDE_RIGHT).stickers[8].color;
+                newDownSide.stickers[7].color = getSide(cube, SIDE_RIGHT).stickers[5].color;
+
+                newLeftSide.stickers[6].color = getSide(cube, SIDE_DOWN).stickers[8].color;
+                newLeftSide.stickers[0].color = getSide(cube, SIDE_DOWN).stickers[6].color;
+                newLeftSide.stickers[3].color = getSide(cube, SIDE_DOWN).stickers[7].color;
+
+                newUpSide.stickers[0].color = getSide(cube, SIDE_LEFT).stickers[6].color;
+                newUpSide.stickers[2].color = getSide(cube, SIDE_LEFT).stickers[0].color;
+                newUpSide.stickers[1].color = getSide(cube, SIDE_LEFT).stickers[3].color;
+            }
+            if (turn.Equals("B2")) {
+                newBackSide.stickers[8].color = getSide(cube, SIDE_BACK).stickers[0].color;
+                newBackSide.stickers[0].color = getSide(cube, SIDE_BACK).stickers[8].color;
+                newBackSide.stickers[6].color = getSide(cube, SIDE_BACK).stickers[2].color;
+                newBackSide.stickers[2].color = getSide(cube, SIDE_BACK).stickers[6].color;
+                newBackSide.stickers[5].color = getSide(cube, SIDE_BACK).stickers[3].color;
+                newBackSide.stickers[3].color = getSide(cube, SIDE_BACK).stickers[5].color;
+                newBackSide.stickers[7].color = getSide(cube, SIDE_BACK).stickers[1].color;
+                newBackSide.stickers[1].color = getSide(cube, SIDE_BACK).stickers[7].color;
+
+                newDownSide.stickers[8].color = getSide(cube, SIDE_UP).stickers[0].color;
+                newDownSide.stickers[6].color = getSide(cube, SIDE_UP).stickers[2].color;
+                newDownSide.stickers[7].color = getSide(cube, SIDE_UP).stickers[1].color;
+
+                newUpSide.stickers[0].color = getSide(cube, SIDE_DOWN).stickers[8].color;
+                newUpSide.stickers[2].color = getSide(cube, SIDE_DOWN).stickers[6].color;
+                newUpSide.stickers[1].color = getSide(cube, SIDE_DOWN).stickers[7].color;
+
+                newRightSide.stickers[2].color = getSide(cube, SIDE_LEFT).stickers[6].color;
+                newRightSide.stickers[8].color = getSide(cube, SIDE_LEFT).stickers[0].color;
+                newRightSide.stickers[5].color = getSide(cube, SIDE_LEFT).stickers[3].color;
+
+                newLeftSide.stickers[6].color = getSide(cube, SIDE_RIGHT).stickers[2].color;
+                newLeftSide.stickers[0].color = getSide(cube, SIDE_RIGHT).stickers[8].color;
+                newLeftSide.stickers[3].color = getSide(cube, SIDE_RIGHT).stickers[5].color;
+            }
+            List<Side> newSides = new List<Side>() { newUpSide, newDownSide, newLeftSide, newRightSide, newFrontSide, newBackSide };
+            return new Cube(newSides);
+        }
+        public static Cube turnCube2(Cube cube, string turn) {
+            Side currentUpSide = getSide(cube, "U");
+            Side currentDownSide = getSide(cube, "D");
+            Side currentLeftSide = getSide(cube, "L");
+            Side currentRightSide = getSide(cube, "R");
+            Side currentFrontSide = getSide(cube, "F");
+            Side currentBackSide = getSide(cube, "B");
+
+            /*Side newUpSide = new Side(currentUpSide);
+            Side newDownSide = new Side(currentDownSide);
+            Side newLeftSide = new Side(currentLeftSide);
+            Side newRightSide = new Side(currentRightSide);
+            Side newFrontSide = new Side(currentFrontSide);
+            Side newBackSide = new Side(currentBackSide);*/
+
+            Side newUpSide = initializeSide(currentUpSide);
+            Side newDownSide = initializeSide(currentDownSide);
+            Side newLeftSide = initializeSide(currentLeftSide);
+            Side newRightSide = initializeSide(currentRightSide);
+            Side newFrontSide = initializeSide(currentFrontSide);
+            Side newBackSide = initializeSide(currentBackSide);
+
             if (turn.Equals("U")) {
                 newUpSide.stickers[2].update(currentUpSide.stickers[0]);
                 newUpSide.stickers[8].update(currentUpSide.stickers[2]);
@@ -124,478 +616,463 @@ namespace LakaCubeTimer.util {
                 newUpSide.stickers[3].update(currentUpSide.stickers[7]);
                 newUpSide.stickers[1].update(currentUpSide.stickers[3]);
 
-                newRightSide.stickers[0].color = currentBackSide.stickers[0].color;
-                newRightSide.stickers[2].color = currentBackSide.stickers[2].color;
-                newRightSide.stickers[1].color = currentBackSide.stickers[1].color;
+                newRightSide.stickers[0].update(currentBackSide.stickers[0]);
+                newRightSide.stickers[2].update(currentBackSide.stickers[2]);
+                newRightSide.stickers[1].update(currentBackSide.stickers[1]);
 
-                newFrontSide.stickers[0].color = currentRightSide.stickers[0].color;
-                newFrontSide.stickers[2].color = currentRightSide.stickers[2].color;
-                newFrontSide.stickers[1].color = currentRightSide.stickers[1].color;
+                newFrontSide.stickers[0].update(currentRightSide.stickers[0]);
+                newFrontSide.stickers[2].update(currentRightSide.stickers[2]);
+                newFrontSide.stickers[1].update(currentRightSide.stickers[1]);
 
-                newLeftSide.stickers[0].color = currentFrontSide.stickers[0].color;
-                newLeftSide.stickers[2].color = currentFrontSide.stickers[2].color;
-                newLeftSide.stickers[1].color = currentFrontSide.stickers[1].color;
+                newLeftSide.stickers[0].update(currentFrontSide.stickers[0]);
+                newLeftSide.stickers[2].update(currentFrontSide.stickers[2]);
+                newLeftSide.stickers[1].update(currentFrontSide.stickers[1]);
 
-                newBackSide.stickers[0].color = currentLeftSide.stickers[0].color;
-                newBackSide.stickers[2].color = currentLeftSide.stickers[2].color;
-                newBackSide.stickers[1].color = currentLeftSide.stickers[1].color;
+                newBackSide.stickers[0].update(currentLeftSide.stickers[0]);
+                newBackSide.stickers[2].update(currentLeftSide.stickers[2]);
+                newBackSide.stickers[1].update(currentLeftSide.stickers[1]);
             }
             if (turn.Equals("U'")) {
-                newUpSide.stickers[0].color = currentUpSide.stickers[2].color;
-                newUpSide.stickers[6].color = currentUpSide.stickers[0].color;
-                newUpSide.stickers[8].color = currentUpSide.stickers[6].color;
-                newUpSide.stickers[2].color = currentUpSide.stickers[8].color;
-                newUpSide.stickers[3].color = currentUpSide.stickers[1].color;
-                newUpSide.stickers[7].color = currentUpSide.stickers[3].color;
-                newUpSide.stickers[5].color = currentUpSide.stickers[7].color;
-                newUpSide.stickers[1].color = currentUpSide.stickers[5].color;
+                newUpSide.stickers[0].update(currentUpSide.stickers[2]);
+                newUpSide.stickers[6].update(currentUpSide.stickers[0]);
+                newUpSide.stickers[8].update(currentUpSide.stickers[6]);
+                newUpSide.stickers[2].update(currentUpSide.stickers[8]);
+                newUpSide.stickers[3].update(currentUpSide.stickers[1]);
+                newUpSide.stickers[7].update(currentUpSide.stickers[3]);
+                newUpSide.stickers[5].update(currentUpSide.stickers[7]);
+                newUpSide.stickers[1].update(currentUpSide.stickers[5]);
 
-                newLeftSide.stickers[0].color = currentBackSide.stickers[0].color;
-                newLeftSide.stickers[2].color = currentBackSide.stickers[2].color;
-                newLeftSide.stickers[1].color = currentBackSide.stickers[1].color;
+                newLeftSide.stickers[0].update(currentBackSide.stickers[0]);
+                newLeftSide.stickers[2].update(currentBackSide.stickers[2]);
+                newLeftSide.stickers[1].update(currentBackSide.stickers[1]);
 
-                newFrontSide.stickers[0].color = currentLeftSide.stickers[0].color;
-                newFrontSide.stickers[2].color = currentLeftSide.stickers[2].color;
-                newFrontSide.stickers[1].color = currentLeftSide.stickers[1].color;
+                newFrontSide.stickers[0].update(currentLeftSide.stickers[0]);
+                newFrontSide.stickers[2].update(currentLeftSide.stickers[2]);
+                newFrontSide.stickers[1].update(currentLeftSide.stickers[1]);
 
-                newRightSide.stickers[0].color = currentFrontSide.stickers[0].color;
-                newRightSide.stickers[2].color = currentFrontSide.stickers[2].color;
-                newRightSide.stickers[1].color = currentFrontSide.stickers[1].color;
+                newRightSide.stickers[0].update(currentFrontSide.stickers[0]);
+                newRightSide.stickers[2].update(currentFrontSide.stickers[2]);
+                newRightSide.stickers[1].update(currentFrontSide.stickers[1]);
 
-                newBackSide.stickers[0].color = currentRightSide.stickers[0].color;
-                newBackSide.stickers[2].color = currentRightSide.stickers[2].color;
-                newBackSide.stickers[1].color = currentRightSide.stickers[1].color;
+                newBackSide.stickers[0].update(currentRightSide.stickers[0]);
+                newBackSide.stickers[2].update(currentRightSide.stickers[2]);
+                newBackSide.stickers[1].update(currentRightSide.stickers[1]);
             }
             if (turn.Equals("U2")) {
-                newUpSide.stickers[8].color = currentUpSide.stickers[0].color;
-                newUpSide.stickers[0].color = currentUpSide.stickers[8].color;
-                newUpSide.stickers[6].color = currentUpSide.stickers[2].color;
-                newUpSide.stickers[2].color = currentUpSide.stickers[6].color;
-                newUpSide.stickers[5].color = currentUpSide.stickers[3].color;
-                newUpSide.stickers[3].color = currentUpSide.stickers[5].color;
-                newUpSide.stickers[7].color = currentUpSide.stickers[1].color;
-                newUpSide.stickers[1].color = currentUpSide.stickers[7].color;
+                newUpSide.stickers[8].update(currentUpSide.stickers[0]);
+                newUpSide.stickers[0].update(currentUpSide.stickers[8]);
+                newUpSide.stickers[6].update(currentUpSide.stickers[2]);
+                newUpSide.stickers[2].update(currentUpSide.stickers[6]);
+                newUpSide.stickers[5].update(currentUpSide.stickers[3]);
+                newUpSide.stickers[3].update(currentUpSide.stickers[5]);
+                newUpSide.stickers[7].update(currentUpSide.stickers[1]);
+                newUpSide.stickers[1].update(currentUpSide.stickers[7]);
 
-                newRightSide.stickers[0].color = currentLeftSide.stickers[0].color;
-                newRightSide.stickers[2].color = currentLeftSide.stickers[2].color;
-                newRightSide.stickers[1].color = currentLeftSide.stickers[1].color;
+                newRightSide.stickers[0].update(currentLeftSide.stickers[0]);
+                newRightSide.stickers[2].update(currentLeftSide.stickers[2]);
+                newRightSide.stickers[1].update(currentLeftSide.stickers[1]);
 
-                newLeftSide.stickers[0].color = currentRightSide.stickers[0].color;
-                newLeftSide.stickers[2].color = currentRightSide.stickers[2].color;
-                newLeftSide.stickers[1].color = currentRightSide.stickers[1].color;
+                newLeftSide.stickers[0].update(currentRightSide.stickers[0]);
+                newLeftSide.stickers[2].update(currentRightSide.stickers[2]);
+                newLeftSide.stickers[1].update(currentRightSide.stickers[1]);
 
-                newBackSide.stickers[0].color = currentFrontSide.stickers[0].color;
-                newBackSide.stickers[2].color = currentFrontSide.stickers[2].color;
-                newBackSide.stickers[1].color = currentFrontSide.stickers[1].color;
+                newBackSide.stickers[0].update(currentFrontSide.stickers[0]);
+                newBackSide.stickers[2].update(currentFrontSide.stickers[2]);
+                newBackSide.stickers[1].update(currentFrontSide.stickers[1]);
 
-                newFrontSide.stickers[0].color = currentBackSide.stickers[0].color;
-                newFrontSide.stickers[2].color = currentBackSide.stickers[2].color;
-                newFrontSide.stickers[1].color = currentBackSide.stickers[1].color;
+                newFrontSide.stickers[0].update(currentBackSide.stickers[0]);
+                newFrontSide.stickers[2].update(currentBackSide.stickers[2]);
+                newFrontSide.stickers[1].update(currentBackSide.stickers[1]);
             }
             if (turn.Equals("D")) {
-                newDownSide.stickers[2].color = currentDownSide.stickers[0].color;
-                newDownSide.stickers[8].color = currentDownSide.stickers[2].color;
-                newDownSide.stickers[6].color = currentDownSide.stickers[8].color;
-                newDownSide.stickers[0].color = currentDownSide.stickers[6].color;
+                newDownSide.stickers[2].update(currentDownSide.stickers[0]);
+                newDownSide.stickers[8].update(currentDownSide.stickers[2]);
+                newDownSide.stickers[6].update(currentDownSide.stickers[8]);
+                newDownSide.stickers[0].update(currentDownSide.stickers[6]);
+                newDownSide.stickers[5].update(currentDownSide.stickers[1]);
+                newDownSide.stickers[7].update(currentDownSide.stickers[5]);
+                newDownSide.stickers[3].update(currentDownSide.stickers[7]);
+                newDownSide.stickers[1].update(currentDownSide.stickers[3]);
 
-                newDownSide.stickers[5].color = currentDownSide.stickers[1].color;
-                newDownSide.stickers[7].color = currentDownSide.stickers[5].color;
-                newDownSide.stickers[3].color = currentDownSide.stickers[7].color;
-                newDownSide.stickers[1].color = currentDownSide.stickers[3].color;
+                newRightSide.stickers[6].update(currentFrontSide.stickers[6]);
+                newRightSide.stickers[8].update(currentFrontSide.stickers[8]);
+                newRightSide.stickers[7].update(currentFrontSide.stickers[7]);
 
-                newRightSide.stickers[6].color = currentFrontSide.stickers[6].color;
-                newRightSide.stickers[8].color = currentFrontSide.stickers[8].color;
-                newRightSide.stickers[7].color = currentFrontSide.stickers[7].color;
+                newBackSide.stickers[6].update(currentRightSide.stickers[6]);
+                newBackSide.stickers[8].update(currentRightSide.stickers[8]);
+                newBackSide.stickers[7].update(currentRightSide.stickers[7]);
 
-                newBackSide.stickers[6].color = currentRightSide.stickers[6].color;
-                newBackSide.stickers[8].color = currentRightSide.stickers[8].color;
-                newBackSide.stickers[7].color = currentRightSide.stickers[7].color;
+                newLeftSide.stickers[6].update(currentBackSide.stickers[6]);
+                newLeftSide.stickers[8].update(currentBackSide.stickers[8]);
+                newLeftSide.stickers[7].update(currentBackSide.stickers[7]);
 
-                newLeftSide.stickers[6].color = currentBackSide.stickers[6].color;
-                newLeftSide.stickers[8].color = currentBackSide.stickers[8].color;
-                newLeftSide.stickers[7].color = currentBackSide.stickers[7].color;
-
-                newFrontSide.stickers[6].color = currentLeftSide.stickers[6].color;
-                newFrontSide.stickers[8].color = currentLeftSide.stickers[8].color;
-                newFrontSide.stickers[7].color = currentLeftSide.stickers[7].color;
+                newFrontSide.stickers[6].update(currentLeftSide.stickers[6]);
+                newFrontSide.stickers[8].update(currentLeftSide.stickers[8]);
+                newFrontSide.stickers[7].update(currentLeftSide.stickers[7]);
             }
             if (turn.Equals("D'")) {
-                newDownSide.stickers[0].color = currentDownSide.stickers[2].color;
-                newDownSide.stickers[6].color = currentDownSide.stickers[0].color;
-                newDownSide.stickers[8].color = currentDownSide.stickers[6].color;
-                newDownSide.stickers[2].color = currentDownSide.stickers[8].color;
+                newDownSide.stickers[0].update(currentDownSide.stickers[2]);
+                newDownSide.stickers[6].update(currentDownSide.stickers[0]);
+                newDownSide.stickers[8].update(currentDownSide.stickers[6]);
+                newDownSide.stickers[2].update(currentDownSide.stickers[8]);
+                newDownSide.stickers[3].update(currentDownSide.stickers[1]);
+                newDownSide.stickers[7].update(currentDownSide.stickers[3]);
+                newDownSide.stickers[5].update(currentDownSide.stickers[7]);
+                newDownSide.stickers[1].update(currentDownSide.stickers[5]);
 
-                newDownSide.stickers[3].color = currentDownSide.stickers[1].color;
-                newDownSide.stickers[7].color = currentDownSide.stickers[3].color;
-                newDownSide.stickers[5].color = currentDownSide.stickers[7].color;
-                newDownSide.stickers[1].color = currentDownSide.stickers[5].color;
+                newRightSide.stickers[6].update(currentBackSide.stickers[6]);
+                newRightSide.stickers[8].update(currentBackSide.stickers[8]);
+                newRightSide.stickers[7].update(currentBackSide.stickers[7]);
 
-                newRightSide.stickers[6].color = currentBackSide.stickers[6].color;
-                newRightSide.stickers[8].color = currentBackSide.stickers[8].color;
-                newRightSide.stickers[7].color = currentBackSide.stickers[7].color;
+                newFrontSide.stickers[6].update(currentRightSide.stickers[6]);
+                newFrontSide.stickers[8].update(currentRightSide.stickers[8]);
+                newFrontSide.stickers[7].update(currentRightSide.stickers[7]);
 
-                newFrontSide.stickers[6].color = currentRightSide.stickers[6].color;
-                newFrontSide.stickers[8].color = currentRightSide.stickers[8].color;
-                newFrontSide.stickers[7].color = currentRightSide.stickers[7].color;
+                newLeftSide.stickers[6].update(currentFrontSide.stickers[6]);
+                newLeftSide.stickers[8].update(currentFrontSide.stickers[8]);
+                newLeftSide.stickers[7].update(currentFrontSide.stickers[7]);
 
-                newLeftSide.stickers[6].color = currentFrontSide.stickers[6].color;
-                newLeftSide.stickers[8].color = currentFrontSide.stickers[8].color;
-                newLeftSide.stickers[7].color = currentFrontSide.stickers[7].color;
-
-                newBackSide.stickers[6].color = currentLeftSide.stickers[6].color;
-                newBackSide.stickers[8].color = currentLeftSide.stickers[8].color;
-                newBackSide.stickers[7].color = currentLeftSide.stickers[7].color;
+                newBackSide.stickers[6].update(currentLeftSide.stickers[6]);
+                newBackSide.stickers[8].update(currentLeftSide.stickers[8]);
+                newBackSide.stickers[7].update(currentLeftSide.stickers[7]);
             }
             if (turn.Equals("D2")) {
-                newDownSide.stickers[8].color = currentDownSide.stickers[0].color;
-                newDownSide.stickers[0].color = currentDownSide.stickers[8].color;
-                newDownSide.stickers[6].color = currentDownSide.stickers[2].color;
-                newDownSide.stickers[2].color = currentDownSide.stickers[6].color;
+                newDownSide.stickers[8].update(currentDownSide.stickers[0]);
+                newDownSide.stickers[0].update(currentDownSide.stickers[8]);
+                newDownSide.stickers[6].update(currentDownSide.stickers[2]);
+                newDownSide.stickers[2].update(currentDownSide.stickers[6]);
+                newDownSide.stickers[5].update(currentDownSide.stickers[3]);
+                newDownSide.stickers[3].update(currentDownSide.stickers[5]);
+                newDownSide.stickers[7].update(currentDownSide.stickers[1]);
+                newDownSide.stickers[1].update(currentDownSide.stickers[7]);
 
-                newDownSide.stickers[5].color = currentDownSide.stickers[3].color;
-                newDownSide.stickers[3].color = currentDownSide.stickers[5].color;
-                newDownSide.stickers[7].color = currentDownSide.stickers[1].color;
-                newDownSide.stickers[1].color = currentDownSide.stickers[7].color;
+                newRightSide.stickers[6].update(currentLeftSide.stickers[6]);
+                newRightSide.stickers[8].update(currentLeftSide.stickers[8]);
+                newRightSide.stickers[7].update(currentLeftSide.stickers[7]);
 
-                newRightSide.stickers[6].color = currentLeftSide.stickers[6].color;
-                newRightSide.stickers[8].color = currentLeftSide.stickers[8].color;
-                newRightSide.stickers[7].color = currentLeftSide.stickers[7].color;
+                newLeftSide.stickers[6].update(currentRightSide.stickers[6]);
+                newLeftSide.stickers[8].update(currentRightSide.stickers[8]);
+                newLeftSide.stickers[7].update(currentRightSide.stickers[7]);
 
-                newLeftSide.stickers[6].color = currentRightSide.stickers[6].color;
-                newLeftSide.stickers[8].color = currentRightSide.stickers[8].color;
-                newLeftSide.stickers[7].color = currentRightSide.stickers[7].color;
+                newBackSide.stickers[6].update(currentFrontSide.stickers[6]);
+                newBackSide.stickers[8].update(currentFrontSide.stickers[8]);
+                newBackSide.stickers[7].update(currentFrontSide.stickers[7]);
 
-                newBackSide.stickers[6].color = currentFrontSide.stickers[6].color;
-                newBackSide.stickers[8].color = currentFrontSide.stickers[8].color;
-                newBackSide.stickers[7].color = currentFrontSide.stickers[7].color;
-
-                newFrontSide.stickers[6].color = currentBackSide.stickers[6].color;
-                newFrontSide.stickers[8].color = currentBackSide.stickers[8].color;
-                newFrontSide.stickers[7].color = currentBackSide.stickers[7].color;
+                newFrontSide.stickers[6].update(currentBackSide.stickers[6]);
+                newFrontSide.stickers[8].update(currentBackSide.stickers[8]);
+                newFrontSide.stickers[7].update(currentBackSide.stickers[7]);
             }
             if (turn.Equals("L")) {
-                newLeftSide.stickers[2].color = currentLeftSide.stickers[0].color;
-                newLeftSide.stickers[8].color = currentLeftSide.stickers[2].color;
-                newLeftSide.stickers[6].color = currentLeftSide.stickers[8].color;
-                newLeftSide.stickers[0].color = currentLeftSide.stickers[6].color;
+                newLeftSide.stickers[2].update(currentLeftSide.stickers[0]);
+                newLeftSide.stickers[8].update(currentLeftSide.stickers[2]);
+                newLeftSide.stickers[6].update(currentLeftSide.stickers[8]);
+                newLeftSide.stickers[0].update(currentLeftSide.stickers[6]);
+                newLeftSide.stickers[5].update(currentLeftSide.stickers[1]);
+                newLeftSide.stickers[7].update(currentLeftSide.stickers[5]);
+                newLeftSide.stickers[3].update(currentLeftSide.stickers[7]);
+                newLeftSide.stickers[1].update(currentLeftSide.stickers[3]);
 
-                newLeftSide.stickers[5].color = currentLeftSide.stickers[1].color;
-                newLeftSide.stickers[7].color = currentLeftSide.stickers[5].color;
-                newLeftSide.stickers[3].color = currentLeftSide.stickers[7].color;
-                newLeftSide.stickers[1].color = currentLeftSide.stickers[3].color;
+                newFrontSide.stickers[6].update(currentUpSide.stickers[6]);
+                newFrontSide.stickers[0].update(currentUpSide.stickers[0]);
+                newFrontSide.stickers[3].update(currentUpSide.stickers[3]);
 
-                newFrontSide.stickers[6].color = currentUpSide.stickers[6].color;
-                newFrontSide.stickers[0].color = currentUpSide.stickers[0].color;
-                newFrontSide.stickers[3].color = currentUpSide.stickers[3].color;
+                newDownSide.stickers[6].update(currentFrontSide.stickers[6]);
+                newDownSide.stickers[0].update(currentFrontSide.stickers[0]);
+                newDownSide.stickers[3].update(currentFrontSide.stickers[3]);
 
-                newDownSide.stickers[6].color = currentFrontSide.stickers[6].color;
-                newDownSide.stickers[0].color = currentFrontSide.stickers[0].color;
-                newDownSide.stickers[3].color = currentFrontSide.stickers[3].color;
+                newBackSide.stickers[2].update(currentDownSide.stickers[6]);
+                newBackSide.stickers[8].update(currentDownSide.stickers[0]);
+                newBackSide.stickers[5].update(currentDownSide.stickers[3]);
 
-                newBackSide.stickers[2].color = currentDownSide.stickers[6].color;
-                newBackSide.stickers[8].color = currentDownSide.stickers[0].color;
-                newBackSide.stickers[5].color = currentDownSide.stickers[3].color;
-
-                newUpSide.stickers[6].color = currentBackSide.stickers[2].color;
-                newUpSide.stickers[0].color = currentBackSide.stickers[8].color;
-                newUpSide.stickers[3].color = currentBackSide.stickers[5].color;
+                newUpSide.stickers[6].update(currentBackSide.stickers[2]);
+                newUpSide.stickers[0].update(currentBackSide.stickers[8]);
+                newUpSide.stickers[3].update(currentBackSide.stickers[5]);
             }
             if (turn.Equals("L'")) {
-                newLeftSide.stickers[0].color = currentLeftSide.stickers[2].color;
-                newLeftSide.stickers[6].color = currentLeftSide.stickers[0].color;
-                newLeftSide.stickers[8].color = currentLeftSide.stickers[6].color;
-                newLeftSide.stickers[2].color = currentLeftSide.stickers[8].color;
+                newLeftSide.stickers[0].update(currentLeftSide.stickers[2]);
+                newLeftSide.stickers[6].update(currentLeftSide.stickers[0]);
+                newLeftSide.stickers[8].update(currentLeftSide.stickers[6]);
+                newLeftSide.stickers[2].update(currentLeftSide.stickers[8]);
+                newLeftSide.stickers[3].update(currentLeftSide.stickers[1]);
+                newLeftSide.stickers[7].update(currentLeftSide.stickers[3]);
+                newLeftSide.stickers[5].update(currentLeftSide.stickers[7]);
+                newLeftSide.stickers[1].update(currentLeftSide.stickers[5]);
 
-                newLeftSide.stickers[3].color = currentLeftSide.stickers[1].color;
-                newLeftSide.stickers[7].color = currentLeftSide.stickers[3].color;
-                newLeftSide.stickers[5].color = currentLeftSide.stickers[7].color;
-                newLeftSide.stickers[1].color = currentLeftSide.stickers[5].color;
+                newBackSide.stickers[2].update(currentUpSide.stickers[6]);
+                newBackSide.stickers[8].update(currentUpSide.stickers[0]);
+                newBackSide.stickers[5].update(currentUpSide.stickers[3]);
 
-                newBackSide.stickers[2].color = currentUpSide.stickers[6].color;
-                newBackSide.stickers[8].color = currentUpSide.stickers[0].color;
-                newBackSide.stickers[5].color = currentUpSide.stickers[3].color;
+                newDownSide.stickers[6].update(currentBackSide.stickers[2]);
+                newDownSide.stickers[0].update(currentBackSide.stickers[8]);
+                newDownSide.stickers[3].update(currentBackSide.stickers[5]);
 
-                newDownSide.stickers[6].color = currentBackSide.stickers[2].color;
-                newDownSide.stickers[0].color = currentBackSide.stickers[8].color;
-                newDownSide.stickers[3].color = currentBackSide.stickers[5].color;
+                newFrontSide.stickers[6].update(currentDownSide.stickers[6]);
+                newFrontSide.stickers[0].update(currentDownSide.stickers[0]);
+                newFrontSide.stickers[3].update(currentDownSide.stickers[3]);
 
-                newFrontSide.stickers[6].color = currentDownSide.stickers[6].color;
-                newFrontSide.stickers[0].color = currentDownSide.stickers[0].color;
-                newFrontSide.stickers[3].color = currentDownSide.stickers[3].color;
-
-                newUpSide.stickers[6].color = currentFrontSide.stickers[6].color;
-                newUpSide.stickers[0].color = currentFrontSide.stickers[0].color;
-                newUpSide.stickers[3].color = currentFrontSide.stickers[3].color;
+                newUpSide.stickers[6].update(currentFrontSide.stickers[6]);
+                newUpSide.stickers[0].update(currentFrontSide.stickers[0]);
+                newUpSide.stickers[3].update(currentFrontSide.stickers[3]);
             }
             if (turn.Equals("L2")) {
-                newLeftSide.stickers[8].color = currentLeftSide.stickers[0].color;
-                newLeftSide.stickers[0].color = currentLeftSide.stickers[8].color;
-                newLeftSide.stickers[6].color = currentLeftSide.stickers[2].color;
-                newLeftSide.stickers[2].color = currentLeftSide.stickers[6].color;
+                newLeftSide.stickers[8].update(currentLeftSide.stickers[0]);
+                newLeftSide.stickers[0].update(currentLeftSide.stickers[8]);
+                newLeftSide.stickers[6].update(currentLeftSide.stickers[2]);
+                newLeftSide.stickers[2].update(currentLeftSide.stickers[6]);
+                newLeftSide.stickers[5].update(currentLeftSide.stickers[3]);
+                newLeftSide.stickers[3].update(currentLeftSide.stickers[5]);
+                newLeftSide.stickers[7].update(currentLeftSide.stickers[1]);
+                newLeftSide.stickers[1].update(currentLeftSide.stickers[7]);
 
-                newLeftSide.stickers[5].color = currentLeftSide.stickers[3].color;
-                newLeftSide.stickers[3].color = currentLeftSide.stickers[5].color;
-                newLeftSide.stickers[7].color = currentLeftSide.stickers[1].color;
-                newLeftSide.stickers[1].color = currentLeftSide.stickers[7].color;
+                newDownSide.stickers[6].update(currentUpSide.stickers[6]);
+                newDownSide.stickers[0].update(currentUpSide.stickers[0]);
+                newDownSide.stickers[3].update(currentUpSide.stickers[3]);
 
-                newDownSide.stickers[6].color = currentUpSide.stickers[6].color;
-                newDownSide.stickers[0].color = currentUpSide.stickers[0].color;
-                newDownSide.stickers[3].color = currentUpSide.stickers[3].color;
+                newUpSide.stickers[6].update(currentDownSide.stickers[6]);
+                newUpSide.stickers[0].update(currentDownSide.stickers[0]);
+                newUpSide.stickers[3].update(currentDownSide.stickers[3]);
 
-                newUpSide.stickers[6].color = currentDownSide.stickers[6].color;
-                newUpSide.stickers[0].color = currentDownSide.stickers[0].color;
-                newUpSide.stickers[3].color = currentDownSide.stickers[3].color;
+                newBackSide.stickers[2].update(currentFrontSide.stickers[6]);
+                newBackSide.stickers[8].update(currentFrontSide.stickers[0]);
+                newBackSide.stickers[5].update(currentFrontSide.stickers[3]);
 
-                newBackSide.stickers[2].color = currentFrontSide.stickers[6].color;
-                newBackSide.stickers[8].color = currentFrontSide.stickers[0].color;
-                newBackSide.stickers[5].color = currentFrontSide.stickers[3].color;
-
-                newFrontSide.stickers[6].color = currentBackSide.stickers[2].color;
-                newFrontSide.stickers[0].color = currentBackSide.stickers[8].color;
-                newFrontSide.stickers[3].color = currentBackSide.stickers[5].color;
+                newFrontSide.stickers[6].update(currentBackSide.stickers[2]);
+                newFrontSide.stickers[0].update(currentBackSide.stickers[8]);
+                newFrontSide.stickers[3].update(currentBackSide.stickers[5]);
             }
             if (turn.Equals("R")) {
-                newRightSide.stickers[2].color = currentRightSide.stickers[0].color;
-                newRightSide.stickers[8].color = currentRightSide.stickers[2].color;
-                newRightSide.stickers[6].color = currentRightSide.stickers[8].color;
-                newRightSide.stickers[0].color = currentRightSide.stickers[6].color;
+                newRightSide.stickers[2].update(currentRightSide.stickers[0]);
+                newRightSide.stickers[8].update(currentRightSide.stickers[2]);
+                newRightSide.stickers[6].update(currentRightSide.stickers[8]);
+                newRightSide.stickers[0].update(currentRightSide.stickers[6]);
+                newRightSide.stickers[5].update(currentRightSide.stickers[1]);
+                newRightSide.stickers[7].update(currentRightSide.stickers[5]);
+                newRightSide.stickers[3].update(currentRightSide.stickers[7]);
+                newRightSide.stickers[1].update(currentRightSide.stickers[3]);
 
-                newRightSide.stickers[5].color = currentRightSide.stickers[1].color;
-                newRightSide.stickers[7].color = currentRightSide.stickers[5].color;
-                newRightSide.stickers[3].color = currentRightSide.stickers[7].color;
-                newRightSide.stickers[1].color = currentRightSide.stickers[3].color;
+                newBackSide.stickers[6].update(currentUpSide.stickers[2]);
+                newBackSide.stickers[0].update(currentUpSide.stickers[8]);
+                newBackSide.stickers[3].update(currentUpSide.stickers[5]);
 
-                newBackSide.stickers[6].color = currentUpSide.stickers[2].color;
-                newBackSide.stickers[0].color = currentUpSide.stickers[8].color;
-                newBackSide.stickers[3].color = currentUpSide.stickers[5].color;
+                newDownSide.stickers[2].update(currentBackSide.stickers[6]);
+                newDownSide.stickers[8].update(currentBackSide.stickers[0]);
+                newDownSide.stickers[5].update(currentBackSide.stickers[3]);
 
-                newDownSide.stickers[2].color = currentBackSide.stickers[6].color;
-                newDownSide.stickers[8].color = currentBackSide.stickers[0].color;
-                newDownSide.stickers[5].color = currentBackSide.stickers[3].color;
+                newFrontSide.stickers[2].update(currentDownSide.stickers[2]);
+                newFrontSide.stickers[8].update(currentDownSide.stickers[8]);
+                newFrontSide.stickers[5].update(currentDownSide.stickers[5]);
 
-                newFrontSide.stickers[2].color = currentDownSide.stickers[2].color;
-                newFrontSide.stickers[8].color = currentDownSide.stickers[8].color;
-                newFrontSide.stickers[5].color = currentDownSide.stickers[5].color;
-
-                newUpSide.stickers[2].color = currentFrontSide.stickers[2].color;
-                newUpSide.stickers[8].color = currentFrontSide.stickers[8].color;
-                newUpSide.stickers[5].color = currentFrontSide.stickers[5].color;
+                newUpSide.stickers[2].update(currentFrontSide.stickers[2]);
+                newUpSide.stickers[8].update(currentFrontSide.stickers[8]);
+                newUpSide.stickers[5].update(currentFrontSide.stickers[5]);
             }
             if (turn.Equals("R'")) {
-                newRightSide.stickers[0].color = currentRightSide.stickers[2].color;
-                newRightSide.stickers[6].color = currentRightSide.stickers[0].color;
-                newRightSide.stickers[8].color = currentRightSide.stickers[6].color;
-                newRightSide.stickers[2].color = currentRightSide.stickers[8].color;
+                newRightSide.stickers[0].update(currentRightSide.stickers[2]);
+                newRightSide.stickers[6].update(currentRightSide.stickers[0]);
+                newRightSide.stickers[8].update(currentRightSide.stickers[6]);
+                newRightSide.stickers[2].update(currentRightSide.stickers[8]);
+                newRightSide.stickers[3].update(currentRightSide.stickers[1]);
+                newRightSide.stickers[7].update(currentRightSide.stickers[3]);
+                newRightSide.stickers[5].update(currentRightSide.stickers[7]);
+                newRightSide.stickers[1].update(currentRightSide.stickers[5]);
 
-                newRightSide.stickers[3].color = currentRightSide.stickers[1].color;
-                newRightSide.stickers[7].color = currentRightSide.stickers[3].color;
-                newRightSide.stickers[5].color = currentRightSide.stickers[7].color;
-                newRightSide.stickers[1].color = currentRightSide.stickers[5].color;
+                newFrontSide.stickers[2].update(currentUpSide.stickers[2]);
+                newFrontSide.stickers[8].update(currentUpSide.stickers[8]);
+                newFrontSide.stickers[5].update(currentUpSide.stickers[5]);
 
-                newFrontSide.stickers[2].color = currentUpSide.stickers[2].color;
-                newFrontSide.stickers[8].color = currentUpSide.stickers[8].color;
-                newFrontSide.stickers[5].color = currentUpSide.stickers[5].color;
+                newDownSide.stickers[2].update(currentFrontSide.stickers[2]);
+                newDownSide.stickers[8].update(currentFrontSide.stickers[8]);
+                newDownSide.stickers[5].update(currentFrontSide.stickers[5]);
 
-                newDownSide.stickers[2].color = currentFrontSide.stickers[2].color;
-                newDownSide.stickers[8].color = currentFrontSide.stickers[8].color;
-                newDownSide.stickers[5].color = currentFrontSide.stickers[5].color;
+                newBackSide.stickers[6].update(currentDownSide.stickers[2]);
+                newBackSide.stickers[0].update(currentDownSide.stickers[8]);
+                newBackSide.stickers[3].update(currentDownSide.stickers[5]);
 
-                newBackSide.stickers[6].color = currentDownSide.stickers[2].color;
-                newBackSide.stickers[0].color = currentDownSide.stickers[8].color;
-                newBackSide.stickers[3].color = currentDownSide.stickers[5].color;
-
-                newUpSide.stickers[2].color = currentBackSide.stickers[6].color;
-                newUpSide.stickers[8].color = currentBackSide.stickers[0].color;
-                newUpSide.stickers[5].color = currentBackSide.stickers[3].color;
+                newUpSide.stickers[2].update(currentBackSide.stickers[6]);
+                newUpSide.stickers[8].update(currentBackSide.stickers[0]);
+                newUpSide.stickers[5].update(currentBackSide.stickers[3]);
             }
             if (turn.Equals("R2")) {
-                newRightSide.stickers[8].color = currentRightSide.stickers[0].color;
-                newRightSide.stickers[0].color = currentRightSide.stickers[8].color;
-                newRightSide.stickers[6].color = currentRightSide.stickers[2].color;
-                newRightSide.stickers[2].color = currentRightSide.stickers[6].color;
+                newRightSide.stickers[8].update(currentRightSide.stickers[0]);
+                newRightSide.stickers[0].update(currentRightSide.stickers[8]);
+                newRightSide.stickers[6].update(currentRightSide.stickers[2]);
+                newRightSide.stickers[2].update(currentRightSide.stickers[6]);
+                newRightSide.stickers[5].update(currentRightSide.stickers[3]);
+                newRightSide.stickers[3].update(currentRightSide.stickers[5]);
+                newRightSide.stickers[7].update(currentRightSide.stickers[1]);
+                newRightSide.stickers[1].update(currentRightSide.stickers[7]);
 
-                newRightSide.stickers[5].color = currentRightSide.stickers[3].color;
-                newRightSide.stickers[3].color = currentRightSide.stickers[5].color;
-                newRightSide.stickers[7].color = currentRightSide.stickers[1].color;
-                newRightSide.stickers[1].color = currentRightSide.stickers[7].color;
+                newDownSide.stickers[2].update(currentUpSide.stickers[2]);
+                newDownSide.stickers[8].update(currentUpSide.stickers[8]);
+                newDownSide.stickers[5].update(currentUpSide.stickers[5]);
 
-                newDownSide.stickers[2].color = currentUpSide.stickers[2].color;
-                newDownSide.stickers[8].color = currentUpSide.stickers[8].color;
-                newDownSide.stickers[5].color = currentUpSide.stickers[5].color;
+                newUpSide.stickers[2].update(currentDownSide.stickers[2]);
+                newUpSide.stickers[8].update(currentDownSide.stickers[8]);
+                newUpSide.stickers[5].update(currentDownSide.stickers[5]);
 
-                newUpSide.stickers[2].color = currentDownSide.stickers[2].color;
-                newUpSide.stickers[8].color = currentDownSide.stickers[8].color;
-                newUpSide.stickers[5].color = currentDownSide.stickers[5].color;
+                newBackSide.stickers[6].update(currentFrontSide.stickers[2]);
+                newBackSide.stickers[0].update(currentFrontSide.stickers[8]);
+                newBackSide.stickers[3].update(currentFrontSide.stickers[5]);
 
-                newBackSide.stickers[6].color = currentFrontSide.stickers[2].color;
-                newBackSide.stickers[0].color = currentFrontSide.stickers[8].color;
-                newBackSide.stickers[3].color = currentFrontSide.stickers[5].color;
-
-                newFrontSide.stickers[2].color = currentBackSide.stickers[6].color;
-                newFrontSide.stickers[8].color = currentBackSide.stickers[0].color;
-                newFrontSide.stickers[5].color = currentBackSide.stickers[3].color;
+                newFrontSide.stickers[2].update(currentBackSide.stickers[6]);
+                newFrontSide.stickers[8].update(currentBackSide.stickers[0]);
+                newFrontSide.stickers[5].update(currentBackSide.stickers[3]);
             }
             if (turn.Equals("F")) {
-                newFrontSide.stickers[2].color = currentFrontSide.stickers[0].color;
-                newFrontSide.stickers[8].color = currentFrontSide.stickers[2].color;
-                newFrontSide.stickers[6].color = currentFrontSide.stickers[8].color;
-                newFrontSide.stickers[0].color = currentFrontSide.stickers[6].color;
+                newFrontSide.stickers[2].update(currentFrontSide.stickers[0]);
+                newFrontSide.stickers[8].update(currentFrontSide.stickers[2]);
+                newFrontSide.stickers[6].update(currentFrontSide.stickers[8]);
+                newFrontSide.stickers[0].update(currentFrontSide.stickers[6]);
+                newFrontSide.stickers[5].update(currentFrontSide.stickers[1]);
+                newFrontSide.stickers[7].update(currentFrontSide.stickers[5]);
+                newFrontSide.stickers[3].update(currentFrontSide.stickers[7]);
+                newFrontSide.stickers[1].update(currentFrontSide.stickers[3]);
 
-                newFrontSide.stickers[5].color = currentFrontSide.stickers[1].color;
-                newFrontSide.stickers[7].color = currentFrontSide.stickers[5].color;
-                newFrontSide.stickers[3].color = currentFrontSide.stickers[7].color;
-                newFrontSide.stickers[1].color = currentFrontSide.stickers[3].color;
+                newRightSide.stickers[6].update(currentUpSide.stickers[8]);
+                newRightSide.stickers[0].update(currentUpSide.stickers[6]);
+                newRightSide.stickers[3].update(currentUpSide.stickers[7]);
 
-                newRightSide.stickers[6].color = currentUpSide.stickers[8].color;
-                newRightSide.stickers[0].color = currentUpSide.stickers[6].color;
-                newRightSide.stickers[3].color = currentUpSide.stickers[7].color;
+                newDownSide.stickers[0].update(currentRightSide.stickers[6]);
+                newDownSide.stickers[2].update(currentRightSide.stickers[0]);
+                newDownSide.stickers[1].update(currentRightSide.stickers[3]);
 
-                newDownSide.stickers[0].color = currentRightSide.stickers[6].color;
-                newDownSide.stickers[2].color = currentRightSide.stickers[0].color;
-                newDownSide.stickers[1].color = currentRightSide.stickers[3].color;
+                newLeftSide.stickers[2].update(currentDownSide.stickers[0]);
+                newLeftSide.stickers[8].update(currentDownSide.stickers[2]);
+                newLeftSide.stickers[5].update(currentDownSide.stickers[1]);
 
-                newLeftSide.stickers[2].color = currentDownSide.stickers[0].color;
-                newLeftSide.stickers[8].color = currentDownSide.stickers[2].color;
-                newLeftSide.stickers[5].color = currentDownSide.stickers[1].color;
-
-                newUpSide.stickers[8].color = currentLeftSide.stickers[2].color;
-                newUpSide.stickers[6].color = currentLeftSide.stickers[8].color;
-                newUpSide.stickers[7].color = currentLeftSide.stickers[5].color;
+                newUpSide.stickers[8].update(currentLeftSide.stickers[2]);
+                newUpSide.stickers[6].update(currentLeftSide.stickers[8]);
+                newUpSide.stickers[7].update(currentLeftSide.stickers[5]);
             }
             if (turn.Equals("F'")) {
-                newFrontSide.stickers[0].color = currentFrontSide.stickers[2].color;
-                newFrontSide.stickers[6].color = currentFrontSide.stickers[0].color;
-                newFrontSide.stickers[8].color = currentFrontSide.stickers[6].color;
-                newFrontSide.stickers[2].color = currentFrontSide.stickers[8].color;
+                newFrontSide.stickers[0].update(currentFrontSide.stickers[2]);
+                newFrontSide.stickers[6].update(currentFrontSide.stickers[0]);
+                newFrontSide.stickers[8].update(currentFrontSide.stickers[6]);
+                newFrontSide.stickers[2].update(currentFrontSide.stickers[8]);
+                newFrontSide.stickers[3].update(currentFrontSide.stickers[1]);
+                newFrontSide.stickers[7].update(currentFrontSide.stickers[3]);
+                newFrontSide.stickers[5].update(currentFrontSide.stickers[7]);
+                newFrontSide.stickers[1].update(currentFrontSide.stickers[5]);
 
-                newFrontSide.stickers[3].color = currentFrontSide.stickers[1].color;
-                newFrontSide.stickers[7].color = currentFrontSide.stickers[3].color;
-                newFrontSide.stickers[5].color = currentFrontSide.stickers[7].color;
-                newFrontSide.stickers[1].color = currentFrontSide.stickers[5].color;
+                newLeftSide.stickers[2].update(currentUpSide.stickers[8]);
+                newLeftSide.stickers[8].update(currentUpSide.stickers[6]);
+                newLeftSide.stickers[5].update(currentUpSide.stickers[7]);
 
-                newLeftSide.stickers[2].color = currentUpSide.stickers[8].color;
-                newLeftSide.stickers[8].color = currentUpSide.stickers[6].color;
-                newLeftSide.stickers[5].color = currentUpSide.stickers[7].color;
+                newDownSide.stickers[0].update(currentLeftSide.stickers[2]);
+                newDownSide.stickers[2].update(currentLeftSide.stickers[8]);
+                newDownSide.stickers[1].update(currentLeftSide.stickers[5]);
 
-                newDownSide.stickers[0].color = currentLeftSide.stickers[2].color;
-                newDownSide.stickers[2].color = currentLeftSide.stickers[8].color;
-                newDownSide.stickers[1].color = currentLeftSide.stickers[5].color;
+                newRightSide.stickers[6].update(currentDownSide.stickers[0]);
+                newRightSide.stickers[0].update(currentDownSide.stickers[2]);
+                newRightSide.stickers[3].update(currentDownSide.stickers[1]);
 
-                newRightSide.stickers[6].color = currentDownSide.stickers[0].color;
-                newRightSide.stickers[0].color = currentDownSide.stickers[2].color;
-                newRightSide.stickers[3].color = currentDownSide.stickers[1].color;
-
-                newUpSide.stickers[6].color = currentRightSide.stickers[0].color;
-                newUpSide.stickers[8].color = currentRightSide.stickers[6].color;
-                newUpSide.stickers[7].color = currentRightSide.stickers[3].color;
+                newUpSide.stickers[6].update(currentRightSide.stickers[0]);
+                newUpSide.stickers[8].update(currentRightSide.stickers[6]);
+                newUpSide.stickers[7].update(currentRightSide.stickers[3]);
             }
             if (turn.Equals("F2")) {
-                newFrontSide.stickers[8].color = currentFrontSide.stickers[0].color;
-                newFrontSide.stickers[0].color = currentFrontSide.stickers[8].color;
-                newFrontSide.stickers[6].color = currentFrontSide.stickers[2].color;
-                newFrontSide.stickers[2].color = currentFrontSide.stickers[6].color;
+                newFrontSide.stickers[8].update(currentFrontSide.stickers[0]);
+                newFrontSide.stickers[0].update(currentFrontSide.stickers[8]);
+                newFrontSide.stickers[6].update(currentFrontSide.stickers[2]);
+                newFrontSide.stickers[2].update(currentFrontSide.stickers[6]);
+                newFrontSide.stickers[5].update(currentFrontSide.stickers[3]);
+                newFrontSide.stickers[3].update(currentFrontSide.stickers[5]);
+                newFrontSide.stickers[7].update(currentFrontSide.stickers[1]);
+                newFrontSide.stickers[1].update(currentFrontSide.stickers[7]);
 
-                newFrontSide.stickers[5].color = currentFrontSide.stickers[3].color;
-                newFrontSide.stickers[3].color = currentFrontSide.stickers[5].color;
-                newFrontSide.stickers[7].color = currentFrontSide.stickers[1].color;
-                newFrontSide.stickers[1].color = currentFrontSide.stickers[7].color;
+                newDownSide.stickers[0].update(currentUpSide.stickers[8]);
+                newDownSide.stickers[2].update(currentUpSide.stickers[6]);
+                newDownSide.stickers[1].update(currentUpSide.stickers[7]);
 
-                newDownSide.stickers[0].color = currentUpSide.stickers[8].color;
-                newDownSide.stickers[2].color = currentUpSide.stickers[6].color;
-                newDownSide.stickers[1].color = currentUpSide.stickers[7].color;
+                newUpSide.stickers[8].update(currentDownSide.stickers[0]);
+                newUpSide.stickers[6].update(currentDownSide.stickers[2]);
+                newUpSide.stickers[7].update(currentDownSide.stickers[1]);
 
-                newUpSide.stickers[8].color = currentDownSide.stickers[0].color;
-                newUpSide.stickers[6].color = currentDownSide.stickers[2].color;
-                newUpSide.stickers[7].color = currentDownSide.stickers[1].color;
+                newRightSide.stickers[0].update(currentLeftSide.stickers[8]);
+                newRightSide.stickers[6].update(currentLeftSide.stickers[2]);
+                newRightSide.stickers[3].update(currentLeftSide.stickers[5]);
 
-                newRightSide.stickers[0].color = currentLeftSide.stickers[8].color;
-                newRightSide.stickers[6].color = currentLeftSide.stickers[2].color;
-                newRightSide.stickers[3].color = currentLeftSide.stickers[5].color;
-
-                newLeftSide.stickers[8].color = currentRightSide.stickers[0].color;
-                newLeftSide.stickers[2].color = currentRightSide.stickers[6].color;
-                newLeftSide.stickers[5].color = currentRightSide.stickers[3].color;
+                newLeftSide.stickers[8].update(currentRightSide.stickers[0]);
+                newLeftSide.stickers[2].update(currentRightSide.stickers[6]);
+                newLeftSide.stickers[5].update(currentRightSide.stickers[3]);
             }
             if (turn.Equals("B")) {
-                newBackSide.stickers[2].color = currentBackSide.stickers[0].color;
-                newBackSide.stickers[8].color = currentBackSide.stickers[2].color;
-                newBackSide.stickers[6].color = currentBackSide.stickers[8].color;
-                newBackSide.stickers[0].color = currentBackSide.stickers[6].color;
+                newBackSide.stickers[2].update(currentBackSide.stickers[0]);
+                newBackSide.stickers[8].update(currentBackSide.stickers[2]);
+                newBackSide.stickers[6].update(currentBackSide.stickers[8]);
+                newBackSide.stickers[0].update(currentBackSide.stickers[6]);
+                newBackSide.stickers[5].update(currentBackSide.stickers[1]);
+                newBackSide.stickers[7].update(currentBackSide.stickers[5]);
+                newBackSide.stickers[3].update(currentBackSide.stickers[7]);
+                newBackSide.stickers[1].update(currentBackSide.stickers[3]);
 
-                newBackSide.stickers[5].color = currentBackSide.stickers[1].color;
-                newBackSide.stickers[7].color = currentBackSide.stickers[5].color;
-                newBackSide.stickers[3].color = currentBackSide.stickers[7].color;
-                newBackSide.stickers[1].color = currentBackSide.stickers[3].color;
+                newLeftSide.stickers[6].update(currentUpSide.stickers[0]);
+                newLeftSide.stickers[0].update(currentUpSide.stickers[2]);
+                newLeftSide.stickers[3].update(currentUpSide.stickers[1]);
 
-                newLeftSide.stickers[6].color = currentUpSide.stickers[0].color;
-                newLeftSide.stickers[0].color = currentUpSide.stickers[2].color;
-                newLeftSide.stickers[3].color = currentUpSide.stickers[1].color;
+                newDownSide.stickers[8].update(currentLeftSide.stickers[6]);
+                newDownSide.stickers[6].update(currentLeftSide.stickers[0]);
+                newDownSide.stickers[7].update(currentLeftSide.stickers[3]);
 
-                newDownSide.stickers[8].color = currentLeftSide.stickers[6].color;
-                newDownSide.stickers[6].color = currentLeftSide.stickers[0].color;
-                newDownSide.stickers[7].color = currentLeftSide.stickers[3].color;
+                newRightSide.stickers[2].update(currentDownSide.stickers[8]);
+                newRightSide.stickers[8].update(currentDownSide.stickers[6]);
+                newRightSide.stickers[5].update(currentDownSide.stickers[7]);
 
-                newRightSide.stickers[2].color = currentDownSide.stickers[8].color;
-                newRightSide.stickers[8].color = currentDownSide.stickers[6].color;
-                newRightSide.stickers[5].color = currentDownSide.stickers[7].color;
-
-                newUpSide.stickers[0].color = currentRightSide.stickers[2].color;
-                newUpSide.stickers[2].color = currentRightSide.stickers[8].color;
-                newUpSide.stickers[1].color = currentRightSide.stickers[5].color;
+                newUpSide.stickers[0].update(currentRightSide.stickers[2]);
+                newUpSide.stickers[2].update(currentRightSide.stickers[8]);
+                newUpSide.stickers[1].update(currentRightSide.stickers[5]);
             }
             if (turn.Equals("B'")) {
-                newBackSide.stickers[0].color = currentBackSide.stickers[2].color;
-                newBackSide.stickers[6].color = currentBackSide.stickers[0].color;
-                newBackSide.stickers[8].color = currentBackSide.stickers[6].color;
-                newBackSide.stickers[2].color = currentBackSide.stickers[8].color;
+                newBackSide.stickers[0].update(currentBackSide.stickers[2]);
+                newBackSide.stickers[6].update(currentBackSide.stickers[0]);
+                newBackSide.stickers[8].update(currentBackSide.stickers[6]);
+                newBackSide.stickers[2].update(currentBackSide.stickers[8]);
+                newBackSide.stickers[3].update(currentBackSide.stickers[1]);
+                newBackSide.stickers[7].update(currentBackSide.stickers[3]);
+                newBackSide.stickers[5].update(currentBackSide.stickers[7]);
+                newBackSide.stickers[1].update(currentBackSide.stickers[5]);
 
-                newBackSide.stickers[3].color = currentBackSide.stickers[1].color;
-                newBackSide.stickers[7].color = currentBackSide.stickers[3].color;
-                newBackSide.stickers[5].color = currentBackSide.stickers[7].color;
-                newBackSide.stickers[1].color = currentBackSide.stickers[5].color;
+                newRightSide.stickers[2].update(currentUpSide.stickers[0]);
+                newRightSide.stickers[8].update(currentUpSide.stickers[2]);
+                newRightSide.stickers[5].update(currentUpSide.stickers[1]);
 
-                newRightSide.stickers[2].color = currentUpSide.stickers[0].color;
-                newRightSide.stickers[8].color = currentUpSide.stickers[2].color;
-                newRightSide.stickers[5].color = currentUpSide.stickers[1].color;
+                newDownSide.stickers[8].update(currentRightSide.stickers[2]);
+                newDownSide.stickers[6].update(currentRightSide.stickers[8]);
+                newDownSide.stickers[7].update(currentRightSide.stickers[5]);
 
-                newDownSide.stickers[8].color = currentRightSide.stickers[2].color;
-                newDownSide.stickers[6].color = currentRightSide.stickers[8].color;
-                newDownSide.stickers[7].color = currentRightSide.stickers[5].color;
+                newLeftSide.stickers[6].update(currentDownSide.stickers[8]);
+                newLeftSide.stickers[0].update(currentDownSide.stickers[6]);
+                newLeftSide.stickers[3].update(currentDownSide.stickers[7]);
 
-                newLeftSide.stickers[6].color = currentDownSide.stickers[8].color;
-                newLeftSide.stickers[0].color = currentDownSide.stickers[6].color;
-                newLeftSide.stickers[3].color = currentDownSide.stickers[7].color;
-
-                newUpSide.stickers[0].color = currentLeftSide.stickers[6].color;
-                newUpSide.stickers[2].color = currentLeftSide.stickers[0].color;
-                newUpSide.stickers[1].color = currentLeftSide.stickers[3].color;
+                newUpSide.stickers[0].update(currentLeftSide.stickers[6]);
+                newUpSide.stickers[2].update(currentLeftSide.stickers[0]);
+                newUpSide.stickers[1].update(currentLeftSide.stickers[3]);
             }
             if (turn.Equals("B2")) {
-                newBackSide.stickers[8].color = currentBackSide.stickers[0].color;
-                newBackSide.stickers[0].color = currentBackSide.stickers[8].color;
-                newBackSide.stickers[6].color = currentBackSide.stickers[2].color;
-                newBackSide.stickers[2].color = currentBackSide.stickers[6].color;
+                newBackSide.stickers[8].update(currentBackSide.stickers[0]);
+                newBackSide.stickers[0].update(currentBackSide.stickers[8]);
+                newBackSide.stickers[6].update(currentBackSide.stickers[2]);
+                newBackSide.stickers[2].update(currentBackSide.stickers[6]);
+                newBackSide.stickers[5].update(currentBackSide.stickers[3]);
+                newBackSide.stickers[3].update(currentBackSide.stickers[5]);
+                newBackSide.stickers[7].update(currentBackSide.stickers[1]);
+                newBackSide.stickers[1].update(currentBackSide.stickers[7]);
 
-                newBackSide.stickers[5].color = currentBackSide.stickers[3].color;
-                newBackSide.stickers[3].color = currentBackSide.stickers[5].color;
-                newBackSide.stickers[7].color = currentBackSide.stickers[1].color;
-                newBackSide.stickers[1].color = currentBackSide.stickers[7].color;
+                newDownSide.stickers[8].update(currentUpSide.stickers[0]);
+                newDownSide.stickers[6].update(currentUpSide.stickers[2]);
+                newDownSide.stickers[7].update(currentUpSide.stickers[1]);
 
-                newDownSide.stickers[8].color = currentUpSide.stickers[0].color;
-                newDownSide.stickers[6].color = currentUpSide.stickers[2].color;
-                newDownSide.stickers[7].color = currentUpSide.stickers[1].color;
+                newUpSide.stickers[0].update(currentDownSide.stickers[8]);
+                newUpSide.stickers[2].update(currentDownSide.stickers[6]);
+                newUpSide.stickers[1].update(currentDownSide.stickers[7]);
 
-                newUpSide.stickers[0].color = currentDownSide.stickers[8].color;
-                newUpSide.stickers[2].color = currentDownSide.stickers[6].color;
-                newUpSide.stickers[1].color = currentDownSide.stickers[7].color;
+                newRightSide.stickers[2].update(currentLeftSide.stickers[6]);
+                newRightSide.stickers[8].update(currentLeftSide.stickers[0]);
+                newRightSide.stickers[5].update(currentLeftSide.stickers[3]);
 
-                newRightSide.stickers[2].color = currentLeftSide.stickers[6].color;
-                newRightSide.stickers[8].color = currentLeftSide.stickers[0].color;
-                newRightSide.stickers[5].color = currentLeftSide.stickers[3].color;
-
-                newLeftSide.stickers[6].color = currentRightSide.stickers[2].color;
-                newLeftSide.stickers[0].color = currentRightSide.stickers[8].color;
-                newLeftSide.stickers[3].color = currentRightSide.stickers[5].color;
+                newLeftSide.stickers[6].update(currentRightSide.stickers[2]);
+                newLeftSide.stickers[0].update(currentRightSide.stickers[8]);
+                newLeftSide.stickers[3].update(currentRightSide.stickers[5]);
             }
             List<Side> newSides = new List<Side> { newUpSide, newDownSide, newLeftSide, newRightSide, newFrontSide, newBackSide };
             return new Cube(newSides);
@@ -626,6 +1103,7 @@ namespace LakaCubeTimer.util {
             return cubeString;
         }
         public static Cube scrambleCube(Cube cube, List<string> scramble) {
+            List<string> tempScrambleList = Util.scrambleToList("L F2 R2 L' F B2 R2 L2 U' F' D L' B D' R2 L2 R2 F D2 F");
             foreach (string turn in scramble) {
                 cube = turnCube(cube, turn);
             }
