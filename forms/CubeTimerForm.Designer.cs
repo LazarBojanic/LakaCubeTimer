@@ -23,1076 +23,953 @@
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
-            this.components = new System.ComponentModel.Container();
-            this.labelTimer = new System.Windows.Forms.Label();
-            this.timerSolve = new System.Windows.Forms.Timer(this.components);
-            this.panelTimer = new System.Windows.Forms.Panel();
-            this.checkBoxInspectionEnabled = new System.Windows.Forms.CheckBox();
-            this.panelTurns = new System.Windows.Forms.Panel();
-            this.buttonLeftTurn = new System.Windows.Forms.Button();
-            this.buttonFrontTurn = new System.Windows.Forms.Button();
-            this.buttonDownTurn = new System.Windows.Forms.Button();
-            this.buttonUpTurn = new System.Windows.Forms.Button();
-            this.buttonBackTurn = new System.Windows.Forms.Button();
-            this.buttonRightTurn = new System.Windows.Forms.Button();
-            this.buttonNewScramble = new System.Windows.Forms.Button();
-            this.panelCube = new System.Windows.Forms.Panel();
-            this.panelDown = new System.Windows.Forms.Panel();
-            this.panelDown8 = new System.Windows.Forms.Panel();
-            this.panelDown0 = new System.Windows.Forms.Panel();
-            this.panelDown7 = new System.Windows.Forms.Panel();
-            this.panelDown1 = new System.Windows.Forms.Panel();
-            this.panelDown6 = new System.Windows.Forms.Panel();
-            this.panelDown2 = new System.Windows.Forms.Panel();
-            this.panelDown5 = new System.Windows.Forms.Panel();
-            this.panelDown3 = new System.Windows.Forms.Panel();
-            this.panelDown4 = new System.Windows.Forms.Panel();
-            this.panelBack = new System.Windows.Forms.Panel();
-            this.panelBack8 = new System.Windows.Forms.Panel();
-            this.panelBack0 = new System.Windows.Forms.Panel();
-            this.panelBack7 = new System.Windows.Forms.Panel();
-            this.panelBack1 = new System.Windows.Forms.Panel();
-            this.panelBack6 = new System.Windows.Forms.Panel();
-            this.panelBack2 = new System.Windows.Forms.Panel();
-            this.panelBack5 = new System.Windows.Forms.Panel();
-            this.panelBack3 = new System.Windows.Forms.Panel();
-            this.panelBack4 = new System.Windows.Forms.Panel();
-            this.panelRight = new System.Windows.Forms.Panel();
-            this.panelRight8 = new System.Windows.Forms.Panel();
-            this.panelRight0 = new System.Windows.Forms.Panel();
-            this.panelRight7 = new System.Windows.Forms.Panel();
-            this.panelRight1 = new System.Windows.Forms.Panel();
-            this.panelRight6 = new System.Windows.Forms.Panel();
-            this.panelRight2 = new System.Windows.Forms.Panel();
-            this.panelRight5 = new System.Windows.Forms.Panel();
-            this.panelRight3 = new System.Windows.Forms.Panel();
-            this.panelRight4 = new System.Windows.Forms.Panel();
-            this.panelUp = new System.Windows.Forms.Panel();
-            this.panelUp8 = new System.Windows.Forms.Panel();
-            this.panelUp0 = new System.Windows.Forms.Panel();
-            this.panelUp7 = new System.Windows.Forms.Panel();
-            this.panelUp1 = new System.Windows.Forms.Panel();
-            this.panelUp6 = new System.Windows.Forms.Panel();
-            this.panelUp2 = new System.Windows.Forms.Panel();
-            this.panelUp5 = new System.Windows.Forms.Panel();
-            this.panelUp3 = new System.Windows.Forms.Panel();
-            this.panelUp4 = new System.Windows.Forms.Panel();
-            this.panelFront = new System.Windows.Forms.Panel();
-            this.panelFront8 = new System.Windows.Forms.Panel();
-            this.panelFront0 = new System.Windows.Forms.Panel();
-            this.panelFront7 = new System.Windows.Forms.Panel();
-            this.panelFront1 = new System.Windows.Forms.Panel();
-            this.panelFront6 = new System.Windows.Forms.Panel();
-            this.panelFront2 = new System.Windows.Forms.Panel();
-            this.panelFront5 = new System.Windows.Forms.Panel();
-            this.panelFront3 = new System.Windows.Forms.Panel();
-            this.panelFront4 = new System.Windows.Forms.Panel();
-            this.panelLeft = new System.Windows.Forms.Panel();
-            this.panelLeft8 = new System.Windows.Forms.Panel();
-            this.panelLeft7 = new System.Windows.Forms.Panel();
-            this.panelLeft6 = new System.Windows.Forms.Panel();
-            this.panelLeft5 = new System.Windows.Forms.Panel();
-            this.panelLeft4 = new System.Windows.Forms.Panel();
-            this.panelLeft3 = new System.Windows.Forms.Panel();
-            this.panelLeft2 = new System.Windows.Forms.Panel();
-            this.panelLeft1 = new System.Windows.Forms.Panel();
-            this.panelLeft0 = new System.Windows.Forms.Panel();
-            this.labelScramble = new System.Windows.Forms.Label();
-            this.flowLayoutPanelTimes = new System.Windows.Forms.FlowLayoutPanel();
-            this.panelStats = new System.Windows.Forms.Panel();
-            this.labelBestTime = new System.Windows.Forms.Label();
-            this.labelAverageOfTwelve = new System.Windows.Forms.Label();
-            this.labelAverageOfFive = new System.Windows.Forms.Label();
-            this.comboBoxSession = new System.Windows.Forms.ComboBox();
-            this.buttonSelectSession = new System.Windows.Forms.Button();
-            this.buttonDeleteAllFromSession = new System.Windows.Forms.Button();
-            this.timerInspection = new System.Windows.Forms.Timer(this.components);
-            this.panelTimer.SuspendLayout();
-            this.panelTurns.SuspendLayout();
-            this.panelCube.SuspendLayout();
-            this.panelDown.SuspendLayout();
-            this.panelBack.SuspendLayout();
-            this.panelRight.SuspendLayout();
-            this.panelUp.SuspendLayout();
-            this.panelFront.SuspendLayout();
-            this.panelLeft.SuspendLayout();
-            this.panelStats.SuspendLayout();
-            this.SuspendLayout();
+            components = new System.ComponentModel.Container();
+            labelTimer = new Label();
+            timerSolve = new System.Windows.Forms.Timer(components);
+            panelTimer = new Panel();
+            buttonExportCubeState = new Button();
+            checkBoxInspectionEnabled = new CheckBox();
+            panelTurns = new Panel();
+            buttonLeftTurn = new Button();
+            buttonFrontTurn = new Button();
+            buttonDownTurn = new Button();
+            buttonUpTurn = new Button();
+            buttonBackTurn = new Button();
+            buttonRightTurn = new Button();
+            buttonNewScramble = new Button();
+            panelCube = new Panel();
+            panelDown = new Panel();
+            panelDown8 = new Panel();
+            panelDown0 = new Panel();
+            panelDown7 = new Panel();
+            panelDown1 = new Panel();
+            panelDown6 = new Panel();
+            panelDown2 = new Panel();
+            panelDown5 = new Panel();
+            panelDown3 = new Panel();
+            panelDown4 = new Panel();
+            panelBack = new Panel();
+            panelBack8 = new Panel();
+            panelBack0 = new Panel();
+            panelBack7 = new Panel();
+            panelBack1 = new Panel();
+            panelBack6 = new Panel();
+            panelBack2 = new Panel();
+            panelBack5 = new Panel();
+            panelBack3 = new Panel();
+            panelBack4 = new Panel();
+            panelRight = new Panel();
+            panelRight8 = new Panel();
+            panelRight0 = new Panel();
+            panelRight7 = new Panel();
+            panelRight1 = new Panel();
+            panelRight6 = new Panel();
+            panelRight2 = new Panel();
+            panelRight5 = new Panel();
+            panelRight3 = new Panel();
+            panelRight4 = new Panel();
+            panelUp = new Panel();
+            panelUp8 = new Panel();
+            panelUp0 = new Panel();
+            panelUp7 = new Panel();
+            panelUp1 = new Panel();
+            panelUp6 = new Panel();
+            panelUp2 = new Panel();
+            panelUp5 = new Panel();
+            panelUp3 = new Panel();
+            panelUp4 = new Panel();
+            panelFront = new Panel();
+            panelFront8 = new Panel();
+            panelFront0 = new Panel();
+            panelFront7 = new Panel();
+            panelFront1 = new Panel();
+            panelFront6 = new Panel();
+            panelFront2 = new Panel();
+            panelFront5 = new Panel();
+            panelFront3 = new Panel();
+            panelFront4 = new Panel();
+            panelLeft = new Panel();
+            panelLeft8 = new Panel();
+            panelLeft7 = new Panel();
+            panelLeft6 = new Panel();
+            panelLeft5 = new Panel();
+            panelLeft4 = new Panel();
+            panelLeft3 = new Panel();
+            panelLeft2 = new Panel();
+            panelLeft1 = new Panel();
+            panelLeft0 = new Panel();
+            labelScramble = new Label();
+            flowLayoutPanelTimes = new FlowLayoutPanel();
+            panelStats = new Panel();
+            labelBestTime = new Label();
+            labelAverageOfTwelve = new Label();
+            labelAverageOfFive = new Label();
+            comboBoxSession = new ComboBox();
+            buttonSelectSession = new Button();
+            buttonDeleteAllFromSession = new Button();
+            timerInspection = new System.Windows.Forms.Timer(components);
+            panelTimer.SuspendLayout();
+            panelTurns.SuspendLayout();
+            panelCube.SuspendLayout();
+            panelDown.SuspendLayout();
+            panelBack.SuspendLayout();
+            panelRight.SuspendLayout();
+            panelUp.SuspendLayout();
+            panelFront.SuspendLayout();
+            panelLeft.SuspendLayout();
+            panelStats.SuspendLayout();
+            SuspendLayout();
             // 
             // labelTimer
             // 
-            this.labelTimer.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.labelTimer.AutoSize = true;
-            this.labelTimer.Font = new System.Drawing.Font("Century Gothic", 72F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.labelTimer.Location = new System.Drawing.Point(247, 210);
-            this.labelTimer.Name = "labelTimer";
-            this.labelTimer.Size = new System.Drawing.Size(527, 115);
-            this.labelTimer.TabIndex = 0;
-            this.labelTimer.Text = "00 : 00 . 00";
-            this.labelTimer.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            labelTimer.Anchor = AnchorStyles.Top;
+            labelTimer.AutoSize = true;
+            labelTimer.Font = new Font("Century Gothic", 72F, FontStyle.Regular, GraphicsUnit.Point);
+            labelTimer.Location = new Point(247, 210);
+            labelTimer.Name = "labelTimer";
+            labelTimer.Size = new Size(527, 115);
+            labelTimer.TabIndex = 0;
+            labelTimer.Text = "00 : 00 . 00";
+            labelTimer.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // timerSolve
             // 
-            this.timerSolve.Interval = 10;
-            this.timerSolve.Tick += new System.EventHandler(this.timerSolve_Tick);
+            timerSolve.Interval = 10;
+            timerSolve.Tick += timerSolve_Tick;
             // 
             // panelTimer
             // 
-            this.panelTimer.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.panelTimer.Controls.Add(this.checkBoxInspectionEnabled);
-            this.panelTimer.Controls.Add(this.panelTurns);
-            this.panelTimer.Controls.Add(this.buttonNewScramble);
-            this.panelTimer.Controls.Add(this.panelCube);
-            this.panelTimer.Controls.Add(this.labelScramble);
-            this.panelTimer.Controls.Add(this.labelTimer);
-            this.panelTimer.Location = new System.Drawing.Point(360, 12);
-            this.panelTimer.Name = "panelTimer";
-            this.panelTimer.Size = new System.Drawing.Size(1021, 771);
-            this.panelTimer.TabIndex = 2;
+            panelTimer.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            panelTimer.Controls.Add(buttonExportCubeState);
+            panelTimer.Controls.Add(checkBoxInspectionEnabled);
+            panelTimer.Controls.Add(panelTurns);
+            panelTimer.Controls.Add(buttonNewScramble);
+            panelTimer.Controls.Add(panelCube);
+            panelTimer.Controls.Add(labelScramble);
+            panelTimer.Controls.Add(labelTimer);
+            panelTimer.Location = new Point(360, 12);
+            panelTimer.Name = "panelTimer";
+            panelTimer.Size = new Size(1021, 771);
+            panelTimer.TabIndex = 2;
+            // 
+            // buttonExportCubeState
+            // 
+            buttonExportCubeState.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            buttonExportCubeState.Font = new Font("Century Gothic", 18F, FontStyle.Regular, GraphicsUnit.Point);
+            buttonExportCubeState.Location = new Point(851, 91);
+            buttonExportCubeState.Name = "buttonExportCubeState";
+            buttonExportCubeState.Size = new Size(155, 70);
+            buttonExportCubeState.TabIndex = 11;
+            buttonExportCubeState.Text = "Export Cube State";
+            buttonExportCubeState.UseVisualStyleBackColor = true;
+            buttonExportCubeState.Click += buttonExportCubeState_Click;
             // 
             // checkBoxInspectionEnabled
             // 
-            this.checkBoxInspectionEnabled.Appearance = System.Windows.Forms.Appearance.Button;
-            this.checkBoxInspectionEnabled.Font = new System.Drawing.Font("Century Gothic", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.checkBoxInspectionEnabled.Location = new System.Drawing.Point(15, 15);
-            this.checkBoxInspectionEnabled.Name = "checkBoxInspectionEnabled";
-            this.checkBoxInspectionEnabled.Size = new System.Drawing.Size(163, 70);
-            this.checkBoxInspectionEnabled.TabIndex = 10;
-            this.checkBoxInspectionEnabled.Text = "Inspection On/Off";
-            this.checkBoxInspectionEnabled.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.checkBoxInspectionEnabled.UseVisualStyleBackColor = true;
-            this.checkBoxInspectionEnabled.CheckedChanged += new System.EventHandler(this.checkBoxInspectionEnabled_CheckedChanged);
+            checkBoxInspectionEnabled.Appearance = Appearance.Button;
+            checkBoxInspectionEnabled.Font = new Font("Century Gothic", 18F, FontStyle.Regular, GraphicsUnit.Point);
+            checkBoxInspectionEnabled.Location = new Point(15, 15);
+            checkBoxInspectionEnabled.Name = "checkBoxInspectionEnabled";
+            checkBoxInspectionEnabled.Size = new Size(163, 70);
+            checkBoxInspectionEnabled.TabIndex = 10;
+            checkBoxInspectionEnabled.Text = "Inspection On/Off";
+            checkBoxInspectionEnabled.TextAlign = ContentAlignment.MiddleCenter;
+            checkBoxInspectionEnabled.UseVisualStyleBackColor = true;
+            checkBoxInspectionEnabled.CheckedChanged += checkBoxInspectionEnabled_CheckedChanged;
             // 
             // panelTurns
             // 
-            this.panelTurns.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.panelTurns.Controls.Add(this.buttonLeftTurn);
-            this.panelTurns.Controls.Add(this.buttonFrontTurn);
-            this.panelTurns.Controls.Add(this.buttonDownTurn);
-            this.panelTurns.Controls.Add(this.buttonUpTurn);
-            this.panelTurns.Controls.Add(this.buttonBackTurn);
-            this.panelTurns.Controls.Add(this.buttonRightTurn);
-            this.panelTurns.Location = new System.Drawing.Point(3, 426);
-            this.panelTurns.Name = "panelTurns";
-            this.panelTurns.Size = new System.Drawing.Size(456, 342);
-            this.panelTurns.TabIndex = 9;
+            panelTurns.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            panelTurns.Controls.Add(buttonLeftTurn);
+            panelTurns.Controls.Add(buttonFrontTurn);
+            panelTurns.Controls.Add(buttonDownTurn);
+            panelTurns.Controls.Add(buttonUpTurn);
+            panelTurns.Controls.Add(buttonBackTurn);
+            panelTurns.Controls.Add(buttonRightTurn);
+            panelTurns.Location = new Point(3, 426);
+            panelTurns.Name = "panelTurns";
+            panelTurns.Size = new Size(456, 342);
+            panelTurns.TabIndex = 9;
             // 
             // buttonLeftTurn
             // 
-            this.buttonLeftTurn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonLeftTurn.Font = new System.Drawing.Font("Century Gothic", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.buttonLeftTurn.Location = new System.Drawing.Point(3, 117);
-            this.buttonLeftTurn.Name = "buttonLeftTurn";
-            this.buttonLeftTurn.Size = new System.Drawing.Size(108, 108);
-            this.buttonLeftTurn.TabIndex = 2;
-            this.buttonLeftTurn.TabStop = false;
-            this.buttonLeftTurn.Text = "Left";
-            this.buttonLeftTurn.UseVisualStyleBackColor = true;
-            this.buttonLeftTurn.MouseDown += new System.Windows.Forms.MouseEventHandler(this.buttonLeftTurn_MouseDown);
+            buttonLeftTurn.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            buttonLeftTurn.Font = new Font("Century Gothic", 20.25F, FontStyle.Regular, GraphicsUnit.Point);
+            buttonLeftTurn.Location = new Point(3, 117);
+            buttonLeftTurn.Name = "buttonLeftTurn";
+            buttonLeftTurn.Size = new Size(108, 108);
+            buttonLeftTurn.TabIndex = 2;
+            buttonLeftTurn.TabStop = false;
+            buttonLeftTurn.Text = "Left";
+            buttonLeftTurn.UseVisualStyleBackColor = true;
+            buttonLeftTurn.MouseDown += buttonLeftTurn_MouseDown;
             // 
             // buttonFrontTurn
             // 
-            this.buttonFrontTurn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonFrontTurn.Font = new System.Drawing.Font("Century Gothic", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.buttonFrontTurn.Location = new System.Drawing.Point(117, 117);
-            this.buttonFrontTurn.Name = "buttonFrontTurn";
-            this.buttonFrontTurn.Size = new System.Drawing.Size(108, 108);
-            this.buttonFrontTurn.TabIndex = 3;
-            this.buttonFrontTurn.TabStop = false;
-            this.buttonFrontTurn.Text = "Front";
-            this.buttonFrontTurn.UseVisualStyleBackColor = true;
-            this.buttonFrontTurn.MouseDown += new System.Windows.Forms.MouseEventHandler(this.buttonFrontTurn_MouseDown);
+            buttonFrontTurn.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            buttonFrontTurn.Font = new Font("Century Gothic", 20.25F, FontStyle.Regular, GraphicsUnit.Point);
+            buttonFrontTurn.Location = new Point(117, 117);
+            buttonFrontTurn.Name = "buttonFrontTurn";
+            buttonFrontTurn.Size = new Size(108, 108);
+            buttonFrontTurn.TabIndex = 3;
+            buttonFrontTurn.TabStop = false;
+            buttonFrontTurn.Text = "Front";
+            buttonFrontTurn.UseVisualStyleBackColor = true;
+            buttonFrontTurn.MouseDown += buttonFrontTurn_MouseDown;
             // 
             // buttonDownTurn
             // 
-            this.buttonDownTurn.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonDownTurn.Font = new System.Drawing.Font("Century Gothic", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.buttonDownTurn.Location = new System.Drawing.Point(117, 231);
-            this.buttonDownTurn.Name = "buttonDownTurn";
-            this.buttonDownTurn.Size = new System.Drawing.Size(108, 108);
-            this.buttonDownTurn.TabIndex = 7;
-            this.buttonDownTurn.TabStop = false;
-            this.buttonDownTurn.Text = "Down";
-            this.buttonDownTurn.UseVisualStyleBackColor = true;
-            this.buttonDownTurn.MouseDown += new System.Windows.Forms.MouseEventHandler(this.buttonDownTurn_MouseDown);
+            buttonDownTurn.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            buttonDownTurn.Font = new Font("Century Gothic", 20.25F, FontStyle.Regular, GraphicsUnit.Point);
+            buttonDownTurn.Location = new Point(117, 231);
+            buttonDownTurn.Name = "buttonDownTurn";
+            buttonDownTurn.Size = new Size(108, 108);
+            buttonDownTurn.TabIndex = 7;
+            buttonDownTurn.TabStop = false;
+            buttonDownTurn.Text = "Down";
+            buttonDownTurn.UseVisualStyleBackColor = true;
+            buttonDownTurn.MouseDown += buttonDownTurn_MouseDown;
             // 
             // buttonUpTurn
             // 
-            this.buttonUpTurn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonUpTurn.Font = new System.Drawing.Font("Century Gothic", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.buttonUpTurn.Location = new System.Drawing.Point(117, 3);
-            this.buttonUpTurn.Name = "buttonUpTurn";
-            this.buttonUpTurn.Size = new System.Drawing.Size(108, 108);
-            this.buttonUpTurn.TabIndex = 4;
-            this.buttonUpTurn.TabStop = false;
-            this.buttonUpTurn.Text = "Up";
-            this.buttonUpTurn.UseVisualStyleBackColor = true;
-            this.buttonUpTurn.MouseDown += new System.Windows.Forms.MouseEventHandler(this.buttonUpTurn_MouseDown);
+            buttonUpTurn.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            buttonUpTurn.Font = new Font("Century Gothic", 20.25F, FontStyle.Regular, GraphicsUnit.Point);
+            buttonUpTurn.Location = new Point(117, 3);
+            buttonUpTurn.Name = "buttonUpTurn";
+            buttonUpTurn.Size = new Size(108, 108);
+            buttonUpTurn.TabIndex = 4;
+            buttonUpTurn.TabStop = false;
+            buttonUpTurn.Text = "Up";
+            buttonUpTurn.UseVisualStyleBackColor = true;
+            buttonUpTurn.MouseDown += buttonUpTurn_MouseDown;
             // 
             // buttonBackTurn
             // 
-            this.buttonBackTurn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonBackTurn.Font = new System.Drawing.Font("Century Gothic", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.buttonBackTurn.Location = new System.Drawing.Point(345, 117);
-            this.buttonBackTurn.Name = "buttonBackTurn";
-            this.buttonBackTurn.Size = new System.Drawing.Size(108, 108);
-            this.buttonBackTurn.TabIndex = 6;
-            this.buttonBackTurn.TabStop = false;
-            this.buttonBackTurn.Text = "Back";
-            this.buttonBackTurn.UseVisualStyleBackColor = true;
-            this.buttonBackTurn.MouseDown += new System.Windows.Forms.MouseEventHandler(this.buttonBackTurn_MouseDown);
+            buttonBackTurn.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            buttonBackTurn.Font = new Font("Century Gothic", 20.25F, FontStyle.Regular, GraphicsUnit.Point);
+            buttonBackTurn.Location = new Point(345, 117);
+            buttonBackTurn.Name = "buttonBackTurn";
+            buttonBackTurn.Size = new Size(108, 108);
+            buttonBackTurn.TabIndex = 6;
+            buttonBackTurn.TabStop = false;
+            buttonBackTurn.Text = "Back";
+            buttonBackTurn.UseVisualStyleBackColor = true;
+            buttonBackTurn.MouseDown += buttonBackTurn_MouseDown;
             // 
             // buttonRightTurn
             // 
-            this.buttonRightTurn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonRightTurn.Font = new System.Drawing.Font("Century Gothic", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.buttonRightTurn.Location = new System.Drawing.Point(231, 117);
-            this.buttonRightTurn.Name = "buttonRightTurn";
-            this.buttonRightTurn.Size = new System.Drawing.Size(108, 108);
-            this.buttonRightTurn.TabIndex = 5;
-            this.buttonRightTurn.TabStop = false;
-            this.buttonRightTurn.Text = "Right";
-            this.buttonRightTurn.UseVisualStyleBackColor = true;
-            this.buttonRightTurn.MouseDown += new System.Windows.Forms.MouseEventHandler(this.buttonRightTurn_MouseDown);
+            buttonRightTurn.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            buttonRightTurn.Font = new Font("Century Gothic", 20.25F, FontStyle.Regular, GraphicsUnit.Point);
+            buttonRightTurn.Location = new Point(231, 117);
+            buttonRightTurn.Name = "buttonRightTurn";
+            buttonRightTurn.Size = new Size(108, 108);
+            buttonRightTurn.TabIndex = 5;
+            buttonRightTurn.TabStop = false;
+            buttonRightTurn.Text = "Right";
+            buttonRightTurn.UseVisualStyleBackColor = true;
+            buttonRightTurn.MouseDown += buttonRightTurn_MouseDown;
             // 
             // buttonNewScramble
             // 
-            this.buttonNewScramble.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonNewScramble.Font = new System.Drawing.Font("Century Gothic", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.buttonNewScramble.Location = new System.Drawing.Point(856, 15);
-            this.buttonNewScramble.Name = "buttonNewScramble";
-            this.buttonNewScramble.Size = new System.Drawing.Size(150, 70);
-            this.buttonNewScramble.TabIndex = 8;
-            this.buttonNewScramble.Text = "New Scramble";
-            this.buttonNewScramble.UseVisualStyleBackColor = true;
-            this.buttonNewScramble.MouseClick += new System.Windows.Forms.MouseEventHandler(this.buttonNewScramble_MouseClick);
+            buttonNewScramble.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            buttonNewScramble.Font = new Font("Century Gothic", 18F, FontStyle.Regular, GraphicsUnit.Point);
+            buttonNewScramble.Location = new Point(851, 15);
+            buttonNewScramble.Name = "buttonNewScramble";
+            buttonNewScramble.Size = new Size(155, 70);
+            buttonNewScramble.TabIndex = 8;
+            buttonNewScramble.Text = "New Scramble";
+            buttonNewScramble.UseVisualStyleBackColor = true;
+            buttonNewScramble.MouseClick += buttonNewScramble_MouseClick;
             // 
             // panelCube
             // 
-            this.panelCube.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.panelCube.Controls.Add(this.panelDown);
-            this.panelCube.Controls.Add(this.panelBack);
-            this.panelCube.Controls.Add(this.panelRight);
-            this.panelCube.Controls.Add(this.panelUp);
-            this.panelCube.Controls.Add(this.panelFront);
-            this.panelCube.Controls.Add(this.panelLeft);
-            this.panelCube.Location = new System.Drawing.Point(562, 426);
-            this.panelCube.Name = "panelCube";
-            this.panelCube.Size = new System.Drawing.Size(456, 342);
-            this.panelCube.TabIndex = 1;
+            panelCube.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            panelCube.Controls.Add(panelDown);
+            panelCube.Controls.Add(panelBack);
+            panelCube.Controls.Add(panelRight);
+            panelCube.Controls.Add(panelUp);
+            panelCube.Controls.Add(panelFront);
+            panelCube.Controls.Add(panelLeft);
+            panelCube.Location = new Point(562, 426);
+            panelCube.Name = "panelCube";
+            panelCube.Size = new Size(456, 342);
+            panelCube.TabIndex = 1;
             // 
             // panelDown
             // 
-            this.panelDown.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.panelDown.BackColor = System.Drawing.Color.Black;
-            this.panelDown.Controls.Add(this.panelDown8);
-            this.panelDown.Controls.Add(this.panelDown0);
-            this.panelDown.Controls.Add(this.panelDown7);
-            this.panelDown.Controls.Add(this.panelDown1);
-            this.panelDown.Controls.Add(this.panelDown6);
-            this.panelDown.Controls.Add(this.panelDown2);
-            this.panelDown.Controls.Add(this.panelDown5);
-            this.panelDown.Controls.Add(this.panelDown3);
-            this.panelDown.Controls.Add(this.panelDown4);
-            this.panelDown.Location = new System.Drawing.Point(117, 231);
-            this.panelDown.Name = "panelDown";
-            this.panelDown.Size = new System.Drawing.Size(108, 108);
-            this.panelDown.TabIndex = 1;
+            panelDown.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            panelDown.BackColor = Color.Black;
+            panelDown.Controls.Add(panelDown8);
+            panelDown.Controls.Add(panelDown0);
+            panelDown.Controls.Add(panelDown7);
+            panelDown.Controls.Add(panelDown1);
+            panelDown.Controls.Add(panelDown6);
+            panelDown.Controls.Add(panelDown2);
+            panelDown.Controls.Add(panelDown5);
+            panelDown.Controls.Add(panelDown3);
+            panelDown.Controls.Add(panelDown4);
+            panelDown.Location = new Point(117, 231);
+            panelDown.Name = "panelDown";
+            panelDown.Size = new Size(108, 108);
+            panelDown.TabIndex = 1;
             // 
             // panelDown8
             // 
-            this.panelDown8.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.panelDown8.Location = new System.Drawing.Point(75, 75);
-            this.panelDown8.Name = "panelDown8";
-            this.panelDown8.Size = new System.Drawing.Size(30, 30);
-            this.panelDown8.TabIndex = 8;
+            panelDown8.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            panelDown8.Location = new Point(75, 75);
+            panelDown8.Name = "panelDown8";
+            panelDown8.Size = new Size(30, 30);
+            panelDown8.TabIndex = 8;
             // 
             // panelDown0
             // 
-            this.panelDown0.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.panelDown0.Location = new System.Drawing.Point(3, 3);
-            this.panelDown0.Name = "panelDown0";
-            this.panelDown0.Size = new System.Drawing.Size(30, 30);
-            this.panelDown0.TabIndex = 0;
+            panelDown0.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            panelDown0.Location = new Point(3, 3);
+            panelDown0.Name = "panelDown0";
+            panelDown0.Size = new Size(30, 30);
+            panelDown0.TabIndex = 0;
             // 
             // panelDown7
             // 
-            this.panelDown7.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.panelDown7.Location = new System.Drawing.Point(39, 75);
-            this.panelDown7.Name = "panelDown7";
-            this.panelDown7.Size = new System.Drawing.Size(30, 30);
-            this.panelDown7.TabIndex = 7;
+            panelDown7.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            panelDown7.Location = new Point(39, 75);
+            panelDown7.Name = "panelDown7";
+            panelDown7.Size = new Size(30, 30);
+            panelDown7.TabIndex = 7;
             // 
             // panelDown1
             // 
-            this.panelDown1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.panelDown1.Location = new System.Drawing.Point(39, 3);
-            this.panelDown1.Name = "panelDown1";
-            this.panelDown1.Size = new System.Drawing.Size(30, 30);
-            this.panelDown1.TabIndex = 1;
+            panelDown1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            panelDown1.Location = new Point(39, 3);
+            panelDown1.Name = "panelDown1";
+            panelDown1.Size = new Size(30, 30);
+            panelDown1.TabIndex = 1;
             // 
             // panelDown6
             // 
-            this.panelDown6.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.panelDown6.Location = new System.Drawing.Point(3, 75);
-            this.panelDown6.Name = "panelDown6";
-            this.panelDown6.Size = new System.Drawing.Size(30, 30);
-            this.panelDown6.TabIndex = 6;
+            panelDown6.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            panelDown6.Location = new Point(3, 75);
+            panelDown6.Name = "panelDown6";
+            panelDown6.Size = new Size(30, 30);
+            panelDown6.TabIndex = 6;
             // 
             // panelDown2
             // 
-            this.panelDown2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.panelDown2.Location = new System.Drawing.Point(75, 3);
-            this.panelDown2.Name = "panelDown2";
-            this.panelDown2.Size = new System.Drawing.Size(30, 30);
-            this.panelDown2.TabIndex = 2;
+            panelDown2.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            panelDown2.Location = new Point(75, 3);
+            panelDown2.Name = "panelDown2";
+            panelDown2.Size = new Size(30, 30);
+            panelDown2.TabIndex = 2;
             // 
             // panelDown5
             // 
-            this.panelDown5.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.panelDown5.Location = new System.Drawing.Point(75, 39);
-            this.panelDown5.Name = "panelDown5";
-            this.panelDown5.Size = new System.Drawing.Size(30, 30);
-            this.panelDown5.TabIndex = 5;
+            panelDown5.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            panelDown5.Location = new Point(75, 39);
+            panelDown5.Name = "panelDown5";
+            panelDown5.Size = new Size(30, 30);
+            panelDown5.TabIndex = 5;
             // 
             // panelDown3
             // 
-            this.panelDown3.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.panelDown3.Location = new System.Drawing.Point(3, 39);
-            this.panelDown3.Name = "panelDown3";
-            this.panelDown3.Size = new System.Drawing.Size(30, 30);
-            this.panelDown3.TabIndex = 3;
+            panelDown3.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            panelDown3.Location = new Point(3, 39);
+            panelDown3.Name = "panelDown3";
+            panelDown3.Size = new Size(30, 30);
+            panelDown3.TabIndex = 3;
             // 
             // panelDown4
             // 
-            this.panelDown4.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.panelDown4.Location = new System.Drawing.Point(39, 39);
-            this.panelDown4.Name = "panelDown4";
-            this.panelDown4.Size = new System.Drawing.Size(30, 30);
-            this.panelDown4.TabIndex = 4;
+            panelDown4.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            panelDown4.Location = new Point(39, 39);
+            panelDown4.Name = "panelDown4";
+            panelDown4.Size = new Size(30, 30);
+            panelDown4.TabIndex = 4;
             // 
             // panelBack
             // 
-            this.panelBack.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.panelBack.BackColor = System.Drawing.Color.Black;
-            this.panelBack.Controls.Add(this.panelBack8);
-            this.panelBack.Controls.Add(this.panelBack0);
-            this.panelBack.Controls.Add(this.panelBack7);
-            this.panelBack.Controls.Add(this.panelBack1);
-            this.panelBack.Controls.Add(this.panelBack6);
-            this.panelBack.Controls.Add(this.panelBack2);
-            this.panelBack.Controls.Add(this.panelBack5);
-            this.panelBack.Controls.Add(this.panelBack3);
-            this.panelBack.Controls.Add(this.panelBack4);
-            this.panelBack.Location = new System.Drawing.Point(345, 117);
-            this.panelBack.Name = "panelBack";
-            this.panelBack.Size = new System.Drawing.Size(108, 108);
-            this.panelBack.TabIndex = 5;
+            panelBack.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            panelBack.BackColor = Color.Black;
+            panelBack.Controls.Add(panelBack8);
+            panelBack.Controls.Add(panelBack0);
+            panelBack.Controls.Add(panelBack7);
+            panelBack.Controls.Add(panelBack1);
+            panelBack.Controls.Add(panelBack6);
+            panelBack.Controls.Add(panelBack2);
+            panelBack.Controls.Add(panelBack5);
+            panelBack.Controls.Add(panelBack3);
+            panelBack.Controls.Add(panelBack4);
+            panelBack.Location = new Point(345, 117);
+            panelBack.Name = "panelBack";
+            panelBack.Size = new Size(108, 108);
+            panelBack.TabIndex = 5;
             // 
             // panelBack8
             // 
-            this.panelBack8.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.panelBack8.Location = new System.Drawing.Point(75, 75);
-            this.panelBack8.Name = "panelBack8";
-            this.panelBack8.Size = new System.Drawing.Size(30, 30);
-            this.panelBack8.TabIndex = 8;
+            panelBack8.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            panelBack8.Location = new Point(75, 75);
+            panelBack8.Name = "panelBack8";
+            panelBack8.Size = new Size(30, 30);
+            panelBack8.TabIndex = 8;
             // 
             // panelBack0
             // 
-            this.panelBack0.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.panelBack0.Location = new System.Drawing.Point(3, 3);
-            this.panelBack0.Name = "panelBack0";
-            this.panelBack0.Size = new System.Drawing.Size(30, 30);
-            this.panelBack0.TabIndex = 0;
+            panelBack0.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            panelBack0.Location = new Point(3, 3);
+            panelBack0.Name = "panelBack0";
+            panelBack0.Size = new Size(30, 30);
+            panelBack0.TabIndex = 0;
             // 
             // panelBack7
             // 
-            this.panelBack7.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.panelBack7.Location = new System.Drawing.Point(39, 75);
-            this.panelBack7.Name = "panelBack7";
-            this.panelBack7.Size = new System.Drawing.Size(30, 30);
-            this.panelBack7.TabIndex = 7;
+            panelBack7.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            panelBack7.Location = new Point(39, 75);
+            panelBack7.Name = "panelBack7";
+            panelBack7.Size = new Size(30, 30);
+            panelBack7.TabIndex = 7;
             // 
             // panelBack1
             // 
-            this.panelBack1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.panelBack1.Location = new System.Drawing.Point(39, 3);
-            this.panelBack1.Name = "panelBack1";
-            this.panelBack1.Size = new System.Drawing.Size(30, 30);
-            this.panelBack1.TabIndex = 1;
+            panelBack1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            panelBack1.Location = new Point(39, 3);
+            panelBack1.Name = "panelBack1";
+            panelBack1.Size = new Size(30, 30);
+            panelBack1.TabIndex = 1;
             // 
             // panelBack6
             // 
-            this.panelBack6.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.panelBack6.Location = new System.Drawing.Point(3, 75);
-            this.panelBack6.Name = "panelBack6";
-            this.panelBack6.Size = new System.Drawing.Size(30, 30);
-            this.panelBack6.TabIndex = 6;
+            panelBack6.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            panelBack6.Location = new Point(3, 75);
+            panelBack6.Name = "panelBack6";
+            panelBack6.Size = new Size(30, 30);
+            panelBack6.TabIndex = 6;
             // 
             // panelBack2
             // 
-            this.panelBack2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.panelBack2.Location = new System.Drawing.Point(75, 3);
-            this.panelBack2.Name = "panelBack2";
-            this.panelBack2.Size = new System.Drawing.Size(30, 30);
-            this.panelBack2.TabIndex = 2;
+            panelBack2.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            panelBack2.Location = new Point(75, 3);
+            panelBack2.Name = "panelBack2";
+            panelBack2.Size = new Size(30, 30);
+            panelBack2.TabIndex = 2;
             // 
             // panelBack5
             // 
-            this.panelBack5.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.panelBack5.Location = new System.Drawing.Point(75, 39);
-            this.panelBack5.Name = "panelBack5";
-            this.panelBack5.Size = new System.Drawing.Size(30, 30);
-            this.panelBack5.TabIndex = 5;
+            panelBack5.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            panelBack5.Location = new Point(75, 39);
+            panelBack5.Name = "panelBack5";
+            panelBack5.Size = new Size(30, 30);
+            panelBack5.TabIndex = 5;
             // 
             // panelBack3
             // 
-            this.panelBack3.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.panelBack3.Location = new System.Drawing.Point(3, 39);
-            this.panelBack3.Name = "panelBack3";
-            this.panelBack3.Size = new System.Drawing.Size(30, 30);
-            this.panelBack3.TabIndex = 3;
+            panelBack3.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            panelBack3.Location = new Point(3, 39);
+            panelBack3.Name = "panelBack3";
+            panelBack3.Size = new Size(30, 30);
+            panelBack3.TabIndex = 3;
             // 
             // panelBack4
             // 
-            this.panelBack4.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.panelBack4.Location = new System.Drawing.Point(39, 39);
-            this.panelBack4.Name = "panelBack4";
-            this.panelBack4.Size = new System.Drawing.Size(30, 30);
-            this.panelBack4.TabIndex = 4;
+            panelBack4.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            panelBack4.Location = new Point(39, 39);
+            panelBack4.Name = "panelBack4";
+            panelBack4.Size = new Size(30, 30);
+            panelBack4.TabIndex = 4;
             // 
             // panelRight
             // 
-            this.panelRight.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.panelRight.BackColor = System.Drawing.Color.Black;
-            this.panelRight.Controls.Add(this.panelRight8);
-            this.panelRight.Controls.Add(this.panelRight0);
-            this.panelRight.Controls.Add(this.panelRight7);
-            this.panelRight.Controls.Add(this.panelRight1);
-            this.panelRight.Controls.Add(this.panelRight6);
-            this.panelRight.Controls.Add(this.panelRight2);
-            this.panelRight.Controls.Add(this.panelRight5);
-            this.panelRight.Controls.Add(this.panelRight3);
-            this.panelRight.Controls.Add(this.panelRight4);
-            this.panelRight.Location = new System.Drawing.Point(231, 117);
-            this.panelRight.Name = "panelRight";
-            this.panelRight.Size = new System.Drawing.Size(108, 108);
-            this.panelRight.TabIndex = 3;
+            panelRight.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            panelRight.BackColor = Color.Black;
+            panelRight.Controls.Add(panelRight8);
+            panelRight.Controls.Add(panelRight0);
+            panelRight.Controls.Add(panelRight7);
+            panelRight.Controls.Add(panelRight1);
+            panelRight.Controls.Add(panelRight6);
+            panelRight.Controls.Add(panelRight2);
+            panelRight.Controls.Add(panelRight5);
+            panelRight.Controls.Add(panelRight3);
+            panelRight.Controls.Add(panelRight4);
+            panelRight.Location = new Point(231, 117);
+            panelRight.Name = "panelRight";
+            panelRight.Size = new Size(108, 108);
+            panelRight.TabIndex = 3;
             // 
             // panelRight8
             // 
-            this.panelRight8.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.panelRight8.Location = new System.Drawing.Point(75, 75);
-            this.panelRight8.Name = "panelRight8";
-            this.panelRight8.Size = new System.Drawing.Size(30, 30);
-            this.panelRight8.TabIndex = 8;
+            panelRight8.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            panelRight8.Location = new Point(75, 75);
+            panelRight8.Name = "panelRight8";
+            panelRight8.Size = new Size(30, 30);
+            panelRight8.TabIndex = 8;
             // 
             // panelRight0
             // 
-            this.panelRight0.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.panelRight0.Location = new System.Drawing.Point(3, 3);
-            this.panelRight0.Name = "panelRight0";
-            this.panelRight0.Size = new System.Drawing.Size(30, 30);
-            this.panelRight0.TabIndex = 0;
+            panelRight0.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            panelRight0.Location = new Point(3, 3);
+            panelRight0.Name = "panelRight0";
+            panelRight0.Size = new Size(30, 30);
+            panelRight0.TabIndex = 0;
             // 
             // panelRight7
             // 
-            this.panelRight7.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.panelRight7.Location = new System.Drawing.Point(39, 75);
-            this.panelRight7.Name = "panelRight7";
-            this.panelRight7.Size = new System.Drawing.Size(30, 30);
-            this.panelRight7.TabIndex = 7;
+            panelRight7.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            panelRight7.Location = new Point(39, 75);
+            panelRight7.Name = "panelRight7";
+            panelRight7.Size = new Size(30, 30);
+            panelRight7.TabIndex = 7;
             // 
             // panelRight1
             // 
-            this.panelRight1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.panelRight1.Location = new System.Drawing.Point(39, 3);
-            this.panelRight1.Name = "panelRight1";
-            this.panelRight1.Size = new System.Drawing.Size(30, 30);
-            this.panelRight1.TabIndex = 1;
+            panelRight1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            panelRight1.Location = new Point(39, 3);
+            panelRight1.Name = "panelRight1";
+            panelRight1.Size = new Size(30, 30);
+            panelRight1.TabIndex = 1;
             // 
             // panelRight6
             // 
-            this.panelRight6.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.panelRight6.Location = new System.Drawing.Point(3, 75);
-            this.panelRight6.Name = "panelRight6";
-            this.panelRight6.Size = new System.Drawing.Size(30, 30);
-            this.panelRight6.TabIndex = 6;
+            panelRight6.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            panelRight6.Location = new Point(3, 75);
+            panelRight6.Name = "panelRight6";
+            panelRight6.Size = new Size(30, 30);
+            panelRight6.TabIndex = 6;
             // 
             // panelRight2
             // 
-            this.panelRight2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.panelRight2.Location = new System.Drawing.Point(75, 3);
-            this.panelRight2.Name = "panelRight2";
-            this.panelRight2.Size = new System.Drawing.Size(30, 30);
-            this.panelRight2.TabIndex = 2;
+            panelRight2.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            panelRight2.Location = new Point(75, 3);
+            panelRight2.Name = "panelRight2";
+            panelRight2.Size = new Size(30, 30);
+            panelRight2.TabIndex = 2;
             // 
             // panelRight5
             // 
-            this.panelRight5.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.panelRight5.Location = new System.Drawing.Point(75, 39);
-            this.panelRight5.Name = "panelRight5";
-            this.panelRight5.Size = new System.Drawing.Size(30, 30);
-            this.panelRight5.TabIndex = 5;
+            panelRight5.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            panelRight5.Location = new Point(75, 39);
+            panelRight5.Name = "panelRight5";
+            panelRight5.Size = new Size(30, 30);
+            panelRight5.TabIndex = 5;
             // 
             // panelRight3
             // 
-            this.panelRight3.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.panelRight3.Location = new System.Drawing.Point(3, 39);
-            this.panelRight3.Name = "panelRight3";
-            this.panelRight3.Size = new System.Drawing.Size(30, 30);
-            this.panelRight3.TabIndex = 3;
+            panelRight3.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            panelRight3.Location = new Point(3, 39);
+            panelRight3.Name = "panelRight3";
+            panelRight3.Size = new Size(30, 30);
+            panelRight3.TabIndex = 3;
             // 
             // panelRight4
             // 
-            this.panelRight4.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.panelRight4.Location = new System.Drawing.Point(39, 39);
-            this.panelRight4.Name = "panelRight4";
-            this.panelRight4.Size = new System.Drawing.Size(30, 30);
-            this.panelRight4.TabIndex = 4;
+            panelRight4.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            panelRight4.Location = new Point(39, 39);
+            panelRight4.Name = "panelRight4";
+            panelRight4.Size = new Size(30, 30);
+            panelRight4.TabIndex = 4;
             // 
             // panelUp
             // 
-            this.panelUp.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.panelUp.BackColor = System.Drawing.Color.Black;
-            this.panelUp.Controls.Add(this.panelUp8);
-            this.panelUp.Controls.Add(this.panelUp0);
-            this.panelUp.Controls.Add(this.panelUp7);
-            this.panelUp.Controls.Add(this.panelUp1);
-            this.panelUp.Controls.Add(this.panelUp6);
-            this.panelUp.Controls.Add(this.panelUp2);
-            this.panelUp.Controls.Add(this.panelUp5);
-            this.panelUp.Controls.Add(this.panelUp3);
-            this.panelUp.Controls.Add(this.panelUp4);
-            this.panelUp.Location = new System.Drawing.Point(117, 3);
-            this.panelUp.Name = "panelUp";
-            this.panelUp.Size = new System.Drawing.Size(108, 108);
-            this.panelUp.TabIndex = 0;
+            panelUp.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            panelUp.BackColor = Color.Black;
+            panelUp.Controls.Add(panelUp8);
+            panelUp.Controls.Add(panelUp0);
+            panelUp.Controls.Add(panelUp7);
+            panelUp.Controls.Add(panelUp1);
+            panelUp.Controls.Add(panelUp6);
+            panelUp.Controls.Add(panelUp2);
+            panelUp.Controls.Add(panelUp5);
+            panelUp.Controls.Add(panelUp3);
+            panelUp.Controls.Add(panelUp4);
+            panelUp.Location = new Point(117, 3);
+            panelUp.Name = "panelUp";
+            panelUp.Size = new Size(108, 108);
+            panelUp.TabIndex = 0;
             // 
             // panelUp8
             // 
-            this.panelUp8.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.panelUp8.Location = new System.Drawing.Point(75, 75);
-            this.panelUp8.Name = "panelUp8";
-            this.panelUp8.Size = new System.Drawing.Size(30, 30);
-            this.panelUp8.TabIndex = 8;
+            panelUp8.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            panelUp8.Location = new Point(75, 75);
+            panelUp8.Name = "panelUp8";
+            panelUp8.Size = new Size(30, 30);
+            panelUp8.TabIndex = 8;
             // 
             // panelUp0
             // 
-            this.panelUp0.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.panelUp0.Location = new System.Drawing.Point(3, 3);
-            this.panelUp0.Name = "panelUp0";
-            this.panelUp0.Size = new System.Drawing.Size(30, 30);
-            this.panelUp0.TabIndex = 0;
+            panelUp0.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            panelUp0.Location = new Point(3, 3);
+            panelUp0.Name = "panelUp0";
+            panelUp0.Size = new Size(30, 30);
+            panelUp0.TabIndex = 0;
             // 
             // panelUp7
             // 
-            this.panelUp7.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.panelUp7.Location = new System.Drawing.Point(39, 75);
-            this.panelUp7.Name = "panelUp7";
-            this.panelUp7.Size = new System.Drawing.Size(30, 30);
-            this.panelUp7.TabIndex = 7;
+            panelUp7.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            panelUp7.Location = new Point(39, 75);
+            panelUp7.Name = "panelUp7";
+            panelUp7.Size = new Size(30, 30);
+            panelUp7.TabIndex = 7;
             // 
             // panelUp1
             // 
-            this.panelUp1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.panelUp1.Location = new System.Drawing.Point(39, 3);
-            this.panelUp1.Name = "panelUp1";
-            this.panelUp1.Size = new System.Drawing.Size(30, 30);
-            this.panelUp1.TabIndex = 1;
+            panelUp1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            panelUp1.Location = new Point(39, 3);
+            panelUp1.Name = "panelUp1";
+            panelUp1.Size = new Size(30, 30);
+            panelUp1.TabIndex = 1;
             // 
             // panelUp6
             // 
-            this.panelUp6.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.panelUp6.Location = new System.Drawing.Point(3, 75);
-            this.panelUp6.Name = "panelUp6";
-            this.panelUp6.Size = new System.Drawing.Size(30, 30);
-            this.panelUp6.TabIndex = 6;
+            panelUp6.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            panelUp6.Location = new Point(3, 75);
+            panelUp6.Name = "panelUp6";
+            panelUp6.Size = new Size(30, 30);
+            panelUp6.TabIndex = 6;
             // 
             // panelUp2
             // 
-            this.panelUp2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.panelUp2.Location = new System.Drawing.Point(75, 3);
-            this.panelUp2.Name = "panelUp2";
-            this.panelUp2.Size = new System.Drawing.Size(30, 30);
-            this.panelUp2.TabIndex = 2;
+            panelUp2.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            panelUp2.Location = new Point(75, 3);
+            panelUp2.Name = "panelUp2";
+            panelUp2.Size = new Size(30, 30);
+            panelUp2.TabIndex = 2;
             // 
             // panelUp5
             // 
-            this.panelUp5.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.panelUp5.Location = new System.Drawing.Point(75, 39);
-            this.panelUp5.Name = "panelUp5";
-            this.panelUp5.Size = new System.Drawing.Size(30, 30);
-            this.panelUp5.TabIndex = 5;
+            panelUp5.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            panelUp5.Location = new Point(75, 39);
+            panelUp5.Name = "panelUp5";
+            panelUp5.Size = new Size(30, 30);
+            panelUp5.TabIndex = 5;
             // 
             // panelUp3
             // 
-            this.panelUp3.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.panelUp3.Location = new System.Drawing.Point(3, 39);
-            this.panelUp3.Name = "panelUp3";
-            this.panelUp3.Size = new System.Drawing.Size(30, 30);
-            this.panelUp3.TabIndex = 3;
+            panelUp3.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            panelUp3.Location = new Point(3, 39);
+            panelUp3.Name = "panelUp3";
+            panelUp3.Size = new Size(30, 30);
+            panelUp3.TabIndex = 3;
             // 
             // panelUp4
             // 
-            this.panelUp4.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.panelUp4.Location = new System.Drawing.Point(39, 39);
-            this.panelUp4.Name = "panelUp4";
-            this.panelUp4.Size = new System.Drawing.Size(30, 30);
-            this.panelUp4.TabIndex = 4;
+            panelUp4.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            panelUp4.Location = new Point(39, 39);
+            panelUp4.Name = "panelUp4";
+            panelUp4.Size = new Size(30, 30);
+            panelUp4.TabIndex = 4;
             // 
             // panelFront
             // 
-            this.panelFront.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.panelFront.BackColor = System.Drawing.Color.Black;
-            this.panelFront.Controls.Add(this.panelFront8);
-            this.panelFront.Controls.Add(this.panelFront0);
-            this.panelFront.Controls.Add(this.panelFront7);
-            this.panelFront.Controls.Add(this.panelFront1);
-            this.panelFront.Controls.Add(this.panelFront6);
-            this.panelFront.Controls.Add(this.panelFront2);
-            this.panelFront.Controls.Add(this.panelFront5);
-            this.panelFront.Controls.Add(this.panelFront3);
-            this.panelFront.Controls.Add(this.panelFront4);
-            this.panelFront.Location = new System.Drawing.Point(117, 117);
-            this.panelFront.Name = "panelFront";
-            this.panelFront.Size = new System.Drawing.Size(108, 108);
-            this.panelFront.TabIndex = 4;
+            panelFront.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            panelFront.BackColor = Color.Black;
+            panelFront.Controls.Add(panelFront8);
+            panelFront.Controls.Add(panelFront0);
+            panelFront.Controls.Add(panelFront7);
+            panelFront.Controls.Add(panelFront1);
+            panelFront.Controls.Add(panelFront6);
+            panelFront.Controls.Add(panelFront2);
+            panelFront.Controls.Add(panelFront5);
+            panelFront.Controls.Add(panelFront3);
+            panelFront.Controls.Add(panelFront4);
+            panelFront.Location = new Point(117, 117);
+            panelFront.Name = "panelFront";
+            panelFront.Size = new Size(108, 108);
+            panelFront.TabIndex = 4;
             // 
             // panelFront8
             // 
-            this.panelFront8.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.panelFront8.Location = new System.Drawing.Point(75, 75);
-            this.panelFront8.Name = "panelFront8";
-            this.panelFront8.Size = new System.Drawing.Size(30, 30);
-            this.panelFront8.TabIndex = 8;
+            panelFront8.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            panelFront8.Location = new Point(75, 75);
+            panelFront8.Name = "panelFront8";
+            panelFront8.Size = new Size(30, 30);
+            panelFront8.TabIndex = 8;
             // 
             // panelFront0
             // 
-            this.panelFront0.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.panelFront0.Location = new System.Drawing.Point(3, 3);
-            this.panelFront0.Name = "panelFront0";
-            this.panelFront0.Size = new System.Drawing.Size(30, 30);
-            this.panelFront0.TabIndex = 0;
+            panelFront0.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            panelFront0.Location = new Point(3, 3);
+            panelFront0.Name = "panelFront0";
+            panelFront0.Size = new Size(30, 30);
+            panelFront0.TabIndex = 0;
             // 
             // panelFront7
             // 
-            this.panelFront7.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.panelFront7.Location = new System.Drawing.Point(39, 75);
-            this.panelFront7.Name = "panelFront7";
-            this.panelFront7.Size = new System.Drawing.Size(30, 30);
-            this.panelFront7.TabIndex = 7;
+            panelFront7.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            panelFront7.Location = new Point(39, 75);
+            panelFront7.Name = "panelFront7";
+            panelFront7.Size = new Size(30, 30);
+            panelFront7.TabIndex = 7;
             // 
             // panelFront1
             // 
-            this.panelFront1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.panelFront1.Location = new System.Drawing.Point(39, 3);
-            this.panelFront1.Name = "panelFront1";
-            this.panelFront1.Size = new System.Drawing.Size(30, 30);
-            this.panelFront1.TabIndex = 1;
+            panelFront1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            panelFront1.Location = new Point(39, 3);
+            panelFront1.Name = "panelFront1";
+            panelFront1.Size = new Size(30, 30);
+            panelFront1.TabIndex = 1;
             // 
             // panelFront6
             // 
-            this.panelFront6.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.panelFront6.Location = new System.Drawing.Point(3, 75);
-            this.panelFront6.Name = "panelFront6";
-            this.panelFront6.Size = new System.Drawing.Size(30, 30);
-            this.panelFront6.TabIndex = 6;
+            panelFront6.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            panelFront6.Location = new Point(3, 75);
+            panelFront6.Name = "panelFront6";
+            panelFront6.Size = new Size(30, 30);
+            panelFront6.TabIndex = 6;
             // 
             // panelFront2
             // 
-            this.panelFront2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.panelFront2.Location = new System.Drawing.Point(75, 3);
-            this.panelFront2.Name = "panelFront2";
-            this.panelFront2.Size = new System.Drawing.Size(30, 30);
-            this.panelFront2.TabIndex = 2;
+            panelFront2.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            panelFront2.Location = new Point(75, 3);
+            panelFront2.Name = "panelFront2";
+            panelFront2.Size = new Size(30, 30);
+            panelFront2.TabIndex = 2;
             // 
             // panelFront5
             // 
-            this.panelFront5.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.panelFront5.Location = new System.Drawing.Point(75, 39);
-            this.panelFront5.Name = "panelFront5";
-            this.panelFront5.Size = new System.Drawing.Size(30, 30);
-            this.panelFront5.TabIndex = 5;
+            panelFront5.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            panelFront5.Location = new Point(75, 39);
+            panelFront5.Name = "panelFront5";
+            panelFront5.Size = new Size(30, 30);
+            panelFront5.TabIndex = 5;
             // 
             // panelFront3
             // 
-            this.panelFront3.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.panelFront3.Location = new System.Drawing.Point(3, 39);
-            this.panelFront3.Name = "panelFront3";
-            this.panelFront3.Size = new System.Drawing.Size(30, 30);
-            this.panelFront3.TabIndex = 3;
+            panelFront3.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            panelFront3.Location = new Point(3, 39);
+            panelFront3.Name = "panelFront3";
+            panelFront3.Size = new Size(30, 30);
+            panelFront3.TabIndex = 3;
             // 
             // panelFront4
             // 
-            this.panelFront4.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.panelFront4.Location = new System.Drawing.Point(39, 39);
-            this.panelFront4.Name = "panelFront4";
-            this.panelFront4.Size = new System.Drawing.Size(30, 30);
-            this.panelFront4.TabIndex = 4;
+            panelFront4.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            panelFront4.Location = new Point(39, 39);
+            panelFront4.Name = "panelFront4";
+            panelFront4.Size = new Size(30, 30);
+            panelFront4.TabIndex = 4;
             // 
             // panelLeft
             // 
-            this.panelLeft.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.panelLeft.BackColor = System.Drawing.Color.Black;
-            this.panelLeft.Controls.Add(this.panelLeft8);
-            this.panelLeft.Controls.Add(this.panelLeft7);
-            this.panelLeft.Controls.Add(this.panelLeft6);
-            this.panelLeft.Controls.Add(this.panelLeft5);
-            this.panelLeft.Controls.Add(this.panelLeft4);
-            this.panelLeft.Controls.Add(this.panelLeft3);
-            this.panelLeft.Controls.Add(this.panelLeft2);
-            this.panelLeft.Controls.Add(this.panelLeft1);
-            this.panelLeft.Controls.Add(this.panelLeft0);
-            this.panelLeft.Location = new System.Drawing.Point(3, 117);
-            this.panelLeft.Name = "panelLeft";
-            this.panelLeft.Size = new System.Drawing.Size(108, 108);
-            this.panelLeft.TabIndex = 2;
+            panelLeft.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            panelLeft.BackColor = Color.Black;
+            panelLeft.Controls.Add(panelLeft8);
+            panelLeft.Controls.Add(panelLeft7);
+            panelLeft.Controls.Add(panelLeft6);
+            panelLeft.Controls.Add(panelLeft5);
+            panelLeft.Controls.Add(panelLeft4);
+            panelLeft.Controls.Add(panelLeft3);
+            panelLeft.Controls.Add(panelLeft2);
+            panelLeft.Controls.Add(panelLeft1);
+            panelLeft.Controls.Add(panelLeft0);
+            panelLeft.Location = new Point(3, 117);
+            panelLeft.Name = "panelLeft";
+            panelLeft.Size = new Size(108, 108);
+            panelLeft.TabIndex = 2;
             // 
             // panelLeft8
             // 
-            this.panelLeft8.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.panelLeft8.Location = new System.Drawing.Point(75, 75);
-            this.panelLeft8.Name = "panelLeft8";
-            this.panelLeft8.Size = new System.Drawing.Size(30, 30);
-            this.panelLeft8.TabIndex = 8;
+            panelLeft8.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            panelLeft8.Location = new Point(75, 75);
+            panelLeft8.Name = "panelLeft8";
+            panelLeft8.Size = new Size(30, 30);
+            panelLeft8.TabIndex = 8;
             // 
             // panelLeft7
             // 
-            this.panelLeft7.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.panelLeft7.Location = new System.Drawing.Point(39, 75);
-            this.panelLeft7.Name = "panelLeft7";
-            this.panelLeft7.Size = new System.Drawing.Size(30, 30);
-            this.panelLeft7.TabIndex = 7;
+            panelLeft7.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            panelLeft7.Location = new Point(39, 75);
+            panelLeft7.Name = "panelLeft7";
+            panelLeft7.Size = new Size(30, 30);
+            panelLeft7.TabIndex = 7;
             // 
             // panelLeft6
             // 
-            this.panelLeft6.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.panelLeft6.Location = new System.Drawing.Point(3, 75);
-            this.panelLeft6.Name = "panelLeft6";
-            this.panelLeft6.Size = new System.Drawing.Size(30, 30);
-            this.panelLeft6.TabIndex = 6;
+            panelLeft6.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            panelLeft6.Location = new Point(3, 75);
+            panelLeft6.Name = "panelLeft6";
+            panelLeft6.Size = new Size(30, 30);
+            panelLeft6.TabIndex = 6;
             // 
             // panelLeft5
             // 
-            this.panelLeft5.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.panelLeft5.Location = new System.Drawing.Point(75, 39);
-            this.panelLeft5.Name = "panelLeft5";
-            this.panelLeft5.Size = new System.Drawing.Size(30, 30);
-            this.panelLeft5.TabIndex = 5;
+            panelLeft5.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            panelLeft5.Location = new Point(75, 39);
+            panelLeft5.Name = "panelLeft5";
+            panelLeft5.Size = new Size(30, 30);
+            panelLeft5.TabIndex = 5;
             // 
             // panelLeft4
             // 
-            this.panelLeft4.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.panelLeft4.Location = new System.Drawing.Point(39, 39);
-            this.panelLeft4.Name = "panelLeft4";
-            this.panelLeft4.Size = new System.Drawing.Size(30, 30);
-            this.panelLeft4.TabIndex = 4;
+            panelLeft4.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            panelLeft4.Location = new Point(39, 39);
+            panelLeft4.Name = "panelLeft4";
+            panelLeft4.Size = new Size(30, 30);
+            panelLeft4.TabIndex = 4;
             // 
             // panelLeft3
             // 
-            this.panelLeft3.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.panelLeft3.Location = new System.Drawing.Point(3, 39);
-            this.panelLeft3.Name = "panelLeft3";
-            this.panelLeft3.Size = new System.Drawing.Size(30, 30);
-            this.panelLeft3.TabIndex = 3;
+            panelLeft3.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            panelLeft3.Location = new Point(3, 39);
+            panelLeft3.Name = "panelLeft3";
+            panelLeft3.Size = new Size(30, 30);
+            panelLeft3.TabIndex = 3;
             // 
             // panelLeft2
             // 
-            this.panelLeft2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.panelLeft2.Location = new System.Drawing.Point(75, 3);
-            this.panelLeft2.Name = "panelLeft2";
-            this.panelLeft2.Size = new System.Drawing.Size(30, 30);
-            this.panelLeft2.TabIndex = 2;
+            panelLeft2.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            panelLeft2.Location = new Point(75, 3);
+            panelLeft2.Name = "panelLeft2";
+            panelLeft2.Size = new Size(30, 30);
+            panelLeft2.TabIndex = 2;
             // 
             // panelLeft1
             // 
-            this.panelLeft1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.panelLeft1.Location = new System.Drawing.Point(39, 3);
-            this.panelLeft1.Name = "panelLeft1";
-            this.panelLeft1.Size = new System.Drawing.Size(30, 30);
-            this.panelLeft1.TabIndex = 1;
+            panelLeft1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            panelLeft1.Location = new Point(39, 3);
+            panelLeft1.Name = "panelLeft1";
+            panelLeft1.Size = new Size(30, 30);
+            panelLeft1.TabIndex = 1;
             // 
             // panelLeft0
             // 
-            this.panelLeft0.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.panelLeft0.Location = new System.Drawing.Point(3, 3);
-            this.panelLeft0.Name = "panelLeft0";
-            this.panelLeft0.Size = new System.Drawing.Size(30, 30);
-            this.panelLeft0.TabIndex = 0;
+            panelLeft0.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            panelLeft0.Location = new Point(3, 3);
+            panelLeft0.Name = "panelLeft0";
+            panelLeft0.Size = new Size(30, 30);
+            panelLeft0.TabIndex = 0;
             // 
             // labelScramble
             // 
-            this.labelScramble.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.labelScramble.AutoSize = true;
-            this.labelScramble.Font = new System.Drawing.Font("Century Gothic", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.labelScramble.Location = new System.Drawing.Point(428, 123);
-            this.labelScramble.Name = "labelScramble";
-            this.labelScramble.Size = new System.Drawing.Size(165, 39);
-            this.labelScramble.TabIndex = 1;
-            this.labelScramble.Text = "Scramble";
-            this.labelScramble.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            labelScramble.Anchor = AnchorStyles.Top;
+            labelScramble.AutoSize = true;
+            labelScramble.Font = new Font("Century Gothic", 24F, FontStyle.Regular, GraphicsUnit.Point);
+            labelScramble.Location = new Point(428, 123);
+            labelScramble.Name = "labelScramble";
+            labelScramble.Size = new Size(165, 39);
+            labelScramble.TabIndex = 1;
+            labelScramble.Text = "Scramble";
+            labelScramble.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // flowLayoutPanelTimes
             // 
-            this.flowLayoutPanelTimes.AutoScroll = true;
-            this.flowLayoutPanelTimes.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.flowLayoutPanelTimes.Location = new System.Drawing.Point(12, 12);
-            this.flowLayoutPanelTimes.Name = "flowLayoutPanelTimes";
-            this.flowLayoutPanelTimes.Size = new System.Drawing.Size(342, 576);
-            this.flowLayoutPanelTimes.TabIndex = 3;
+            flowLayoutPanelTimes.AutoScroll = true;
+            flowLayoutPanelTimes.BorderStyle = BorderStyle.FixedSingle;
+            flowLayoutPanelTimes.Location = new Point(12, 12);
+            flowLayoutPanelTimes.Name = "flowLayoutPanelTimes";
+            flowLayoutPanelTimes.Size = new Size(342, 576);
+            flowLayoutPanelTimes.TabIndex = 3;
             // 
             // panelStats
             // 
-            this.panelStats.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.panelStats.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panelStats.Controls.Add(this.labelBestTime);
-            this.panelStats.Controls.Add(this.labelAverageOfTwelve);
-            this.panelStats.Controls.Add(this.labelAverageOfFive);
-            this.panelStats.Location = new System.Drawing.Point(12, 660);
-            this.panelStats.Name = "panelStats";
-            this.panelStats.Size = new System.Drawing.Size(342, 123);
-            this.panelStats.TabIndex = 4;
+            panelStats.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            panelStats.BorderStyle = BorderStyle.FixedSingle;
+            panelStats.Controls.Add(labelBestTime);
+            panelStats.Controls.Add(labelAverageOfTwelve);
+            panelStats.Controls.Add(labelAverageOfFive);
+            panelStats.Location = new Point(12, 660);
+            panelStats.Name = "panelStats";
+            panelStats.Size = new Size(342, 123);
+            panelStats.TabIndex = 4;
             // 
             // labelBestTime
             // 
-            this.labelBestTime.AutoSize = true;
-            this.labelBestTime.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.labelBestTime.Location = new System.Drawing.Point(15, 83);
-            this.labelBestTime.Name = "labelBestTime";
-            this.labelBestTime.Size = new System.Drawing.Size(97, 22);
-            this.labelBestTime.TabIndex = 2;
-            this.labelBestTime.Text = "Best Time:";
+            labelBestTime.AutoSize = true;
+            labelBestTime.Font = new Font("Century Gothic", 14.25F, FontStyle.Regular, GraphicsUnit.Point);
+            labelBestTime.Location = new Point(15, 83);
+            labelBestTime.Name = "labelBestTime";
+            labelBestTime.Size = new Size(97, 22);
+            labelBestTime.TabIndex = 2;
+            labelBestTime.Text = "Best Time:";
             // 
             // labelAverageOfTwelve
             // 
-            this.labelAverageOfTwelve.AutoSize = true;
-            this.labelAverageOfTwelve.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.labelAverageOfTwelve.Location = new System.Drawing.Point(15, 49);
-            this.labelAverageOfTwelve.Name = "labelAverageOfTwelve";
-            this.labelAverageOfTwelve.Size = new System.Drawing.Size(64, 22);
-            this.labelAverageOfTwelve.TabIndex = 1;
-            this.labelAverageOfTwelve.Text = "Ao12:";
+            labelAverageOfTwelve.AutoSize = true;
+            labelAverageOfTwelve.Font = new Font("Century Gothic", 14.25F, FontStyle.Regular, GraphicsUnit.Point);
+            labelAverageOfTwelve.Location = new Point(15, 49);
+            labelAverageOfTwelve.Name = "labelAverageOfTwelve";
+            labelAverageOfTwelve.Size = new Size(64, 22);
+            labelAverageOfTwelve.TabIndex = 1;
+            labelAverageOfTwelve.Text = "Ao12:";
             // 
             // labelAverageOfFive
             // 
-            this.labelAverageOfFive.AutoSize = true;
-            this.labelAverageOfFive.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.labelAverageOfFive.Location = new System.Drawing.Point(15, 15);
-            this.labelAverageOfFive.Name = "labelAverageOfFive";
-            this.labelAverageOfFive.Size = new System.Drawing.Size(53, 22);
-            this.labelAverageOfFive.TabIndex = 0;
-            this.labelAverageOfFive.Text = "Ao5:";
+            labelAverageOfFive.AutoSize = true;
+            labelAverageOfFive.Font = new Font("Century Gothic", 14.25F, FontStyle.Regular, GraphicsUnit.Point);
+            labelAverageOfFive.Location = new Point(15, 15);
+            labelAverageOfFive.Name = "labelAverageOfFive";
+            labelAverageOfFive.Size = new Size(53, 22);
+            labelAverageOfFive.TabIndex = 0;
+            labelAverageOfFive.Text = "Ao5:";
             // 
             // comboBoxSession
             // 
-            this.comboBoxSession.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxSession.Font = new System.Drawing.Font("Century Gothic", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.comboBoxSession.FormattingEnabled = true;
-            this.comboBoxSession.Items.AddRange(new object[] {
-            "1",
-            "2",
-            "3",
-            "4",
-            "5",
-            "6",
-            "7",
-            "8",
-            "9",
-            "10",
-            "11",
-            "12"});
-            this.comboBoxSession.Location = new System.Drawing.Point(12, 603);
-            this.comboBoxSession.Name = "comboBoxSession";
-            this.comboBoxSession.Size = new System.Drawing.Size(80, 41);
-            this.comboBoxSession.TabIndex = 5;
-            this.comboBoxSession.TabStop = false;
+            comboBoxSession.DropDownStyle = ComboBoxStyle.DropDownList;
+            comboBoxSession.Font = new Font("Century Gothic", 20.25F, FontStyle.Regular, GraphicsUnit.Point);
+            comboBoxSession.FormattingEnabled = true;
+            comboBoxSession.Items.AddRange(new object[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12" });
+            comboBoxSession.Location = new Point(12, 603);
+            comboBoxSession.Name = "comboBoxSession";
+            comboBoxSession.Size = new Size(80, 41);
+            comboBoxSession.TabIndex = 5;
+            comboBoxSession.TabStop = false;
             // 
             // buttonSelectSession
             // 
-            this.buttonSelectSession.Font = new System.Drawing.Font("Century Gothic", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.buttonSelectSession.Location = new System.Drawing.Point(98, 594);
-            this.buttonSelectSession.Name = "buttonSelectSession";
-            this.buttonSelectSession.Size = new System.Drawing.Size(89, 59);
-            this.buttonSelectSession.TabIndex = 9;
-            this.buttonSelectSession.TabStop = false;
-            this.buttonSelectSession.Text = "Select";
-            this.buttonSelectSession.UseVisualStyleBackColor = true;
-            this.buttonSelectSession.MouseClick += new System.Windows.Forms.MouseEventHandler(this.buttonSelectSession_MouseClick);
+            buttonSelectSession.Font = new Font("Century Gothic", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
+            buttonSelectSession.Location = new Point(98, 594);
+            buttonSelectSession.Name = "buttonSelectSession";
+            buttonSelectSession.Size = new Size(89, 59);
+            buttonSelectSession.TabIndex = 9;
+            buttonSelectSession.TabStop = false;
+            buttonSelectSession.Text = "Select";
+            buttonSelectSession.UseVisualStyleBackColor = true;
+            buttonSelectSession.MouseClick += buttonSelectSession_MouseClick;
             // 
             // buttonDeleteAllFromSession
             // 
-            this.buttonDeleteAllFromSession.Font = new System.Drawing.Font("Century Gothic", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.buttonDeleteAllFromSession.Location = new System.Drawing.Point(193, 594);
-            this.buttonDeleteAllFromSession.Name = "buttonDeleteAllFromSession";
-            this.buttonDeleteAllFromSession.Size = new System.Drawing.Size(161, 59);
-            this.buttonDeleteAllFromSession.TabIndex = 10;
-            this.buttonDeleteAllFromSession.TabStop = false;
-            this.buttonDeleteAllFromSession.Text = "Delete All From Session";
-            this.buttonDeleteAllFromSession.UseVisualStyleBackColor = true;
-            this.buttonDeleteAllFromSession.MouseClick += new System.Windows.Forms.MouseEventHandler(this.buttonDeleteAllFromSession_MouseClick);
+            buttonDeleteAllFromSession.Font = new Font("Century Gothic", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
+            buttonDeleteAllFromSession.Location = new Point(193, 594);
+            buttonDeleteAllFromSession.Name = "buttonDeleteAllFromSession";
+            buttonDeleteAllFromSession.Size = new Size(161, 59);
+            buttonDeleteAllFromSession.TabIndex = 10;
+            buttonDeleteAllFromSession.TabStop = false;
+            buttonDeleteAllFromSession.Text = "Delete All From Session";
+            buttonDeleteAllFromSession.UseVisualStyleBackColor = true;
+            buttonDeleteAllFromSession.MouseClick += buttonDeleteAllFromSession_MouseClick;
             // 
             // timerInspection
             // 
-            this.timerInspection.Tick += new System.EventHandler(this.timerInspection_Tick);
+            timerInspection.Tick += timerInspection_Tick;
             // 
             // CubeTimerForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1393, 795);
-            this.Controls.Add(this.buttonDeleteAllFromSession);
-            this.Controls.Add(this.buttonSelectSession);
-            this.Controls.Add(this.comboBoxSession);
-            this.Controls.Add(this.panelStats);
-            this.Controls.Add(this.flowLayoutPanelTimes);
-            this.Controls.Add(this.panelTimer);
-            this.KeyPreview = true;
-            this.MinimumSize = new System.Drawing.Size(1409, 834);
-            this.Name = "CubeTimerForm";
-            this.Text = "CubeTimerForm";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.CubeTimerForm_FormClosing);
-            this.Load += new System.EventHandler(this.CubeTimerForm_Load);
-            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.CubeTimerForm_KeyDown);
-            this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.CubeTimerForm_KeyUp);
-            this.panelTimer.ResumeLayout(false);
-            this.panelTimer.PerformLayout();
-            this.panelTurns.ResumeLayout(false);
-            this.panelCube.ResumeLayout(false);
-            this.panelDown.ResumeLayout(false);
-            this.panelBack.ResumeLayout(false);
-            this.panelRight.ResumeLayout(false);
-            this.panelUp.ResumeLayout(false);
-            this.panelFront.ResumeLayout(false);
-            this.panelLeft.ResumeLayout(false);
-            this.panelStats.ResumeLayout(false);
-            this.panelStats.PerformLayout();
-            this.ResumeLayout(false);
-
+            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleMode = AutoScaleMode.Font;
+            ClientSize = new Size(1393, 795);
+            Controls.Add(buttonDeleteAllFromSession);
+            Controls.Add(buttonSelectSession);
+            Controls.Add(comboBoxSession);
+            Controls.Add(panelStats);
+            Controls.Add(flowLayoutPanelTimes);
+            Controls.Add(panelTimer);
+            KeyPreview = true;
+            MinimumSize = new Size(1409, 834);
+            Name = "CubeTimerForm";
+            Text = "CubeTimerForm";
+            FormClosing += CubeTimerForm_FormClosing;
+            Load += CubeTimerForm_Load;
+            KeyDown += CubeTimerForm_KeyDown;
+            KeyUp += CubeTimerForm_KeyUp;
+            panelTimer.ResumeLayout(false);
+            panelTimer.PerformLayout();
+            panelTurns.ResumeLayout(false);
+            panelCube.ResumeLayout(false);
+            panelDown.ResumeLayout(false);
+            panelBack.ResumeLayout(false);
+            panelRight.ResumeLayout(false);
+            panelUp.ResumeLayout(false);
+            panelFront.ResumeLayout(false);
+            panelLeft.ResumeLayout(false);
+            panelStats.ResumeLayout(false);
+            panelStats.PerformLayout();
+            ResumeLayout(false);
         }
 
         #endregion
@@ -1180,5 +1057,6 @@
         private Button buttonDeleteAllFromSession;
         private CheckBox checkBoxInspectionEnabled;
         private System.Windows.Forms.Timer timerInspection;
+        private Button buttonExportCubeState;
     }
 }

@@ -59,7 +59,6 @@ namespace LakaCubeTimer.util {
             }
             return listString;
         }
-
         public static string timeToString(SolveTime time) {
             return time.solveTime + " | " + time.solveDate;
         }
@@ -79,1011 +78,528 @@ namespace LakaCubeTimer.util {
         }
         public static string sideToString(Side side) {
             string stickersString = "";
-            stickersString += " " + side.stickers[0].color.Name[0] + " " + side.stickers[1].color.Name[0] + " " + side.stickers[2].color.Name[0] + "\n";
-            stickersString += " " + side.stickers[3].color.Name[0] + " " + side.stickers[4].color.Name[0] + " " + side.stickers[5].color.Name[0] + "\n";
-            stickersString += " " + side.stickers[6].color.Name[0] + " " + side.stickers[7].color.Name[0] + " " + side.stickers[8].color.Name[0] + "\n";
+            stickersString += " " + side.stickers[0].colorNameAsSide + " " + side.stickers[1].colorNameAsSide + " " + side.stickers[2].colorNameAsSide + "\n";
+            stickersString += " " + side.stickers[3].colorNameAsSide + " " + side.stickers[4].colorNameAsSide + " " + side.stickers[5].colorNameAsSide + "\n";
+            stickersString += " " + side.stickers[6].colorNameAsSide + " " + side.stickers[7].colorNameAsSide + " " + side.stickers[8].colorNameAsSide + "\n";
             return stickersString;
         }
-        public static Side getSide(Cube cube, Color color) {
+        public static Side getSide(Cube cube, string colorNameAsSide) {
             foreach (Side side in cube.sides) {
-                if (side.stickers[4].color.Equals(color)) {
-                    return initializeSide(side);
+                if (side.stickers[4].colorNameAsSide.Equals(colorNameAsSide)) {
+                    //return initializeSide(side);
+                    return side;
                 }
             }
-            return new Side(colorWhite);
+            return new Side("WHITE", "U", colorWhite);
         }
         public static Side initializeSide(Side side) {
             List<Sticker> newStickers = new List<Sticker>();
             foreach (Sticker sticker in side.stickers) {
-                Sticker newSticker = new Sticker(sticker.id, sticker.color);
+                Sticker newSticker = new Sticker(sticker.id, sticker.colorName, sticker.colorNameAsSide, sticker.color);
                 newStickers.Add(newSticker);
             }
             return new Side(newStickers);
         }
-        public static Cube turnCube(Cube cube, String turn) {
-            //TURN WHITE SIDE
+        public static Cube turnCube(Cube cube, string turn) {
+            Side currentUpSide = initializeSide(getSide(cube, "U"));
+            Side currentDownSide = initializeSide(getSide(cube, "D"));
+            Side currentLeftSide = initializeSide(getSide(cube, "L"));
+            Side currentRightSide = initializeSide(getSide(cube, "R"));
+            Side currentFrontSide = initializeSide(getSide(cube, "F"));
+            Side currentBackSide = initializeSide(getSide(cube, "B"));
+
+            Side newUpSide = currentUpSide;
+            Side newDownSide = currentDownSide;
+            Side newLeftSide = currentLeftSide;
+            Side newRightSide = currentRightSide;
+            Side newFrontSide = currentFrontSide;
+            Side newBackSide = currentBackSide;
             if (turn.Equals("U")) {
-                Side newWhiteSide = initializeSide(cube.sides[0]);
-                //yellow side stays the same
-                Side newYellowSide = initializeSide(cube.sides[1]);
-                Side newOrangeSide = initializeSide(cube.sides[2]);
-                Side newRedSide = initializeSide(cube.sides[3]);
-                Side newGreenSide = initializeSide(cube.sides[4]);
-                Side newBlueSide = initializeSide(cube.sides[5]);
+                newUpSide.stickers[2].update(currentUpSide.stickers[0]);
+                newUpSide.stickers[8].update(currentUpSide.stickers[2]);
+                newUpSide.stickers[6].update(currentUpSide.stickers[8]);
+                newUpSide.stickers[0].update(currentUpSide.stickers[6]);
+                newUpSide.stickers[5].update(currentUpSide.stickers[1]);
+                newUpSide.stickers[7].update(currentUpSide.stickers[5]);
+                newUpSide.stickers[3].update(currentUpSide.stickers[7]);
+                newUpSide.stickers[1].update(currentUpSide.stickers[3]);
 
-                //turn corner stickers of white side
-                newWhiteSide.stickers[2].color = getSide(cube, colorWhite).stickers[0].color;
-                newWhiteSide.stickers[8].color = getSide(cube, colorWhite).stickers[2].color;
-                newWhiteSide.stickers[6].color = getSide(cube, colorWhite).stickers[8].color;
-                newWhiteSide.stickers[0].color = getSide(cube, colorWhite).stickers[6].color;
-                //turn edge stickers of white side
-                newWhiteSide.stickers[5].color = getSide(cube, colorWhite).stickers[1].color;
-                newWhiteSide.stickers[7].color = getSide(cube, colorWhite).stickers[5].color;
-                newWhiteSide.stickers[3].color = getSide(cube, colorWhite).stickers[7].color;
-                newWhiteSide.stickers[1].color = getSide(cube, colorWhite).stickers[3].color;
+                newRightSide.stickers[0].color = currentBackSide.stickers[0].color;
+                newRightSide.stickers[2].color = currentBackSide.stickers[2].color;
+                newRightSide.stickers[1].color = currentBackSide.stickers[1].color;
 
-                //turn corner stickers of red side
-                newRedSide.stickers[0].color = getSide(cube, colorBlue).stickers[0].color;
-                newRedSide.stickers[2].color = getSide(cube, colorBlue).stickers[2].color;
-                //turn edge stickers of red side
-                newRedSide.stickers[1].color = getSide(cube, colorBlue).stickers[1].color;
+                newFrontSide.stickers[0].color = currentRightSide.stickers[0].color;
+                newFrontSide.stickers[2].color = currentRightSide.stickers[2].color;
+                newFrontSide.stickers[1].color = currentRightSide.stickers[1].color;
 
-                //turn corner stickers of green side
-                newGreenSide.stickers[0].color = getSide(cube, colorRed).stickers[0].color;
-                newGreenSide.stickers[2].color = getSide(cube, colorRed).stickers[2].color;
-                //turn edge stickers of green side
-                newGreenSide.stickers[1].color = getSide(cube, colorRed).stickers[1].color;
+                newLeftSide.stickers[0].color = currentFrontSide.stickers[0].color;
+                newLeftSide.stickers[2].color = currentFrontSide.stickers[2].color;
+                newLeftSide.stickers[1].color = currentFrontSide.stickers[1].color;
 
-                //turn corner stickers of orange side
-                newOrangeSide.stickers[0].color = getSide(cube, colorGreen).stickers[0].color;
-                newOrangeSide.stickers[2].color = getSide(cube, colorGreen).stickers[2].color;
-                //turn edge stickers of orange side
-                newOrangeSide.stickers[1].color = getSide(cube, colorGreen).stickers[1].color;
-
-                //turn corner stickers of blue side
-                newBlueSide.stickers[0].color = getSide(cube, colorOrange).stickers[0].color;
-                newBlueSide.stickers[2].color = getSide(cube, colorOrange).stickers[2].color;
-                //turn edge stickers of blue side
-                newBlueSide.stickers[1].color = getSide(cube, colorOrange).stickers[1].color;
-
-                List<Side> newSides = new List<Side>();
-                newSides.Add(newWhiteSide);
-                newSides.Add(newYellowSide);
-                newSides.Add(newOrangeSide);
-                newSides.Add(newRedSide);
-                newSides.Add(newGreenSide);
-                newSides.Add(newBlueSide);
-                return new Cube(newSides);
+                newBackSide.stickers[0].color = currentLeftSide.stickers[0].color;
+                newBackSide.stickers[2].color = currentLeftSide.stickers[2].color;
+                newBackSide.stickers[1].color = currentLeftSide.stickers[1].color;
             }
             if (turn.Equals("U'")) {
-                Side newWhiteSide = initializeSide(cube.sides[0]);
-                //yellow side stays the same
-                Side newYellowSide = initializeSide(cube.sides[1]);
-                Side newOrangeSide = initializeSide(cube.sides[2]);
-                Side newRedSide = initializeSide(cube.sides[3]);
-                Side newGreenSide = initializeSide(cube.sides[4]);
-                Side newBlueSide = initializeSide(cube.sides[5]);
+                newUpSide.stickers[0].color = currentUpSide.stickers[2].color;
+                newUpSide.stickers[6].color = currentUpSide.stickers[0].color;
+                newUpSide.stickers[8].color = currentUpSide.stickers[6].color;
+                newUpSide.stickers[2].color = currentUpSide.stickers[8].color;
+                newUpSide.stickers[3].color = currentUpSide.stickers[1].color;
+                newUpSide.stickers[7].color = currentUpSide.stickers[3].color;
+                newUpSide.stickers[5].color = currentUpSide.stickers[7].color;
+                newUpSide.stickers[1].color = currentUpSide.stickers[5].color;
 
-                //turn corner stickers of white side
-                newWhiteSide.stickers[0].color = getSide(cube, colorWhite).stickers[2].color;
-                newWhiteSide.stickers[6].color = getSide(cube, colorWhite).stickers[0].color;
-                newWhiteSide.stickers[8].color = getSide(cube, colorWhite).stickers[6].color;
-                newWhiteSide.stickers[2].color = getSide(cube, colorWhite).stickers[8].color;
+                newLeftSide.stickers[0].color = currentBackSide.stickers[0].color;
+                newLeftSide.stickers[2].color = currentBackSide.stickers[2].color;
+                newLeftSide.stickers[1].color = currentBackSide.stickers[1].color;
 
-                //turn edge stickers of white side
-                newWhiteSide.stickers[3].color = getSide(cube, colorWhite).stickers[1].color;
-                newWhiteSide.stickers[7].color = getSide(cube, colorWhite).stickers[3].color;
-                newWhiteSide.stickers[5].color = getSide(cube, colorWhite).stickers[7].color;
-                newWhiteSide.stickers[1].color = getSide(cube, colorWhite).stickers[5].color;
+                newFrontSide.stickers[0].color = currentLeftSide.stickers[0].color;
+                newFrontSide.stickers[2].color = currentLeftSide.stickers[2].color;
+                newFrontSide.stickers[1].color = currentLeftSide.stickers[1].color;
 
-                //turn corner stickers of orange side
-                newOrangeSide.stickers[0].color = getSide(cube, colorBlue).stickers[0].color;
-                newOrangeSide.stickers[2].color = getSide(cube, colorBlue).stickers[2].color;
-                //turn edge stickers of orange side
-                newOrangeSide.stickers[1].color = getSide(cube, colorBlue).stickers[1].color;
+                newRightSide.stickers[0].color = currentFrontSide.stickers[0].color;
+                newRightSide.stickers[2].color = currentFrontSide.stickers[2].color;
+                newRightSide.stickers[1].color = currentFrontSide.stickers[1].color;
 
-                //turn corner stickers of green side
-                newGreenSide.stickers[0].color = getSide(cube, colorOrange).stickers[0].color;
-                newGreenSide.stickers[2].color = getSide(cube, colorOrange).stickers[2].color;
-                //turn edge stickers of green side
-                newGreenSide.stickers[1].color = getSide(cube, colorOrange).stickers[1].color;
-
-                //turn corner stickers of red side
-                newRedSide.stickers[0].color = getSide(cube, colorGreen).stickers[0].color;
-                newRedSide.stickers[2].color = getSide(cube, colorGreen).stickers[2].color;
-                //turn edge stickers of red side
-                newRedSide.stickers[1].color = getSide(cube, colorGreen).stickers[1].color;
-
-                //turn corner stickers of blue side
-                newBlueSide.stickers[0].color = getSide(cube, colorRed).stickers[0].color;
-                newBlueSide.stickers[2].color = getSide(cube, colorRed).stickers[2].color;
-                //turn edge stickers of blue side
-                newBlueSide.stickers[1].color = getSide(cube, colorRed).stickers[1].color;
-
-                List<Side> newSides = new List<Side>();
-                newSides.Add(newWhiteSide);
-                newSides.Add(newYellowSide);
-                newSides.Add(newOrangeSide);
-                newSides.Add(newRedSide);
-                newSides.Add(newGreenSide);
-                newSides.Add(newBlueSide);
-                return new Cube(newSides);
+                newBackSide.stickers[0].color = currentRightSide.stickers[0].color;
+                newBackSide.stickers[2].color = currentRightSide.stickers[2].color;
+                newBackSide.stickers[1].color = currentRightSide.stickers[1].color;
             }
             if (turn.Equals("U2")) {
-                Side newWhiteSide = initializeSide(cube.sides[0]);
-                //yellow side stays the same
-                Side newYellowSide = initializeSide(cube.sides[1]);
-                Side newOrangeSide = initializeSide(cube.sides[2]);
-                Side newRedSide = initializeSide(cube.sides[3]);
-                Side newGreenSide = initializeSide(cube.sides[4]);
-                Side newBlueSide = initializeSide(cube.sides[5]);
+                newUpSide.stickers[8].color = currentUpSide.stickers[0].color;
+                newUpSide.stickers[0].color = currentUpSide.stickers[8].color;
+                newUpSide.stickers[6].color = currentUpSide.stickers[2].color;
+                newUpSide.stickers[2].color = currentUpSide.stickers[6].color;
+                newUpSide.stickers[5].color = currentUpSide.stickers[3].color;
+                newUpSide.stickers[3].color = currentUpSide.stickers[5].color;
+                newUpSide.stickers[7].color = currentUpSide.stickers[1].color;
+                newUpSide.stickers[1].color = currentUpSide.stickers[7].color;
 
-                //turn corner stickers of white side
-                newWhiteSide.stickers[8].color = getSide(cube, colorWhite).stickers[0].color;
-                newWhiteSide.stickers[0].color = getSide(cube, colorWhite).stickers[8].color;
-                newWhiteSide.stickers[6].color = getSide(cube, colorWhite).stickers[2].color;
-                newWhiteSide.stickers[2].color = getSide(cube, colorWhite).stickers[6].color;
+                newRightSide.stickers[0].color = currentLeftSide.stickers[0].color;
+                newRightSide.stickers[2].color = currentLeftSide.stickers[2].color;
+                newRightSide.stickers[1].color = currentLeftSide.stickers[1].color;
 
-                //turn edge stickers of white side
-                newWhiteSide.stickers[5].color = getSide(cube, colorWhite).stickers[3].color;
-                newWhiteSide.stickers[3].color = getSide(cube, colorWhite).stickers[5].color;
-                newWhiteSide.stickers[7].color = getSide(cube, colorWhite).stickers[1].color;
-                newWhiteSide.stickers[1].color = getSide(cube, colorWhite).stickers[7].color;
+                newLeftSide.stickers[0].color = currentRightSide.stickers[0].color;
+                newLeftSide.stickers[2].color = currentRightSide.stickers[2].color;
+                newLeftSide.stickers[1].color = currentRightSide.stickers[1].color;
 
-                //turn corner stickers of red side
-                newRedSide.stickers[0].color = getSide(cube, colorOrange).stickers[0].color;
-                newRedSide.stickers[2].color = getSide(cube, colorOrange).stickers[2].color;
-                //turn edge stickers of red side
-                newRedSide.stickers[1].color = getSide(cube, colorOrange).stickers[1].color;
+                newBackSide.stickers[0].color = currentFrontSide.stickers[0].color;
+                newBackSide.stickers[2].color = currentFrontSide.stickers[2].color;
+                newBackSide.stickers[1].color = currentFrontSide.stickers[1].color;
 
-                //turn corner stickers of orange side
-                newOrangeSide.stickers[0].color = getSide(cube, colorRed).stickers[0].color;
-                newOrangeSide.stickers[2].color = getSide(cube, colorRed).stickers[2].color;
-                //turn edge stickers of orange side
-                newOrangeSide.stickers[1].color = getSide(cube, colorRed).stickers[1].color;
-
-                //turn corner stickers of blue side
-                newBlueSide.stickers[0].color = getSide(cube, colorGreen).stickers[0].color;
-                newBlueSide.stickers[2].color = getSide(cube, colorGreen).stickers[2].color;
-                //turn edge stickers of blue side
-                newBlueSide.stickers[1].color = getSide(cube, colorGreen).stickers[1].color;
-
-                //turn corner stickers of green side
-                newGreenSide.stickers[0].color = getSide(cube, colorBlue).stickers[0].color;
-                newGreenSide.stickers[2].color = getSide(cube, colorBlue).stickers[2].color;
-                //turn edge stickers of green side
-                newGreenSide.stickers[1].color = getSide(cube, colorBlue).stickers[1].color;
-
-                List<Side> newSides = new List<Side>();
-                newSides.Add(newWhiteSide);
-                newSides.Add(newYellowSide);
-                newSides.Add(newOrangeSide);
-                newSides.Add(newRedSide);
-                newSides.Add(newGreenSide);
-                newSides.Add(newBlueSide);
-                return new Cube(newSides);
+                newFrontSide.stickers[0].color = currentBackSide.stickers[0].color;
+                newFrontSide.stickers[2].color = currentBackSide.stickers[2].color;
+                newFrontSide.stickers[1].color = currentBackSide.stickers[1].color;
             }
-            //TURN YELLOW SIDE
             if (turn.Equals("D")) {
-                //white side stays the same
-                Side newWhiteSide = initializeSide(cube.sides[0]);
-                Side newYellowSide = initializeSide(cube.sides[1]);
-                Side newOrangeSide = initializeSide(cube.sides[2]);
-                Side newRedSide = initializeSide(cube.sides[3]);
-                Side newGreenSide = initializeSide(cube.sides[4]);
-                Side newBlueSide = initializeSide(cube.sides[5]);
+                newDownSide.stickers[2].color = currentDownSide.stickers[0].color;
+                newDownSide.stickers[8].color = currentDownSide.stickers[2].color;
+                newDownSide.stickers[6].color = currentDownSide.stickers[8].color;
+                newDownSide.stickers[0].color = currentDownSide.stickers[6].color;
 
-                //turn corner stickers of yellow side
-                newYellowSide.stickers[2].color = getSide(cube, colorYellow).stickers[0].color;
-                newYellowSide.stickers[8].color = getSide(cube, colorYellow).stickers[2].color;
-                newYellowSide.stickers[6].color = getSide(cube, colorYellow).stickers[8].color;
-                newYellowSide.stickers[0].color = getSide(cube, colorYellow).stickers[6].color;
+                newDownSide.stickers[5].color = currentDownSide.stickers[1].color;
+                newDownSide.stickers[7].color = currentDownSide.stickers[5].color;
+                newDownSide.stickers[3].color = currentDownSide.stickers[7].color;
+                newDownSide.stickers[1].color = currentDownSide.stickers[3].color;
 
-                //turn edge stickers of yellow side
-                newYellowSide.stickers[5].color = getSide(cube, colorYellow).stickers[1].color;
-                newYellowSide.stickers[7].color = getSide(cube, colorYellow).stickers[5].color;
-                newYellowSide.stickers[3].color = getSide(cube, colorYellow).stickers[7].color;
-                newYellowSide.stickers[1].color = getSide(cube, colorYellow).stickers[3].color;
+                newRightSide.stickers[6].color = currentFrontSide.stickers[6].color;
+                newRightSide.stickers[8].color = currentFrontSide.stickers[8].color;
+                newRightSide.stickers[7].color = currentFrontSide.stickers[7].color;
 
-                //turn corner stickers of red side
-                newRedSide.stickers[6].color = getSide(cube, colorGreen).stickers[6].color;
-                newRedSide.stickers[8].color = getSide(cube, colorGreen).stickers[8].color;
-                //turn edge stickers of red side
-                newRedSide.stickers[7].color = getSide(cube, colorGreen).stickers[7].color;
+                newBackSide.stickers[6].color = currentRightSide.stickers[6].color;
+                newBackSide.stickers[8].color = currentRightSide.stickers[8].color;
+                newBackSide.stickers[7].color = currentRightSide.stickers[7].color;
 
-                //turn corner stickers of blue side
-                newBlueSide.stickers[6].color = getSide(cube, colorRed).stickers[6].color;
-                newBlueSide.stickers[8].color = getSide(cube, colorRed).stickers[8].color;
-                //turn edge stickers of blue side
-                newBlueSide.stickers[7].color = getSide(cube, colorRed).stickers[7].color;
+                newLeftSide.stickers[6].color = currentBackSide.stickers[6].color;
+                newLeftSide.stickers[8].color = currentBackSide.stickers[8].color;
+                newLeftSide.stickers[7].color = currentBackSide.stickers[7].color;
 
-                //turn corner stickers of orange side
-                newOrangeSide.stickers[6].color = getSide(cube, colorBlue).stickers[6].color;
-                newOrangeSide.stickers[8].color = getSide(cube, colorBlue).stickers[8].color;
-                //turn edge stickers of orange side
-                newOrangeSide.stickers[7].color = getSide(cube, colorBlue).stickers[7].color;
-
-                //turn corner stickers of green side
-                newGreenSide.stickers[6].color = getSide(cube, colorOrange).stickers[6].color;
-                newGreenSide.stickers[8].color = getSide(cube, colorOrange).stickers[8].color;
-                //turn edge stickers of green side
-                newGreenSide.stickers[7].color = getSide(cube, colorOrange).stickers[7].color;
-
-                List<Side> newSides = new List<Side>();
-                newSides.Add(newWhiteSide);
-                newSides.Add(newYellowSide);
-                newSides.Add(newOrangeSide);
-                newSides.Add(newRedSide);
-                newSides.Add(newGreenSide);
-                newSides.Add(newBlueSide);
-                return new Cube(newSides);
+                newFrontSide.stickers[6].color = currentLeftSide.stickers[6].color;
+                newFrontSide.stickers[8].color = currentLeftSide.stickers[8].color;
+                newFrontSide.stickers[7].color = currentLeftSide.stickers[7].color;
             }
             if (turn.Equals("D'")) {
-                //white side stays the same
-                Side newWhiteSide = initializeSide(cube.sides[0]);
-                Side newYellowSide = initializeSide(cube.sides[1]);
-                Side newOrangeSide = initializeSide(cube.sides[2]);
-                Side newRedSide = initializeSide(cube.sides[3]);
-                Side newGreenSide = initializeSide(cube.sides[4]);
-                Side newBlueSide = initializeSide(cube.sides[5]);
+                newDownSide.stickers[0].color = currentDownSide.stickers[2].color;
+                newDownSide.stickers[6].color = currentDownSide.stickers[0].color;
+                newDownSide.stickers[8].color = currentDownSide.stickers[6].color;
+                newDownSide.stickers[2].color = currentDownSide.stickers[8].color;
 
-                //turn corner stickers of yellow side
-                newYellowSide.stickers[0].color = getSide(cube, colorYellow).stickers[2].color;
-                newYellowSide.stickers[6].color = getSide(cube, colorYellow).stickers[0].color;
-                newYellowSide.stickers[8].color = getSide(cube, colorYellow).stickers[6].color;
-                newYellowSide.stickers[2].color = getSide(cube, colorYellow).stickers[8].color;
+                newDownSide.stickers[3].color = currentDownSide.stickers[1].color;
+                newDownSide.stickers[7].color = currentDownSide.stickers[3].color;
+                newDownSide.stickers[5].color = currentDownSide.stickers[7].color;
+                newDownSide.stickers[1].color = currentDownSide.stickers[5].color;
 
-                //turn edge stickers of yellow side
-                newYellowSide.stickers[3].color = getSide(cube, colorYellow).stickers[1].color;
-                newYellowSide.stickers[7].color = getSide(cube, colorYellow).stickers[3].color;
-                newYellowSide.stickers[5].color = getSide(cube, colorYellow).stickers[7].color;
-                newYellowSide.stickers[1].color = getSide(cube, colorYellow).stickers[5].color;
+                newRightSide.stickers[6].color = currentBackSide.stickers[6].color;
+                newRightSide.stickers[8].color = currentBackSide.stickers[8].color;
+                newRightSide.stickers[7].color = currentBackSide.stickers[7].color;
 
-                //turn corner stickers of red side
-                newRedSide.stickers[6].color = getSide(cube, colorBlue).stickers[6].color;
-                newRedSide.stickers[8].color = getSide(cube, colorBlue).stickers[8].color;
-                //turn edge stickers of red side
-                newRedSide.stickers[7].color = getSide(cube, colorBlue).stickers[7].color;
+                newFrontSide.stickers[6].color = currentRightSide.stickers[6].color;
+                newFrontSide.stickers[8].color = currentRightSide.stickers[8].color;
+                newFrontSide.stickers[7].color = currentRightSide.stickers[7].color;
 
-                //turn corner stickers of green side
-                newGreenSide.stickers[6].color = getSide(cube, colorRed).stickers[6].color;
-                newGreenSide.stickers[8].color = getSide(cube, colorRed).stickers[8].color;
-                //turn edge stickers of green side
-                newGreenSide.stickers[7].color = getSide(cube, colorRed).stickers[7].color;
+                newLeftSide.stickers[6].color = currentFrontSide.stickers[6].color;
+                newLeftSide.stickers[8].color = currentFrontSide.stickers[8].color;
+                newLeftSide.stickers[7].color = currentFrontSide.stickers[7].color;
 
-                //turn corner stickers of orange side
-                newOrangeSide.stickers[6].color = getSide(cube, colorGreen).stickers[6].color;
-                newOrangeSide.stickers[8].color = getSide(cube, colorGreen).stickers[8].color;
-                //turn edge stickers of orange side
-                newOrangeSide.stickers[7].color = getSide(cube, colorGreen).stickers[7].color;
-
-                //turn corner stickers of blue side
-                newBlueSide.stickers[6].color = getSide(cube, colorOrange).stickers[6].color;
-                newBlueSide.stickers[8].color = getSide(cube, colorOrange).stickers[8].color;
-                //turn edge stickers of blue side
-                newBlueSide.stickers[7].color = getSide(cube, colorOrange).stickers[7].color;
-
-                List<Side> newSides = new List<Side>();
-                newSides.Add(newWhiteSide);
-                newSides.Add(newYellowSide);
-                newSides.Add(newOrangeSide);
-                newSides.Add(newRedSide);
-                newSides.Add(newGreenSide);
-                newSides.Add(newBlueSide);
-                return new Cube(newSides);
+                newBackSide.stickers[6].color = currentLeftSide.stickers[6].color;
+                newBackSide.stickers[8].color = currentLeftSide.stickers[8].color;
+                newBackSide.stickers[7].color = currentLeftSide.stickers[7].color;
             }
             if (turn.Equals("D2")) {
-                //white side stays the same
-                Side newWhiteSide = initializeSide(cube.sides[0]);
-                Side newYellowSide = initializeSide(cube.sides[1]);
-                Side newOrangeSide = initializeSide(cube.sides[2]);
-                Side newRedSide = initializeSide(cube.sides[3]);
-                Side newGreenSide = initializeSide(cube.sides[4]);
-                Side newBlueSide = initializeSide(cube.sides[5]);
+                newDownSide.stickers[8].color = currentDownSide.stickers[0].color;
+                newDownSide.stickers[0].color = currentDownSide.stickers[8].color;
+                newDownSide.stickers[6].color = currentDownSide.stickers[2].color;
+                newDownSide.stickers[2].color = currentDownSide.stickers[6].color;
 
-                //turn corner stickers of yellow side
-                newYellowSide.stickers[8].color = getSide(cube, colorYellow).stickers[0].color;
-                newYellowSide.stickers[0].color = getSide(cube, colorYellow).stickers[8].color;
-                newYellowSide.stickers[6].color = getSide(cube, colorYellow).stickers[2].color;
-                newYellowSide.stickers[2].color = getSide(cube, colorYellow).stickers[6].color;
+                newDownSide.stickers[5].color = currentDownSide.stickers[3].color;
+                newDownSide.stickers[3].color = currentDownSide.stickers[5].color;
+                newDownSide.stickers[7].color = currentDownSide.stickers[1].color;
+                newDownSide.stickers[1].color = currentDownSide.stickers[7].color;
 
-                //turn edge stickers of yellow side
-                newYellowSide.stickers[5].color = getSide(cube, colorYellow).stickers[3].color;
-                newYellowSide.stickers[3].color = getSide(cube, colorYellow).stickers[5].color;
-                newYellowSide.stickers[7].color = getSide(cube, colorYellow).stickers[1].color;
-                newYellowSide.stickers[1].color = getSide(cube, colorYellow).stickers[7].color;
+                newRightSide.stickers[6].color = currentLeftSide.stickers[6].color;
+                newRightSide.stickers[8].color = currentLeftSide.stickers[8].color;
+                newRightSide.stickers[7].color = currentLeftSide.stickers[7].color;
 
-                //turn corner stickers of red side
-                newRedSide.stickers[6].color = getSide(cube, colorOrange).stickers[6].color;
-                newRedSide.stickers[8].color = getSide(cube, colorOrange).stickers[8].color;
-                //turn edge stickers of red side
-                newRedSide.stickers[7].color = getSide(cube, colorOrange).stickers[7].color;
+                newLeftSide.stickers[6].color = currentRightSide.stickers[6].color;
+                newLeftSide.stickers[8].color = currentRightSide.stickers[8].color;
+                newLeftSide.stickers[7].color = currentRightSide.stickers[7].color;
 
-                //turn corner stickers of orange side
-                newOrangeSide.stickers[6].color = getSide(cube, colorRed).stickers[6].color;
-                newOrangeSide.stickers[8].color = getSide(cube, colorRed).stickers[8].color;
-                //turn edge stickers of orange side
-                newOrangeSide.stickers[7].color = getSide(cube, colorRed).stickers[7].color;
+                newBackSide.stickers[6].color = currentFrontSide.stickers[6].color;
+                newBackSide.stickers[8].color = currentFrontSide.stickers[8].color;
+                newBackSide.stickers[7].color = currentFrontSide.stickers[7].color;
 
-                //turn corner stickers of blue side
-                newBlueSide.stickers[6].color = getSide(cube, colorGreen).stickers[6].color;
-                newBlueSide.stickers[8].color = getSide(cube, colorGreen).stickers[8].color;
-                //turn edge stickers of blue side
-                newBlueSide.stickers[7].color = getSide(cube, colorGreen).stickers[7].color;
-
-                //turn corner stickers of green side
-                newGreenSide.stickers[6].color = getSide(cube, colorBlue).stickers[6].color;
-                newGreenSide.stickers[8].color = getSide(cube, colorBlue).stickers[8].color;
-                //turn edge stickers of green side
-                newGreenSide.stickers[7].color = getSide(cube, colorBlue).stickers[7].color;
-
-                List<Side> newSides = new List<Side>();
-                newSides.Add(newWhiteSide);
-                newSides.Add(newYellowSide);
-                newSides.Add(newOrangeSide);
-                newSides.Add(newRedSide);
-                newSides.Add(newGreenSide);
-                newSides.Add(newBlueSide);
-                return new Cube(newSides);
+                newFrontSide.stickers[6].color = currentBackSide.stickers[6].color;
+                newFrontSide.stickers[8].color = currentBackSide.stickers[8].color;
+                newFrontSide.stickers[7].color = currentBackSide.stickers[7].color;
             }
-            //TURN ORANGE SIDE
             if (turn.Equals("L")) {
-                Side newWhiteSide = initializeSide(cube.sides[0]);
-                Side newYellowSide = initializeSide(cube.sides[1]);
-                Side newOrangeSide = initializeSide(cube.sides[2]);
-                //red side stays the same
-                Side newRedSide = initializeSide(cube.sides[3]);
-                Side newGreenSide = initializeSide(cube.sides[4]);
-                Side newBlueSide = initializeSide(cube.sides[5]);
+                newLeftSide.stickers[2].color = currentLeftSide.stickers[0].color;
+                newLeftSide.stickers[8].color = currentLeftSide.stickers[2].color;
+                newLeftSide.stickers[6].color = currentLeftSide.stickers[8].color;
+                newLeftSide.stickers[0].color = currentLeftSide.stickers[6].color;
 
-                //turn corner stickers of orange side
-                newOrangeSide.stickers[2].color = getSide(cube, colorOrange).stickers[0].color;
-                newOrangeSide.stickers[8].color = getSide(cube, colorOrange).stickers[2].color;
-                newOrangeSide.stickers[6].color = getSide(cube, colorOrange).stickers[8].color;
-                newOrangeSide.stickers[0].color = getSide(cube, colorOrange).stickers[6].color;
+                newLeftSide.stickers[5].color = currentLeftSide.stickers[1].color;
+                newLeftSide.stickers[7].color = currentLeftSide.stickers[5].color;
+                newLeftSide.stickers[3].color = currentLeftSide.stickers[7].color;
+                newLeftSide.stickers[1].color = currentLeftSide.stickers[3].color;
 
-                //turn edge stickers of orange side
-                newOrangeSide.stickers[5].color = getSide(cube, colorOrange).stickers[1].color;
-                newOrangeSide.stickers[7].color = getSide(cube, colorOrange).stickers[5].color;
-                newOrangeSide.stickers[3].color = getSide(cube, colorOrange).stickers[7].color;
-                newOrangeSide.stickers[1].color = getSide(cube, colorOrange).stickers[3].color;
+                newFrontSide.stickers[6].color = currentUpSide.stickers[6].color;
+                newFrontSide.stickers[0].color = currentUpSide.stickers[0].color;
+                newFrontSide.stickers[3].color = currentUpSide.stickers[3].color;
 
-                //turn corner stickers of green side
-                newGreenSide.stickers[6].color = getSide(cube, colorWhite).stickers[6].color;
-                newGreenSide.stickers[0].color = getSide(cube, colorWhite).stickers[0].color;
-                //turn edge stickers of green side
-                newGreenSide.stickers[3].color = getSide(cube, colorWhite).stickers[3].color;
+                newDownSide.stickers[6].color = currentFrontSide.stickers[6].color;
+                newDownSide.stickers[0].color = currentFrontSide.stickers[0].color;
+                newDownSide.stickers[3].color = currentFrontSide.stickers[3].color;
 
-                //turn corner stickers of yellow side
-                newYellowSide.stickers[6].color = getSide(cube, colorGreen).stickers[6].color;
-                newYellowSide.stickers[0].color = getSide(cube, colorGreen).stickers[0].color;
-                //turn edge stickers of yellow side
-                newYellowSide.stickers[3].color = getSide(cube, colorGreen).stickers[3].color;
+                newBackSide.stickers[2].color = currentDownSide.stickers[6].color;
+                newBackSide.stickers[8].color = currentDownSide.stickers[0].color;
+                newBackSide.stickers[5].color = currentDownSide.stickers[3].color;
 
-                //turn corner stickers of blue side
-                newBlueSide.stickers[2].color = getSide(cube, colorYellow).stickers[6].color;
-                newBlueSide.stickers[8].color = getSide(cube, colorYellow).stickers[0].color;
-                //turn edge stickers of blue side
-                newBlueSide.stickers[5].color = getSide(cube, colorYellow).stickers[3].color;
-
-                //turn corner stickers of white side
-                newWhiteSide.stickers[6].color = getSide(cube, colorBlue).stickers[2].color;
-                newWhiteSide.stickers[0].color = getSide(cube, colorBlue).stickers[8].color;
-                //turn edge stickers of white side
-                newWhiteSide.stickers[3].color = getSide(cube, colorBlue).stickers[5].color;
-
-                List<Side> newSides = new List<Side>();
-                newSides.Add(newWhiteSide);
-                newSides.Add(newYellowSide);
-                newSides.Add(newOrangeSide);
-                newSides.Add(newRedSide);
-                newSides.Add(newGreenSide);
-                newSides.Add(newBlueSide);
-                return new Cube(newSides);
+                newUpSide.stickers[6].color = currentBackSide.stickers[2].color;
+                newUpSide.stickers[0].color = currentBackSide.stickers[8].color;
+                newUpSide.stickers[3].color = currentBackSide.stickers[5].color;
             }
             if (turn.Equals("L'")) {
-                Side newWhiteSide = initializeSide(cube.sides[0]);
-                Side newYellowSide = initializeSide(cube.sides[1]);
-                Side newOrangeSide = initializeSide(cube.sides[2]);
-                //red side stays the same
-                Side newRedSide = initializeSide(cube.sides[3]);
-                Side newGreenSide = initializeSide(cube.sides[4]);
-                Side newBlueSide = initializeSide(cube.sides[5]);
+                newLeftSide.stickers[0].color = currentLeftSide.stickers[2].color;
+                newLeftSide.stickers[6].color = currentLeftSide.stickers[0].color;
+                newLeftSide.stickers[8].color = currentLeftSide.stickers[6].color;
+                newLeftSide.stickers[2].color = currentLeftSide.stickers[8].color;
 
-                //turn corner stickers of orange side
-                newOrangeSide.stickers[0].color = getSide(cube, colorOrange).stickers[2].color;
-                newOrangeSide.stickers[6].color = getSide(cube, colorOrange).stickers[0].color;
-                newOrangeSide.stickers[8].color = getSide(cube, colorOrange).stickers[6].color;
-                newOrangeSide.stickers[2].color = getSide(cube, colorOrange).stickers[8].color;
+                newLeftSide.stickers[3].color = currentLeftSide.stickers[1].color;
+                newLeftSide.stickers[7].color = currentLeftSide.stickers[3].color;
+                newLeftSide.stickers[5].color = currentLeftSide.stickers[7].color;
+                newLeftSide.stickers[1].color = currentLeftSide.stickers[5].color;
 
-                //turn edge stickers of orange side
-                newOrangeSide.stickers[3].color = getSide(cube, colorOrange).stickers[1].color;
-                newOrangeSide.stickers[7].color = getSide(cube, colorOrange).stickers[3].color;
-                newOrangeSide.stickers[5].color = getSide(cube, colorOrange).stickers[7].color;
-                newOrangeSide.stickers[1].color = getSide(cube, colorOrange).stickers[5].color;
+                newBackSide.stickers[2].color = currentUpSide.stickers[6].color;
+                newBackSide.stickers[8].color = currentUpSide.stickers[0].color;
+                newBackSide.stickers[5].color = currentUpSide.stickers[3].color;
 
-                //turn corner stickers of blue side
-                newBlueSide.stickers[2].color = getSide(cube, colorWhite).stickers[6].color;
-                newBlueSide.stickers[8].color = getSide(cube, colorWhite).stickers[0].color;
-                //turn edge stickers of blue side
-                newBlueSide.stickers[5].color = getSide(cube, colorWhite).stickers[3].color;
+                newDownSide.stickers[6].color = currentBackSide.stickers[2].color;
+                newDownSide.stickers[0].color = currentBackSide.stickers[8].color;
+                newDownSide.stickers[3].color = currentBackSide.stickers[5].color;
 
-                //turn corner stickers of yellow side
-                newYellowSide.stickers[6].color = getSide(cube, colorBlue).stickers[2].color;
-                newYellowSide.stickers[0].color = getSide(cube, colorBlue).stickers[8].color;
-                //turn edge stickers of yellow side
-                newYellowSide.stickers[3].color = getSide(cube, colorBlue).stickers[5].color;
+                newFrontSide.stickers[6].color = currentDownSide.stickers[6].color;
+                newFrontSide.stickers[0].color = currentDownSide.stickers[0].color;
+                newFrontSide.stickers[3].color = currentDownSide.stickers[3].color;
 
-                //turn corner stickers of green side
-                newGreenSide.stickers[6].color = getSide(cube, colorYellow).stickers[6].color;
-                newGreenSide.stickers[0].color = getSide(cube, colorYellow).stickers[0].color;
-                //turn edge stickers of green side
-                newGreenSide.stickers[3].color = getSide(cube, colorYellow).stickers[3].color;
-
-                //turn corner stickers of white side
-                newWhiteSide.stickers[6].color = getSide(cube, colorGreen).stickers[6].color;
-                newWhiteSide.stickers[0].color = getSide(cube, colorGreen).stickers[0].color;
-                //turn edge stickers of white side
-                newWhiteSide.stickers[3].color = getSide(cube, colorGreen).stickers[3].color;
-
-                List<Side> newSides = new List<Side>();
-                newSides.Add(newWhiteSide);
-                newSides.Add(newYellowSide);
-                newSides.Add(newOrangeSide);
-                newSides.Add(newRedSide);
-                newSides.Add(newGreenSide);
-                newSides.Add(newBlueSide);
-                return new Cube(newSides);
+                newUpSide.stickers[6].color = currentFrontSide.stickers[6].color;
+                newUpSide.stickers[0].color = currentFrontSide.stickers[0].color;
+                newUpSide.stickers[3].color = currentFrontSide.stickers[3].color;
             }
             if (turn.Equals("L2")) {
-                Side newWhiteSide = initializeSide(cube.sides[0]);
-                Side newYellowSide = initializeSide(cube.sides[1]);
-                Side newOrangeSide = initializeSide(cube.sides[2]);
-                //red side stays the same
-                Side newRedSide = initializeSide(cube.sides[3]);
-                Side newGreenSide = initializeSide(cube.sides[4]);
-                Side newBlueSide = initializeSide(cube.sides[5]);
+                newLeftSide.stickers[8].color = currentLeftSide.stickers[0].color;
+                newLeftSide.stickers[0].color = currentLeftSide.stickers[8].color;
+                newLeftSide.stickers[6].color = currentLeftSide.stickers[2].color;
+                newLeftSide.stickers[2].color = currentLeftSide.stickers[6].color;
 
-                //turn corner stickers of orange side
-                newOrangeSide.stickers[8].color = getSide(cube, colorOrange).stickers[0].color;
-                newOrangeSide.stickers[0].color = getSide(cube, colorOrange).stickers[8].color;
-                newOrangeSide.stickers[6].color = getSide(cube, colorOrange).stickers[2].color;
-                newOrangeSide.stickers[2].color = getSide(cube, colorOrange).stickers[6].color;
+                newLeftSide.stickers[5].color = currentLeftSide.stickers[3].color;
+                newLeftSide.stickers[3].color = currentLeftSide.stickers[5].color;
+                newLeftSide.stickers[7].color = currentLeftSide.stickers[1].color;
+                newLeftSide.stickers[1].color = currentLeftSide.stickers[7].color;
 
-                //turn edge stickers of orange side
-                newOrangeSide.stickers[5].color = getSide(cube, colorOrange).stickers[3].color;
-                newOrangeSide.stickers[3].color = getSide(cube, colorOrange).stickers[5].color;
-                newOrangeSide.stickers[7].color = getSide(cube, colorOrange).stickers[1].color;
-                newOrangeSide.stickers[1].color = getSide(cube, colorOrange).stickers[7].color;
+                newDownSide.stickers[6].color = currentUpSide.stickers[6].color;
+                newDownSide.stickers[0].color = currentUpSide.stickers[0].color;
+                newDownSide.stickers[3].color = currentUpSide.stickers[3].color;
 
-                //turn corner stickers of yellow side
-                newYellowSide.stickers[6].color = getSide(cube, colorWhite).stickers[6].color;
-                newYellowSide.stickers[0].color = getSide(cube, colorWhite).stickers[0].color;
-                //turn edge stickers of yellow side
-                newYellowSide.stickers[3].color = getSide(cube, colorWhite).stickers[3].color;
+                newUpSide.stickers[6].color = currentDownSide.stickers[6].color;
+                newUpSide.stickers[0].color = currentDownSide.stickers[0].color;
+                newUpSide.stickers[3].color = currentDownSide.stickers[3].color;
 
-                //turn corner stickers of white side
-                newWhiteSide.stickers[6].color = getSide(cube, colorYellow).stickers[6].color;
-                newWhiteSide.stickers[0].color = getSide(cube, colorYellow).stickers[0].color;
-                //turn edge stickers of white side
-                newWhiteSide.stickers[3].color = getSide(cube, colorYellow).stickers[3].color;
+                newBackSide.stickers[2].color = currentFrontSide.stickers[6].color;
+                newBackSide.stickers[8].color = currentFrontSide.stickers[0].color;
+                newBackSide.stickers[5].color = currentFrontSide.stickers[3].color;
 
-                //turn corner stickers of blue side
-                newBlueSide.stickers[2].color = getSide(cube, colorGreen).stickers[6].color;
-                newBlueSide.stickers[8].color = getSide(cube, colorGreen).stickers[0].color;
-                //turn edge stickers of blue side
-                newBlueSide.stickers[5].color = getSide(cube, colorGreen).stickers[3].color;
-
-                //turn corner stickers of green side
-                newGreenSide.stickers[6].color = getSide(cube, colorBlue).stickers[2].color;
-                newGreenSide.stickers[0].color = getSide(cube, colorBlue).stickers[8].color;
-                //turn edge stickers of green side
-                newGreenSide.stickers[3].color = getSide(cube, colorBlue).stickers[5].color;
-
-                List<Side> newSides = new List<Side>();
-                newSides.Add(newWhiteSide);
-                newSides.Add(newYellowSide);
-                newSides.Add(newOrangeSide);
-                newSides.Add(newRedSide);
-                newSides.Add(newGreenSide);
-                newSides.Add(newBlueSide);
-                return new Cube(newSides);
+                newFrontSide.stickers[6].color = currentBackSide.stickers[2].color;
+                newFrontSide.stickers[0].color = currentBackSide.stickers[8].color;
+                newFrontSide.stickers[3].color = currentBackSide.stickers[5].color;
             }
-
-            //TURN RED SIDE
             if (turn.Equals("R")) {
-                Side newWhiteSide = initializeSide(cube.sides[0]);
-                Side newYellowSide = initializeSide(cube.sides[1]);
-                //orange side stays the same
-                Side newOrangeSide = initializeSide(cube.sides[2]);
-                Side newRedSide = initializeSide(cube.sides[3]);
-                Side newGreenSide = initializeSide(cube.sides[4]);
-                Side newBlueSide = initializeSide(cube.sides[5]);
+                newRightSide.stickers[2].color = currentRightSide.stickers[0].color;
+                newRightSide.stickers[8].color = currentRightSide.stickers[2].color;
+                newRightSide.stickers[6].color = currentRightSide.stickers[8].color;
+                newRightSide.stickers[0].color = currentRightSide.stickers[6].color;
 
-                //turn corner stickers of red side
-                newRedSide.stickers[2].color = getSide(cube, colorRed).stickers[0].color;
-                newRedSide.stickers[8].color = getSide(cube, colorRed).stickers[2].color;
-                newRedSide.stickers[6].color = getSide(cube, colorRed).stickers[8].color;
-                newRedSide.stickers[0].color = getSide(cube, colorRed).stickers[6].color;
+                newRightSide.stickers[5].color = currentRightSide.stickers[1].color;
+                newRightSide.stickers[7].color = currentRightSide.stickers[5].color;
+                newRightSide.stickers[3].color = currentRightSide.stickers[7].color;
+                newRightSide.stickers[1].color = currentRightSide.stickers[3].color;
 
-                //turn edge stickers of red side
-                newRedSide.stickers[5].color = getSide(cube, colorRed).stickers[1].color;
-                newRedSide.stickers[7].color = getSide(cube, colorRed).stickers[5].color;
-                newRedSide.stickers[3].color = getSide(cube, colorRed).stickers[7].color;
-                newRedSide.stickers[1].color = getSide(cube, colorRed).stickers[3].color;
+                newBackSide.stickers[6].color = currentUpSide.stickers[2].color;
+                newBackSide.stickers[0].color = currentUpSide.stickers[8].color;
+                newBackSide.stickers[3].color = currentUpSide.stickers[5].color;
 
-                //turn corner stickers of blue side
-                newBlueSide.stickers[6].color = getSide(cube, colorWhite).stickers[2].color;
-                newBlueSide.stickers[0].color = getSide(cube, colorWhite).stickers[8].color;
-                //turn edge stickers of blue side
-                newBlueSide.stickers[3].color = getSide(cube, colorWhite).stickers[5].color;
+                newDownSide.stickers[2].color = currentBackSide.stickers[6].color;
+                newDownSide.stickers[8].color = currentBackSide.stickers[0].color;
+                newDownSide.stickers[5].color = currentBackSide.stickers[3].color;
 
-                //turn corner stickers of yellow side
-                newYellowSide.stickers[2].color = getSide(cube, colorBlue).stickers[6].color;
-                newYellowSide.stickers[8].color = getSide(cube, colorBlue).stickers[0].color;
-                //turn edge stickers of yellow side
-                newYellowSide.stickers[5].color = getSide(cube, colorBlue).stickers[3].color;
+                newFrontSide.stickers[2].color = currentDownSide.stickers[2].color;
+                newFrontSide.stickers[8].color = currentDownSide.stickers[8].color;
+                newFrontSide.stickers[5].color = currentDownSide.stickers[5].color;
 
-                //turn corner stickers of green side
-                newGreenSide.stickers[2].color = getSide(cube, colorYellow).stickers[2].color;
-                newGreenSide.stickers[8].color = getSide(cube, colorYellow).stickers[8].color;
-                //turn edge stickers of green side
-                newGreenSide.stickers[5].color = getSide(cube, colorYellow).stickers[5].color;
-
-                //turn corner stickers of white side
-                newWhiteSide.stickers[2].color = getSide(cube, colorGreen).stickers[2].color;
-                newWhiteSide.stickers[8].color = getSide(cube, colorGreen).stickers[8].color;
-                //turn edge stickers of white side
-                newWhiteSide.stickers[5].color = getSide(cube, colorGreen).stickers[5].color;
-
-                List<Side> newSides = new List<Side>();
-                newSides.Add(newWhiteSide);
-                newSides.Add(newYellowSide);
-                newSides.Add(newOrangeSide);
-                newSides.Add(newRedSide);
-                newSides.Add(newGreenSide);
-                newSides.Add(newBlueSide);
-                return new Cube(newSides);
+                newUpSide.stickers[2].color = currentFrontSide.stickers[2].color;
+                newUpSide.stickers[8].color = currentFrontSide.stickers[8].color;
+                newUpSide.stickers[5].color = currentFrontSide.stickers[5].color;
             }
             if (turn.Equals("R'")) {
-                Side newWhiteSide = initializeSide(cube.sides[0]);
-                Side newYellowSide = initializeSide(cube.sides[1]);
-                //orange side stays the same
-                Side newOrangeSide = initializeSide(cube.sides[2]);
-                Side newRedSide = initializeSide(cube.sides[3]);
-                Side newGreenSide = initializeSide(cube.sides[4]);
-                Side newBlueSide = initializeSide(cube.sides[5]);
+                newRightSide.stickers[0].color = currentRightSide.stickers[2].color;
+                newRightSide.stickers[6].color = currentRightSide.stickers[0].color;
+                newRightSide.stickers[8].color = currentRightSide.stickers[6].color;
+                newRightSide.stickers[2].color = currentRightSide.stickers[8].color;
 
-                //turn corner stickers of red side
-                newRedSide.stickers[0].color = getSide(cube, colorRed).stickers[2].color;
-                newRedSide.stickers[6].color = getSide(cube, colorRed).stickers[0].color;
-                newRedSide.stickers[8].color = getSide(cube, colorRed).stickers[6].color;
-                newRedSide.stickers[2].color = getSide(cube, colorRed).stickers[8].color;
+                newRightSide.stickers[3].color = currentRightSide.stickers[1].color;
+                newRightSide.stickers[7].color = currentRightSide.stickers[3].color;
+                newRightSide.stickers[5].color = currentRightSide.stickers[7].color;
+                newRightSide.stickers[1].color = currentRightSide.stickers[5].color;
 
-                //turn edge stickers of red side
-                newRedSide.stickers[3].color = getSide(cube, colorRed).stickers[1].color;
-                newRedSide.stickers[7].color = getSide(cube, colorRed).stickers[3].color;
-                newRedSide.stickers[5].color = getSide(cube, colorRed).stickers[7].color;
-                newRedSide.stickers[1].color = getSide(cube, colorRed).stickers[5].color;
+                newFrontSide.stickers[2].color = currentUpSide.stickers[2].color;
+                newFrontSide.stickers[8].color = currentUpSide.stickers[8].color;
+                newFrontSide.stickers[5].color = currentUpSide.stickers[5].color;
 
-                //turn corner stickers of green side
-                newGreenSide.stickers[2].color = getSide(cube, colorWhite).stickers[2].color;
-                newGreenSide.stickers[8].color = getSide(cube, colorWhite).stickers[8].color;
-                //turn edge stickers of green side
-                newGreenSide.stickers[5].color = getSide(cube, colorWhite).stickers[5].color;
+                newDownSide.stickers[2].color = currentFrontSide.stickers[2].color;
+                newDownSide.stickers[8].color = currentFrontSide.stickers[8].color;
+                newDownSide.stickers[5].color = currentFrontSide.stickers[5].color;
 
-                //turn corner stickers of yellow side
-                newYellowSide.stickers[2].color = getSide(cube, colorGreen).stickers[2].color;
-                newYellowSide.stickers[8].color = getSide(cube, colorGreen).stickers[8].color;
-                //turn edge stickers of yellow side
-                newYellowSide.stickers[5].color = getSide(cube, colorGreen).stickers[5].color;
+                newBackSide.stickers[6].color = currentDownSide.stickers[2].color;
+                newBackSide.stickers[0].color = currentDownSide.stickers[8].color;
+                newBackSide.stickers[3].color = currentDownSide.stickers[5].color;
 
-                //turn corner stickers of blue side
-                newBlueSide.stickers[6].color = getSide(cube, colorYellow).stickers[2].color;
-                newBlueSide.stickers[0].color = getSide(cube, colorYellow).stickers[8].color;
-                //turn edge stickers of blue side
-                newBlueSide.stickers[3].color = getSide(cube, colorYellow).stickers[5].color;
-
-                //turn corner stickers of white side
-                newWhiteSide.stickers[2].color = getSide(cube, colorBlue).stickers[6].color;
-                newWhiteSide.stickers[8].color = getSide(cube, colorBlue).stickers[0].color;
-                //turn edge stickers of white side
-                newWhiteSide.stickers[5].color = getSide(cube, colorBlue).stickers[3].color;
-
-                List<Side> newSides = new List<Side>();
-                newSides.Add(newWhiteSide);
-                newSides.Add(newYellowSide);
-                newSides.Add(newOrangeSide);
-                newSides.Add(newRedSide);
-                newSides.Add(newGreenSide);
-                newSides.Add(newBlueSide);
-                return new Cube(newSides);
+                newUpSide.stickers[2].color = currentBackSide.stickers[6].color;
+                newUpSide.stickers[8].color = currentBackSide.stickers[0].color;
+                newUpSide.stickers[5].color = currentBackSide.stickers[3].color;
             }
             if (turn.Equals("R2")) {
-                Side newWhiteSide = initializeSide(cube.sides[0]);
-                Side newYellowSide = initializeSide(cube.sides[1]);
-                //orange side stays the same
-                Side newOrangeSide = initializeSide(cube.sides[2]);
-                Side newRedSide = initializeSide(cube.sides[3]);
-                Side newGreenSide = initializeSide(cube.sides[4]);
-                Side newBlueSide = initializeSide(cube.sides[5]);
+                newRightSide.stickers[8].color = currentRightSide.stickers[0].color;
+                newRightSide.stickers[0].color = currentRightSide.stickers[8].color;
+                newRightSide.stickers[6].color = currentRightSide.stickers[2].color;
+                newRightSide.stickers[2].color = currentRightSide.stickers[6].color;
 
-                //turn corner stickers of red side
-                newRedSide.stickers[8].color = getSide(cube, colorRed).stickers[0].color;
-                newRedSide.stickers[0].color = getSide(cube, colorRed).stickers[8].color;
-                newRedSide.stickers[6].color = getSide(cube, colorRed).stickers[2].color;
-                newRedSide.stickers[2].color = getSide(cube, colorRed).stickers[6].color;
+                newRightSide.stickers[5].color = currentRightSide.stickers[3].color;
+                newRightSide.stickers[3].color = currentRightSide.stickers[5].color;
+                newRightSide.stickers[7].color = currentRightSide.stickers[1].color;
+                newRightSide.stickers[1].color = currentRightSide.stickers[7].color;
 
-                //turn edge stickers of red side
-                newRedSide.stickers[5].color = getSide(cube, colorRed).stickers[3].color;
-                newRedSide.stickers[3].color = getSide(cube, colorRed).stickers[5].color;
-                newRedSide.stickers[7].color = getSide(cube, colorRed).stickers[1].color;
-                newRedSide.stickers[1].color = getSide(cube, colorRed).stickers[7].color;
+                newDownSide.stickers[2].color = currentUpSide.stickers[2].color;
+                newDownSide.stickers[8].color = currentUpSide.stickers[8].color;
+                newDownSide.stickers[5].color = currentUpSide.stickers[5].color;
 
-                //turn corner stickers of yellow side
-                newYellowSide.stickers[2].color = getSide(cube, colorWhite).stickers[2].color;
-                newYellowSide.stickers[8].color = getSide(cube, colorWhite).stickers[8].color;
-                //turn edge stickers of yellow side
-                newYellowSide.stickers[5].color = getSide(cube, colorWhite).stickers[5].color;
+                newUpSide.stickers[2].color = currentDownSide.stickers[2].color;
+                newUpSide.stickers[8].color = currentDownSide.stickers[8].color;
+                newUpSide.stickers[5].color = currentDownSide.stickers[5].color;
 
-                //turn corner stickers of white side
-                newWhiteSide.stickers[2].color = getSide(cube, colorYellow).stickers[2].color;
-                newWhiteSide.stickers[8].color = getSide(cube, colorYellow).stickers[8].color;
-                //turn edge stickers of white side
-                newWhiteSide.stickers[5].color = getSide(cube, colorYellow).stickers[5].color;
+                newBackSide.stickers[6].color = currentFrontSide.stickers[2].color;
+                newBackSide.stickers[0].color = currentFrontSide.stickers[8].color;
+                newBackSide.stickers[3].color = currentFrontSide.stickers[5].color;
 
-                //turn corner stickers of blue side
-                newBlueSide.stickers[6].color = getSide(cube, colorGreen).stickers[2].color;
-                newBlueSide.stickers[0].color = getSide(cube, colorGreen).stickers[8].color;
-                //turn edge stickers of blue side
-                newBlueSide.stickers[3].color = getSide(cube, colorGreen).stickers[5].color;
-
-                //turn corner stickers of green side
-                newGreenSide.stickers[2].color = getSide(cube, colorBlue).stickers[6].color;
-                newGreenSide.stickers[8].color = getSide(cube, colorBlue).stickers[0].color;
-                //turn edge stickers of green side
-                newGreenSide.stickers[5].color = getSide(cube, colorBlue).stickers[3].color;
-
-                List<Side> newSides = new List<Side>();
-                newSides.Add(newWhiteSide);
-                newSides.Add(newYellowSide);
-                newSides.Add(newOrangeSide);
-                newSides.Add(newRedSide);
-                newSides.Add(newGreenSide);
-                newSides.Add(newBlueSide);
-                return new Cube(newSides);
+                newFrontSide.stickers[2].color = currentBackSide.stickers[6].color;
+                newFrontSide.stickers[8].color = currentBackSide.stickers[0].color;
+                newFrontSide.stickers[5].color = currentBackSide.stickers[3].color;
             }
-
-            //TURN GREEN SIDE
             if (turn.Equals("F")) {
-                Side newWhiteSide = initializeSide(cube.sides[0]);
-                Side newYellowSide = initializeSide(cube.sides[1]);
-                Side newOrangeSide = initializeSide(cube.sides[2]);
-                Side newRedSide = initializeSide(cube.sides[3]);
-                Side newGreenSide = initializeSide(cube.sides[4]);
-                //blue side stays the same
-                Side newBlueSide = initializeSide(cube.sides[5]);
+                newFrontSide.stickers[2].color = currentFrontSide.stickers[0].color;
+                newFrontSide.stickers[8].color = currentFrontSide.stickers[2].color;
+                newFrontSide.stickers[6].color = currentFrontSide.stickers[8].color;
+                newFrontSide.stickers[0].color = currentFrontSide.stickers[6].color;
 
-                //turn corner stickers of green side
-                newGreenSide.stickers[2].color = getSide(cube, colorGreen).stickers[0].color;
-                newGreenSide.stickers[8].color = getSide(cube, colorGreen).stickers[2].color;
-                newGreenSide.stickers[6].color = getSide(cube, colorGreen).stickers[8].color;
-                newGreenSide.stickers[0].color = getSide(cube, colorGreen).stickers[6].color;
+                newFrontSide.stickers[5].color = currentFrontSide.stickers[1].color;
+                newFrontSide.stickers[7].color = currentFrontSide.stickers[5].color;
+                newFrontSide.stickers[3].color = currentFrontSide.stickers[7].color;
+                newFrontSide.stickers[1].color = currentFrontSide.stickers[3].color;
 
-                //turn edge stickers of green side
-                newGreenSide.stickers[5].color = getSide(cube, colorGreen).stickers[1].color;
-                newGreenSide.stickers[7].color = getSide(cube, colorGreen).stickers[5].color;
-                newGreenSide.stickers[3].color = getSide(cube, colorGreen).stickers[7].color;
-                newGreenSide.stickers[1].color = getSide(cube, colorGreen).stickers[3].color;
+                newRightSide.stickers[6].color = currentUpSide.stickers[8].color;
+                newRightSide.stickers[0].color = currentUpSide.stickers[6].color;
+                newRightSide.stickers[3].color = currentUpSide.stickers[7].color;
 
-                //turn corner stickers of red side
-                newRedSide.stickers[6].color = getSide(cube, colorWhite).stickers[8].color;
-                newRedSide.stickers[0].color = getSide(cube, colorWhite).stickers[6].color;
-                //turn edge stickers of red side
-                newRedSide.stickers[3].color = getSide(cube, colorWhite).stickers[7].color;
+                newDownSide.stickers[0].color = currentRightSide.stickers[6].color;
+                newDownSide.stickers[2].color = currentRightSide.stickers[0].color;
+                newDownSide.stickers[1].color = currentRightSide.stickers[3].color;
 
-                //turn corner stickers of yellow side
-                newYellowSide.stickers[0].color = getSide(cube, colorRed).stickers[6].color;
-                newYellowSide.stickers[2].color = getSide(cube, colorRed).stickers[0].color;
-                //turn edge stickers of yellow side
-                newYellowSide.stickers[1].color = getSide(cube, colorRed).stickers[3].color;
+                newLeftSide.stickers[2].color = currentDownSide.stickers[0].color;
+                newLeftSide.stickers[8].color = currentDownSide.stickers[2].color;
+                newLeftSide.stickers[5].color = currentDownSide.stickers[1].color;
 
-                //turn corner stickers of orange side
-                newOrangeSide.stickers[2].color = getSide(cube, colorYellow).stickers[0].color;
-                newOrangeSide.stickers[8].color = getSide(cube, colorYellow).stickers[2].color;
-                //turn edge stickers of orange side
-                newOrangeSide.stickers[5].color = getSide(cube, colorYellow).stickers[1].color;
-
-                //turn corner stickers of white side
-                newWhiteSide.stickers[8].color = getSide(cube, colorOrange).stickers[2].color;
-                newWhiteSide.stickers[6].color = getSide(cube, colorOrange).stickers[8].color;
-                //turn edge stickers of white side
-                newWhiteSide.stickers[7].color = getSide(cube, colorOrange).stickers[5].color;
-
-                List<Side> newSides = new List<Side>();
-                newSides.Add(newWhiteSide);
-                newSides.Add(newYellowSide);
-                newSides.Add(newOrangeSide);
-                newSides.Add(newRedSide);
-                newSides.Add(newGreenSide);
-                newSides.Add(newBlueSide);
-                return new Cube(newSides);
+                newUpSide.stickers[8].color = currentLeftSide.stickers[2].color;
+                newUpSide.stickers[6].color = currentLeftSide.stickers[8].color;
+                newUpSide.stickers[7].color = currentLeftSide.stickers[5].color;
             }
             if (turn.Equals("F'")) {
-                Side newWhiteSide = initializeSide(cube.sides[0]);
-                Side newYellowSide = initializeSide(cube.sides[1]);
-                Side newOrangeSide = initializeSide(cube.sides[2]);
-                Side newRedSide = initializeSide(cube.sides[3]);
-                Side newGreenSide = initializeSide(cube.sides[4]);
-                //blue side stays the same
-                Side newBlueSide = initializeSide(cube.sides[5]);
+                newFrontSide.stickers[0].color = currentFrontSide.stickers[2].color;
+                newFrontSide.stickers[6].color = currentFrontSide.stickers[0].color;
+                newFrontSide.stickers[8].color = currentFrontSide.stickers[6].color;
+                newFrontSide.stickers[2].color = currentFrontSide.stickers[8].color;
 
-                //turn corner stickers of green side
-                newGreenSide.stickers[0].color = getSide(cube, colorGreen).stickers[2].color;
-                newGreenSide.stickers[6].color = getSide(cube, colorGreen).stickers[0].color;
-                newGreenSide.stickers[8].color = getSide(cube, colorGreen).stickers[6].color;
-                newGreenSide.stickers[2].color = getSide(cube, colorGreen).stickers[8].color;
+                newFrontSide.stickers[3].color = currentFrontSide.stickers[1].color;
+                newFrontSide.stickers[7].color = currentFrontSide.stickers[3].color;
+                newFrontSide.stickers[5].color = currentFrontSide.stickers[7].color;
+                newFrontSide.stickers[1].color = currentFrontSide.stickers[5].color;
 
-                //turn edge stickers of green side
-                newGreenSide.stickers[3].color = getSide(cube, colorGreen).stickers[1].color;
-                newGreenSide.stickers[7].color = getSide(cube, colorGreen).stickers[3].color;
-                newGreenSide.stickers[5].color = getSide(cube, colorGreen).stickers[7].color;
-                newGreenSide.stickers[1].color = getSide(cube, colorGreen).stickers[5].color;
+                newLeftSide.stickers[2].color = currentUpSide.stickers[8].color;
+                newLeftSide.stickers[8].color = currentUpSide.stickers[6].color;
+                newLeftSide.stickers[5].color = currentUpSide.stickers[7].color;
 
-                //turn corner stickers of orange side
-                newOrangeSide.stickers[2].color = getSide(cube, colorWhite).stickers[8].color;
-                newOrangeSide.stickers[8].color = getSide(cube, colorWhite).stickers[6].color;
-                //turn edge stickers of orange side
-                newOrangeSide.stickers[5].color = getSide(cube, colorWhite).stickers[7].color;
+                newDownSide.stickers[0].color = currentLeftSide.stickers[2].color;
+                newDownSide.stickers[2].color = currentLeftSide.stickers[8].color;
+                newDownSide.stickers[1].color = currentLeftSide.stickers[5].color;
 
-                //turn corner stickers of yellow side
-                newYellowSide.stickers[0].color = getSide(cube, colorOrange).stickers[2].color;
-                newYellowSide.stickers[2].color = getSide(cube, colorOrange).stickers[8].color;
-                //turn edge stickers of yellow side
-                newYellowSide.stickers[1].color = getSide(cube, colorOrange).stickers[5].color;
+                newRightSide.stickers[6].color = currentDownSide.stickers[0].color;
+                newRightSide.stickers[0].color = currentDownSide.stickers[2].color;
+                newRightSide.stickers[3].color = currentDownSide.stickers[1].color;
 
-                //turn corner stickers of red side
-                newRedSide.stickers[6].color = getSide(cube, colorYellow).stickers[0].color;
-                newRedSide.stickers[0].color = getSide(cube, colorYellow).stickers[2].color;
-                //turn edge stickers of red side
-                newRedSide.stickers[3].color = getSide(cube, colorYellow).stickers[1].color;
-
-                //turn corner stickers of white side
-                newWhiteSide.stickers[6].color = getSide(cube, colorRed).stickers[0].color;
-                newWhiteSide.stickers[8].color = getSide(cube, colorRed).stickers[6].color;
-                //turn edge stickers of white side
-                newWhiteSide.stickers[7].color = getSide(cube, colorRed).stickers[3].color;
-
-                List<Side> newSides = new List<Side>();
-                newSides.Add(newWhiteSide);
-                newSides.Add(newYellowSide);
-                newSides.Add(newOrangeSide);
-                newSides.Add(newRedSide);
-                newSides.Add(newGreenSide);
-                newSides.Add(newBlueSide);
-                return new Cube(newSides);
+                newUpSide.stickers[6].color = currentRightSide.stickers[0].color;
+                newUpSide.stickers[8].color = currentRightSide.stickers[6].color;
+                newUpSide.stickers[7].color = currentRightSide.stickers[3].color;
             }
             if (turn.Equals("F2")) {
-                Side newWhiteSide = initializeSide(cube.sides[0]);
-                Side newYellowSide = initializeSide(cube.sides[1]);
-                Side newOrangeSide = initializeSide(cube.sides[2]);
-                Side newRedSide = initializeSide(cube.sides[3]);
-                Side newGreenSide = initializeSide(cube.sides[4]);
-                //blue side stays the same
-                Side newBlueSide = initializeSide(cube.sides[5]);
+                newFrontSide.stickers[8].color = currentFrontSide.stickers[0].color;
+                newFrontSide.stickers[0].color = currentFrontSide.stickers[8].color;
+                newFrontSide.stickers[6].color = currentFrontSide.stickers[2].color;
+                newFrontSide.stickers[2].color = currentFrontSide.stickers[6].color;
 
-                //turn corner stickers of green side
-                newGreenSide.stickers[8].color = getSide(cube, colorGreen).stickers[0].color;
-                newGreenSide.stickers[0].color = getSide(cube, colorGreen).stickers[8].color;
-                newGreenSide.stickers[6].color = getSide(cube, colorGreen).stickers[2].color;
-                newGreenSide.stickers[2].color = getSide(cube, colorGreen).stickers[6].color;
+                newFrontSide.stickers[5].color = currentFrontSide.stickers[3].color;
+                newFrontSide.stickers[3].color = currentFrontSide.stickers[5].color;
+                newFrontSide.stickers[7].color = currentFrontSide.stickers[1].color;
+                newFrontSide.stickers[1].color = currentFrontSide.stickers[7].color;
 
-                //turn edge stickers of green side
-                newGreenSide.stickers[5].color = getSide(cube, colorGreen).stickers[3].color;
-                newGreenSide.stickers[3].color = getSide(cube, colorGreen).stickers[5].color;
-                newGreenSide.stickers[7].color = getSide(cube, colorGreen).stickers[1].color;
-                newGreenSide.stickers[1].color = getSide(cube, colorGreen).stickers[7].color;
+                newDownSide.stickers[0].color = currentUpSide.stickers[8].color;
+                newDownSide.stickers[2].color = currentUpSide.stickers[6].color;
+                newDownSide.stickers[1].color = currentUpSide.stickers[7].color;
 
-                //turn corner stickers of yellow side
-                newYellowSide.stickers[0].color = getSide(cube, colorWhite).stickers[8].color;
-                newYellowSide.stickers[2].color = getSide(cube, colorWhite).stickers[6].color;
-                //turn edge stickers of yellow side
-                newYellowSide.stickers[1].color = getSide(cube, colorWhite).stickers[7].color;
+                newUpSide.stickers[8].color = currentDownSide.stickers[0].color;
+                newUpSide.stickers[6].color = currentDownSide.stickers[2].color;
+                newUpSide.stickers[7].color = currentDownSide.stickers[1].color;
 
-                //turn corner stickers of white side
-                newWhiteSide.stickers[8].color = getSide(cube, colorYellow).stickers[0].color;
-                newWhiteSide.stickers[6].color = getSide(cube, colorYellow).stickers[2].color;
-                //turn edge stickers of white side
-                newWhiteSide.stickers[7].color = getSide(cube, colorYellow).stickers[1].color;
+                newRightSide.stickers[0].color = currentLeftSide.stickers[8].color;
+                newRightSide.stickers[6].color = currentLeftSide.stickers[2].color;
+                newRightSide.stickers[3].color = currentLeftSide.stickers[5].color;
 
-                //turn corner stickers of red side
-                newRedSide.stickers[0].color = getSide(cube, colorOrange).stickers[8].color;
-                newRedSide.stickers[6].color = getSide(cube, colorOrange).stickers[2].color;
-                //turn edge stickers of red side
-                newRedSide.stickers[3].color = getSide(cube, colorOrange).stickers[5].color;
-
-                //turn corner stickers of orange side
-                newOrangeSide.stickers[8].color = getSide(cube, colorRed).stickers[0].color;
-                newOrangeSide.stickers[2].color = getSide(cube, colorRed).stickers[6].color;
-                //turn edge stickers of orange side
-                newOrangeSide.stickers[5].color = getSide(cube, colorRed).stickers[3].color;
-
-                List<Side> newSides = new List<Side>();
-                newSides.Add(newWhiteSide);
-                newSides.Add(newYellowSide);
-                newSides.Add(newOrangeSide);
-                newSides.Add(newRedSide);
-                newSides.Add(newGreenSide);
-                newSides.Add(newBlueSide);
-                return new Cube(newSides);
+                newLeftSide.stickers[8].color = currentRightSide.stickers[0].color;
+                newLeftSide.stickers[2].color = currentRightSide.stickers[6].color;
+                newLeftSide.stickers[5].color = currentRightSide.stickers[3].color;
             }
-
-            //TURN BLUE SIDE
             if (turn.Equals("B")) {
-                Side newWhiteSide = initializeSide(cube.sides[0]);
-                Side newYellowSide = initializeSide(cube.sides[1]);
-                Side newOrangeSide = initializeSide(cube.sides[2]);
-                Side newRedSide = initializeSide(cube.sides[3]);
-                //green side stays the same
-                Side newGreenSide = initializeSide(cube.sides[4]);
-                Side newBlueSide = initializeSide(cube.sides[5]);
+                newBackSide.stickers[2].color = currentBackSide.stickers[0].color;
+                newBackSide.stickers[8].color = currentBackSide.stickers[2].color;
+                newBackSide.stickers[6].color = currentBackSide.stickers[8].color;
+                newBackSide.stickers[0].color = currentBackSide.stickers[6].color;
 
-                //turn corner stickers of blue side
-                newBlueSide.stickers[2].color = getSide(cube, colorBlue).stickers[0].color;
-                newBlueSide.stickers[8].color = getSide(cube, colorBlue).stickers[2].color;
-                newBlueSide.stickers[6].color = getSide(cube, colorBlue).stickers[8].color;
-                newBlueSide.stickers[0].color = getSide(cube, colorBlue).stickers[6].color;
+                newBackSide.stickers[5].color = currentBackSide.stickers[1].color;
+                newBackSide.stickers[7].color = currentBackSide.stickers[5].color;
+                newBackSide.stickers[3].color = currentBackSide.stickers[7].color;
+                newBackSide.stickers[1].color = currentBackSide.stickers[3].color;
 
-                //turn edge stickers of blue side
-                newBlueSide.stickers[5].color = getSide(cube, colorBlue).stickers[1].color;
-                newBlueSide.stickers[7].color = getSide(cube, colorBlue).stickers[5].color;
-                newBlueSide.stickers[3].color = getSide(cube, colorBlue).stickers[7].color;
-                newBlueSide.stickers[1].color = getSide(cube, colorBlue).stickers[3].color;
+                newLeftSide.stickers[6].color = currentUpSide.stickers[0].color;
+                newLeftSide.stickers[0].color = currentUpSide.stickers[2].color;
+                newLeftSide.stickers[3].color = currentUpSide.stickers[1].color;
 
-                //turn corner stickers of orange side
-                newOrangeSide.stickers[6].color = getSide(cube, colorWhite).stickers[0].color;
-                newOrangeSide.stickers[0].color = getSide(cube, colorWhite).stickers[2].color;
-                //turn edge stickers of orange side
-                newOrangeSide.stickers[3].color = getSide(cube, colorWhite).stickers[1].color;
+                newDownSide.stickers[8].color = currentLeftSide.stickers[6].color;
+                newDownSide.stickers[6].color = currentLeftSide.stickers[0].color;
+                newDownSide.stickers[7].color = currentLeftSide.stickers[3].color;
 
-                //turn corner stickers of yellow side
-                newYellowSide.stickers[8].color = getSide(cube, colorOrange).stickers[6].color;
-                newYellowSide.stickers[6].color = getSide(cube, colorOrange).stickers[0].color;
-                //turn edge stickers of yellow side
-                newYellowSide.stickers[7].color = getSide(cube, colorOrange).stickers[3].color;
+                newRightSide.stickers[2].color = currentDownSide.stickers[8].color;
+                newRightSide.stickers[8].color = currentDownSide.stickers[6].color;
+                newRightSide.stickers[5].color = currentDownSide.stickers[7].color;
 
-                //turn corner stickers of red side
-                newRedSide.stickers[2].color = getSide(cube, colorYellow).stickers[8].color;
-                newRedSide.stickers[8].color = getSide(cube, colorYellow).stickers[6].color;
-                //turn edge stickers of red side
-                newRedSide.stickers[5].color = getSide(cube, colorYellow).stickers[7].color;
-
-                //turn corner stickers of white side
-                newWhiteSide.stickers[0].color = getSide(cube, colorRed).stickers[2].color;
-                newWhiteSide.stickers[2].color = getSide(cube, colorRed).stickers[8].color;
-                //turn edge stickers of white side
-                newWhiteSide.stickers[1].color = getSide(cube, colorRed).stickers[5].color;
-
-                List<Side> newSides = new List<Side>();
-                newSides.Add(newWhiteSide);
-                newSides.Add(newYellowSide);
-                newSides.Add(newOrangeSide);
-                newSides.Add(newRedSide);
-                newSides.Add(newGreenSide);
-                newSides.Add(newBlueSide);
-                return new Cube(newSides);
+                newUpSide.stickers[0].color = currentRightSide.stickers[2].color;
+                newUpSide.stickers[2].color = currentRightSide.stickers[8].color;
+                newUpSide.stickers[1].color = currentRightSide.stickers[5].color;
             }
             if (turn.Equals("B'")) {
-                Side newWhiteSide = initializeSide(cube.sides[0]);
-                Side newYellowSide = initializeSide(cube.sides[1]);
-                Side newOrangeSide = initializeSide(cube.sides[2]);
-                Side newRedSide = initializeSide(cube.sides[3]);
-                //green side stays the same
-                Side newGreenSide = initializeSide(cube.sides[4]);
-                Side newBlueSide = initializeSide(cube.sides[5]);
+                newBackSide.stickers[0].color = currentBackSide.stickers[2].color;
+                newBackSide.stickers[6].color = currentBackSide.stickers[0].color;
+                newBackSide.stickers[8].color = currentBackSide.stickers[6].color;
+                newBackSide.stickers[2].color = currentBackSide.stickers[8].color;
 
-                //turn corner stickers of blue side
-                newBlueSide.stickers[0].color = getSide(cube, colorBlue).stickers[2].color;
-                newBlueSide.stickers[6].color = getSide(cube, colorBlue).stickers[0].color;
-                newBlueSide.stickers[8].color = getSide(cube, colorBlue).stickers[6].color;
-                newBlueSide.stickers[2].color = getSide(cube, colorBlue).stickers[8].color;
+                newBackSide.stickers[3].color = currentBackSide.stickers[1].color;
+                newBackSide.stickers[7].color = currentBackSide.stickers[3].color;
+                newBackSide.stickers[5].color = currentBackSide.stickers[7].color;
+                newBackSide.stickers[1].color = currentBackSide.stickers[5].color;
 
-                //turn edge stickers of blue side
-                newBlueSide.stickers[3].color = getSide(cube, colorBlue).stickers[1].color;
-                newBlueSide.stickers[7].color = getSide(cube, colorBlue).stickers[3].color;
-                newBlueSide.stickers[5].color = getSide(cube, colorBlue).stickers[7].color;
-                newBlueSide.stickers[1].color = getSide(cube, colorBlue).stickers[5].color;
+                newRightSide.stickers[2].color = currentUpSide.stickers[0].color;
+                newRightSide.stickers[8].color = currentUpSide.stickers[2].color;
+                newRightSide.stickers[5].color = currentUpSide.stickers[1].color;
 
-                //turn corner stickers of red side
-                newRedSide.stickers[2].color = getSide(cube, colorWhite).stickers[0].color;
-                newRedSide.stickers[8].color = getSide(cube, colorWhite).stickers[2].color;
-                //turn edge stickers of red side
-                newRedSide.stickers[5].color = getSide(cube, colorWhite).stickers[1].color;
+                newDownSide.stickers[8].color = currentRightSide.stickers[2].color;
+                newDownSide.stickers[6].color = currentRightSide.stickers[8].color;
+                newDownSide.stickers[7].color = currentRightSide.stickers[5].color;
 
-                //turn corner stickers of yellow side
-                newYellowSide.stickers[8].color = getSide(cube, colorRed).stickers[2].color;
-                newYellowSide.stickers[6].color = getSide(cube, colorRed).stickers[8].color;
-                //turn edge stickers of yellow side
-                newYellowSide.stickers[7].color = getSide(cube, colorRed).stickers[5].color;
+                newLeftSide.stickers[6].color = currentDownSide.stickers[8].color;
+                newLeftSide.stickers[0].color = currentDownSide.stickers[6].color;
+                newLeftSide.stickers[3].color = currentDownSide.stickers[7].color;
 
-                //turn corner stickers of orange side
-                newOrangeSide.stickers[6].color = getSide(cube, colorYellow).stickers[8].color;
-                newOrangeSide.stickers[0].color = getSide(cube, colorYellow).stickers[6].color;
-                //turn edge stickers of orange side
-                newOrangeSide.stickers[3].color = getSide(cube, colorYellow).stickers[7].color;
-
-                //turn corner stickers of white side
-                newWhiteSide.stickers[0].color = getSide(cube, colorOrange).stickers[6].color;
-                newWhiteSide.stickers[2].color = getSide(cube, colorOrange).stickers[0].color;
-                //turn edge stickers of white side
-                newWhiteSide.stickers[1].color = getSide(cube, colorOrange).stickers[3].color;
-
-                List<Side> newSides = new List<Side>();
-                newSides.Add(newWhiteSide);
-                newSides.Add(newYellowSide);
-                newSides.Add(newOrangeSide);
-                newSides.Add(newRedSide);
-                newSides.Add(newGreenSide);
-                newSides.Add(newBlueSide);
-                return new Cube(newSides);
+                newUpSide.stickers[0].color = currentLeftSide.stickers[6].color;
+                newUpSide.stickers[2].color = currentLeftSide.stickers[0].color;
+                newUpSide.stickers[1].color = currentLeftSide.stickers[3].color;
             }
             if (turn.Equals("B2")) {
-                Side newWhiteSide = initializeSide(cube.sides[0]);
-                Side newYellowSide = initializeSide(cube.sides[1]);
-                Side newOrangeSide = initializeSide(cube.sides[2]);
-                Side newRedSide = initializeSide(cube.sides[3]);
-                //green side stays the same
-                Side newGreenSide = initializeSide(cube.sides[4]);
-                Side newBlueSide = initializeSide(cube.sides[5]);
+                newBackSide.stickers[8].color = currentBackSide.stickers[0].color;
+                newBackSide.stickers[0].color = currentBackSide.stickers[8].color;
+                newBackSide.stickers[6].color = currentBackSide.stickers[2].color;
+                newBackSide.stickers[2].color = currentBackSide.stickers[6].color;
 
-                //turn corner stickers of blue side
-                newBlueSide.stickers[8].color = getSide(cube, colorBlue).stickers[0].color;
-                newBlueSide.stickers[0].color = getSide(cube, colorBlue).stickers[8].color;
-                newBlueSide.stickers[6].color = getSide(cube, colorBlue).stickers[2].color;
-                newBlueSide.stickers[2].color = getSide(cube, colorBlue).stickers[6].color;
+                newBackSide.stickers[5].color = currentBackSide.stickers[3].color;
+                newBackSide.stickers[3].color = currentBackSide.stickers[5].color;
+                newBackSide.stickers[7].color = currentBackSide.stickers[1].color;
+                newBackSide.stickers[1].color = currentBackSide.stickers[7].color;
 
-                //turn edge stickers of blue side
-                newBlueSide.stickers[5].color = getSide(cube, colorBlue).stickers[3].color;
-                newBlueSide.stickers[3].color = getSide(cube, colorBlue).stickers[5].color;
-                newBlueSide.stickers[7].color = getSide(cube, colorBlue).stickers[1].color;
-                newBlueSide.stickers[1].color = getSide(cube, colorBlue).stickers[7].color;
+                newDownSide.stickers[8].color = currentUpSide.stickers[0].color;
+                newDownSide.stickers[6].color = currentUpSide.stickers[2].color;
+                newDownSide.stickers[7].color = currentUpSide.stickers[1].color;
 
-                //turn corner stickers of yellow side
-                newYellowSide.stickers[8].color = getSide(cube, colorWhite).stickers[0].color;
-                newYellowSide.stickers[6].color = getSide(cube, colorWhite).stickers[2].color;
-                //turn edge stickers of yellow side
-                newYellowSide.stickers[7].color = getSide(cube, colorWhite).stickers[1].color;
+                newUpSide.stickers[0].color = currentDownSide.stickers[8].color;
+                newUpSide.stickers[2].color = currentDownSide.stickers[6].color;
+                newUpSide.stickers[1].color = currentDownSide.stickers[7].color;
 
-                //turn corner stickers of white side
-                newWhiteSide.stickers[0].color = getSide(cube, colorYellow).stickers[8].color;
-                newWhiteSide.stickers[2].color = getSide(cube, colorYellow).stickers[6].color;
-                //turn edge stickers of white side
-                newWhiteSide.stickers[1].color = getSide(cube, colorYellow).stickers[7].color;
+                newRightSide.stickers[2].color = currentLeftSide.stickers[6].color;
+                newRightSide.stickers[8].color = currentLeftSide.stickers[0].color;
+                newRightSide.stickers[5].color = currentLeftSide.stickers[3].color;
 
-                //turn corner stickers of red side
-                newRedSide.stickers[2].color = getSide(cube, colorOrange).stickers[6].color;
-                newRedSide.stickers[8].color = getSide(cube, colorOrange).stickers[0].color;
-                //turn edge stickers of red side
-                newRedSide.stickers[5].color = getSide(cube, colorOrange).stickers[3].color;
-
-                //turn corner stickers of orange side
-                newOrangeSide.stickers[6].color = getSide(cube, colorRed).stickers[2].color;
-                newOrangeSide.stickers[0].color = getSide(cube, colorRed).stickers[8].color;
-                //turn edge stickers of orange side
-                newOrangeSide.stickers[3].color = getSide(cube, colorRed).stickers[5].color;
-
-                List<Side> newSides = new List<Side>();
-                newSides.Add(newWhiteSide);
-                newSides.Add(newYellowSide);
-                newSides.Add(newOrangeSide);
-                newSides.Add(newRedSide);
-                newSides.Add(newGreenSide);
-                newSides.Add(newBlueSide);
-                return new Cube(newSides);
+                newLeftSide.stickers[6].color = currentRightSide.stickers[2].color;
+                newLeftSide.stickers[0].color = currentRightSide.stickers[8].color;
+                newLeftSide.stickers[3].color = currentRightSide.stickers[5].color;
             }
-            return new Cube();
+            List<Side> newSides = new List<Side> { newUpSide, newDownSide, newLeftSide, newRightSide, newFrontSide, newBackSide };
+            return new Cube(newSides);
         }
-
         public static string cubeToString(Cube cube) {
             string cubeString = "";
             //white side
@@ -1216,6 +732,23 @@ namespace LakaCubeTimer.util {
                 validatedScramble.Add(currentTurn);
             }
             return numOfDoubleTurns;
+        }
+        public static string colorNameToSideName(string colorName) {
+            switch(colorName) {
+                case "W":
+                    return "U";
+                case "Y":
+                    return "D";
+                case "O":
+                    return "L";
+                case "R":
+                    return "R";
+                case "B":
+                    return "F";
+                case "G":
+                    return "B";
+            }
+            return "";
         }
     }
 }

@@ -38,7 +38,7 @@ namespace LakaCubeTimer {
             fillTimesPanel(currentSession);
             displayScramble();
             updateStats(currentSession);
-            displayStats();   
+            displayStats();
         }
         public void updateStats(int session) {
             if (SqlUtil.getNumberOfSolvesForAverage(session) >= 1) {
@@ -356,6 +356,12 @@ namespace LakaCubeTimer {
                 inspectionEnabled = Properties.Settings.Default.inspectionEnabled;
             }
             Properties.Settings.Default.Save();
+        }
+
+        private void buttonExportCubeState_Click(object sender, EventArgs e) {
+            CubeState cubeState = new CubeState(Util.scrambleToString(scramble), cubeToTurn.sides);
+            string cubeStateJson = Serializer.serialize(cubeState);
+            File.WriteAllText("cubeState.json", cubeStateJson);
         }
     }
 }

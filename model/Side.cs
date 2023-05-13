@@ -1,10 +1,12 @@
-﻿namespace LakaCubeTimer.model {
+﻿using LakaCubeTimer.util;
+
+namespace LakaCubeTimer.model {
     public class Side {
         public List<Sticker> stickers { get; set; }
-        public Side(Color color) {
+        public Side(string colorName, string colorNameAsSide, Color color) {
             stickers = new List<Sticker>();
             for (int i = 0; i < 9; i++) {
-                stickers.Add(new Sticker(i, color));
+                stickers.Add(new Sticker(i, colorName, colorNameAsSide, color));
             }
         }
         public Side(List<Sticker> stickers) {
