@@ -27,6 +27,7 @@
             labelTimer = new Label();
             timerSolve = new System.Windows.Forms.Timer(components);
             panelTimer = new Panel();
+            buttonSolveCube = new Button();
             buttonExportCubeState = new Button();
             checkBoxInspectionEnabled = new CheckBox();
             panelTurns = new Panel();
@@ -108,7 +109,6 @@
             buttonSelectSession = new Button();
             buttonDeleteAllFromSession = new Button();
             timerInspection = new System.Windows.Forms.Timer(components);
-            buttonSolveCube = new Button();
             panelTimer.SuspendLayout();
             panelTurns.SuspendLayout();
             panelCube.SuspendLayout();
@@ -154,13 +154,25 @@
             panelTimer.Size = new Size(1141, 782);
             panelTimer.TabIndex = 2;
             // 
+            // buttonSolveCube
+            // 
+            buttonSolveCube.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            buttonSolveCube.Font = new Font("Century Gothic", 18F, FontStyle.Regular, GraphicsUnit.Point);
+            buttonSolveCube.Location = new Point(975, 361);
+            buttonSolveCube.Name = "buttonSolveCube";
+            buttonSolveCube.Size = new Size(163, 70);
+            buttonSolveCube.TabIndex = 12;
+            buttonSolveCube.Text = "Solve Cube";
+            buttonSolveCube.UseVisualStyleBackColor = true;
+            buttonSolveCube.Click += buttonSolveCube_Click;
+            // 
             // buttonExportCubeState
             // 
             buttonExportCubeState.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             buttonExportCubeState.Font = new Font("Century Gothic", 18F, FontStyle.Regular, GraphicsUnit.Point);
-            buttonExportCubeState.Location = new Point(971, 91);
+            buttonExportCubeState.Location = new Point(3, 361);
             buttonExportCubeState.Name = "buttonExportCubeState";
-            buttonExportCubeState.Size = new Size(155, 70);
+            buttonExportCubeState.Size = new Size(163, 70);
             buttonExportCubeState.TabIndex = 11;
             buttonExportCubeState.Text = "Export Cube State";
             buttonExportCubeState.UseVisualStyleBackColor = true;
@@ -170,7 +182,7 @@
             // 
             checkBoxInspectionEnabled.Appearance = Appearance.Button;
             checkBoxInspectionEnabled.Font = new Font("Century Gothic", 18F, FontStyle.Regular, GraphicsUnit.Point);
-            checkBoxInspectionEnabled.Location = new Point(15, 15);
+            checkBoxInspectionEnabled.Location = new Point(3, 3);
             checkBoxInspectionEnabled.Name = "checkBoxInspectionEnabled";
             checkBoxInspectionEnabled.Size = new Size(163, 70);
             checkBoxInspectionEnabled.TabIndex = 10;
@@ -275,9 +287,9 @@
             // 
             buttonNewScramble.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             buttonNewScramble.Font = new Font("Century Gothic", 18F, FontStyle.Regular, GraphicsUnit.Point);
-            buttonNewScramble.Location = new Point(971, 15);
+            buttonNewScramble.Location = new Point(975, 3);
             buttonNewScramble.Name = "buttonNewScramble";
-            buttonNewScramble.Size = new Size(155, 70);
+            buttonNewScramble.Size = new Size(163, 70);
             buttonNewScramble.TabIndex = 8;
             buttonNewScramble.Text = "New Scramble";
             buttonNewScramble.UseVisualStyleBackColor = true;
@@ -939,18 +951,6 @@
             // timerInspection
             // 
             timerInspection.Tick += timerInspection_Tick;
-            // 
-            // buttonSolveCube
-            // 
-            buttonSolveCube.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            buttonSolveCube.Font = new Font("Century Gothic", 18F, FontStyle.Regular, GraphicsUnit.Point);
-            buttonSolveCube.Location = new Point(971, 167);
-            buttonSolveCube.Name = "buttonSolveCube";
-            buttonSolveCube.Size = new Size(155, 70);
-            buttonSolveCube.TabIndex = 12;
-            buttonSolveCube.Text = "Solve Cube";
-            buttonSolveCube.UseVisualStyleBackColor = true;
-            buttonSolveCube.Click += buttonSolveCube_Click;
             // 
             // CubeTimerForm
             // 
