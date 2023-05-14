@@ -12,5 +12,14 @@
 &lt;/SerializableConnectionString&gt;</DesignTimeValue>
       <Value Profile="(Default)">Provider=Microsoft.ACE.OLEDB.12.0;Data Source=.\\times.accdb</Value>
     </Setting>
+    <Setting Name="pythonScriptFileName" Type="System.String" Scope="User">
+      <Value Profile="(Default)">solveCube.py</Value>
+    </Setting>
+    <Setting Name="cubeStateFileName" Type="System.String" Scope="User">
+      <Value Profile="(Default)">cubeState.json</Value>
+    </Setting>
+    <Setting Name="cubeSolutionFileName" Type="System.String" Scope="User">
+      <Value Profile="(Default)">cubeSolution.txt</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

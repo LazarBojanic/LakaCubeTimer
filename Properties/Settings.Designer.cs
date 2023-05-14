@@ -44,5 +44,41 @@ namespace LakaCubeTimer.Properties {
                 return ((string)(this["timesConnectionString"]));
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("solveCube.py")]
+        public string pythonScriptFileName {
+            get {
+                return ((string)(this["pythonScriptFileName"]));
+            }
+            set {
+                this["pythonScriptFileName"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("cubeState.json")]
+        public string cubeStateFileName {
+            get {
+                return ((string)(this["cubeStateFileName"]));
+            }
+            set {
+                this["cubeStateFileName"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("cubeSolution.txt")]
+        public string cubeSolutionFileName {
+            get {
+                return ((string)(this["cubeSolutionFileName"]));
+            }
+            set {
+                this["cubeSolutionFileName"] = value;
+            }
+        }
     }
 }

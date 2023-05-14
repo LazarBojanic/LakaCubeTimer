@@ -61,6 +61,33 @@ namespace LakaCubeTimer.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to cubeSolution.txt.
+        /// </summary>
+        internal static string cubeSolutionFileName {
+            get {
+                return ResourceManager.GetString("cubeSolutionFileName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to cubeState.json.
+        /// </summary>
+        internal static string cubeStateFileName {
+            get {
+                return ResourceManager.GetString("cubeStateFileName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to solveCube.py.
+        /// </summary>
+        internal static string pythonScriptFileName {
+            get {
+                return ResourceManager.GetString("pythonScriptFileName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Provider=Microsoft.ACE.OLEDB.12.0;Data Source=.\\times.accdb.
         /// </summary>
         internal static string timesConnectionString {

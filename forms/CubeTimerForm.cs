@@ -8,6 +8,9 @@ using System.Windows.Forms;
 
 namespace LakaCubeTimer {
     public partial class CubeTimerForm : Form {
+        private string pythonScriptFileName;
+        private string cubeStateFileName;
+        private string cubeSolutionFileName;
         public enum TimerStates {
             IDLE,
             INSPECTION,
@@ -30,13 +33,16 @@ namespace LakaCubeTimer {
         private static string averageOfTwelve { get; set; }
         public CubeTimerForm() {
             InitializeComponent();
+            pythonScriptFileName = Properties.Settings.Default.pythonScriptFileName;
+            cubeStateFileName = Properties.Settings.Default.cubeStateFileName;
+            cubeSolutionFileName = Properties.Settings.Default.cubeSolutionFileName;
         }
-        private void CubeTimerForm_Load(object sender, EventArgs e) {
+        private async void CubeTimerForm_Load(object sender, EventArgs e) {
             checkBoxInspectionEnabled.Checked = Properties.Settings.Default.inspectionEnabled;
             inspectionEnabled = Properties.Settings.Default.inspectionEnabled;
             comboBoxSession.SelectedIndex = 0;
             fillTimesPanel(currentSession);
-            displayScramble();
+            await displayScramble();
             updateStats(currentSession);
             displayStats();
         }
@@ -65,7 +71,7 @@ namespace LakaCubeTimer {
             labelAverageOfFive.Text = averageOfFive;
             labelAverageOfTwelve.Text = averageOfTwelve;
         }
-        private void CubeTimerForm_KeyDown(object sender, KeyEventArgs e) {
+        private async void CubeTimerForm_KeyDown(object sender, KeyEventArgs e) {
             if (e.KeyCode == Keys.Space) {
                 if (inspectionEnabled) {
                     if (timerState == TimerStates.IDLE) {
@@ -76,7 +82,7 @@ namespace LakaCubeTimer {
                     }
                     else if (timerState == TimerStates.SOLVING) {
                         timerState = TimerStates.STOPPED;
-                        endSolve(isPlusTwoInInspection, false);
+                        await endSolve(isPlusTwoInInspection, false);
                     }
                 }
                 else {
@@ -85,7 +91,7 @@ namespace LakaCubeTimer {
                     }
                     else if (timerState == TimerStates.SOLVING) {
                         timerState = TimerStates.STOPPED;
-                        endSolve(isPlusTwoInInspection, false);
+                        await endSolve(isPlusTwoInInspection, false);
                     }
                 }
             }
@@ -143,19 +149,19 @@ namespace LakaCubeTimer {
             solveStopwatch.Start();
             timerSolve.Start();
         }
-        public void endSolve(bool isPlusTwo, bool isDNF) {
+        public async Task endSolve(bool isPlusTwo, bool isDNF) {
             solveStopwatch.Stop();
             timerSolve.Stop();
             long elapsedMilliseconds = solveStopwatch.ElapsedMilliseconds;
             labelTimer.Text = Util.longMillisecondsToString(elapsedMilliseconds);
             SolveTime time = new SolveTime(0, currentSession, elapsedMilliseconds, elapsedMilliseconds,
-                Util.longMillisecondsToString(elapsedMilliseconds), isPlusTwo, isDNF, Util.scrambleToString(scramble), DateTime.Now);
+                Util.longMillisecondsToString(elapsedMilliseconds), isPlusTwo, isDNF, Util.turnSequenceListToString(scramble), DateTime.Now);
             SqlUtil.saveToDatabase(time);
             SolveTime latestTime = SqlUtil.getLatestAddedTime(time.solveSession);
             SolveTimeUserControl timeUserControl = new SolveTimeUserControl(latestTime);
             flowLayoutPanelTimes.Controls.Add(timeUserControl);
             updateStats(currentSession);
-            displayScramble();
+            await displayScramble();
             displayStats();
         }
         private void timerSolve_Tick(object sender, EventArgs e) {
@@ -163,7 +169,7 @@ namespace LakaCubeTimer {
             labelTimer.Text = Util.longMillisecondsToString(elapsedMilliseconds);
             labelTimer.Left = (panelTimer.Width - labelTimer.Width) / 2;
         }
-        private void timerInspection_Tick(object sender, EventArgs e) {
+        private async void timerInspection_Tick(object sender, EventArgs e) {
             long elapsedMilliseconds = inspectionStopwatch.ElapsedMilliseconds;
             labelTimer.Text = (elapsedMilliseconds / 1000).ToString();
             if (elapsedMilliseconds / 1000 >= 15) {
@@ -172,23 +178,23 @@ namespace LakaCubeTimer {
             }
             if (elapsedMilliseconds / 1000 >= 17) {
                 endInspection();
-                endSolve(false, true);
+                await endSolve(false, true);
                 labelTimer.Text = "DNF";
                 timerState = TimerStates.IDLE;
             }
             labelTimer.Left = (panelTimer.Width - labelTimer.Width) / 2;
             Thread.Sleep(150);
         }
-        public void displayScramble() {
+        public async Task displayScramble() {
             scramble = Util.generateScramble();
             initialCube = new Cube();
             scrambledCube = Util.scrambleCube(initialCube, scramble);
-            labelScramble.Text = Util.scrambleToString(scramble);
+            labelScramble.Text = Util.turnSequenceListToString(scramble);
             labelScramble.Left = (panelTimer.Width - labelScramble.Width) / 2;
-            paintCube(scrambledCube);
+            await paintCube(scrambledCube);
             cubeToTurn = scrambledCube;
         }
-        public void paintCube(Cube cube) {
+        public async Task paintCube(Cube cube) {
             foreach (Side side in cube.sides) {
                 if (side.stickers[4].colorNameAsSide.Equals(Util.SIDE_UP)) {
                     panelUp.GetChildAtPoint(panelUp0.Location).BackColor = side.stickers[0].color;
@@ -257,8 +263,9 @@ namespace LakaCubeTimer {
                     panelBack.GetChildAtPoint(panelBack8.Location).BackColor = side.stickers[8].color;
                 }
             }
+            await Task.Delay(1);
         }
-        private void buttonUpTurn_MouseDown(object sender, MouseEventArgs e) {
+        private async void buttonUpTurn_MouseDown(object sender, MouseEventArgs e) {
             string turn = "";
             if (e.Button == MouseButtons.Left) {
                 turn = "U";
@@ -267,9 +274,9 @@ namespace LakaCubeTimer {
                 turn = "U'";
             }
             cubeToTurn = Util.turnCube(cubeToTurn, turn);
-            paintCube(cubeToTurn);
+            await paintCube(cubeToTurn);
         }
-        private void buttonDownTurn_MouseDown(object sender, MouseEventArgs e) {
+        private async void buttonDownTurn_MouseDown(object sender, MouseEventArgs e) {
             string turn = "";
             if (e.Button == MouseButtons.Left) {
                 turn = "D";
@@ -278,9 +285,9 @@ namespace LakaCubeTimer {
                 turn = "D'";
             }
             cubeToTurn = Util.turnCube(cubeToTurn, turn);
-            paintCube(cubeToTurn);
+            await paintCube(cubeToTurn);
         }
-        private void buttonLeftTurn_MouseDown(object sender, MouseEventArgs e) {
+        private async void buttonLeftTurn_MouseDown(object sender, MouseEventArgs e) {
             string turn = "";
             if (e.Button == MouseButtons.Left) {
                 turn = "L";
@@ -289,9 +296,9 @@ namespace LakaCubeTimer {
                 turn = "L'";
             }
             cubeToTurn = Util.turnCube(cubeToTurn, turn);
-            paintCube(cubeToTurn);
+            await paintCube(cubeToTurn);
         }
-        private void buttonRightTurn_MouseDown(object sender, MouseEventArgs e) {
+        private async void buttonRightTurn_MouseDown(object sender, MouseEventArgs e) {
             string turn = "";
             if (e.Button == MouseButtons.Left) {
                 turn = "R";
@@ -300,9 +307,9 @@ namespace LakaCubeTimer {
                 turn = "R'";
             }
             cubeToTurn = Util.turnCube(cubeToTurn, turn);
-            paintCube(cubeToTurn);
+            await paintCube(cubeToTurn);
         }
-        private void buttonFrontTurn_MouseDown(object sender, MouseEventArgs e) {
+        private async void buttonFrontTurn_MouseDown(object sender, MouseEventArgs e) {
             string turn = "";
             if (e.Button == MouseButtons.Left) {
                 turn = "F";
@@ -311,9 +318,9 @@ namespace LakaCubeTimer {
                 turn = "F'";
             }
             cubeToTurn = Util.turnCube(cubeToTurn, turn);
-            paintCube(cubeToTurn);
+            await paintCube(cubeToTurn);
         }
-        private void buttonBackTurn_MouseDown(object sender, MouseEventArgs e) {
+        private async void buttonBackTurn_MouseDown(object sender, MouseEventArgs e) {
             string turn = "";
             if (e.Button == MouseButtons.Left) {
                 turn = "B";
@@ -322,7 +329,7 @@ namespace LakaCubeTimer {
                 turn = "B'";
             }
             cubeToTurn = Util.turnCube(cubeToTurn, turn);
-            paintCube(cubeToTurn);
+            await paintCube(cubeToTurn);
         }
         private void CubeTimerForm_FormClosing(object sender, FormClosingEventArgs e) {
             foreach (Process process in Process.GetProcessesByName("LakaCubeTimer")) {
@@ -336,8 +343,8 @@ namespace LakaCubeTimer {
             updateStats(currentSession);
             displayStats();
         }
-        private void buttonNewScramble_MouseClick(object sender, MouseEventArgs e) {
-            displayScramble();
+        private async void buttonNewScramble_MouseClick(object sender, MouseEventArgs e) {
+            await displayScramble();
         }
         private void buttonDeleteAllFromSession_MouseClick(object sender, MouseEventArgs e) {
             flowLayoutPanelTimes.Controls.Clear();
@@ -357,11 +364,45 @@ namespace LakaCubeTimer {
             }
             Properties.Settings.Default.Save();
         }
-
-        private void buttonExportCubeState_Click(object sender, EventArgs e) {
-            CubeState cubeState = new CubeState(Util.scrambleToString(scramble), cubeToTurn.sides);
+        private async Task exportCubeState() {
+            List<Side> sides = cubeToTurn.sides;
+            string cubeStateString = "";
+            for (int i = 0; i < sides.Count; i++) {
+                List<Sticker> stickers = sides[i].stickers;
+                for (int j = 0; j < stickers.Count; j++) {
+                    cubeStateString += stickers[j].colorNameAsSide;
+                }
+            }
+            CubeState cubeState = new CubeState(Util.turnSequenceListToString(scramble), sides, cubeStateString);
             string cubeStateJson = Serializer.serialize(cubeState);
-            File.WriteAllText("cubeState.json", cubeStateJson);
+            await File.WriteAllTextAsync(cubeStateFileName, cubeStateJson);
+        }
+        private async Task<string> runSolveCubeScript() {
+            Process process = new Process();
+            process.StartInfo.FileName = "python";
+            process.StartInfo.Arguments = $"{pythonScriptFileName} {cubeStateFileName} {cubeSolutionFileName}";
+            process.StartInfo.CreateNoWindow = true;
+            process.Start();
+            process.WaitForExit();
+            return await File.ReadAllTextAsync(cubeSolutionFileName);
+        }
+        private async Task solveCube() {
+            await exportCubeState();
+            string solution = await runSolveCubeScript();
+            List<string> turns = Util.turnSequenceToList(solution);
+            foreach (string turn in turns) {
+                cubeToTurn = Util.turnCube(cubeToTurn, turn);
+                await paintCube(cubeToTurn);
+                await Task.Delay(250);
+            }
+            MessageBox.Show("Solution: " + solution);
+        }
+        private async void buttonExportCubeState_Click(object sender, EventArgs e) {
+            await exportCubeState();
+        }
+
+        private async void buttonSolveCube_Click(object sender, EventArgs e) {
+            await solveCube();
         }
     }
 }

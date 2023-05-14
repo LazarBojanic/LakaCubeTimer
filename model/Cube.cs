@@ -5,12 +5,12 @@ namespace LakaCubeTimer.model {
         public List<Side> sides { get; set; }
         public Cube() {
             this.sides = new List<Side> {
-                new Side("WHITE", "U", Util.COLOR_WHITE),
-                new Side("YELLOW", "D", Util.COLOR_YELLOW),
-                new Side("ORANGE", "L", Util.COLOR_ORANGE),
-                new Side("RED", "R", Util.COLOR_RED),
-                new Side("GREEN", "G", Util.COLOR_GREEN),
-                new Side("BLUE", "B", Util.COLOR_BLUE)
+                new Side("WHITE", Util.SIDE_UP, Util.COLOR_WHITE),
+                new Side("RED", Util.SIDE_RIGHT, Util.COLOR_RED),
+                new Side("GREEN", Util.SIDE_FRONT, Util.COLOR_GREEN),
+                new Side("YELLOW",Util.SIDE_DOWN, Util.COLOR_YELLOW),
+                new Side("ORANGE", Util.SIDE_LEFT, Util.COLOR_ORANGE),
+                new Side("BLUE", Util.SIDE_BACK, Util.COLOR_BLUE)
             };
         }
         public Cube(List<Side> newSides) {
