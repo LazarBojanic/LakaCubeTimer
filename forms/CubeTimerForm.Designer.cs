@@ -164,7 +164,7 @@
             buttonSolveCube.TabIndex = 12;
             buttonSolveCube.Text = "Solve Cube";
             buttonSolveCube.UseVisualStyleBackColor = true;
-            buttonSolveCube.Click += buttonSolveCube_Click;
+            buttonSolveCube.MouseClick += buttonSolveCube_MouseClick;
             // 
             // buttonExportCubeState
             // 
@@ -176,7 +176,7 @@
             buttonExportCubeState.TabIndex = 11;
             buttonExportCubeState.Text = "Export Cube State";
             buttonExportCubeState.UseVisualStyleBackColor = true;
-            buttonExportCubeState.Click += buttonExportCubeState_Click;
+            buttonExportCubeState.MouseClick += buttonExportCubeState_MouseClick;
             // 
             // checkBoxInspectionEnabled
             // 

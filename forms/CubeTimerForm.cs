@@ -395,11 +395,12 @@ namespace LakaCubeTimer {
                 solutionForm.ShowDialog();
             }
         }
-        private async void buttonExportCubeState_Click(object sender, EventArgs e) {
+
+        private async void buttonExportCubeState_MouseClick(object sender, MouseEventArgs e) {
             await exportCubeState();
         }
 
-        private async void buttonSolveCube_Click(object sender, EventArgs e) {
+        private async void buttonSolveCube_MouseClick(object sender, MouseEventArgs e) {
             await solveCube();
         }
     }
