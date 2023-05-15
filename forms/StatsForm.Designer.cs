@@ -23,78 +23,79 @@
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
-            this.labelSession = new System.Windows.Forms.Label();
-            this.labelTime = new System.Windows.Forms.Label();
-            this.labelScramble = new System.Windows.Forms.Label();
-            this.labelDate = new System.Windows.Forms.Label();
-            this.textBoxScramble = new System.Windows.Forms.TextBox();
-            this.SuspendLayout();
+            labelSession = new Label();
+            labelTime = new Label();
+            labelScramble = new Label();
+            labelDate = new Label();
+            textBoxScramble = new TextBox();
+            SuspendLayout();
             // 
             // labelSession
             // 
-            this.labelSession.AutoSize = true;
-            this.labelSession.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.labelSession.Location = new System.Drawing.Point(12, 24);
-            this.labelSession.Name = "labelSession";
-            this.labelSession.Size = new System.Drawing.Size(82, 22);
-            this.labelSession.TabIndex = 1;
-            this.labelSession.Text = "Session: ";
+            labelSession.AutoSize = true;
+            labelSession.Font = new Font("Century Gothic", 14.25F, FontStyle.Regular, GraphicsUnit.Point);
+            labelSession.Location = new Point(12, 24);
+            labelSession.Name = "labelSession";
+            labelSession.Size = new Size(82, 22);
+            labelSession.TabIndex = 1;
+            labelSession.Text = "Session: ";
             // 
             // labelTime
             // 
-            this.labelTime.AutoSize = true;
-            this.labelTime.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.labelTime.Location = new System.Drawing.Point(12, 99);
-            this.labelTime.Name = "labelTime";
-            this.labelTime.Size = new System.Drawing.Size(60, 22);
-            this.labelTime.TabIndex = 2;
-            this.labelTime.Text = "Time: ";
+            labelTime.AutoSize = true;
+            labelTime.Font = new Font("Century Gothic", 14.25F, FontStyle.Regular, GraphicsUnit.Point);
+            labelTime.Location = new Point(12, 99);
+            labelTime.Name = "labelTime";
+            labelTime.Size = new Size(60, 22);
+            labelTime.TabIndex = 2;
+            labelTime.Text = "Time: ";
             // 
             // labelScramble
             // 
-            this.labelScramble.AutoSize = true;
-            this.labelScramble.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.labelScramble.Location = new System.Drawing.Point(12, 174);
-            this.labelScramble.Name = "labelScramble";
-            this.labelScramble.Size = new System.Drawing.Size(105, 22);
-            this.labelScramble.TabIndex = 6;
-            this.labelScramble.Text = "Scramble: ";
+            labelScramble.AutoSize = true;
+            labelScramble.Font = new Font("Century Gothic", 14.25F, FontStyle.Regular, GraphicsUnit.Point);
+            labelScramble.Location = new Point(12, 174);
+            labelScramble.Name = "labelScramble";
+            labelScramble.Size = new Size(105, 22);
+            labelScramble.TabIndex = 6;
+            labelScramble.Text = "Scramble: ";
             // 
             // labelDate
             // 
-            this.labelDate.AutoSize = true;
-            this.labelDate.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.labelDate.Location = new System.Drawing.Point(12, 249);
-            this.labelDate.Name = "labelDate";
-            this.labelDate.Size = new System.Drawing.Size(66, 22);
-            this.labelDate.TabIndex = 7;
-            this.labelDate.Text = "Date: ";
+            labelDate.AutoSize = true;
+            labelDate.Font = new Font("Century Gothic", 14.25F, FontStyle.Regular, GraphicsUnit.Point);
+            labelDate.Location = new Point(12, 249);
+            labelDate.Name = "labelDate";
+            labelDate.Size = new Size(66, 22);
+            labelDate.TabIndex = 7;
+            labelDate.Text = "Date: ";
             // 
             // textBoxScramble
             // 
-            this.textBoxScramble.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.textBoxScramble.Location = new System.Drawing.Point(123, 170);
-            this.textBoxScramble.Name = "textBoxScramble";
-            this.textBoxScramble.Size = new System.Drawing.Size(567, 31);
-            this.textBoxScramble.TabIndex = 8;
+            textBoxScramble.Font = new Font("Century Gothic", 18F, FontStyle.Regular, GraphicsUnit.Point);
+            textBoxScramble.Location = new Point(123, 167);
+            textBoxScramble.Name = "textBoxScramble";
+            textBoxScramble.ReadOnly = true;
+            textBoxScramble.Size = new Size(661, 37);
+            textBoxScramble.TabIndex = 8;
             // 
             // StatsForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(702, 302);
-            this.Controls.Add(this.textBoxScramble);
-            this.Controls.Add(this.labelDate);
-            this.Controls.Add(this.labelScramble);
-            this.Controls.Add(this.labelTime);
-            this.Controls.Add(this.labelSession);
-            this.MinimumSize = new System.Drawing.Size(718, 341);
-            this.Name = "StatsForm";
-            this.Text = "StatsForm";
-            this.Load += new System.EventHandler(this.StatsForm_Load);
-            this.ResumeLayout(false);
-            this.PerformLayout();
-
+            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleMode = AutoScaleMode.Font;
+            ClientSize = new Size(796, 302);
+            Controls.Add(textBoxScramble);
+            Controls.Add(labelDate);
+            Controls.Add(labelScramble);
+            Controls.Add(labelTime);
+            Controls.Add(labelSession);
+            MinimumSize = new Size(718, 341);
+            Name = "StatsForm";
+            StartPosition = FormStartPosition.CenterParent;
+            Text = "StatsForm";
+            Load += StatsForm_Load;
+            ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion

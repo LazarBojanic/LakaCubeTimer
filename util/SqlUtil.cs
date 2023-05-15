@@ -6,7 +6,7 @@ using LakaCubeTimer.forms;
 namespace LakaCubeTimer.util {
     public static class SqlUtil {
         public static OleDbConnection getConnection() {
-            return new OleDbConnection(Properties.Settings.Default.timesConnectionString);
+            return new OleDbConnection(Config.getInstance().timesConnectionString);
         }
         public static void saveToDatabase(SolveTime timeResult) {
             OleDbConnection connection = getConnection();

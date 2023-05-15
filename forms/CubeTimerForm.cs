@@ -17,8 +17,8 @@ namespace LakaCubeTimer {
             SOLVING,
             STOPPED
         }
-        private static bool isPlusTwoInInspection = false;
-        private static bool inspectionEnabled = true;
+        private bool isPlusTwoInInspection;
+        private bool inspectionEnabled;
         private int currentSession = 1;
         private TimerStates timerState = TimerStates.IDLE;
         private List<string> scramble;
@@ -26,20 +26,21 @@ namespace LakaCubeTimer {
         private Cube cubeToTurn;
         private Cube scrambledCube;
         private List<SolveTimeUserControl> listOfTimes;
-        private static Stopwatch solveStopwatch;
-        private static Stopwatch inspectionStopwatch;
-        private static string bestTime { get; set; }
-        private static string averageOfFive { get; set; }
-        private static string averageOfTwelve { get; set; }
+        private Stopwatch solveStopwatch;
+        private Stopwatch inspectionStopwatch;
+        private string bestTime { get; set; }
+        private string averageOfFive { get; set; }
+        private string averageOfTwelve { get; set; }
         public CubeTimerForm() {
             InitializeComponent();
-            pythonScriptFileName = Properties.Settings.Default.pythonScriptFileName;
-            cubeStateFileName = Properties.Settings.Default.cubeStateFileName;
-            cubeSolutionFileName = Properties.Settings.Default.cubeSolutionFileName;
+            inspectionEnabled = Config.getInstance().inspectionEnabled;
+            pythonScriptFileName = Config.getInstance().pythonScriptFileName;
+            cubeStateFileName = Config.getInstance().cubeStateFileName;
+            cubeSolutionFileName = Config.getInstance().cubeSolutionFileName;
+            isPlusTwoInInspection = false;
         }
         private async void CubeTimerForm_Load(object sender, EventArgs e) {
-            checkBoxInspectionEnabled.Checked = Properties.Settings.Default.inspectionEnabled;
-            inspectionEnabled = Properties.Settings.Default.inspectionEnabled;
+            checkBoxInspectionEnabled.Checked = inspectionEnabled;
             comboBoxSession.SelectedIndex = 0;
             fillTimesPanel(currentSession);
             await displayScramble();
@@ -163,6 +164,7 @@ namespace LakaCubeTimer {
             updateStats(currentSession);
             await displayScramble();
             displayStats();
+            isPlusTwoInInspection = false;
         }
         private void timerSolve_Tick(object sender, EventArgs e) {
             long elapsedMilliseconds = solveStopwatch.ElapsedMilliseconds;
@@ -333,6 +335,7 @@ namespace LakaCubeTimer {
         }
         private void CubeTimerForm_FormClosing(object sender, FormClosingEventArgs e) {
             foreach (Process process in Process.GetProcessesByName("LakaCubeTimer")) {
+                Config.getInstance().save();
                 process.Kill();
             }
         }
@@ -353,16 +356,9 @@ namespace LakaCubeTimer {
             displayStats();
         }
         private void checkBoxInspectionEnabled_CheckedChanged(object sender, EventArgs e) {
-            if (checkBoxInspectionEnabled.Checked) {
-                Properties.Settings.Default.inspectionEnabled = true;
-
-                inspectionEnabled = Properties.Settings.Default.inspectionEnabled;
-            }
-            else {
-                Properties.Settings.Default.PropertyValues["inspectionEnabled"].PropertyValue = false;
-                inspectionEnabled = Properties.Settings.Default.inspectionEnabled;
-            }
-            Properties.Settings.Default.Save();
+            inspectionEnabled = checkBoxInspectionEnabled.Checked;
+            Config.getInstance().inspectionEnabled = inspectionEnabled;
+            Config.getInstance().save();
         }
         private async Task exportCubeState() {
             List<Side> sides = cubeToTurn.sides;
@@ -395,7 +391,9 @@ namespace LakaCubeTimer {
                 await paintCube(cubeToTurn);
                 await Task.Delay(250);
             }
-            MessageBox.Show("Solution: " + solution);
+            using (SolutionForm solutionForm = new SolutionForm(solution)) {
+                solutionForm.ShowDialog();
+            }
         }
         private async void buttonExportCubeState_Click(object sender, EventArgs e) {
             await exportCubeState();

@@ -1,0 +1,7 @@
+﻿{
+  "timesConnectionString": "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=.\\times.accdb",
+  "inspectionEnabled": true,
+  "pythonScriptFileName": "solveCube.py",
+  "cubeStateFileName": "cubeState.json",
+  "cubeSolutionFileName": "cubeSolution.txt"
+}
