@@ -27,9 +27,12 @@
             labelTimer = new Label();
             timerSolve = new System.Windows.Forms.Timer(components);
             panelTimer = new Panel();
-            buttonSolveCube = new Button();
-            buttonExportCubeState = new Button();
+            panelTimerAndButtons = new Panel();
             checkBoxInspectionEnabled = new CheckBox();
+            buttonSolveCube = new Button();
+            buttonNewScramble = new Button();
+            labelScramble = new Label();
+            buttonExportCubeState = new Button();
             panelTurns = new Panel();
             buttonLeftTurn = new Button();
             buttonFrontTurn = new Button();
@@ -37,7 +40,6 @@
             buttonUpTurn = new Button();
             buttonBackTurn = new Button();
             buttonRightTurn = new Button();
-            buttonNewScramble = new Button();
             panelCube = new Panel();
             panelDown = new Panel();
             panelDown8 = new Panel();
@@ -99,7 +101,6 @@
             panelLeft2 = new Panel();
             panelLeft1 = new Panel();
             panelLeft0 = new Panel();
-            labelScramble = new Label();
             flowLayoutPanelTimes = new FlowLayoutPanel();
             panelStats = new Panel();
             labelBestTime = new Label();
@@ -109,8 +110,8 @@
             buttonSelectSession = new Button();
             buttonDeleteAllFromSession = new Button();
             timerInspection = new System.Windows.Forms.Timer(components);
-            panelTimerAndButtons = new Panel();
             panelTimer.SuspendLayout();
+            panelTimerAndButtons.SuspendLayout();
             panelTurns.SuspendLayout();
             panelCube.SuspendLayout();
             panelDown.SuspendLayout();
@@ -120,7 +121,6 @@
             panelFront.SuspendLayout();
             panelLeft.SuspendLayout();
             panelStats.SuspendLayout();
-            panelTimerAndButtons.SuspendLayout();
             SuspendLayout();
             // 
             // labelTimer
@@ -151,29 +151,19 @@
             panelTimer.Size = new Size(1141, 782);
             panelTimer.TabIndex = 2;
             // 
-            // buttonSolveCube
+            // panelTimerAndButtons
             // 
-            buttonSolveCube.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            buttonSolveCube.Font = new Font("Century Gothic", 18F, FontStyle.Regular, GraphicsUnit.Point);
-            buttonSolveCube.Location = new Point(966, 355);
-            buttonSolveCube.Name = "buttonSolveCube";
-            buttonSolveCube.Size = new Size(163, 70);
-            buttonSolveCube.TabIndex = 12;
-            buttonSolveCube.Text = "Solve Cube";
-            buttonSolveCube.UseVisualStyleBackColor = true;
-            buttonSolveCube.MouseClick += buttonSolveCube_MouseClick;
-            // 
-            // buttonExportCubeState
-            // 
-            buttonExportCubeState.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-            buttonExportCubeState.Font = new Font("Century Gothic", 18F, FontStyle.Regular, GraphicsUnit.Point);
-            buttonExportCubeState.Location = new Point(3, 355);
-            buttonExportCubeState.Name = "buttonExportCubeState";
-            buttonExportCubeState.Size = new Size(163, 70);
-            buttonExportCubeState.TabIndex = 11;
-            buttonExportCubeState.Text = "Export Cube State";
-            buttonExportCubeState.UseVisualStyleBackColor = true;
-            buttonExportCubeState.MouseClick += buttonExportCubeState_MouseClick;
+            panelTimerAndButtons.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            panelTimerAndButtons.Controls.Add(checkBoxInspectionEnabled);
+            panelTimerAndButtons.Controls.Add(buttonSolveCube);
+            panelTimerAndButtons.Controls.Add(buttonNewScramble);
+            panelTimerAndButtons.Controls.Add(labelScramble);
+            panelTimerAndButtons.Controls.Add(buttonExportCubeState);
+            panelTimerAndButtons.Controls.Add(labelTimer);
+            panelTimerAndButtons.Location = new Point(3, 3);
+            panelTimerAndButtons.Name = "panelTimerAndButtons";
+            panelTimerAndButtons.Size = new Size(1132, 428);
+            panelTimerAndButtons.TabIndex = 13;
             // 
             // checkBoxInspectionEnabled
             // 
@@ -187,6 +177,54 @@
             checkBoxInspectionEnabled.TextAlign = ContentAlignment.MiddleCenter;
             checkBoxInspectionEnabled.UseVisualStyleBackColor = true;
             checkBoxInspectionEnabled.CheckedChanged += checkBoxInspectionEnabled_CheckedChanged;
+            // 
+            // buttonSolveCube
+            // 
+            buttonSolveCube.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            buttonSolveCube.Font = new Font("Century Gothic", 18F, FontStyle.Regular, GraphicsUnit.Point);
+            buttonSolveCube.Location = new Point(966, 355);
+            buttonSolveCube.Name = "buttonSolveCube";
+            buttonSolveCube.Size = new Size(163, 70);
+            buttonSolveCube.TabIndex = 12;
+            buttonSolveCube.Text = "Solve Cube";
+            buttonSolveCube.UseVisualStyleBackColor = true;
+            buttonSolveCube.MouseClick += buttonSolveCube_MouseClick;
+            // 
+            // buttonNewScramble
+            // 
+            buttonNewScramble.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            buttonNewScramble.Font = new Font("Century Gothic", 18F, FontStyle.Regular, GraphicsUnit.Point);
+            buttonNewScramble.Location = new Point(966, 3);
+            buttonNewScramble.Name = "buttonNewScramble";
+            buttonNewScramble.Size = new Size(163, 70);
+            buttonNewScramble.TabIndex = 8;
+            buttonNewScramble.Text = "New Scramble";
+            buttonNewScramble.UseVisualStyleBackColor = true;
+            buttonNewScramble.MouseClick += buttonNewScramble_MouseClick;
+            // 
+            // labelScramble
+            // 
+            labelScramble.Anchor = AnchorStyles.Top;
+            labelScramble.AutoSize = true;
+            labelScramble.Font = new Font("Century Gothic", 24F, FontStyle.Regular, GraphicsUnit.Point);
+            labelScramble.Location = new Point(487, 68);
+            labelScramble.Name = "labelScramble";
+            labelScramble.Size = new Size(165, 39);
+            labelScramble.TabIndex = 1;
+            labelScramble.Text = "Scramble";
+            labelScramble.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // buttonExportCubeState
+            // 
+            buttonExportCubeState.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            buttonExportCubeState.Font = new Font("Century Gothic", 18F, FontStyle.Regular, GraphicsUnit.Point);
+            buttonExportCubeState.Location = new Point(3, 355);
+            buttonExportCubeState.Name = "buttonExportCubeState";
+            buttonExportCubeState.Size = new Size(163, 70);
+            buttonExportCubeState.TabIndex = 11;
+            buttonExportCubeState.Text = "Export Cube State";
+            buttonExportCubeState.UseVisualStyleBackColor = true;
+            buttonExportCubeState.MouseClick += buttonExportCubeState_MouseClick;
             // 
             // panelTurns
             // 
@@ -279,18 +317,6 @@
             buttonRightTurn.Text = "Right";
             buttonRightTurn.UseVisualStyleBackColor = true;
             buttonRightTurn.MouseDown += buttonRightTurn_MouseDown;
-            // 
-            // buttonNewScramble
-            // 
-            buttonNewScramble.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            buttonNewScramble.Font = new Font("Century Gothic", 18F, FontStyle.Regular, GraphicsUnit.Point);
-            buttonNewScramble.Location = new Point(966, 3);
-            buttonNewScramble.Name = "buttonNewScramble";
-            buttonNewScramble.Size = new Size(163, 70);
-            buttonNewScramble.TabIndex = 8;
-            buttonNewScramble.Text = "New Scramble";
-            buttonNewScramble.UseVisualStyleBackColor = true;
-            buttonNewScramble.MouseClick += buttonNewScramble_MouseClick;
             // 
             // panelCube
             // 
@@ -846,18 +872,6 @@
             panelLeft0.Size = new Size(30, 30);
             panelLeft0.TabIndex = 0;
             // 
-            // labelScramble
-            // 
-            labelScramble.Anchor = AnchorStyles.Top;
-            labelScramble.AutoSize = true;
-            labelScramble.Font = new Font("Century Gothic", 24F, FontStyle.Regular, GraphicsUnit.Point);
-            labelScramble.Location = new Point(487, 68);
-            labelScramble.Name = "labelScramble";
-            labelScramble.Size = new Size(165, 39);
-            labelScramble.TabIndex = 1;
-            labelScramble.Text = "Scramble";
-            labelScramble.TextAlign = ContentAlignment.MiddleCenter;
-            // 
             // flowLayoutPanelTimes
             // 
             flowLayoutPanelTimes.AutoScroll = true;
@@ -949,19 +963,6 @@
             // 
             timerInspection.Tick += timerInspection_Tick;
             // 
-            // panelTimerAndButtons
-            // 
-            panelTimerAndButtons.Controls.Add(checkBoxInspectionEnabled);
-            panelTimerAndButtons.Controls.Add(buttonSolveCube);
-            panelTimerAndButtons.Controls.Add(buttonNewScramble);
-            panelTimerAndButtons.Controls.Add(labelScramble);
-            panelTimerAndButtons.Controls.Add(buttonExportCubeState);
-            panelTimerAndButtons.Controls.Add(labelTimer);
-            panelTimerAndButtons.Location = new Point(3, 3);
-            panelTimerAndButtons.Name = "panelTimerAndButtons";
-            panelTimerAndButtons.Size = new Size(1132, 428);
-            panelTimerAndButtons.TabIndex = 13;
-            // 
             // CubeTimerForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -982,6 +983,8 @@
             KeyDown += CubeTimerForm_KeyDown;
             KeyUp += CubeTimerForm_KeyUp;
             panelTimer.ResumeLayout(false);
+            panelTimerAndButtons.ResumeLayout(false);
+            panelTimerAndButtons.PerformLayout();
             panelTurns.ResumeLayout(false);
             panelCube.ResumeLayout(false);
             panelDown.ResumeLayout(false);
@@ -992,8 +995,6 @@
             panelLeft.ResumeLayout(false);
             panelStats.ResumeLayout(false);
             panelStats.PerformLayout();
-            panelTimerAndButtons.ResumeLayout(false);
-            panelTimerAndButtons.PerformLayout();
             ResumeLayout(false);
         }
 
