@@ -109,6 +109,7 @@
             buttonSelectSession = new Button();
             buttonDeleteAllFromSession = new Button();
             timerInspection = new System.Windows.Forms.Timer(components);
+            panelTimerAndButtons = new Panel();
             panelTimer.SuspendLayout();
             panelTurns.SuspendLayout();
             panelCube.SuspendLayout();
@@ -119,6 +120,7 @@
             panelFront.SuspendLayout();
             panelLeft.SuspendLayout();
             panelStats.SuspendLayout();
+            panelTimerAndButtons.SuspendLayout();
             SuspendLayout();
             // 
             // labelTimer
@@ -126,7 +128,7 @@
             labelTimer.Anchor = AnchorStyles.Top;
             labelTimer.AutoSize = true;
             labelTimer.Font = new Font("Century Gothic", 72F, FontStyle.Regular, GraphicsUnit.Point);
-            labelTimer.Location = new Point(307, 210);
+            labelTimer.Location = new Point(306, 155);
             labelTimer.Name = "labelTimer";
             labelTimer.Size = new Size(527, 115);
             labelTimer.TabIndex = 0;
@@ -141,14 +143,9 @@
             // panelTimer
             // 
             panelTimer.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            panelTimer.Controls.Add(buttonSolveCube);
-            panelTimer.Controls.Add(buttonExportCubeState);
-            panelTimer.Controls.Add(checkBoxInspectionEnabled);
+            panelTimer.Controls.Add(panelTimerAndButtons);
             panelTimer.Controls.Add(panelTurns);
-            panelTimer.Controls.Add(buttonNewScramble);
             panelTimer.Controls.Add(panelCube);
-            panelTimer.Controls.Add(labelScramble);
-            panelTimer.Controls.Add(labelTimer);
             panelTimer.Location = new Point(360, 12);
             panelTimer.Name = "panelTimer";
             panelTimer.Size = new Size(1141, 782);
@@ -156,9 +153,9 @@
             // 
             // buttonSolveCube
             // 
-            buttonSolveCube.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            buttonSolveCube.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             buttonSolveCube.Font = new Font("Century Gothic", 18F, FontStyle.Regular, GraphicsUnit.Point);
-            buttonSolveCube.Location = new Point(975, 361);
+            buttonSolveCube.Location = new Point(966, 355);
             buttonSolveCube.Name = "buttonSolveCube";
             buttonSolveCube.Size = new Size(163, 70);
             buttonSolveCube.TabIndex = 12;
@@ -168,9 +165,9 @@
             // 
             // buttonExportCubeState
             // 
-            buttonExportCubeState.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            buttonExportCubeState.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             buttonExportCubeState.Font = new Font("Century Gothic", 18F, FontStyle.Regular, GraphicsUnit.Point);
-            buttonExportCubeState.Location = new Point(3, 361);
+            buttonExportCubeState.Location = new Point(3, 355);
             buttonExportCubeState.Name = "buttonExportCubeState";
             buttonExportCubeState.Size = new Size(163, 70);
             buttonExportCubeState.TabIndex = 11;
@@ -287,7 +284,7 @@
             // 
             buttonNewScramble.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             buttonNewScramble.Font = new Font("Century Gothic", 18F, FontStyle.Regular, GraphicsUnit.Point);
-            buttonNewScramble.Location = new Point(975, 3);
+            buttonNewScramble.Location = new Point(966, 3);
             buttonNewScramble.Name = "buttonNewScramble";
             buttonNewScramble.Size = new Size(163, 70);
             buttonNewScramble.TabIndex = 8;
@@ -854,7 +851,7 @@
             labelScramble.Anchor = AnchorStyles.Top;
             labelScramble.AutoSize = true;
             labelScramble.Font = new Font("Century Gothic", 24F, FontStyle.Regular, GraphicsUnit.Point);
-            labelScramble.Location = new Point(488, 123);
+            labelScramble.Location = new Point(487, 68);
             labelScramble.Name = "labelScramble";
             labelScramble.Size = new Size(165, 39);
             labelScramble.TabIndex = 1;
@@ -952,6 +949,19 @@
             // 
             timerInspection.Tick += timerInspection_Tick;
             // 
+            // panelTimerAndButtons
+            // 
+            panelTimerAndButtons.Controls.Add(checkBoxInspectionEnabled);
+            panelTimerAndButtons.Controls.Add(buttonSolveCube);
+            panelTimerAndButtons.Controls.Add(buttonNewScramble);
+            panelTimerAndButtons.Controls.Add(labelScramble);
+            panelTimerAndButtons.Controls.Add(buttonExportCubeState);
+            panelTimerAndButtons.Controls.Add(labelTimer);
+            panelTimerAndButtons.Location = new Point(3, 3);
+            panelTimerAndButtons.Name = "panelTimerAndButtons";
+            panelTimerAndButtons.Size = new Size(1132, 428);
+            panelTimerAndButtons.TabIndex = 13;
+            // 
             // CubeTimerForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -972,7 +982,6 @@
             KeyDown += CubeTimerForm_KeyDown;
             KeyUp += CubeTimerForm_KeyUp;
             panelTimer.ResumeLayout(false);
-            panelTimer.PerformLayout();
             panelTurns.ResumeLayout(false);
             panelCube.ResumeLayout(false);
             panelDown.ResumeLayout(false);
@@ -983,6 +992,8 @@
             panelLeft.ResumeLayout(false);
             panelStats.ResumeLayout(false);
             panelStats.PerformLayout();
+            panelTimerAndButtons.ResumeLayout(false);
+            panelTimerAndButtons.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -1073,5 +1084,6 @@
         private System.Windows.Forms.Timer timerInspection;
         private Button buttonExportCubeState;
         private Button buttonSolveCube;
+        private Panel panelTimerAndButtons;
     }
 }
