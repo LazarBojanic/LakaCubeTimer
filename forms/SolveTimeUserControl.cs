@@ -1,7 +1,9 @@
-﻿using LakaCubeTimer.model;
+﻿using LakaCubeTimer.database;
+using LakaCubeTimer.model;
 using LakaCubeTimer.util;
 
-namespace LakaCubeTimer.forms {
+namespace LakaCubeTimer.forms
+{
     public partial class SolveTimeUserControl : UserControl {
         public SolveTime solveTime { get; set; }
         private CubeTimerForm cubeTimerForm { get; set; }
@@ -38,7 +40,7 @@ namespace LakaCubeTimer.forms {
         
         private void buttonDelete_MouseClick(object sender, MouseEventArgs e) {
             cubeTimerForm = (CubeTimerForm)Application.OpenForms["CubeTimerForm"];
-            SqlUtil.deleteTime(solveTime.solveSession, solveTime.id);
+            TimesRepository.deleteTime(solveTime.solveSession, solveTime.id);
             cubeTimerForm.flowLayoutPanelTimes.Controls.Remove(this);
             cubeTimerForm.updateStats(solveTime.solveSession);
             cubeTimerForm.displayStats();
@@ -50,14 +52,14 @@ namespace LakaCubeTimer.forms {
                 solveTime.isPlusTwo = true;
                 solveTime.solveTimeInMilliseconds = solveTime.solveInitialTimeInMilliseconds + 2000;
                 solveTime.solveTime = Util.longMillisecondsToString(solveTime.solveTimeInMilliseconds) + " (+2)";
-                SqlUtil.updateIsPlusTwo(solveTime);
+                TimesRepository.updateIsPlusTwo(solveTime);
                 labelTime.Text = solveTime.solveTime;
             }
             else {
                 solveTime.isPlusTwo = false;
                 solveTime.solveTimeInMilliseconds = solveTime.solveInitialTimeInMilliseconds;
                 solveTime.solveTime = Util.longMillisecondsToString(solveTime.solveTimeInMilliseconds);
-                SqlUtil.updateIsPlusTwo(solveTime);
+                TimesRepository.updateIsPlusTwo(solveTime);
                 labelTime.Text = solveTime.solveTime;
             }
             cubeTimerForm.updateStats(solveTime.solveSession);
@@ -68,11 +70,11 @@ namespace LakaCubeTimer.forms {
             cubeTimerForm = (CubeTimerForm)Application.OpenForms["CubeTimerForm"];
             if (checkBoxIsDNF.Checked) {
                 solveTime.isDNF = true;
-                SqlUtil.updateIsDNF(solveTime);
+                TimesRepository.updateIsDNF(solveTime);
             }
             else {
                 solveTime.isDNF = false;
-                SqlUtil.updateIsDNF(solveTime);
+                TimesRepository.updateIsDNF(solveTime);
             }
             cubeTimerForm.updateStats(solveTime.solveSession);
             cubeTimerForm.displayStats();

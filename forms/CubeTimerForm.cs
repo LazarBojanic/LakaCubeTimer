@@ -1,4 +1,5 @@
-﻿using LakaCubeTimer.forms;
+﻿using LakaCubeTimer.database;
+using LakaCubeTimer.forms;
 using LakaCubeTimer.model;
 using LakaCubeTimer.util;
 using System.Data;
@@ -6,7 +7,8 @@ using System.Data.OleDb;
 using System.Diagnostics;
 using System.Windows.Forms;
 
-namespace LakaCubeTimer {
+namespace LakaCubeTimer
+{
     public partial class CubeTimerForm : Form {
         private string pythonScriptFileName;
         private string cubeStateFileName;
@@ -48,20 +50,20 @@ namespace LakaCubeTimer {
             displayStats();
         }
         public void updateStats(int session) {
-            if (SqlUtil.getNumberOfSolvesForAverage(session) >= 1) {
-                bestTime = "Best Time: " + SqlUtil.getBestTime(session);
+            if (TimesRepository.getNumberOfSolvesForAverage(session) >= 1) {
+                bestTime = "Best Time: " + TimesRepository.getBestTime(session);
             }
             else {
                 bestTime = "Best Time:";
             }
-            if (SqlUtil.getNumberOfSolvesForAverage(session) >= 5 && Util.calculateAverage(SqlUtil.timesToCalculate(5, session)) != 0) {
-                averageOfFive = "Ao5: " + Util.longMillisecondsToString(Util.calculateAverage(SqlUtil.timesToCalculate(5, session)));
+            if (TimesRepository.getNumberOfSolvesForAverage(session) >= 5 && Util.calculateAverage(TimesRepository.timesToCalculate(5, session)) != 0) {
+                averageOfFive = "Ao5: " + Util.longMillisecondsToString(Util.calculateAverage(TimesRepository.timesToCalculate(5, session)));
             }
             else {
                 averageOfFive = "Ao5:";
             }
-            if (SqlUtil.getNumberOfSolvesForAverage(session) >= 12 && Util.calculateAverage(SqlUtil.timesToCalculate(12, session)) != 0) {
-                averageOfTwelve = "Ao12: " + Util.longMillisecondsToString(Util.calculateAverage(SqlUtil.timesToCalculate(12, session)));
+            if (TimesRepository.getNumberOfSolvesForAverage(session) >= 12 && Util.calculateAverage(TimesRepository.timesToCalculate(12, session)) != 0) {
+                averageOfTwelve = "Ao12: " + Util.longMillisecondsToString(Util.calculateAverage(TimesRepository.timesToCalculate(12, session)));
             }
             else {
                 averageOfTwelve = "Ao12:";
@@ -130,7 +132,7 @@ namespace LakaCubeTimer {
             }
         }
         public void fillTimesPanel(int session) {
-            listOfTimes = SqlUtil.fillTimes(session);
+            listOfTimes = TimesRepository.fillTimes(session);
             foreach (SolveTimeUserControl solveTime in listOfTimes) {
                 flowLayoutPanelTimes.Controls.Add(solveTime);
                 solveTime.Left = (flowLayoutPanelTimes.Width - solveTime.Width) / 2;
@@ -157,8 +159,8 @@ namespace LakaCubeTimer {
             labelTimer.Text = Util.longMillisecondsToString(elapsedMilliseconds);
             SolveTime time = new SolveTime(0, currentSession, elapsedMilliseconds, elapsedMilliseconds,
                 Util.longMillisecondsToString(elapsedMilliseconds), isPlusTwo, isDNF, Util.turnSequenceListToString(scramble), DateTime.Now);
-            SqlUtil.saveToDatabase(time);
-            SolveTime latestTime = SqlUtil.getLatestAddedTime(time.solveSession);
+            TimesRepository.saveToDatabase(time);
+            SolveTime latestTime = TimesRepository.getLatestAddedTime(time.solveSession);
             SolveTimeUserControl timeUserControl = new SolveTimeUserControl(latestTime);
             flowLayoutPanelTimes.Controls.Add(timeUserControl);
             updateStats(currentSession);
@@ -351,7 +353,7 @@ namespace LakaCubeTimer {
         }
         private void buttonDeleteAllFromSession_MouseClick(object sender, MouseEventArgs e) {
             flowLayoutPanelTimes.Controls.Clear();
-            SqlUtil.deleteAllFromSession(currentSession);
+            TimesRepository.deleteAllFromSession(currentSession);
             updateStats(currentSession);
             displayStats();
         }

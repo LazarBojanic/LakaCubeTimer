@@ -1,19 +1,24 @@
 ﻿using LakaCubeTimer.model;
-using System.Data.OleDb;
 using System.Data;
 using LakaCubeTimer.forms;
+using LakaCubeTimer.util;
+using System.Data.SQLite;
 
-namespace LakaCubeTimer.util {
-    public static class SqlUtil {
-        public static OleDbConnection getConnection() {
-            return new OleDbConnection(Config.getInstance().timesConnectionString);
+namespace LakaCubeTimer.database
+{
+    public static class TimesRepository {
+
+        private static SQLiteConnection getConnection() {
+            return new SQLiteConnection(Config.getInstance().timesConnectionString);
         }
-        public static void saveToDatabase(SolveTime timeResult) {
-            OleDbConnection connection = getConnection();
+
+        public static void saveToDatabase(SolveTime timeResult)
+        {
+            SQLiteConnection connection = getConnection();
             connection.Open();
             string query = "INSERT INTO [solveTime] ([solveSession], [solveTimeInMilliseconds], [solveInitialTimeInMilliseconds], [solveTime], [isPlusTwo], [isDNF], [solveScramble], [solveDate])" +
                 " VALUES (@solveSession, @solveTimeInMilliseconds, @solveInitialTimeInMilliseconds, @solveTime, @isPlusTwo, @isDNF, @solveScramble, @solveDate)";
-            OleDbCommand command = new OleDbCommand(query, connection);
+            SQLiteCommand command = new SQLiteCommand(query, connection);
             command.Parameters.AddWithValue("@solveSession", timeResult.solveSession);
             command.Parameters.AddWithValue("@solveTimeInMilliseconds", (double)timeResult.solveTimeInMilliseconds);
             command.Parameters.AddWithValue("@solveInitialTimeInMilliseconds", (double)timeResult.solveInitialTimeInMilliseconds);
@@ -21,40 +26,45 @@ namespace LakaCubeTimer.util {
             command.Parameters.AddWithValue("@isPlusTwo", timeResult.isPlusTwo);
             command.Parameters.AddWithValue("@isDNF", timeResult.isDNF);
             command.Parameters.AddWithValue("@solveScramble", timeResult.solveScramble);
-            command.Parameters.Add("@solveDate", OleDbType.DBTimeStamp).Value = Util.dateTimeWithoutMilliseconds(timeResult.solveDate);
+            command.Parameters.AddWithValue("@solveDate", Util.dateTimeWithoutMilliseconds(timeResult.solveDate));
             command.ExecuteNonQuery();
             connection.Close();
         }
-        public static string getBestTime(int session) {
-            OleDbConnection connection = getConnection();
+        public static string getBestTime(int session)
+        {
+            SQLiteConnection connection = getConnection();
             DataTable bestTimeTable = new DataTable();
             connection.Open();
             string query = "SELECT MIN([solveTimeInMilliseconds]) AS minSolveTimeInMilliseconds, [isDNF] FROM [solveTime] WHERE [solveSession] = @solveSession GROUP BY [isDNF] HAVING [isDNF] = False";
-            OleDbCommand command = new OleDbCommand(query, connection);
+            SQLiteCommand command = new SQLiteCommand(query, connection);
             command.Parameters.AddWithValue("@solveSession", session);
-            OleDbDataAdapter adapter = new OleDbDataAdapter(command);
+            var adapter = new SQLiteDataAdapter(command);
             adapter.Fill(bestTimeTable);
             connection.Close();
-            if(bestTimeTable.Rows.Count > 0) {
+            if (bestTimeTable.Rows.Count > 0)
+            {
                 DataRow row = bestTimeTable.Rows[0];
                 return Util.longMillisecondsToString(Convert.ToInt64(row["minSolveTimeInMilliseconds"]));
             }
-            else {
+            else
+            {
                 return "";
             }
         }
-        public static List<SolveTimeUserControl> fillTimes(int session) {
+        public static List<SolveTimeUserControl> fillTimes(int session)
+        {
             List<SolveTimeUserControl> times = new List<SolveTimeUserControl>();
             DataTable timesTable = new DataTable();
-            OleDbConnection connection = getConnection();
+            SQLiteConnection connection = getConnection();
             connection.Open();
             string query = "SELECT * FROM [solveTime] WHERE [solveSession] = @solveSession";
-            OleDbCommand command = new OleDbCommand(query, connection);
+            SQLiteCommand command = new SQLiteCommand(query, connection);
             command.Parameters.AddWithValue("@solveSession", session);
-            OleDbDataAdapter adapter = new OleDbDataAdapter(command);
+            SQLiteDataAdapter adapter = new SQLiteDataAdapter(command);
             adapter.Fill(timesTable);
             connection.Close();
-            foreach (DataRow row in timesTable.Select()) {
+            foreach (DataRow row in timesTable.Select())
+            {
                 times.Add(new SolveTimeUserControl(new SolveTime(Convert.ToInt32(row.ItemArray.GetValue(0).ToString()),
                                                 Convert.ToInt32(row.ItemArray.GetValue(1).ToString()),
                                                 Convert.ToInt64(row.ItemArray.GetValue(2)),
@@ -68,49 +78,55 @@ namespace LakaCubeTimer.util {
             }
             return times;
         }
-        public static int getMaxId(int session) {
-            int maxId = 0;
-            OleDbConnection connection = getConnection();
+        public static long getMaxId(int session)
+        {
+            long maxId = 0;
+            SQLiteConnection connection = getConnection();
             connection.Open();
             string query = "SELECT MAX([id]) FROM [solveTime] WHERE [solveSession] = @solveSession";
-            OleDbCommand command = new OleDbCommand(query, connection);
+            SQLiteCommand command = new SQLiteCommand(query, connection);
             command.Parameters.AddWithValue("@solveSession", session);
-            maxId = (int)command.ExecuteScalar();
+            maxId = (long)command.ExecuteScalar();
             connection.Close();
             return maxId;
         }
-        public static List<SolveTimeInMillisecondsWithIsDNF> timesToCalculate(int numberToGet, int session) {
+        public static List<SolveTimeInMillisecondsWithIsDNF> timesToCalculate(int numberToGet, int session)
+        {
             List<SolveTimeInMillisecondsWithIsDNF> timesToCalculateList = new List<SolveTimeInMillisecondsWithIsDNF>();
-            OleDbConnection connection = getConnection();
+            SQLiteConnection connection = getConnection();
             DataTable timesToCalculateTable = new DataTable();
             connection.Open();
             string query = "SELECT TOP " + numberToGet + " [solveTimeInMilliseconds], [isDNF] FROM [solveTime] WHERE [solveSession] = @solveSession ORDER BY [id] DESC";
-            OleDbCommand command = new OleDbCommand(query, connection);
+            SQLiteCommand command = new SQLiteCommand(query, connection);
             command.Parameters.AddWithValue("@solveSession", session);
-            OleDbDataAdapter adapter = new OleDbDataAdapter(command);
+            SQLiteDataAdapter adapter = new SQLiteDataAdapter(command);
             adapter.Fill(timesToCalculateTable);
-            foreach (DataRow row in timesToCalculateTable.Select()) {
-                if (Convert.ToBoolean(row["isDNF"])) {
+            foreach (DataRow row in timesToCalculateTable.Select())
+            {
+                if (Convert.ToBoolean(row["isDNF"]))
+                {
                     timesToCalculateList.Add(new SolveTimeInMillisecondsWithIsDNF(Convert.ToInt64(row["solveTimeInMilliseconds"]), true));
                 }
-                else {
+                else
+                {
                     timesToCalculateList.Add(new SolveTimeInMillisecondsWithIsDNF(Convert.ToInt64(row["solveTimeInMilliseconds"]), false));
                 }
-                
+
             }
             connection.Close();
             return timesToCalculateList;
         }
-        public static SolveTime getLatestAddedTime(int session) {
-            int maxId = getMaxId(session);
-            OleDbConnection connection = getConnection();
+        public static SolveTime getLatestAddedTime(int session)
+        {
+            long maxId = getMaxId(session);
+            SQLiteConnection connection = getConnection();
             DataTable latestTimeTable = new DataTable();
             connection.Open();
             string query = "SELECT * FROM [solveTime] WHERE [solveSession] = @solveSession AND [id] = @id";
-            OleDbCommand command = new OleDbCommand(query, connection);
+            SQLiteCommand command = new SQLiteCommand(query, connection);
             command.Parameters.AddWithValue("@solveSession", session);
             command.Parameters.AddWithValue("@id", maxId);
-            OleDbDataAdapter adapter = new OleDbDataAdapter(command);
+            SQLiteDataAdapter adapter = new SQLiteDataAdapter(command);
             adapter.Fill(latestTimeTable);
             DataRow row = latestTimeTable.Select()[0];
             SolveTime latestTime = new SolveTime(Convert.ToInt32(row["id"].ToString()),
@@ -125,11 +141,12 @@ namespace LakaCubeTimer.util {
             connection.Close();
             return latestTime;
         }
-        public static void updateIsPlusTwo(SolveTime time) {
-            OleDbConnection connection = getConnection();
+        public static void updateIsPlusTwo(SolveTime time)
+        {
+            SQLiteConnection connection = getConnection();
             connection.Open();
             string query = "UPDATE [solveTime] SET [isPlusTwo] = @isPlusTwo, [solveTime] = @timePlusTwo, [solveTimeInMilliseconds] = @solveTimeInMillisecondsPlusTwo WHERE [id] = @id";
-            OleDbCommand command = new OleDbCommand(query, connection);
+            SQLiteCommand command = new SQLiteCommand(query, connection);
             command.Parameters.AddWithValue("@isPlusTwo", time.isPlusTwo);
             command.Parameters.AddWithValue("@timePlusTwo", time.solveTime);
             command.Parameters.AddWithValue("@solveTimeInMillisecondsPlusTwo", (double)time.solveTimeInMilliseconds);
@@ -137,53 +154,58 @@ namespace LakaCubeTimer.util {
             command.ExecuteNonQuery();
             connection.Close();
         }
-        public static void updateIsDNF(SolveTime time) {
-            OleDbConnection connection = getConnection();
+        public static void updateIsDNF(SolveTime time)
+        {
+            SQLiteConnection connection = getConnection();
             connection.Open();
             string query = "UPDATE [solveTime] SET [isDNF] = @isDNF WHERE [id] = @id";
-            OleDbCommand command = new OleDbCommand(query, connection);
+            SQLiteCommand command = new SQLiteCommand(query, connection);
             command.Parameters.AddWithValue("@isDNF", time.isDNF);
             command.Parameters.AddWithValue("@id", time.id);
             command.ExecuteNonQuery();
             connection.Close();
         }
-        public static long getInitialTime(int id) {
+        public static long getInitialTime(int id)
+        {
             long initialTime = 0;
-            OleDbConnection connection = getConnection();
+            SQLiteConnection connection = getConnection();
             connection.Open();
             string query = "SELECT [solveInitialTimeInMilliseconds] FROM [solveTime] WHERE [id] = @id";
-            OleDbCommand command = new OleDbCommand(query, connection);
+            SQLiteCommand command = new SQLiteCommand(query, connection);
             command.Parameters.AddWithValue("@id", id);
             initialTime = (long)command.ExecuteScalar();
             connection.Close();
             return initialTime;
         }
-        public static void deleteAllFromSession(int session) {
-            OleDbConnection connection = getConnection();
+        public static void deleteAllFromSession(int session)
+        {
+            SQLiteConnection connection = getConnection();
             connection.Open();
-            string query = "DELETE * FROM [solveTime] WHERE [solveSession] = @solveSession";
-            OleDbCommand command = new OleDbCommand(query, connection);
+            string query = "DELETE FROM [solveTime] WHERE [solveSession] = @solveSession";
+            SQLiteCommand command = new SQLiteCommand(query, connection);
             command.Parameters.AddWithValue("@solveSession", session);
             command.ExecuteNonQuery();
             connection.Close();
         }
-        public static void deleteTime(int session, int id) {
-            OleDbConnection connection = getConnection();
+        public static void deleteTime(int session, int id)
+        {
+            SQLiteConnection connection = getConnection();
             connection.Open();
-            string query = "DELETE * FROM [solveTime] WHERE [solveSession] = @solveSession AND [id] = @id";
-            OleDbCommand command = new OleDbCommand(query, connection);
+            string query = "DELETE FROM [solveTime] WHERE [solveSession] = @solveSession AND [id] = @id";
+            SQLiteCommand command = new SQLiteCommand(query, connection);
             command.Parameters.AddWithValue("@solveSession", session);
             command.Parameters.AddWithValue("@id", id);
             command.ExecuteNonQuery();
             connection.Close();
         }
-        public static int getNumberOfSolvesForAverage(int session) {
-            OleDbConnection connection = getConnection();
+        public static long getNumberOfSolvesForAverage(int session)
+        {
+            SQLiteConnection connection = getConnection();
             connection.Open();
             string query = "SELECT COUNT ([id]) FROM [solveTime] WHERE [solveSession] = @solveSession";
-            OleDbCommand command = new OleDbCommand(query, connection);
+            SQLiteCommand command = new SQLiteCommand(query, connection);
             command.Parameters.AddWithValue("@solveSession", session);
-            int numberOfSolvesForAverage = (int)command.ExecuteScalar();
+            long numberOfSolvesForAverage = (long)command.ExecuteScalar();
             connection.Close();
             return numberOfSolvesForAverage;
         }
