@@ -94,28 +94,26 @@ namespace LakaCubeTimer.database
         {
             List<SolveTimeInMillisecondsWithIsDNF> timesToCalculateList = new List<SolveTimeInMillisecondsWithIsDNF>();
             SQLiteConnection connection = getConnection();
-            DataTable timesToCalculateTable = new DataTable();
             connection.Open();
-            string query = "SELECT TOP " + numberToGet + " [solveTimeInMilliseconds], [isDNF] FROM [solveTime] WHERE [solveSession] = @solveSession ORDER BY [id] DESC";
-            SQLiteCommand command = new SQLiteCommand(query, connection);
-            command.Parameters.AddWithValue("@solveSession", session);
-            SQLiteDataAdapter adapter = new SQLiteDataAdapter(command);
-            adapter.Fill(timesToCalculateTable);
-            foreach (DataRow row in timesToCalculateTable.Select())
+            string query = "SELECT [solveTimeInMilliseconds], [isDNF] FROM [solveTime] WHERE [solveSession] = @solveSession ORDER BY [id] DESC LIMIT @numberToGet";
+            using (SQLiteCommand command = new SQLiteCommand(query, connection))
             {
-                if (Convert.ToBoolean(row["isDNF"]))
+                command.Parameters.AddWithValue("@solveSession", session);
+                command.Parameters.AddWithValue("@numberToGet", numberToGet);
+                using (SQLiteDataReader reader = command.ExecuteReader())
                 {
-                    timesToCalculateList.Add(new SolveTimeInMillisecondsWithIsDNF(Convert.ToInt64(row["solveTimeInMilliseconds"]), true));
+                    while (reader.Read())
+                    {
+                        long solveTimeInMilliseconds = reader.GetInt64(0);
+                        bool isDNF = reader.GetBoolean(1);
+                        timesToCalculateList.Add(new SolveTimeInMillisecondsWithIsDNF(solveTimeInMilliseconds, isDNF));
+                    }
                 }
-                else
-                {
-                    timesToCalculateList.Add(new SolveTimeInMillisecondsWithIsDNF(Convert.ToInt64(row["solveTimeInMilliseconds"]), false));
-                }
-
             }
             connection.Close();
             return timesToCalculateList;
         }
+
         public static SolveTime getLatestAddedTime(int session)
         {
             long maxId = getMaxId(session);
