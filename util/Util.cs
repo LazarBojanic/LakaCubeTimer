@@ -663,13 +663,14 @@ namespace LakaCubeTimer.util {
         }
 
 
-        
+
 
         public static List<string> generateScramble() {
             List<string> scramble = new List<string>();
-            int numOfTurns = random.Next(18, 23); // Random value between 18 and 22 (inclusive)
+            int numOfTurns = random.Next(18, 22); // Random value between 18 and 22 (inclusive)
 
-            int doubleTurns = random.Next(numOfTurns / 2 + 1); // Maximum double turns allowed
+            int minDoubleTurns = Math.Min(numOfTurns / 2, 4);
+            int doubleTurns = random.Next(minDoubleTurns, numOfTurns);
 
             string previousTurn = "";
 
@@ -699,9 +700,8 @@ namespace LakaCubeTimer.util {
         }
 
         private static string GetTurnType(bool allowDoubleTurn) {
-            if (allowDoubleTurn && random.Next(3) == 0) // 1/3 chance for a double turn
-            {
-                return "2";
+            if (allowDoubleTurn) {
+                return random.Next(3) == 0 ? "2" : (random.Next(2) == 0 ? "'" : ""); // 1/3 chance for double turn, 1/3 chance for prime
             }
             else {
                 return random.Next(2) == 0 ? "'" : ""; // 1/2 chance for prime
