@@ -6,7 +6,7 @@ using System.Reflection;
 
 namespace LakaCubeTimer.util {
     public static class Util {
-        private static int MAX_DOUBLE_TURNS = 9;
+        private static Random random = new Random();
         private static string[] turns = new string[] { "U", "D", "L", "R", "F", "B" };
         public static Color COLOR_WHITE = Color.FromArgb(255, 255, 255);
         public static Color COLOR_YELLOW = Color.FromArgb(255, 249, 46);
@@ -661,81 +661,64 @@ namespace LakaCubeTimer.util {
             }
             return minutesString + " : " + secondsString + " . " + millisecondsString;
         }
+
+
+        
+
         public static List<string> generateScramble() {
-            List<string> scrambleList = new List<string>();
-            string secondPrevTurn = turns[new Random().Next(turns.Length)];
-            string prevTurn = generateOtherTurn(secondPrevTurn);
-            string turnOne = "";
-            string turnTwo = "";
-            string turnThree = "";
-            int numberOfTurns = new Random().Next(18, 22);
-            int numberOfDoubleTurns = 0;
-            MAX_DOUBLE_TURNS = numberOfTurns / 2;
-            for (int i = 0; i < numberOfTurns; i += 3) {
-                turnOne = generateOtherThirdTurn(prevTurn, secondPrevTurn);
-                turnTwo = generateOtherTurn(turnOne);
-                turnThree = generateOtherThirdTurn(turnOne, turnTwo);
-                if (numberOfTurns % 3 != 0) {
-                    if (numberOfTurns - i == 2) {
-                        numberOfDoubleTurns = addValidatedTurn(turnOne, scrambleList, numberOfDoubleTurns);
-                        numberOfDoubleTurns = addValidatedTurn(turnTwo, scrambleList, numberOfDoubleTurns);
-                        return scrambleList;
-                    }
-                    else if (numberOfTurns - i == 1) {
-                        numberOfDoubleTurns = addValidatedTurn(turnOne, scrambleList, numberOfDoubleTurns);
-                        return scrambleList;
-                    }
+            List<string> scramble = new List<string>();
+            int numOfTurns = random.Next(18, 23); // Random value between 18 and 22 (inclusive)
+
+            int doubleTurns = random.Next(numOfTurns / 2 + 1); // Maximum double turns allowed
+
+            string previousTurn = "";
+
+            for (int i = 0; i < numOfTurns; i++) {
+                // Randomly select a face
+                string face = turns[random.Next(turns.Length)];
+
+                // Check for consecutive turns on the same face and parallel faces
+                while (face == previousTurn || IsParallel(face, previousTurn)) {
+                    face = turns[random.Next(turns.Length)];
                 }
-                numberOfDoubleTurns = addValidatedTurn(turnOne, scrambleList, numberOfDoubleTurns);
-                numberOfDoubleTurns = addValidatedTurn(turnTwo, scrambleList, numberOfDoubleTurns);
-                numberOfDoubleTurns = addValidatedTurn(turnThree, scrambleList, numberOfDoubleTurns);
-                secondPrevTurn = turnTwo;
-                prevTurn = turnThree;
+
+                // Randomly select the type of turn (normal, prime, or double)
+                string turnType = GetTurnType(doubleTurns > 0);
+
+                // Add the move to the scramble
+                scramble.Add(face + turnType);
+
+                // Update the previous turn and decrease the count of double turns
+                previousTurn = face;
+                if (turnType == "2") {
+                    doubleTurns--;
+                }
             }
-            return scrambleList;
+
+            return scramble;
         }
-        public static string generateOtherTurn(string turn) {
-            int turnOneIndex = Array.IndexOf(turns, turn);
-            List<int> otherTurns = new List<int>();
-            for (int i = 0; i < 6; i++) {
-                if (i == turnOneIndex) {
-                    continue;
-                }
-                else {
-                    otherTurns.Add(i);
-                }
-            }
-            return turns[otherTurns[new Random().Next(otherTurns.Count)]];
-        }
-        public static string generateOtherThirdTurn(string turnOne, string turnTwo) {
-            int turnOneIndex = Array.IndexOf(turns, turnOne);
-            int turnTwoIndex = Array.IndexOf(turns, turnTwo);
-            List<int> otherTurns = new List<int>();
-            for (int i = 0; i < 6; i++) {
-                if (i == turnOneIndex || i == turnTwoIndex) {
-                    continue;
-                }
-                else {
-                    otherTurns.Add(i);
-                }
-            }
-            return turns[otherTurns[new Random().Next(otherTurns.Count)]];
-        }
-        public static int addValidatedTurn(string currentTurn, List<string> validatedScramble, int numOfDoubleTurns) {
-            bool isDoubleTurn = new Random().Next(0, 100) <= 50;
-            bool isPrimeTurn = new Random().Next(0, 100) <= 50;
-            if (isDoubleTurn && numOfDoubleTurns < MAX_DOUBLE_TURNS) {
-                validatedScramble.Add(currentTurn + "2");
-                numOfDoubleTurns++;
-            }
-            else if (isPrimeTurn) {
-                validatedScramble.Add(currentTurn + "'");
+
+        private static string GetTurnType(bool allowDoubleTurn) {
+            if (allowDoubleTurn && random.Next(3) == 0) // 1/3 chance for a double turn
+            {
+                return "2";
             }
             else {
-                validatedScramble.Add(currentTurn);
+                return random.Next(2) == 0 ? "'" : ""; // 1/2 chance for prime
             }
-            return numOfDoubleTurns;
         }
+
+        private static bool IsParallel(string face1, string face2) {
+            // Check if two faces are parallel
+            return (face1 == "U" && face2 == "D") || (face1 == "D" && face2 == "U") ||
+                   (face1 == "L" && face2 == "R") || (face1 == "R" && face2 == "L") ||
+                   (face1 == "F" && face2 == "B") || (face1 == "B" && face2 == "F");
+        }
+
+
+
+
+
         public static string colorNameToSideName(string colorName) {
             switch(colorName) {
                 case "W":
