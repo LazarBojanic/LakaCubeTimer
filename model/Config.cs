@@ -10,12 +10,13 @@ public class Config {
     private static Config instance {  get; set; }
     public static string configFileName = "config.json";
     public static string defaultConfigJson = @"{
-                    ""timesConnectionString"": ""Data Source=times.db"",
-                    ""inspectionEnabled"": true,
-                    ""pythonScriptFileName"": ""solveCube.py"",
-                    ""cubeStateFileName"": ""cubeState.json"",
-                    ""cubeSolutionFileName"": ""cubeSolution.txt""
-                }";
+                          ""timesConnectionString"": ""Data Source=times.db"",
+                          ""inspectionEnabled"": true,
+                          ""pythonScriptFileName"": ""solveCube.py"",
+                          ""cubeStateFileName"": ""cubeState.json"",
+                          ""cubeSolutionFileName"": ""cubeSolution.txt""
+                        }
+                        ";
     public Config() {
         
     }
