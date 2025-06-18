@@ -4,7 +4,7 @@ Time your solves with generated WCA style scrambles, switch between sessions, +2
 
 Technologies: .NET 9.0, C# Winforms, SQLite, Kociemba (https://github.com/Megalomatt/Kociemba)
 
-Instructions: You need .NET CORE 6 runtime to run the app and Python 3.x.x with the kociemba library in order for the cube solving to work. If you're cloning, then put times.db in the appropriate locations for your bin configuration eg: bin/Debug/net9.0-windows.
+Instructions: You need .NET 9.0 runtime. If you're cloning, then put times.db in the appropriate locations for your bin configuration eg: bin/Debug/net9.0-windows.
 Otherwise, just download the latest release.
 
 ![](Manual-ENG-1.png)
