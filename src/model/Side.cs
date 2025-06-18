@@ -1,6 +1,6 @@
-﻿using LakaCubeTimer.util;
+﻿using WinterCubeTimer.util;
 
-namespace LakaCubeTimer.model {
+namespace WinterCubeTimer.model {
     public class Side {
         public List<Sticker> stickers { get; set; }
         public Side(string colorName, string colorNameAsSide, Color color) {

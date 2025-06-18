@@ -1,4 +1,4 @@
-﻿namespace LakaCubeTimer {
+﻿namespace WinterCubeTimer {
     partial class CubeTimerForm {
         /// <summary>
         /// Required designer variable.

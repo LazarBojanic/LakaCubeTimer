@@ -1,10 +1,10 @@
-﻿using LakaCubeTimer.model;
+﻿using WinterCubeTimer.model;
 using System.Data;
-using LakaCubeTimer.forms;
-using LakaCubeTimer.util;
+using WinterCubeTimer.forms;
+using WinterCubeTimer.util;
 using System.Data.SQLite;
 
-namespace LakaCubeTimer.database
+namespace WinterCubeTimer.database
 {
     public static class TimesRepository {
 

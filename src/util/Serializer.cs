@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace LakaCubeTimer.util {
+namespace WinterCubeTimer.util {
     public class Serializer {
         public static string serialize<T>(T obj) {
             return JsonConvert.SerializeObject(obj);

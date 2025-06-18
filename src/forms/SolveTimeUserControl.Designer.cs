@@ -1,4 +1,4 @@
-﻿namespace LakaCubeTimer.forms {
+﻿namespace WinterCubeTimer.forms {
     partial class SolveTimeUserControl {
         /// <summary> 
         /// Required designer variable.

@@ -1,4 +1,4 @@
-﻿using LakaCubeTimer.model;
+﻿using WinterCubeTimer.model;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -9,9 +9,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace LakaCubeTimer.forms {
+namespace WinterCubeTimer.forms {
     public partial class StatsForm : Form {
-        public SolveTime solveTime { get; set; }
+        private SolveTime solveTime { get; set; }
         public StatsForm(SolveTime solveTime) {
             InitializeComponent();
             this.solveTime = solveTime;

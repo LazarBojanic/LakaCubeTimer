@@ -1,11 +1,11 @@
-﻿using LakaCubeTimer.database;
-using LakaCubeTimer.model;
-using LakaCubeTimer.util;
+﻿using WinterCubeTimer.database;
+using WinterCubeTimer.model;
+using WinterCubeTimer.util;
 
-namespace LakaCubeTimer.forms
+namespace WinterCubeTimer.forms
 {
     public partial class SolveTimeUserControl : UserControl {
-        public SolveTime solveTime { get; set; }
+        private SolveTime solveTime { get; set; }
         private CubeTimerForm cubeTimerForm { get; set; }
         public SolveTimeUserControl(SolveTime solveTime) {
             InitializeComponent();

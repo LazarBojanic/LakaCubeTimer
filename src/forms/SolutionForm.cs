@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace LakaCubeTimer.forms {
+namespace WinterCubeTimer.forms {
     public partial class SolutionForm : Form {
         private string solution { get; set; }
         public SolutionForm(string solution) {

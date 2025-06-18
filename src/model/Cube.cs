@@ -1,6 +1,6 @@
-﻿using LakaCubeTimer.util;
+﻿using WinterCubeTimer.util;
 
-namespace LakaCubeTimer.model {
+namespace WinterCubeTimer.model {
     public class Cube {
         public List<Side> sides { get; set; }
         public Cube() {

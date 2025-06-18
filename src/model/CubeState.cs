@@ -1,5 +1,5 @@
 ﻿
-using LakaCubeTimer.model;
+using WinterCubeTimer.model;
 
 public class CubeState {
     public string scramble { get; set; }

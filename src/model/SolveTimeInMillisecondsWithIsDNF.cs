@@ -1,4 +1,4 @@
-﻿namespace LakaCubeTimer.model {
+﻿namespace WinterCubeTimer.model {
     public class SolveTimeInMillisecondsWithIsDNF {
         public long solveTimeInMilliseconds { get; set; }
         public bool isDNF { get; set; }

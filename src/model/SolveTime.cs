@@ -1,4 +1,4 @@
-﻿namespace LakaCubeTimer.model {
+﻿namespace WinterCubeTimer.model {
     public class SolveTime {
         public int id { get; set; }
         public int solveSession { get; set; }

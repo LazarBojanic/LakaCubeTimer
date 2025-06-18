@@ -1,4 +1,4 @@
-﻿using LakaCubeTimer.util;
+﻿using WinterCubeTimer.util;
 using System.Reflection;
 
 public class Config {

@@ -1,4 +1,4 @@
-namespace LakaCubeTimer.main{
+namespace WinterCubeTimer.main{
     internal static class Program{
         [STAThread]
         static void Main(){

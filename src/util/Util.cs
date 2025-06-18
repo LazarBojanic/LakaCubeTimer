@@ -1,13 +1,13 @@
-﻿using LakaCubeTimer.model;
+﻿using WinterCubeTimer.model;
 using System.ComponentModel.DataAnnotations;
 using System.Data.OleDb;
 using System.Numerics;
 using System.Reflection;
 
-namespace LakaCubeTimer.util {
+namespace WinterCubeTimer.util {
     public static class Util {
         private static Random random = new Random();
-        private static string[] turns = new string[] { "U", "D", "L", "R", "F", "B" };
+        private static string[] turns = new string[] { "U", "R", "F", "D", "L", "B" };
         public static Color COLOR_WHITE = Color.FromArgb(255, 255, 255);
         public static Color COLOR_YELLOW = Color.FromArgb(255, 249, 46);
         public static Color COLOR_ORANGE = Color.FromArgb(255, 119, 0);
@@ -15,10 +15,10 @@ namespace LakaCubeTimer.util {
         public static Color COLOR_GREEN = Color.FromArgb(52, 196, 8);
         public static Color COLOR_BLUE = Color.FromArgb(2, 91, 181);
         public static string SIDE_UP = "U";
-        public static string SIDE_DOWN = "D";
-        public static string SIDE_LEFT = "L";
         public static string SIDE_RIGHT = "R";
         public static string SIDE_FRONT = "F";
+        public static string SIDE_DOWN = "D";
+        public static string SIDE_LEFT = "L";
         public static string SIDE_BACK = "B";
         public static DateTime dateTimeWithoutMilliseconds(DateTime date) {
             return new DateTime(date.Year, date.Month, date.Day, date.Hour, date.Minute, date.Second);
@@ -93,7 +93,6 @@ namespace LakaCubeTimer.util {
             foreach (Side side in cube.sides) {
                 if (side.stickers[4].colorNameAsSide.Equals(colorNameAsSide)) {
                     return initializeSide(side);
-                    //return side;
                 }
             }
             return new Side("WHITE", "U", COLOR_WHITE);
@@ -661,10 +660,6 @@ namespace LakaCubeTimer.util {
             }
             return minutesString + " : " + secondsString + " . " + millisecondsString;
         }
-
-
-
-
         public static List<string> generateScramble() {
             List<string> scramble = new List<string>();
             int numOfTurns = random.Next(18, 22); // Random value between 18 and 22 (inclusive)
@@ -707,31 +702,25 @@ namespace LakaCubeTimer.util {
                 return random.Next(2) == 0 ? "'" : ""; // 1/2 chance for prime
             }
         }
-
         private static bool IsParallel(string face1, string face2) {
             // Check if two faces are parallel
             return (face1 == "U" && face2 == "D") || (face1 == "D" && face2 == "U") ||
                    (face1 == "L" && face2 == "R") || (face1 == "R" && face2 == "L") ||
                    (face1 == "F" && face2 == "B") || (face1 == "B" && face2 == "F");
         }
-
-
-
-
-
         public static string colorNameToSideName(string colorName) {
             switch(colorName) {
                 case "W":
                     return "U";
+                case "R":
+                    return "R";
+                case "G":
+                    return "F";
                 case "Y":
                     return "D";
                 case "O":
                     return "L";
-                case "R":
-                    return "R";
                 case "B":
-                    return "F";
-                case "G":
                     return "B";
             }
             return "";

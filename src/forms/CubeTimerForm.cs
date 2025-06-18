@@ -1,13 +1,14 @@
-﻿using LakaCubeTimer.database;
-using LakaCubeTimer.forms;
-using LakaCubeTimer.model;
-using LakaCubeTimer.util;
+﻿using WinterCubeTimer.database;
+using WinterCubeTimer.forms;
+using WinterCubeTimer.model;
+using WinterCubeTimer.util;
 using System.Data;
 using System.Data.OleDb;
 using System.Diagnostics;
 using System.Windows.Forms;
+using Kociemba;
 
-namespace LakaCubeTimer
+namespace WinterCubeTimer
 {
     public partial class CubeTimerForm : Form {
         private string pythonScriptFileName;
@@ -33,8 +34,68 @@ namespace LakaCubeTimer
         private string bestTime { get; set; }
         private string averageOfFive { get; set; }
         private string averageOfTwelve { get; set; }
+        
+        private const string tableDirectory = "Assets\\Kociemba\\Tables\\";
+
+        public static void validateTables()
+        {
+            try
+            {
+                Directory.CreateDirectory(tableDirectory);
+                string[] requiredFiles = new[]
+                {
+                    "flip",
+                    "FRtoBR",
+                    "MergeURtoULandUBtoDF",
+                    "Slice_Flip_Prun",
+                    "Slice_Twist_Prun",
+                    "Slice_URFtoDLF_Parity_Prun",
+                    "Slice_URtoDF_Parity_Prun",
+                    "twist",
+                    "UBtoDF",
+                    "URFtoDLF",
+                    "URtoDF",
+                    "URtoUL",
+                };
+
+                bool tablesMissing = false;
+                foreach (string file in requiredFiles)
+                {
+                    if (!File.Exists(Path.Combine(tableDirectory, file)))
+                    {
+                        tablesMissing = true;
+                        break;
+                    }
+                }
+
+                if (tablesMissing)
+                {
+                    Console.WriteLine("Generating Kociemba pruning tables...");
+                    string dummyInfo;
+                    SearchRunTime.solution(
+                        Tools.randomCube(),
+                        out dummyInfo,
+                        22,
+                        6000L,
+                        false,
+                        true
+                    );
+                    Console.WriteLine("Kociemba pruning tables generated successfully.");
+                }
+                else
+                {
+                    Console.WriteLine("Kociemba pruning tables already exist.");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error while initializing Kociemba tables: " + ex.Message);
+                throw;
+            }
+        }
         public CubeTimerForm() {
             InitializeComponent();
+            validateTables();
             inspectionEnabled = Config.getInstance().inspectionEnabled;
             pythonScriptFileName = Config.getInstance().pythonScriptFileName;
             cubeStateFileName = Config.getInstance().cubeStateFileName;
@@ -336,7 +397,7 @@ namespace LakaCubeTimer
             await paintCube(cubeToTurn);
         }
         private void CubeTimerForm_FormClosing(object sender, FormClosingEventArgs e) {
-            foreach (Process process in Process.GetProcessesByName("LakaCubeTimer")) {
+            foreach (Process process in Process.GetProcessesByName("WinterCubeTimer")) {
                 Config.getInstance().save();
                 process.Kill();
             }
@@ -362,7 +423,7 @@ namespace LakaCubeTimer
             Config.getInstance().inspectionEnabled = inspectionEnabled;
             Config.getInstance().save();
         }
-        private async Task exportCubeState() {
+        private async Task<CubeState> exportCubeState() {
             List<Side> sides = cubeToTurn.sides;
             string cubeStateString = "";
             for (int i = 0; i < sides.Count; i++) {
@@ -374,27 +435,26 @@ namespace LakaCubeTimer
             CubeState cubeState = new CubeState(Util.turnSequenceListToString(scramble), sides, cubeStateString);
             string cubeStateJson = Serializer.serialize(cubeState);
             await File.WriteAllTextAsync(cubeStateFileName, cubeStateJson);
-        }
-        private async Task<string> runSolveCubeScript() {
-            Process process = new Process();
-            process.StartInfo.FileName = "python";
-            process.StartInfo.Arguments = $"{pythonScriptFileName} {cubeStateFileName} {cubeSolutionFileName}";
-            process.StartInfo.CreateNoWindow = true;
-            process.Start();
-            process.WaitForExit();
-            return await File.ReadAllTextAsync(cubeSolutionFileName);
+            return cubeState;
         }
         private async Task solveCube() {
-            await exportCubeState();
-            string solution = await runSolveCubeScript();
-            List<string> turns = Util.turnSequenceToList(solution);
-            foreach (string turn in turns) {
-                cubeToTurn = Util.turnCube(cubeToTurn, turn);
-                await paintCube(cubeToTurn);
-                await Task.Delay(250);
+            try {
+                CubeState cubeState = await exportCubeState();
+                string cubeStateString = cubeState.cubeStateString;
+                string info;
+                string solution = Search.solution(cubeStateString, out info, 22, 6000L, false);
+                List<string> turns = Util.turnSequenceToList(solution);
+                foreach (string turn in turns) {
+                    cubeToTurn = Util.turnCube(cubeToTurn, turn);
+                    await paintCube(cubeToTurn);
+                    await Task.Delay(250);
+                }
+                using (SolutionForm solutionForm = new SolutionForm(solution)) {
+                    solutionForm.ShowDialog();
+                }
             }
-            using (SolutionForm solutionForm = new SolutionForm(solution)) {
-                solutionForm.ShowDialog();
+            catch (Exception ex) {
+                MessageBox.Show("Failed to solve cube: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

@@ -1,5 +1,5 @@
 ﻿
-namespace LakaCubeTimer.model {
+namespace WinterCubeTimer.model {
     public class Sticker {
         public int id { get; set; }
         public string colorName { get; set; }
