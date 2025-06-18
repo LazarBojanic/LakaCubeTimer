@@ -8,9 +8,9 @@ using System.Diagnostics;
 using System.Windows.Forms;
 using Kociemba;
 
-namespace WinterCubeTimer
+namespace WinterCubeTimer.forms
 {
-    public partial class CubeTimerForm : Form {
+    public partial class WinterCubeTimerForm : Form {
         private string pythonScriptFileName;
         private string cubeStateFileName;
         private string cubeSolutionFileName;
@@ -93,7 +93,7 @@ namespace WinterCubeTimer
                 throw;
             }
         }
-        public CubeTimerForm() {
+        public WinterCubeTimerForm() {
             InitializeComponent();
             validateTables();
             inspectionEnabled = Config.getInstance().inspectionEnabled;
@@ -102,7 +102,7 @@ namespace WinterCubeTimer
             cubeSolutionFileName = Config.getInstance().cubeSolutionFileName;
             isPlusTwoInInspection = false;
         }
-        private async void CubeTimerForm_Load(object sender, EventArgs e) {
+        private async void WinterCubeTimerForm_Load(object sender, EventArgs e) {
             checkBoxInspectionEnabled.Checked = inspectionEnabled;
             comboBoxSession.SelectedIndex = 0;
             fillTimesPanel(currentSession);
@@ -135,7 +135,7 @@ namespace WinterCubeTimer
             labelAverageOfFive.Text = averageOfFive;
             labelAverageOfTwelve.Text = averageOfTwelve;
         }
-        private async void CubeTimerForm_KeyDown(object sender, KeyEventArgs e) {
+        private async void WinterCubeTimerForm_KeyDown(object sender, KeyEventArgs e) {
             if (e.KeyCode == Keys.Space) {
                 if (inspectionEnabled) {
                     if (timerState == TimerStates.IDLE) {
@@ -160,7 +160,7 @@ namespace WinterCubeTimer
                 }
             }
         }
-        private void CubeTimerForm_KeyUp(object sender, KeyEventArgs e) {
+        private void WinterCubeTimerForm_KeyUp(object sender, KeyEventArgs e) {
             if (e.KeyCode == Keys.Space) {
                 if (inspectionEnabled) {
                     if (timerState == TimerStates.STOPPED) {
@@ -396,7 +396,7 @@ namespace WinterCubeTimer
             cubeToTurn = Util.turnCube(cubeToTurn, turn);
             await paintCube(cubeToTurn);
         }
-        private void CubeTimerForm_FormClosing(object sender, FormClosingEventArgs e) {
+        private void WinterCubeTimerForm_FormClosing(object sender, FormClosingEventArgs e) {
             foreach (Process process in Process.GetProcessesByName("WinterCubeTimer")) {
                 Config.getInstance().save();
                 process.Kill();

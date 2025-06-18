@@ -1,5 +1,5 @@
-﻿namespace WinterCubeTimer {
-    partial class CubeTimerForm {
+﻿namespace WinterCubeTimer.forms {
+    partial class WinterCubeTimerForm {
         /// <summary>
         /// Required designer variable.
         /// </summary>
@@ -963,7 +963,7 @@
             // 
             timerInspection.Tick += timerInspection_Tick;
             // 
-            // CubeTimerForm
+            // WinterCubeTimerForm
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -976,11 +976,12 @@
             Controls.Add(panelTimer);
             KeyPreview = true;
             MinimumSize = new System.Drawing.Size(1529, 845);
+            Name = "WinterCubeTimerForm";
             Text = "Winter Cube Timer";
-            FormClosing += CubeTimerForm_FormClosing;
-            Load += CubeTimerForm_Load;
-            KeyDown += CubeTimerForm_KeyDown;
-            KeyUp += CubeTimerForm_KeyUp;
+            FormClosing += WinterCubeTimerForm_FormClosing;
+            Load += WinterCubeTimerForm_Load;
+            KeyDown += WinterCubeTimerForm_KeyDown;
+            KeyUp += WinterCubeTimerForm_KeyUp;
             panelTimer.ResumeLayout(false);
             panelTimerAndButtons.ResumeLayout(false);
             panelTimerAndButtons.PerformLayout();

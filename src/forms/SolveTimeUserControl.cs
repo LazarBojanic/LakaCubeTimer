@@ -6,11 +6,11 @@ namespace WinterCubeTimer.forms
 {
     public partial class SolveTimeUserControl : UserControl {
         private SolveTime solveTime { get; set; }
-        private CubeTimerForm cubeTimerForm { get; set; }
+        private WinterCubeTimerForm winterCubeTimerForm { get; set; }
         public SolveTimeUserControl(SolveTime solveTime) {
             InitializeComponent();
             this.solveTime = solveTime;
-            this.cubeTimerForm = (CubeTimerForm)Application.OpenForms["CubeTimerForm"];          
+            this.winterCubeTimerForm = (WinterCubeTimerForm)Application.OpenForms["WinterCubeTimerForm"];          
         }
         private void TimeUserControl_Load(object sender, EventArgs e) {
             labelTime.Text = solveTime.solveTime;
@@ -39,15 +39,15 @@ namespace WinterCubeTimer.forms
         }
         
         private void buttonDelete_MouseClick(object sender, MouseEventArgs e) {
-            cubeTimerForm = (CubeTimerForm)Application.OpenForms["CubeTimerForm"];
+            winterCubeTimerForm = (WinterCubeTimerForm)Application.OpenForms["WinterCubeTimerForm"];
             TimesRepository.deleteTime(solveTime.solveSession, solveTime.id);
-            cubeTimerForm.flowLayoutPanelTimes.Controls.Remove(this);
-            cubeTimerForm.updateStats(solveTime.solveSession);
-            cubeTimerForm.displayStats();
+            winterCubeTimerForm.flowLayoutPanelTimes.Controls.Remove(this);
+            winterCubeTimerForm.updateStats(solveTime.solveSession);
+            winterCubeTimerForm.displayStats();
         }
 
         private void checkBoxIsPlusTwo_MouseClick(object sender, MouseEventArgs e) {
-            cubeTimerForm = (CubeTimerForm)Application.OpenForms["CubeTimerForm"];
+            winterCubeTimerForm = (WinterCubeTimerForm)Application.OpenForms["WinterCubeTimerForm"];
             if (checkBoxIsPlusTwo.Checked) {
                 solveTime.isPlusTwo = true;
                 solveTime.solveTimeInMilliseconds = solveTime.solveInitialTimeInMilliseconds + 2000;
@@ -62,12 +62,12 @@ namespace WinterCubeTimer.forms
                 TimesRepository.updateIsPlusTwo(solveTime);
                 labelTime.Text = solveTime.solveTime;
             }
-            cubeTimerForm.updateStats(solveTime.solveSession);
-            cubeTimerForm.displayStats();
+            winterCubeTimerForm.updateStats(solveTime.solveSession);
+            winterCubeTimerForm.displayStats();
         }
 
         private void checkBoxIsDNF_MouseClick(object sender, MouseEventArgs e) {
-            cubeTimerForm = (CubeTimerForm)Application.OpenForms["CubeTimerForm"];
+            winterCubeTimerForm = (WinterCubeTimerForm)Application.OpenForms["WinterCubeTimerForm"];
             if (checkBoxIsDNF.Checked) {
                 solveTime.isDNF = true;
                 TimesRepository.updateIsDNF(solveTime);
@@ -76,8 +76,8 @@ namespace WinterCubeTimer.forms
                 solveTime.isDNF = false;
                 TimesRepository.updateIsDNF(solveTime);
             }
-            cubeTimerForm.updateStats(solveTime.solveSession);
-            cubeTimerForm.displayStats();
+            winterCubeTimerForm.updateStats(solveTime.solveSession);
+            winterCubeTimerForm.displayStats();
         }
     }
 }
